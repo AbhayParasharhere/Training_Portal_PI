@@ -1,5 +1,5 @@
 import "./App.scss";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import Header from "./CommonComponents/Header";
 import {
   signInEmailAndPassword,
@@ -8,6 +8,9 @@ import {
   storeUserAdditionalDetails,
 } from "./Firebase/authentication";
 
+import { v4 } from "uuid";
+import { storage } from "./Firebase/firebaseConfig";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
@@ -20,7 +23,7 @@ function App() {
 
   const testSignUp = async () => {
     const res = await signUpWithEmailAndPassword(
-      "abhay7171_9@gmail.com",
+      "abhay7171_13@gmail.com",
       "123456"
     );
     // print the response
@@ -46,15 +49,48 @@ function App() {
     console.log("In app store additional details fx", res);
   };
 
+  const [imageFile, setImageFile] = useState(null);
+
+  const changeImageFile = (e) => {
+    setImageFile(e.target.files[0]);
+    return imageFile;
+  };
+
+  const uploadProfileImage = async () => {
+    // uploading it to a generic folder userPhoto, the file name will be (email of the user_uuidrandom)
+    try {
+      if (imageFile == null) return;
+      const imgRef = ref(storage, `userPhoto/${"generic@nomail.com"}_${v4()}`);
+      await uploadBytes(imgRef, imageFile);
+      uploadBytes(imgRef, imageFile).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          console.log("uploadedurl", url);
+        });
+      });
+      // console.log("BEFOER CORS", imgRef, imageFile);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <>
+    <div style={{ display: "flex", gap: "40px" }}>
       <button onClick={testSignUp}>Test SignUp</button>
-      <button onClick={storeAdditionalDetails} disabled={!response}>
+      <button onClick={storeAdditionalDetails}>
         Test Adding Other details
       </button>
       <button onClick={testGoogleSignIn}>Test Google Sign in</button>
+      <div>
+        <label htmlFor="Set Profile Image">Set Profile Image</label>
+        <input
+          type="file"
+          name="Set Profile Image"
+          onChange={changeImageFile}
+        />
+        <button onClick={uploadProfileImage}>Upload profile image</button>
+      </div>
+
       <Header />
-    </>
+    </div>
   );
 }
 
