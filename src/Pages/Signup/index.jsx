@@ -29,6 +29,15 @@ export default function SignUp() {
     setResponse(res);
   };
 
+  const testSignIn = async () => {
+    const res = await signInEmailAndPassword(
+      "abhithedicklord@gmail.com",
+      "123456"
+    );
+    console.log(res);
+    setResponse(res);
+  };
+
   const testGoogleSignIn = async () => {
     const res = await signInwithGoogle();
     console.log(res);
@@ -88,6 +97,7 @@ export default function SignUp() {
   return (
     <div style={{ display: "flex", gap: "40px" }}>
       <button onClick={testSignUp}>Test SignUp</button>
+      <button onClick={testSignIn}>Test SignIn</button>
       <button onClick={storeAdditionalDetails}>
         Test Adding Other details
       </button>
