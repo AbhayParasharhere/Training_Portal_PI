@@ -10,7 +10,12 @@ import {
 
 import { v4 } from "uuid";
 import { storage } from "./Firebase/firebaseConfig";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
@@ -72,6 +77,24 @@ function App() {
       console.log(error);
     }
   };
+  const uploadVideo = async () => {
+    try {
+      if (imageFile === null) return;
+      const videoRef = ref(storage, `userVideo/${"video1"}_${v4()}`);
+      const uploadTask = uploadBytesResumable(videoRef, imageFile, {
+        name: "my cock",
+        place: "my second cock",
+      });
+      uploadTask.on("state_changed", (snapshot) => {
+        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(progress);
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log("video uploaded");
+    }
+  };
   return (
     <div style={{ display: "flex", gap: "40px" }}>
       <button onClick={testSignUp}>Test SignUp</button>
@@ -86,7 +109,7 @@ function App() {
           name="Set Profile Image"
           onChange={changeImageFile}
         />
-        <button onClick={uploadProfileImage}>Upload profile image</button>
+        <button onClick={uploadVideo}>Upload profile image</button>
       </div>
 
       <Header />
