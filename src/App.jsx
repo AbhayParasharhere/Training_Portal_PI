@@ -2,6 +2,7 @@ import "./App.scss";
 import React, { useState } from "react";
 import Header from "./CommonComponents/Header";
 import SignUp from "./Pages/Signup";
+import CalendarModal from "./CommonComponents/CalendarModal";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -15,6 +16,7 @@ function App() {
     <div style={{ display: "flex", gap: "40px" }}>
       <Header />
       <SignUp />
+      <CalendarModal />
     </div>
   );
 }
