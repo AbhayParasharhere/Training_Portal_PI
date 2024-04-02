@@ -81,10 +81,7 @@ function App() {
     try {
       if (imageFile === null) return;
       const videoRef = ref(storage, `userVideo/${"video1"}_${v4()}`);
-      const uploadTask = uploadBytesResumable(videoRef, imageFile, {
-        name: "my cock",
-        place: "my second cock",
-      });
+      const uploadTask = uploadBytesResumable(videoRef, imageFile);
       uploadTask.on("state_changed", (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log(progress);
