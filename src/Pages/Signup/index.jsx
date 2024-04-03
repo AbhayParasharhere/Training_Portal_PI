@@ -21,7 +21,7 @@ export default function SignUp() {
 
   const testSignUp = async () => {
     const res = await signUpWithEmailAndPassword(
-      "abhithedicklord@gmail.com",
+      "abhithedickinson@gmail.com",
       "123456"
     );
     // print the response
