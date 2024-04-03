@@ -2,6 +2,7 @@ import "./App.scss";
 import React, { useState } from "react";
 import Header from "./CommonComponents/Header";
 import SignUp from "./Pages/Signup";
+import AllCourses from "./Pages/AllCourses";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -12,9 +13,10 @@ import SignUp from "./Pages/Signup";
 
 function App() {
   return (
-    <div style={{ display: "flex", gap: "40px" }}>
+    <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       <Header />
       <SignUp />
+      <AllCourses />
     </div>
   );
 }
