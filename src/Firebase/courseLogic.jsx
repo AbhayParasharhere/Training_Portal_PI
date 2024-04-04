@@ -1,6 +1,6 @@
 import { getDownloadURL, ref } from "firebase/storage";
 import { auth, db, storage } from "./firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 
 const allCoursesRef = collection(db, "Courses");
 
@@ -15,6 +15,22 @@ const getAllCourses = async () => {
     return courses;
   } catch (error) {
     console.error(error);
+    return error;
+  }
+};
+
+const getCourseFromCourseID = async (courseID) => {
+  try {
+    const courseRef = doc(db, "Courses", courseID);
+    const courseSnapshot = await getDoc(courseRef);
+    if (courseSnapshot.exists()) {
+      return { ...courseSnapshot.data(), id: courseSnapshot.id };
+    } else {
+      console.log("No such course document!");
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
     return error;
   }
 };
@@ -36,10 +52,26 @@ const getSectionsForCourse = async (courseID) => {
   }
 };
 
-const videoRef = ref(storage, "videos/");
+const getVideosForCourseBySectionID = async (courseID, sectionID) => {
+  try {
+    const sectionRef = doc(db, `Courses/${courseID}/sections`, sectionID);
+    const sectionSnapshot = await getDoc(sectionRef);
+    if (sectionSnapshot.exists()) {
+      return { ...sectionSnapshot.data(), id: sectionSnapshot.id };
+    } else {
+      console.log("No such section document!");
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+const videoRef = ref(storage, "courseVideos/");
 
 // get all videos from the storage from the list of video names in the array
-const getVideos = async (videoNames) => {
+const getVideoURLSFromVideoNames = async (videoNames) => {
   try {
     const videoURLs = [];
     videoNames.forEach(async (videoName) => {
@@ -53,4 +85,10 @@ const getVideos = async (videoNames) => {
   }
 };
 
-export { getAllCourses, getSectionsForCourse };
+export {
+  getAllCourses,
+  getSectionsForCourse,
+  getVideoURLSFromVideoNames,
+  getVideosForCourseBySectionID,
+  getCourseFromCourseID,
+};
