@@ -6,7 +6,7 @@ import FB_button from "../../../assets/Continue_FB.png";
 import line from "../../../assets/line.png";
 import Button from "../../CommonComponents/Button";
 
-export default function RegisterComponent() {
+export default function Register_2Component() {
   return (
     <div className={styles["RegisterComponent--main"]}>
       <img src={logo} className={styles["RegisterComponent--main--logo"]}></img>
@@ -27,25 +27,43 @@ export default function RegisterComponent() {
       <img src={line} className={styles["RegisterComponent--main--hr"]} />
       <input
         className={styles["RegisterComponent--main--input"]}
-        placeholder="Email Address"
+        placeholder="Full Name"
       ></input>
 
       <input
         className={styles["RegisterComponent--main--input"]}
-        placeholder="Password"
+        placeholder="Date of Birth"
       ></input>
 
       <input
         className={styles["RegisterComponent--main--input"]}
-        placeholder="Confirm Password"
+        placeholder="Phone number"
       ></input>
-      <Button value="Next" />
+      <input
+        className={styles["RegisterComponent--main--input"]}
+        placeholder="Are you New or Existing Broker"
+      ></input>
+      <div className={styles["RegisterComponent--main--Residence"]}>
+        <input
+          className={styles["RegisterComponent--main--Residence--input"]}
+          placeholder="City"
+        ></input>
+        <input
+          className={styles["RegisterComponent--main--Residence--input"]}
+          placeholder="Country"
+        ></input>
+      </div>
+      <Button value="Create Account" />
       <p className={styles["RegisterComponent--main--Login"]}>
-        Already have an account?
+        By clicking Create Account, you agree to our{" "}
+        <a href="" className={styles["RegisterComponent--main--LoginLink"]}>
+          Terms of Use{" "}
+        </a>{" "}
+        and{" "}
         <a href="" className={styles["RegisterComponent--main--LoginLink"]}>
           {" "}
-          Log In
-        </a>
+          Privacy Policy{" "}
+        </a>{" "}
       </p>
     </div>
   );

@@ -6,12 +6,12 @@ import FB_button from "../../../assets/Continue_FB.png";
 import line from "../../../assets/line.png";
 import Button from "../../CommonComponents/Button";
 
-export default function RegisterComponent() {
+export default function LoginComponent() {
   return (
     <div className={styles["RegisterComponent--main"]}>
       <img src={logo} className={styles["RegisterComponent--main--logo"]}></img>
       <p className={styles["RegisterComponent--main--text"]}>
-        Register by creating an account
+        Log In into your account
       </p>
       <div className={styles["RegisterComponent--main--ContinueButton"]}>
         <img
@@ -35,16 +35,17 @@ export default function RegisterComponent() {
         placeholder="Password"
       ></input>
 
-      <input
-        className={styles["RegisterComponent--main--input"]}
-        placeholder="Confirm Password"
-      ></input>
+      <div className={styles["RegisterComponent--main--checkbox--div"]}>
+      <input type="checkbox" className={styles["RegisterComponent--main--checkbox"]} name="remember"></input>
+      <label for="remember">Remember me</label>
+        </div>  
+      
       <Button value="Next" />
       <p className={styles["RegisterComponent--main--Login"]}>
-        Already have an account?
+      Don't have an account? 
         <a href="" className={styles["RegisterComponent--main--LoginLink"]}>
-          {" "}
-          Log In
+        {" "}
+        Sign Up
         </a>
       </p>
     </div>
