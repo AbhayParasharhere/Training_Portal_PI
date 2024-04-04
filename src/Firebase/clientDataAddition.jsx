@@ -1,5 +1,11 @@
 import { db } from "./firebaseConfig";
-import { setDoc, doc, onSnapshot, collection } from "firebase/firestore";
+import {
+  setDoc,
+  doc,
+  onSnapshot,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 
 const storeClientsDetails = async (uid, cid, clientDetails) => {
   console.log("In Storing the client details", uid, cid, clientDetails);
@@ -8,7 +14,7 @@ const storeClientsDetails = async (uid, cid, clientDetails) => {
   // and store the sales details in the doc
 
   try {
-    await setDoc(doc(db, "clients", cid), clientDetails);
+    await setDoc(doc(db, "clients", cid), { ...clientDetails });
     return "client details stored successfully";
   } catch (error) {
     console.error(error);
@@ -20,7 +26,7 @@ const getAllClients = async (setAllClients) => {
   onSnapshot(collection(db, "clients"), (response) => {
     setAllClients(
       response.docs.map((docs) => {
-        return { ...docs.data(), id: docs };
+        return { ...docs.data(), id: docs.id };
       })
     );
   });

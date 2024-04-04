@@ -17,7 +17,7 @@ export default function AddSales() {
     personalNotes: "",
     status: "",
   });
-  const [allClients, setAllClients] = useState("");
+  const [allClients, setAllClients] = useState();
   const [clientId, setClientId] = useState("");
   const [clientForm, setClientForm] = useState({
     name: "",
@@ -31,13 +31,13 @@ export default function AddSales() {
   console.log(allClients);
 
   const [open, setOpen] = useState(false);
-  const uid = "user5";
+  const uid = `${formValues.name}` + `${formValues.soldDate}`;
   const showModal = () => {
     setOpen(true);
   };
 
   async function storeDetails() {
-    setClientId(`${clientForm.email}` + "_" + `${clientForm.phone_number}`);
+    await setClientId(`shit client 1`);
     const clientResponse = await storeClientsDetails(uid, clientId, clientForm);
     console.log("This is the client response: ", clientResponse);
 
@@ -49,7 +49,7 @@ export default function AddSales() {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
   }
 
-  const clientOptions = allClients.map((client) => {
+  const clientOptions = allClients?.map((client) => {
     return (
       <option>
         {client.name} {client.email}
