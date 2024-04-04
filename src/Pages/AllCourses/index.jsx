@@ -18,18 +18,27 @@ const AllCourses = () => {
       setCourses(courses);
     };
     fetchCourses();
+    console.log(courses);
 
     const fetchSections = async () => {
       // Say the first course is selected
       // We need to get all the sections for the course
 
       const courseID = courses[0]?.id;
-      console.log(courseID);
       const sections = await getSectionsForCourse(courseID);
       console.log("Sections for the selected course", sections);
+      return sections;
     };
-    console.log(courses);
-    fetchSections();
+    const videoNames = fetchSections();
+    console.log("Video Names", videoNames);
+
+    // Say we have the video names for the first section of the first course
+    // We need to get the video URLs for the videos
+    const fetchVideos = async () => {
+      const selectedSectionVideoNames = videoNames[0];
+      console.log("Selected Section Video Names", selectedSectionVideoNames);
+    };
+    fetchVideos();
   }, [courses?.length]);
   return <div>AllCourses</div>;
 };

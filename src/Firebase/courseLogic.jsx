@@ -1,4 +1,5 @@
-import { auth, db } from "./firebaseConfig";
+import { getDownloadURL, ref } from "firebase/storage";
+import { auth, db, storage } from "./firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
 const allCoursesRef = collection(db, "Courses");
@@ -29,6 +30,23 @@ const getSectionsForCourse = async (courseID) => {
       sections.push({ ...doc.data(), id: doc.id });
     });
     return sections;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+const videoRef = ref(storage, "videos/");
+
+// get all videos from the storage from the list of video names in the array
+const getVideos = async (videoNames) => {
+  try {
+    const videoURLs = [];
+    videoNames.forEach(async (videoName) => {
+      const videoURL = await getDownloadURL(ref(videoRef, videoName));
+      videoURLs.push(videoURL);
+    });
+    return videoURLs;
   } catch (error) {
     console.log(error);
     return error;
