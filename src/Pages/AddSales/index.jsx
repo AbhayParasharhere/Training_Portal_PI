@@ -2,7 +2,10 @@ import React, { useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import storeSalesDetails from "../../Firebase/salesDataAddition";
 import AddClientModal from "./AddClientModal";
-import storeClientsDetails from "../../Firebase/clientDataAddition";
+import {
+  storeClientsDetails,
+  getAllClients,
+} from "../../Firebase/clientDataAddition";
 
 export default function AddSales() {
   const [formValues, setFormValues] = useState({
@@ -14,6 +17,7 @@ export default function AddSales() {
     personalNotes: "",
     status: "",
   });
+  const [allClients, setAllClients] = useState("");
   const [clientId, setClientId] = useState("");
   const [clientForm, setClientForm] = useState({
     name: "",
@@ -21,10 +25,13 @@ export default function AddSales() {
     phone_number: "",
     DOB: "",
   });
-  useMemo(() => {}, [clientId]);
+  useMemo(() => {
+    getAllClients(setAllClients);
+  }, []);
+  console.log(allClients);
 
   const [open, setOpen] = useState(false);
-  const uid = "1234567";
+  const uid = "user5";
   const showModal = () => {
     setOpen(true);
   };
@@ -41,17 +48,20 @@ export default function AddSales() {
   function handleChange(event) {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
   }
+
+  const clientOptions = allClients.map((client) => {
+    return (
+      <option>
+        {client.name} {client.email}
+      </option>
+    );
+  });
   return (
     <div className={styles["addSales--main-container"]}>
       <div className={styles["addSales--client-form-container"]}>
         <p> Client Details</p>
         <div>
-          <select>
-            <option>Client 1</option>
-            <option>Client 2</option>
-            <option>Client 3</option>
-            <option>Client 4</option>
-          </select>
+          <select>{clientOptions}</select>
           <button onClick={showModal}>Add a new client</button>
         </div>
       </div>

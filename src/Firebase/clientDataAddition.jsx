@@ -16,11 +16,13 @@ const storeClientsDetails = async (uid, cid, clientDetails) => {
   }
 };
 
-const getAllClients = async () => {
+const getAllClients = async (setAllClients) => {
   onSnapshot(collection(db, "clients"), (response) => {
-    response.docs.map((docs) => {
-      console.log({ ...docs.data(), id: docs });
-    });
+    setAllClients(
+      response.docs.map((docs) => {
+        return { ...docs.data(), id: docs };
+      })
+    );
   });
 };
 export { storeClientsDetails, getAllClients };
