@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import storeSalesDetails from "../../Firebase/salesDataAddition";
+import AddClientModal from "./AddClientModal";
+import storeClientsDetails from "../../Firebase/clientDataAddition";
 
 export default function AddSales() {
-  const [formValues, setFormValues] = React.useState({
+  const [formValues, setFormValues] = useState({
     name: "",
     policySold: false,
     soldDate: "",
@@ -11,18 +13,38 @@ export default function AddSales() {
     policyDetails: "",
     personalNotes: "",
     status: "",
-    soldTo: "client1",
   });
-  function storeDetails() {
-    storeSalesDetails("1243546", formValues);
+  const [clientId, setClientId] = useState("");
+  const [clientForm, setClientForm] = useState({
+    name: "",
+    email: "",
+    phone_number: "",
+    DOB: "",
+  });
+  useMemo(() => {}, [clientId]);
+
+  const [open, setOpen] = useState(false);
+  const uid = "1234567";
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  async function storeDetails() {
+    setClientId(`${clientForm.email}` + "_" + `${clientForm.phone_number}`);
+    const clientResponse = await storeClientsDetails(uid, clientId, clientForm);
+    console.log("This is the client response: ", clientResponse);
+
+    const saleResponse = await storeSalesDetails(uid, formValues, clientId);
+    console.log("This is the sale response: ", saleResponse);
   }
+
   function handleChange(event) {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
   }
   return (
     <div className={styles["addSales--main-container"]}>
-      <div>
-        Client Details
+      <div className={styles["addSales--client-form-container"]}>
+        <p> Client Details</p>
         <div>
           <select>
             <option>Client 1</option>
@@ -30,7 +52,7 @@ export default function AddSales() {
             <option>Client 3</option>
             <option>Client 4</option>
           </select>
-          <button>Add a new client</button>
+          <button onClick={showModal}>Add a new client</button>
         </div>
       </div>
       <div>
@@ -70,6 +92,12 @@ export default function AddSales() {
         />
         <button onClick={storeDetails}>Submit</button>
       </div>
+      <AddClientModal
+        open={open}
+        setOpen={setOpen}
+        clientForm={clientForm}
+        setClientForm={setClientForm}
+      />
     </div>
   );
 }
