@@ -2,6 +2,11 @@ import "./App.scss";
 import React, { useState } from "react";
 import Header from "./CommonComponents/Header";
 import SignUp from "./Pages/Signup";
+import Button from "./CommonComponents/Button";
+import RegisterComponent from "./Components/Register/RegisterComponent";
+import Register_2Component from "./Components/Register_2/Register_2Component";
+import LoginComponent from "./Components/Login/LoginComponent";
+
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -13,8 +18,12 @@ import SignUp from "./Pages/Signup";
 function App() {
   return (
     <div style={{ display: "flex", gap: "40px" }}>
-      <Header />
+      {/* <Header />
       <SignUp />
+      <Button value="Next" onClick = {() => {console.log("Hey")}}/> */}
+      {/* <RegisterComponent /> */}
+      {/* <Register_2Component /> */}
+      <LoginComponent />
     </div>
   );
 }
