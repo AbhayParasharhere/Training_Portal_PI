@@ -2,6 +2,7 @@ import "./App.scss";
 import React, { useState } from "react";
 import Header from "./CommonComponents/Header";
 import SignUp from "./Pages/Signup";
+import AllCourses from "./Pages/AllCourse
 import CalendarModal from "./CommonComponents/CalendarModal";
 import Button from "./CommonComponents/Button";
 import RegisterComponent from "./Components/Register/RegisterComponent";
@@ -18,14 +19,10 @@ import LoginComponent from "./Components/Login/LoginComponent";
 
 function App() {
   return (
-    <div style={{ display: "flex", gap: "40px" }}>
-      {/* <Header />
+    <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
+      <Header />
       <SignUp />
-      <CalendarModal />
-
-      <Button value="Next" onClick = {() => {console.log("Hey")}}/> */}
-      {/* <RegisterComponent /> */}
-      {/* <Register_2Component /> */}
+      <AllCourses />
       <LoginComponent />
     </div>
   );
