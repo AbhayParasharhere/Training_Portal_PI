@@ -7,7 +7,7 @@ import Button from "./CommonComponents/Button";
 import RegisterComponent from "./Components/Register/RegisterComponent";
 import Register_2Component from "./Components/Register_2/Register_2Component";
 import LoginComponent from "./Components/Login/LoginComponent";
-
+import Sidebar from "./CommonComponents/Sidebar";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -26,7 +26,8 @@ function App() {
       <Button value="Next" onClick = {() => {console.log("Hey")}}/> */}
       {/* <RegisterComponent /> */}
       {/* <Register_2Component /> */}
-      <LoginComponent />
+      {/* <LoginComponent /> */}
+      <Sidebar />
     </div>
   );
 }
