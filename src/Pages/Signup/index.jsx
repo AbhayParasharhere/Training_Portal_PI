@@ -15,15 +15,14 @@ import {
   uploadBytes,
   uploadBytesResumable,
 } from "firebase/storage";
+import RegisterComponent from "./Components/Register/RegisterComponent";
+import Register_2Component from "./Components/Register_2/Register_2Component";
 
 export default function SignUp() {
   const [response, setResponse] = useState(null);
 
   const testSignUp = async () => {
-    const res = await signUpWithEmailAndPassword(
-      "abhithedicklord@gmail.com",
-      "123456"
-    );
+    const res = await signUpWithEmailAndPassword("nama@gmail.com", "123456");
     // print the response
     console.log(res);
     setResponse(res);
@@ -95,22 +94,26 @@ export default function SignUp() {
     }
   };
   return (
-    <div style={{ display: "flex", gap: "40px" }}>
-      <button onClick={testSignUp}>Test SignUp</button>
-      <button onClick={testSignIn}>Test SignIn</button>
-      <button onClick={storeAdditionalDetails}>
-        Test Adding Other details
-      </button>
-      <button onClick={testGoogleSignIn}>Test Google Sign in</button>
-      <div>
-        <label htmlFor="Set Profile Image">Set Profile Image</label>
-        <input
-          type="file"
-          name="Set Profile Image"
-          onChange={changeImageFile}
-        />
-        <button onClick={uploadVideo}>Upload profile image</button>
-      </div>
-    </div>
+    <>
+      {/* <div style={{ display: "flex", gap: "40px" }}>
+        <button onClick={testSignUp}>Test SignUp</button>
+        <button onClick={testSignIn}>Test SignIn</button>
+        <button onClick={storeAdditionalDetails}>
+          Test Adding Other details
+        </button>
+        <button onClick={testGoogleSignIn}>Test Google Sign in</button>
+        <div>
+          <label htmlFor="Set Profile Image">Set Profile Image</label>
+          <input
+            type="file"
+            name="Set Profile Image"
+            onChange={changeImageFile}
+          />
+          <button onClick={uploadVideo}>Upload profile image</button>
+        </div>
+      </div> */}
+      <RegisterComponent google={testGoogleSignIn} />
+      {/* <Register_2Component signup={testSignUp} /> */}
+    </>
   );
 }

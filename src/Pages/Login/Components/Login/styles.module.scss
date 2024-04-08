@@ -1,10 +1,14 @@
+.RegisterComponent--Container {
+  display: flex;
+  justify-content: center;
+}
 .RegisterComponent--main {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f8f8f8;
   gap: 4%;
-  width: 100%;
+  width: 60%;
   height: 100%;
 }
 .RegisterComponent--main--logo {
@@ -38,6 +42,8 @@
   border: none;
   border-bottom: 1px solid rgba(82, 82, 82, 0.2);
   width: 53%;
+  padding-left: 10px;
+  color: black;
   opacity: 0.5;
   margin-top: 2%;
   height: 40px;
@@ -56,36 +62,34 @@
   color: #2366f8;
 }
 .RegisterComponent--main--checkbox--div {
-    font-family: Open Sans;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 17.7px;
-    text-align: left;
+  font-family: Open Sans;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 17.7px;
+  text-align: left;
 
-    margin-top: 20px;
-    width: 55%;
-    gap: 5px;
-    // align-self: flex-start;
-    display: flex;
+  margin-top: 20px;
+  width: 55%;
+  gap: 5px;
+  // align-self: flex-start;
+  display: flex;
 }
-@media screen and (max-width: 550px){
-    .RegisterComponent--main--text
-    {
-        font-size: 30px;
-    }
-    .RegisterComponent--main--Login {
-        font-size: 16px;
-    }
+@media screen and (max-width: 550px) {
+  .RegisterComponent--main--text {
+    font-size: 30px;
+  }
+  .RegisterComponent--main--Login {
+    font-size: 16px;
+  }
 }
-@media screen and (max-width: 370px){
-    .RegisterComponent--main--text
-    {
-        font-size: 25px;
-    }
-    .RegisterComponent--main--Login {
-        font-size: 14px;
-    }
-    .RegisterComponent--main--checkbox--div {
-        font-size: 12px;
-    }
+@media screen and (max-width: 370px) {
+  .RegisterComponent--main--text {
+    font-size: 25px;
+  }
+  .RegisterComponent--main--Login {
+    font-size: 14px;
+  }
+  .RegisterComponent--main--checkbox--div {
+    font-size: 12px;
+  }
 }
