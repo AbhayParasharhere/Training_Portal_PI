@@ -1,5 +1,12 @@
 import { db, storage } from "./firebaseConfig";
-import { collection, addDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  updateDoc,
+  getDoc,
+} from "firebase/firestore";
 import {
   ref,
   uploadBytesResumable,
@@ -98,11 +105,59 @@ const addModifyCourse = async (
   }
 };
 
+// To update the section rank array in the course document
+const updateSectionRankArray = async (
+  courseID,
+  formattedSectionTitle,
+  sectionRank
+) => {
+  const currentCourse = await getCourseFromCourseID(courseID);
+  const courseRef = doc(db, "Courses", courseID);
+  const sectionRankArray = currentCourse?.sections_rank;
+  console.log("Original Section Rank Array: ", sectionRankArray);
+
+  if (!sectionRankArray) {
+    console.log("Adding the first section");
+    await updateDoc(courseRef, {
+      sections_rank: [formattedSectionTitle],
+    });
+    return "Section Added";
+  } else if (sectionRank >= sectionRankArray?.length || sectionRank < 0) {
+    console.log(
+      "Adding at the end",
+      sectionRank >= sectionRankArray?.length,
+      sectionRank <= 0
+    );
+    await updateDoc(courseRef, {
+      sections_rank: [...sectionRankArray, formattedSectionTitle],
+    });
+  } else {
+    console.log("Adding at a specific position", sectionRank);
+    const updatedSectionRankArray = [];
+    // First push all the elements before the section rank
+    for (let i = 0; i < sectionRank; i++) {
+      updatedSectionRankArray.push(sectionRankArray[i]);
+    }
+    // Then push the new section
+    updatedSectionRankArray.push(formattedSectionTitle);
+
+    // Then push all the elements after the section rank
+    for (let i = sectionRank; i < sectionRankArray.length; i++) {
+      updatedSectionRankArray.push(sectionRankArray[i]);
+    }
+
+    console.log("Updated section rank array", updatedSectionRankArray);
+    await updateDoc(courseRef, {
+      sections_rank: updatedSectionRankArray,
+    });
+  }
+};
+
 // Function to add the section from a given course id
 const addSection = async (courseID, sectionTitle, sectionRank) => {
   try {
     if (!courseID || !sectionTitle) {
-      return "Course ID and Section Title is required";
+      return "Unable to create a new section document: Course ID and Section Title is required";
     }
 
     // If sections collection exists then we need to create a new section document with the section title
@@ -115,54 +170,22 @@ const addSection = async (courseID, sectionTitle, sectionRank) => {
       formattedSectionTitle
     );
 
-    const res = await setDoc(sectionRef, {
+    // Check if the section doc already exists
+    const sectionDoc = await getDoc(sectionRef);
+    if (sectionDoc.exists()) {
+      return "Unable to create a new Section document as it already exists";
+    }
+
+    // Create the section document
+    await setDoc(sectionRef, {
       title: sectionTitle,
       Created_at: new Date().toISOString(),
       Updated_at: new Date().toISOString(),
     });
 
-    console.log(res);
+    // Now update the course document with the updated section rank array
+    updateSectionRankArray(courseID, formattedSectionTitle, sectionRank);
 
-    const currentCourse = await getCourseFromCourseID(courseID);
-    const courseRef = doc(db, "Courses", courseID);
-    const sectionRankArray = currentCourse?.sections_rank;
-    console.log(sectionRankArray);
-
-    if (!sectionRankArray) {
-      console.log("Adding the first section");
-      await updateDoc(courseRef, {
-        sections_rank: [formattedSectionTitle],
-      });
-      return "Section Added";
-    } else if (sectionRank >= sectionRankArray?.length || sectionRank <= 0) {
-      console.log(
-        "Adding at the end",
-        sectionRank >= sectionRankArray?.length,
-        sectionRank <= 0
-      );
-      await updateDoc(courseRef, {
-        sections_rank: [...sectionRankArray, formattedSectionTitle],
-      });
-    } else {
-      console.log("Adding in the middle");
-      console.log(
-        "Sections Rank modified",
-        [
-          ...sectionRankArray.slice(0, sectionRank),
-          formattedSectionTitle,
-          ...sectionRankArray.slice(sectionRank + 1),
-        ],
-        sectionRankArray.slice(0, sectionRank),
-        sectionRankArray.slice(sectionRank + 1, sectionRankArray.length)
-      );
-      // await updateDoc(courseRef, {
-      //   sections_rank: [
-      //     ...sectionRankArray.slice(0, sectionRank),
-      //     formattedSectionTitle,
-      //     ...sectionRankArray.slice(sectionRank + 1),
-      //   ],
-      // });
-    }
     return "Section Added";
   } catch (error) {
     console.log(error);

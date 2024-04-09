@@ -23,7 +23,7 @@ const AdminConsole = () => {
     event.preventDefault();
     console.log(allCourses);
     console.log(selectedCourse, sectionName);
-    const res = await addSection(selectedCourse, sectionName);
+    const res = await addSection(selectedCourse, sectionName, sectionRank);
     console.log(res);
   };
 
