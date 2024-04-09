@@ -1,7 +1,7 @@
 import "./App.scss";
 import React, { useState } from "react";
 import Header from "./CommonComponents/Header";
-import SignUp from "./Pages/Signup_1";
+import SignUp from "./Pages/SignupPage";
 import Login from "./Pages/Login";
 import Client from "./Pages/ClientPage";
 
