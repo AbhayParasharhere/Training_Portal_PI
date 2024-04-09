@@ -1,5 +1,5 @@
 import { db, storage } from "./firebaseConfig";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import {
   ref,
   uploadBytesResumable,
@@ -99,6 +99,77 @@ const addModifyCourse = async (
 };
 
 // Function to add the section from a given course id
+const addSection = async (courseID, sectionTitle, sectionRank) => {
+  try {
+    if (!courseID || !sectionTitle) {
+      return "Course ID and Section Title is required";
+    }
+
+    // If sections collection exists then we need to create a new section document with the section title
+    // else we need to create the sections collection first
+    const formattedSectionTitle =
+      "section_" + sectionTitle.toLowerCase().replace(/ /g, "_");
+
+    const sectionRef = doc(
+      collection(db, `Courses/${courseID}/sections`),
+      formattedSectionTitle
+    );
+
+    const res = await setDoc(sectionRef, {
+      title: sectionTitle,
+      Created_at: new Date().toISOString(),
+      Updated_at: new Date().toISOString(),
+    });
+
+    console.log(res);
+
+    const currentCourse = await getCourseFromCourseID(courseID);
+    const courseRef = doc(db, "Courses", courseID);
+    const sectionRankArray = currentCourse?.sections_rank;
+    console.log(sectionRankArray);
+
+    if (!sectionRankArray) {
+      console.log("Adding the first section");
+      await updateDoc(courseRef, {
+        sections_rank: [formattedSectionTitle],
+      });
+      return "Section Added";
+    } else if (sectionRank >= sectionRankArray?.length || sectionRank <= 0) {
+      console.log(
+        "Adding at the end",
+        sectionRank >= sectionRankArray?.length,
+        sectionRank <= 0
+      );
+      await updateDoc(courseRef, {
+        sections_rank: [...sectionRankArray, formattedSectionTitle],
+      });
+    } else {
+      console.log("Adding in the middle");
+      console.log(
+        "Sections Rank modified",
+        [
+          ...sectionRankArray.slice(0, sectionRank),
+          formattedSectionTitle,
+          ...sectionRankArray.slice(sectionRank + 1),
+        ],
+        sectionRankArray.slice(0, sectionRank),
+        sectionRankArray.slice(sectionRank + 1, sectionRankArray.length)
+      );
+      // await updateDoc(courseRef, {
+      //   sections_rank: [
+      //     ...sectionRankArray.slice(0, sectionRank),
+      //     formattedSectionTitle,
+      //     ...sectionRankArray.slice(sectionRank + 1),
+      //   ],
+      // });
+    }
+    return "Section Added";
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 // Function to add video to a given section id'
 
 // Function to delete the course
@@ -109,4 +180,4 @@ const addModifyCourse = async (
 // Function to update the section from a given course id
 // Function to update the video from a given section id
 
-export { addCourse };
+export { addCourse, addSection };
