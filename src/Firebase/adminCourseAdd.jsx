@@ -193,7 +193,104 @@ const addSection = async (courseID, sectionTitle, sectionRank) => {
   }
 };
 
-// Function to add video to a given section id'
+// Function to update the video rank array in the section document
+const updateVideoRankArray = async (sectionDoc, videoTitle, videoRank) => {
+  const videoRankArray = sectionDoc.data().video_rank;
+  console.log(
+    "Original Video Rank Array: ",
+    videoRankArray,
+    "Video Title: ",
+    videoTitle,
+    "Video Rank: ",
+    videoRank
+  );
+
+  if (!videoRankArray) {
+    console.log("Adding the first video");
+    updateDoc(sectionDoc.ref, {
+      video_rank: [videoTitle],
+    });
+  } else if (videoRank >= videoRankArray?.length || videoRank < 0) {
+    console.log(
+      "Adding at the end",
+      videoRank >= videoRankArray?.length,
+      videoRank <= 0
+    );
+    updateDoc(sectionDoc.ref, {
+      video_rank: [...videoRankArray, videoTitle],
+    });
+  } else {
+    console.log("Adding at a specific position", videoRank);
+    const updatedVideoRankArray = [];
+    // First push all the elements before the video rank
+    for (let i = 0; i < videoRank; i++) {
+      updatedVideoRankArray.push(videoRankArray[i]);
+    }
+    // Then push the new video
+    updatedVideoRankArray.push(videoTitle);
+
+    // Then push all the elements after the video rank
+    for (let i = videoRank; i < videoRankArray.length; i++) {
+      updatedVideoRankArray.push(videoRankArray[i]);
+    }
+
+    console.log("Updated video rank array", updatedVideoRankArray);
+    updateDoc(sectionDoc.ref, {
+      video_rank: updatedVideoRankArray,
+    });
+  }
+};
+
+// Function to add video to a given section id and course id
+const addVideo = async (
+  courseID,
+  sectionID,
+  videoFile,
+  videoTitle,
+  videoRank
+) => {
+  try {
+    if (!courseID || !sectionID || !videoFile || !videoTitle) {
+      throw new Error(
+        "Unable to upload video: Course ID, Section ID, Video File, and Video Title is required"
+      );
+    }
+    const formattedVideoTitle =
+      "video_" +
+      videoTitle.toLowerCase().replace(/ /g, "_") +
+      `+${courseID}+${sectionID}`;
+
+    // First put the videoTitle in the correct order in the video_rank array in the section document
+    // Get the section document
+    const sectionDocRef = doc(db, `Courses/${courseID}/sections`, sectionID);
+
+    const sectionDoc = await getDoc(sectionDocRef);
+    console.log(`Courses/${courseID}/sections`, sectionDoc.data());
+
+    if (!sectionDoc.exists()) {
+      throw new Error("Section document does not exist");
+    }
+    // Check in the section document if the video already exists
+    if (sectionDoc.data()?.video_rank?.includes(formattedVideoTitle)) {
+      throw new Error("Video already exists");
+    }
+
+    // Update the video rank array in the section document
+    updateVideoRankArray(sectionDoc, formattedVideoTitle, videoRank);
+
+    // Then upload the video to the storage and show the progress
+    const videoRef = ref(storage, `courseVideos/${formattedVideoTitle}`);
+    const uploadTask = uploadBytesResumable(videoRef, videoFile);
+    uploadTask.on("state_changed", (snapshot) => {
+      let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(progress);
+    });
+    return "Video Uploaded Successfully";
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
 
 // Function to delete the course
 // Function to delete the section from a given course id
@@ -203,4 +300,4 @@ const addSection = async (courseID, sectionTitle, sectionRank) => {
 // Function to update the section from a given course id
 // Function to update the video from a given section id
 
-export { addCourse, addSection };
+export { addCourse, addSection, addVideo };

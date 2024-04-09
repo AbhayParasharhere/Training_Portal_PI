@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
-import { addCourse, addSection } from "../../Firebase/adminCourseAdd";
+import { addCourse, addSection, addVideo } from "../../Firebase/adminCourseAdd";
 import { getAllCourses } from "../../Firebase/courseLogic";
 
 const AdminConsole = () => {
   const [thumbnail, setThumbnail] = useState(null);
+  const [video, setVideo] = useState(null);
+  const [videoName, setVideoName] = useState("");
+  const [videoRank, setVideoRank] = useState(0);
   const [sectionName, setSectionName] = useState(null);
   const [sectionRank, setSectionRank] = useState(0);
   const [allCourses, setAllCourses] = useState([]);
@@ -24,6 +27,28 @@ const AdminConsole = () => {
     console.log(allCourses);
     console.log(selectedCourse, sectionName);
     const res = await addSection(selectedCourse, sectionName, sectionRank);
+    console.log(res);
+  };
+
+  const handleUploadVideo = async (event) => {
+    event.preventDefault();
+    const selectedCourse = selectedCourseRef.current.value;
+
+    console.log(
+      "Uploading Video",
+      selectedCourse,
+      sectionName,
+      video,
+      videoName,
+      videoRank
+    );
+    const res = await addVideo(
+      selectedCourse,
+      sectionName,
+      video,
+      videoName,
+      videoRank
+    );
     console.log(res);
   };
 
@@ -76,6 +101,30 @@ const AdminConsole = () => {
           onChange={(event) => setSectionName(event.target.value)}
         />
         <button onClick={handleAddSection}>Add Section</button>
+        Upload Video
+        <input
+          type="file"
+          name="video_upload"
+          accept="video/mp4"
+          placeholder="Video Upload"
+          onChange={(event) => {
+            const selectedFile = event.target.files[0];
+            setVideo(selectedFile);
+            setVideoName(selectedFile?.name?.split(".")[0] || "");
+          }}
+        />
+        <input
+          type="text"
+          placeholder="Video Name"
+          value={videoName}
+          onChange={(event) => setVideoName(event.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Video Rank"
+          onChange={(event) => setVideoRank(event.target.value)}
+        />
+        <button onClick={handleUploadVideo}>Upload Video</button>
       </form>
     </div>
   );
