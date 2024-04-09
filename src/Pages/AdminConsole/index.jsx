@@ -6,6 +6,7 @@ import {
   addVideo,
   deleteCourse,
   deleteSection,
+  deleteVideo,
 } from "../../Firebase/adminCourseAdd";
 import { getAllCourses } from "../../Firebase/courseLogic";
 
@@ -92,6 +93,29 @@ const AdminConsole = () => {
 
     const res = await deleteSection(selectedCourse, selectedSection);
     console.log(res);
+  };
+
+  const handleDeleteVideo = async (event) => {
+    event.preventDefault();
+    const selectedCourse = selectedCourseRef.current.value;
+    const selectedSection = window.prompt(
+      "Enter the section name in the course: " + selectedCourse
+    );
+
+    const videoID =
+      "video_" +
+      videoName.toLowerCase().replace(/ /g, "_") +
+      `+${selectedCourse}+${selectedSection}`;
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this video?"
+    );
+    if (!selectedSection || !videoID) return;
+
+    if (confirmation) {
+      console.log("Deleting Video", selectedCourse, selectedSection, videoID);
+      const res = await deleteVideo(selectedCourse, selectedSection, videoID);
+      console.log(res);
+    }
   };
 
   return (
@@ -181,7 +205,7 @@ const AdminConsole = () => {
         Delete Selected Section
         <button onClick={handleDeleteSection}>Delete Section</button>
         Delete Selected Video
-        <button>Delete Video</button>
+        <button onClick={handleDeleteVideo}>Delete Video</button>
       </form>
     </div>
   );

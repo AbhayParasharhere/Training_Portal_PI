@@ -1,13 +1,7 @@
 import { db, storage } from "./firebaseConfig";
+import { collection, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import {
-  collection,
-  addDoc,
-  doc,
-  setDoc,
-  updateDoc,
-  getDoc,
-} from "firebase/firestore";
-import {
+  deleteObject,
   ref,
   uploadBytesResumable,
   uploadBytes,
@@ -313,16 +307,56 @@ const deleteSection = async (courseID, sectionID) => {
     await updateDoc(sectionRef, {
       status: "deleted",
     });
+
+    // Remove the section from the section_rank array in the course document
+    const courseRef = doc(db, "Courses", courseID);
+    const courseDoc = await getDoc(courseRef);
+    const sectionRankArray = courseDoc.data().sections_rank;
+    const updatedSectionRankArray = sectionRankArray.filter(
+      (section) => section !== sectionID
+    );
+    await updateDoc(courseRef, { sections_rank: updatedSectionRankArray });
+
     return "Section Deleted";
   } catch (error) {
     console.log(error);
     return error;
   }
 };
+
+// WARNING: This function will permanently delete the video from the storage and the video_rank array in the section document
 // Function to delete the video from a given section id
+const deleteVideo = async (courseID, sectionID, videoID) => {
+  try {
+    // Remove the video from the video_rank array in the section document
+    const sectionRef = doc(db, `Courses/${courseID}/sections`, sectionID);
+    const sectionDoc = await getDoc(sectionRef);
+    const videoRankArray = sectionDoc.data().video_rank;
+    const updatedVideoRankArray = videoRankArray.filter(
+      (video) => video !== videoID
+    );
+    await updateDoc(sectionRef, { video_rank: updatedVideoRankArray });
+
+    // Delete the video file from the storage
+    const videoRef = ref(storage, `courseVideos/${videoID}`);
+    await deleteObject(videoRef);
+
+    return "Video Deleted";
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
 
 // Function to update the course
 // Function to update the section from a given course id
 // Function to update the video from a given section id
 
-export { addCourse, addSection, addVideo, deleteCourse, deleteSection };
+export {
+  addCourse,
+  addSection,
+  addVideo,
+  deleteCourse,
+  deleteSection,
+  deleteVideo,
+};
