@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
-import { addCourse, addSection, addVideo } from "../../Firebase/adminCourseAdd";
+import {
+  addCourse,
+  addSection,
+  addVideo,
+  deleteCourse,
+  deleteSection,
+} from "../../Firebase/adminCourseAdd";
 import { getAllCourses } from "../../Firebase/courseLogic";
 
 const AdminConsole = () => {
@@ -52,42 +58,85 @@ const AdminConsole = () => {
     console.log(res);
   };
 
+  const handleDeleteCourse = async (event) => {
+    event.preventDefault();
+    const selectedCourse = selectedCourseRef.current.value;
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this course?" + " " + selectedCourse
+    );
+
+    if (!confirmation) return;
+
+    const res = await deleteCourse(selectedCourse);
+    console.log(res);
+  };
+
+  const handleDeleteSection = async (event) => {
+    event.preventDefault();
+    const selectedCourse = selectedCourseRef.current.value;
+    const selectedSection = window.prompt(
+      "Enter the section name in the course: " + selectedCourse
+    );
+
+    if (!selectedSection) return;
+
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this section?" +
+        " " +
+        selectedSection +
+        " in the course " +
+        selectedCourse
+    );
+
+    if (!confirmation) return;
+
+    const res = await deleteSection(selectedCourse, selectedSection);
+    console.log(res);
+  };
+
   return (
     <div>
-      <label htmlFor="thumbnail_upload">Upload Thumbnail</label>
-      <input
-        type="file"
-        name="thumbnail_upload"
-        onChange={(event) => {
-          return setThumbnail(event.target.files[0]);
-        }}
-      />
-      <button
-        onClick={() => {
-          let res = addCourse(
-            "Test Course 3",
-            "Test Category 3",
-            "Test Description 2",
-            thumbnail
-          );
-          console.log(res);
-          return res;
-        }}
-      >
-        {" "}
-        Add Course
-      </button>
       <hr />
       <form style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
+        Add Course
+        <label htmlFor="thumbnail_upload">Upload Thumbnail</label>
+        <input
+          type="file"
+          name="thumbnail_upload"
+          onChange={(event) => {
+            return setThumbnail(event.target.files[0]);
+          }}
+        />
+        <button
+          onClick={() => {
+            let res = addCourse(
+              "Test Course 3",
+              "Test Category 3",
+              "Test Description 2",
+              thumbnail
+            );
+            console.log(res);
+            return res;
+          }}
+        >
+          {" "}
+          Add Course
+        </button>
+        <hr />
         Section Add for a given course
         <select ref={selectedCourseRef}>
-          {allCourses.map((courses) => {
-            return (
-              <option key={courses.id} value={courses.id}>
-                {courses.title}
-              </option>
-            );
-          })}
+          {
+            // only show courses that does not have status as deleted
+            allCourses
+              .filter((course) => course.status !== "deleted")
+              .map((course) => {
+                return (
+                  <option key={course.id} value={course.id}>
+                    {course.title}
+                  </option>
+                );
+              })
+          }
         </select>
         <input
           type="number"
@@ -101,6 +150,7 @@ const AdminConsole = () => {
           onChange={(event) => setSectionName(event.target.value)}
         />
         <button onClick={handleAddSection}>Add Section</button>
+        <hr />
         Upload Video
         <input
           type="file"
@@ -125,6 +175,13 @@ const AdminConsole = () => {
           onChange={(event) => setVideoRank(event.target.value)}
         />
         <button onClick={handleUploadVideo}>Upload Video</button>
+        <hr />
+        Delete Selected Course
+        <button onClick={handleDeleteCourse}>Delete Course</button>
+        Delete Selected Section
+        <button onClick={handleDeleteSection}>Delete Section</button>
+        Delete Selected Video
+        <button>Delete Video</button>
       </form>
     </div>
   );

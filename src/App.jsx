@@ -19,8 +19,8 @@ import AdminConsole from "./Pages/AdminConsole";
 function App() {
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
-      <Header />
-      <SignUp />
+      {/* <Header /> */}
+      {/* <SignUp /> */}
       {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
       <AdminConsole />

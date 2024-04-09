@@ -292,12 +292,37 @@ const addVideo = async (
   }
 };
 
-// Function to delete the course
-// Function to delete the section from a given course id
+// Function to make the status of the course as deleted
+const deleteCourse = async (courseID) => {
+  try {
+    const courseRef = doc(db, "Courses", courseID);
+    await updateDoc(courseRef, {
+      status: "deleted",
+    });
+    return "Course Deleted";
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+// Function to make the status of the section from a given course id as deleted
+const deleteSection = async (courseID, sectionID) => {
+  try {
+    const sectionRef = doc(db, `Courses/${courseID}/sections`, sectionID);
+    await updateDoc(sectionRef, {
+      status: "deleted",
+    });
+    return "Section Deleted";
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
 // Function to delete the video from a given section id
 
 // Function to update the course
 // Function to update the section from a given course id
 // Function to update the video from a given section id
 
-export { addCourse, addSection, addVideo };
+export { addCourse, addSection, addVideo, deleteCourse, deleteSection };
