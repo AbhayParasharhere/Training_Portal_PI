@@ -14,6 +14,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 .ClientComponent-wrapper-topbar-head {
   display: flex;
@@ -41,7 +42,72 @@
 .ClientComponent-wrapper-topbar-search {
   display: flex;
   gap: 6px;
+  width: 38%;
+  justify-content: flex-end;
 }
+.ClientComponent-wrapper-topbar-search-div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border: 2px solid #d6d6d6;
+  border-radius: 8px;
+  width: 40%;
+  height: 35px;
+  top: 30px;
+  left: 842px;
+  background-color: #f9f9f9;
+  padding-left: 2%;
+  // padding-right: 20%;
+}
+.ClientComponent-wrapper-topbar-search-bar {
+  // font-size: 18px;
+  border: none;
+  padding-top: 5px;
+  height: 29px;
+  width: 73%;
+  background-color: #f9f9f9;
+}
+.ClientComponent-wrapper-topbar-search-bar::placeholder {
+  // font-size: 22px;
+  color: #525252;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.ClientComponent-wrapper-topbar-search-menu-div {
+  margin-left: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f6fb;
+  border-radius: 8px;
+  width: 30%;
+  // padding-left: 4px;
+  gap: 4px;
+}
+.ClientComponent-wrapper-topbar-search-menu {
+  font-family: Open Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
+}
+.ClientComponent-wrapper-topbar-search-add {
+  background-color: #a80532f0;
+  opacity: 94%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+
+  border-radius: 8px;
+}
+
 .ClientComponent-table {
   background-color: #f5f6fb;
   width: 100%;
@@ -129,3 +195,66 @@ td {
 // #dialog {
 //   position: absolute;
 // }
+// @media only screen and (min-width: 300px) and (max-width: 768px) {
+//   .ClientComponent-wrapper-topbar {
+//     justify-content: flex-start;
+//     gap: 5%;
+//   }
+//   .ClientComponent-wrapper-topbar-search-bar::placeholder {
+//     font-size: 12px;
+//   }
+//   .ClientComponent-wrapper-topbar-search {
+//     width: 80%;
+//   }
+//   .ClientComponent-wrapper-topbar-search-div {
+//     width: 35%;
+//   }
+// }
+// @media only screen and (min-width: 601px) and (max-width: 1200px) {
+//   .ClientComponent-wrapper-topbar-search {
+//     width: 50%;
+//   }
+// }
+@media only screen and (max-width: 940px) {
+  .ClientComponent-wrapper-topbar-search {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .ClientComponent-wrapper-topbar-search {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .ClientComponent-wrapper-topbar-search {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .ClientComponent-wrapper-topbar-search-bar::placeholder {
+    font-size: 12px;
+  }
+  .ClientComponent-wrapper-topbar-search-menu {
+    font-size: 12px;
+  }
+  .ClientComponent-wrapper-topbar-search {
+    width: 90%;
+  }
+  .ClientComponent-wrapper-topbar-search-bar {
+    width: 62%;
+  }
+}
+@media only screen and (max-width: 415px) {
+  .ClientComponent-wrapper-topbar-search-bar::placeholder {
+    font-size: 10px;
+  }
+  .ClientComponent-wrapper-topbar-search-menu {
+    font-size: 10px;
+  }
+  .ClientComponent-wrapper-topbar-search {
+    width: 90%;
+  }
+  .ClientComponent-wrapper-topbar-search-bar {
+    width: 60%;
+  }
+}

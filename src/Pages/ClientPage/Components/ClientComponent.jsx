@@ -4,6 +4,10 @@ import line from "../../../../assets/vertical-line.png";
 import delete_bin from "../../../../assets/delete_bin.png";
 import search_eye from "../../../../assets/search_eye.png";
 import pencil from "../../../../assets/pencil.png";
+import search_icon from "../../../../assets/search_icon.png";
+import red_button from "../../../../assets/red_button.png";
+import plus from "../../../../assets/plus.png";
+import arrow_down from "../../../../assets/arrow_down.png";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
@@ -25,9 +29,27 @@ export default function ClientComponent() {
           <p className={styles["ClientComponent-topbar-count"]}>(18)</p>
         </div>
         <div className={styles["ClientComponent-wrapper-topbar-search"]}>
-          <input type={"text"} placeholder="Search" />
-          <button>All Clients</button>
-          <button>add</button>
+          <div className={styles["ClientComponent-wrapper-topbar-search-div"]}>
+            <img src={search_icon} height="24px" />
+            <input
+              type={"text"}
+              className={styles["ClientComponent-wrapper-topbar-search-bar"]}
+              placeholder="Search Clients"
+            />
+          </div>
+          <div
+            className={styles["ClientComponent-wrapper-topbar-search-menu-div"]}
+          >
+            <div
+              className={styles["ClientComponent-wrapper-topbar-search-menu"]}
+            >
+              All Clients
+            </div>
+            <img src={arrow_down} height="24px" />
+          </div>
+          <div className={styles["ClientComponent-wrapper-topbar-search-add"]}>
+            <img src={plus} height="26px" />
+          </div>
         </div>
       </div>
       <div className={styles["ClientComponent-wrapper-table"]}>
