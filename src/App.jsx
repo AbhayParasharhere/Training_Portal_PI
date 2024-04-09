@@ -7,6 +7,9 @@ import Button from "./CommonComponents/Button";
 import RegisterComponent from "./Components/Register/RegisterComponent";
 import Register_2Component from "./Components/Register_2/Register_2Component";
 import LoginComponent from "./Components/Login/LoginComponent";
+import Chat from "./Pages/Chat";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -16,12 +19,16 @@ import LoginComponent from "./Components/Login/LoginComponent";
 // with the uid of the user as a ref
 
 function App() {
+  const currentUser = useContext(AuthContext);
+
+  console.log("This is the current user: ", currentUser.uid);
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       <Header />
+      <Chat />
       <SignUp />
       <AllCourses />
-      <LoginComponent />
+      {/* <LoginComponent /> */}
     </div>
   );
 }
