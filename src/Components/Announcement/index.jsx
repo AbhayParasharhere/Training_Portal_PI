@@ -1,38 +1,65 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { auth } from "../../Firebase/firebaseConfig";
-import { createAnnouncement } from "../../Firebase/announcementLogic";
+import {
+  createAnnouncement,
+  getAllUserAnnouncements,
+  getAllAnnouncementsSortedByUpdatedAtDescending,
+  updateAnnouncement,
+  deleteAnnouncement,
+} from "../../Firebase/announcementLogic";
+import { AuthContext } from "../../context/authContext";
 
 const Announcement = () => {
   const [announcementData, setAnnouncementData] = useState({});
+  const [userID, setUserID] = useState("");
+  const [announcementID, setAnnouncementID] = useState("");
+  const currentUser = useContext(AuthContext);
 
-  const handleCreateAnnouncement = (e) => {
+  const handleCreateAnnouncement = async (e) => {
     e.preventDefault();
 
     // Before submitting get the uid of the user who is creating the announcement
     // and add it to the announcementData object
-    const currentUserUid = auth.currentUser.uid;
-    setAnnouncementData({ ...announcementData, user_id: currentUserUid });
+    setAnnouncementData({ ...announcementData, user_id: currentUser.uid });
 
-    const res = createAnnouncement(announcementData);
+    const res = await createAnnouncement(announcementData);
 
-    console.log(auth.currentUser.uid, announcementData);
-    console.log(res);
+    console.log(currentUser.uid, announcementData);
+    console.log("Announcement Created", res);
   };
-
-  const updateAnnouncement = (e) => {
+  const handleGetAllUserAnnouncements = async (e) => {
     e.preventDefault();
-
-    const currentUserUid = auth.currentUser.uid;
-    setAnnouncementData({ ...announcementData, user_id: currentUserUid });
-    console.log(auth.currentUser.uid);
-    console.log(announcementData);
+    const res = await getAllUserAnnouncements(currentUser?.uid);
+    console.log(
+      "All User Announcements for uid ",
+      currentUser.uid,
+      " are ",
+      res
+    );
   };
 
+  const handleGetAllAnnouncements = async (e) => {
+    e.preventDefault();
+    const res = await getAllAnnouncementsSortedByUpdatedAtDescending();
+    console.log("All Announcements are ", res);
+  };
+
+  const handleUpdateAnnouncement = async (e) => {
+    e.preventDefault();
+    const res = await updateAnnouncement(announcementID, announcementData);
+    console.log("Announcement Updated", res);
+  };
+
+  const handleDeleteAnnouncement = async (e) => {
+    e.preventDefault();
+    await deleteAnnouncement(announcementID);
+    console.log("Announcement Deleted");
+  };
   //  A form where we can input the announcement title and announcement description
   return (
     <div>
       <form style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-        Create an announcement
+        <h2>Create an Announcement</h2>
         <input
           type="text"
           placeholder="Enter the announcement title"
@@ -53,8 +80,66 @@ const Announcement = () => {
         <button type="submit" onClick={handleCreateAnnouncement}>
           Create Announcement
         </button>
-        <button type="submit" onClick={updateAnnouncement}>
+        <h2>Ancillary Functions</h2>
+        <input
+          type="text"
+          value={userID}
+          placeholder="Enter the user id"
+          onChange={(e) => setUserID(e.target.value)}
+        />
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            console.log("Current User ID", currentUser?.uid);
+            setUserID(currentUser?.uid);
+          }}
+        >
+          Prefill user ID to current uuid
+        </button>
+        <button type="submit" onClick={handleGetAllUserAnnouncements}>
+          {" "}
+          Get All User Announcements in Console
+        </button>
+        <button type="submit" onClick={handleGetAllAnnouncements}>
+          {" "}
+          Get All Announcements in Console
+        </button>
+        <h2>Update Announcement</h2>
+        <input
+          type="text"
+          placeholder="Enter the announcement id"
+          onChange={(e) => setAnnouncementID(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Enter the announcement title"
+          onChange={(e) =>
+            setAnnouncementData({ ...announcementData, title: e.target.value })
+          }
+        />
+        <textarea
+          type="text"
+          placeholder="Enter the announcement description"
+          onChange={(e) =>
+            setAnnouncementData({
+              ...announcementData,
+              description: e.target.value,
+            })
+          }
+        />
+        <button type="submit" onClick={handleUpdateAnnouncement}>
           Update Announcement
+        </button>
+        <h2>Delete Announcement</h2>
+        <input
+          type="text"
+          placeholder="Enter the announcement id"
+          onChange={(e) => setAnnouncementID(e.target.value)}
+        />
+        <button type="submit" onClick={handleDeleteAnnouncement}>
+          {" "}
+          Delete Announcement{" "}
         </button>
       </form>
     </div>

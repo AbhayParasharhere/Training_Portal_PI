@@ -1,4 +1,14 @@
-import { doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  query,
+  setDoc,
+  where,
+  getDocs,
+  orderBy,
+  limit,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { v4 } from "uuid";
 // Function to create an annoucement from the announcement object as the input
@@ -21,11 +31,121 @@ const createAnnouncement = async (announcementData) => {
     return error;
   }
 };
-// Function to update a specfic announcement from the document id of the announcement and the updated announcement object as the input
-// which contains the announcement title, announcement description, uid of the user who created the announcement
 
-// Function to delete a specfic announcement from the document id of the announcement as the input
+// Function to get all the announcements of the specified user id
+const getAllUserAnnouncements = async (uid) => {
+  try {
+    const announcementRef = collection(db, "announcements");
+    const userAnnouncements = [];
+    const userAnnouncementsSnapshot = await getDocs(
+      query(announcementRef, where("user_id", "==", uid))
+    );
+
+    userAnnouncementsSnapshot.forEach((doc) => {
+      userAnnouncements.push(doc.data());
+    });
+
+    return userAnnouncements;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
 
 // Function to get all the announcements from the database sorted by the created date of the announcements
+// in descending order and limit the number of announcements to 500
+// Make sure the status of the announcement is not deleted
+const getAllAnnouncementsSortedByUpdatedAtDescending = async () => {
+  try {
+    const announcementRef = collection(db, "announcements");
+    const announcements = [];
 
-export { createAnnouncement };
+    // Limit the number of announcements to 500
+    const announcementsSnapshot = await getDocs(
+      query(
+        announcementRef,
+        where("status", "!=", "deleted"),
+        orderBy("updated_at", "desc"),
+        limit(500)
+      )
+    );
+    announcementsSnapshot.forEach((doc) => {
+      announcements.push({ id: doc.id, ...doc.data() });
+    });
+
+    return announcements;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+// NOTE : The update function does not check if the announcement id was created by the current user, it just updates the announcement
+// Function to update a specfic announcement from the document id of the announcement and the updated announcement object as the input
+// which contains the announcement title, announcement description
+const updateAnnouncement = async (announcementID, announcementData) => {
+  try {
+    // Check if announcement data just contains the title and description and not any other keys and is not empty
+    // Ensure announcementData is not empty and is an object
+    if (
+      !announcementData ||
+      typeof announcementData !== "object" ||
+      !announcementID
+    ) {
+      throw new Error("Invalid announcement id or announcement data");
+    }
+
+    // Check if announcementData has only one key or two keys
+    if (
+      Object.keys(announcementData).length !== 1 &&
+      Object.keys(announcementData).length !== 2
+    ) {
+      throw new Error("Invalid announcement data, extra keys or 0 keys found");
+    }
+
+    // Check if announcementData contains only 'title' or 'description' key(s)
+    const validKeys = ["title", "description"];
+    const dataKeys = Object.keys(announcementData);
+    for (const key of dataKeys) {
+      if (!validKeys.includes(key)) {
+        throw new Error("Invalid announcement data, invalid key found");
+      }
+    }
+
+    const updatedTimestamp = new Date().toISOString();
+
+    // Update the announcement with the announcementData
+    await updateDoc(doc(db, "announcements", announcementID), {
+      ...announcementData,
+      updated_at: updatedTimestamp,
+    });
+    return "Announcement updated successfully";
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+// NOTE : The delete function does not check if the announcement id was created by the current user, it just deletes the announcement
+// It is a SOFT DELETE, the announcement is not removed from the database but is marked as deleted
+// Function to delete a specfic announcement from the document id of the announcement as the input
+const deleteAnnouncement = async (announcementID) => {
+  try {
+    await updateDoc(doc(db, "announcements", announcementID), {
+      status: "deleted",
+    });
+    return "Announcement deleted successfully";
+  } catch (error) {
+    console.log(error);
+    console.log(error);
+    return error;
+  }
+};
+
+export {
+  createAnnouncement,
+  getAllUserAnnouncements,
+  getAllAnnouncementsSortedByUpdatedAtDescending,
+  updateAnnouncement,
+  deleteAnnouncement,
+};

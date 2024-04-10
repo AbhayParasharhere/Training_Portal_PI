@@ -19,10 +19,7 @@ import Announcement from "./Components/Announcement";
 function App() {
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
-      <Header />
-      {/* <SignUp />
-      <AllCourses />
-      <LoginComponent /> */}
+      {/* <Header /> */}
       <Announcement />
     </div>
   );
