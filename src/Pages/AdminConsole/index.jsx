@@ -132,9 +132,10 @@ const AdminConsole = () => {
           }}
         />
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             let res = addCourse(
-              "Test Course 3",
+              "Test Course 6",
               "Test Category 3",
               "Test Description 2",
               thumbnail
