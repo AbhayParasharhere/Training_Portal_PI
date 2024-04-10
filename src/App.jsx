@@ -1,9 +1,16 @@
 import "./App.scss";
-import React, { useState } from "react";
 import Header from "./CommonComponents/Header";
-import SignUp from "./Pages/SignupPage";
+
+import SignUpPage from "./Pages/SignupPage";
 import Login from "./Pages/Login";
 import Client from "./Pages/ClientPage";
+
+import SignUp from "./Pages/Signup";
+import AllCourses from "./Pages/AllCourses";
+import CalendarModal from "./CommonComponents/CalendarModal";
+
+import AdminConsole from "./Pages/AdminConsole";
+
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -14,6 +21,7 @@ import Client from "./Pages/ClientPage";
 
 function App() {
   return (
+
     <div style={{ display: "flex", gap: "40px" }}>
       {/* <Header />
       <SignUp />
@@ -24,6 +32,9 @@ function App() {
       {/* <SignUp /> */}
       <Client />
       {/* <Login /> */}
+
+//       <AdminConsole />
+
     </div>
   );
 }
