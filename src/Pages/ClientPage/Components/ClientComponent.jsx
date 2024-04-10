@@ -1,17 +1,32 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import line from "../../../../assets/vertical-line.png";
-import delete_bin from "../../../../assets/delete_bin.png";
-import search_eye from "../../../../assets/search_eye.png";
-import pencil from "../../../../assets/pencil.png";
-import search_icon from "../../../../assets/search_icon.png";
-import red_button from "../../../../assets/red_button.png";
-import plus from "../../../../assets/plus.png";
-import arrow_down from "../../../../assets/arrow_down.png";
+import line from "../Images/vertical-line.png";
+import delete_bin from "../Images/delete_bin.png";
+import search_eye from "../Images/search_eye.png";
+import pencil from "../Images/pencil.png";
+import search_icon from "../Images/search_icon.png";
+import red_button from "../Images/red_button.png";
+import plus from "../Images/plus.png";
+import arrow_down from "../Images/arrow_down.png";
+import { languages } from "monaco-editor";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
-  const list = [0, 1, 2, 3];
+  const list = [
+    {
+      id: "0",
+      name: "Devon Lane",
+      email: "devon@gmail.com",
+      number: "899999999",
+    },
+    {
+      id: "1",
+      name: "Devon smith",
+      email: "devons@gmail.com",
+      number: "899999998",
+    },
+  ];
+  // const list = [0, 1, 2, 3];
 
   const toggleDialog = (index) => {
     if (prevIndex === index) {
@@ -59,15 +74,15 @@ export default function ClientComponent() {
             <th>Email id</th>
             <th>Phone number</th>
           </tr>
-          {list.map((index) => (
-            <tr key={index} className={styles["ClientComponent-tr"]}>
-              <td>Devon Lane</td>
-              <td>someone@gmail.com</td>
-              <td>(808)555-0111</td>
+          {list.map((item) => (
+            <tr key={item.id} className={styles["ClientComponent-tr"]}>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              <td>{item.number}</td>
               <td>
                 <div className={styles["ClientComponent-dialog-div"]}>
                   {/* {!dialogActive && ( */}
-                  {prevIndex === index && (
+                  {prevIndex === item.id && (
                     <dialog className={styles["ClientComponent-dialog-show"]}>
                       <div className={styles["ClientComponent-dialog-content"]}>
                         <img src={search_eye} height="18px" /> View Details
@@ -91,7 +106,7 @@ export default function ClientComponent() {
 
                   <img
                     className={styles["ClientComponent-tr-line"]}
-                    onClick={() => toggleDialog(index)}
+                    onClick={() => toggleDialog(item.id)}
                     src={line}
                   />
                 </div>

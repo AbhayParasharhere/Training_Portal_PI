@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import logo from "../../../../../assets/logo.png";
-import GoogleButton from "../../../../../assets/Continue_Google.png";
-import FB_button from "../../../../../assets/Continue_FB.png";
-import line from "../../../../../assets/line.png";
+import logo from "../../Images/logo.png";
+import GoogleButton from "../../Images/Continue_Google.png";
+import FB_button from "../../Images/Continue_FB.png";
+import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 
 export default function LoginComponent(props) {
