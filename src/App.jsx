@@ -21,7 +21,7 @@ import { AuthContext } from "./context/authContext";
 function App() {
   const currentUser = useContext(AuthContext);
 
-  console.log("This is the current user: ", currentUser.uid);
+  console.log("This is the current user: ", currentUser?.uid);
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       <Header />

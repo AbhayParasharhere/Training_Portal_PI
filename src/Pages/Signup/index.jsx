@@ -21,7 +21,7 @@ export default function SignUp() {
 
   const testSignUp = async () => {
     const res = await signUpWithEmailAndPassword(
-      "abhithedicklord@gmail.com",
+      "abhiwhite@gmail.com",
       "123456"
     );
     // print the response
@@ -31,7 +31,7 @@ export default function SignUp() {
 
   const testSignIn = async () => {
     const res = await signInEmailAndPassword(
-      "abhithedicklord@gmail.com",
+      "abhithecocklord@gmail.com",
       "123456"
     );
     console.log(res);
@@ -48,10 +48,11 @@ export default function SignUp() {
     // store the additional details in the userDetail collection
 
     const res = await storeUserAdditionalDetails(response?.user?.uid, {
+      email: response?.user?.email,
       phone_number: "1234567890",
       address: "123, abc street",
       dob: "01-01-2000",
-      name: response?.user?.displayName || "Abhay",
+      name: response?.user?.displayName || "Abhi the white nigger",
     });
     console.log("In app store additional details fx", res);
   };
