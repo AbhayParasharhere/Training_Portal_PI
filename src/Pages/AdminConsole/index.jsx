@@ -20,6 +20,7 @@ const AdminConsole = () => {
   const [allCourses, setAllCourses] = useState([]);
 
   const selectedCourseRef = useRef(null);
+  const selectedUpdateCourseRef = useRef(null);
   useEffect(() => {
     const fetchCourses = async () => {
       const courses = await getAllCourses();
@@ -207,6 +208,27 @@ const AdminConsole = () => {
         <button onClick={handleDeleteSection}>Delete Section</button>
         Delete Selected Video
         <button onClick={handleDeleteVideo}>Delete Video</button>
+        <hr />
+        <h2>Update Courses</h2>
+        <select ref={selectedUpdateCourseRef}>
+          {
+            // only show courses that does not have status as deleted
+            allCourses
+              .filter((course) => course.status !== "deleted")
+              .map((course) => {
+                return (
+                  <option key={course.id} value={course.id}>
+                    {course.title}
+                  </option>
+                );
+              })
+          }
+        </select>
+        <button>Update Course</button>
+        <input type="text" placeholder="Course Title" />
+        <input type="text" placeholder="Course Category" />
+        <input type="text" placeholder="Course Description" />
+        <input type="file" placeholder="Course Thumbnail" />
       </form>
     </div>
   );
