@@ -113,9 +113,8 @@ export default function SignUp() {
           name="email"
           value={signupDetails.email}
           onChange={(event) => {
-            console.log(loginDetails);
             setSignupDetails({
-              ...loginDetails,
+              ...signupDetails,
               [event.target.name]: event.target.value,
             });
           }}
@@ -125,7 +124,6 @@ export default function SignUp() {
           name="password"
           value={signupDetails.password}
           onChange={(event) => {
-            console.log(loginDetails);
             setSignupDetails({
               ...signupDetails,
               [event.target.name]: event.target.value,
@@ -137,7 +135,6 @@ export default function SignUp() {
           name="name"
           value={signupDetails.name}
           onChange={(event) => {
-            console.log(loginDetails);
             setSignupDetails({
               ...signupDetails,
               [event.target.name]: event.target.value,
