@@ -10,7 +10,6 @@ import LoginComponent from "./Components/Login/LoginComponent";
 import Chat from "./Pages/Chat";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
-
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
