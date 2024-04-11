@@ -14,6 +14,11 @@ import { v4 } from "uuid";
 // Function to create an annoucement from the announcement object as the input
 // which contains the announcement title, announcement description, uid of the user who created the announcement
 const createAnnouncement = async (announcementData) => {
+  console.log("Announcement Data", announcementData);
+  if (!announcementData || announcementData?.user_id === undefined) {
+    throw new Error("Invalid announcement data");
+  }
+
   const createdTimestamp = new Date().toISOString();
   const updatedTimestamp = new Date().toISOString();
   try {
@@ -24,6 +29,7 @@ const createAnnouncement = async (announcementData) => {
       ...announcementData,
       created_at: createdTimestamp,
       updated_at: updatedTimestamp,
+      status: "active",
     });
     return response;
   } catch (error) {

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { auth } from "../../Firebase/firebaseConfig";
 import {
   createAnnouncement,
@@ -9,23 +9,25 @@ import {
 } from "../../Firebase/announcementLogic";
 import { AuthContext } from "../../context/authContext";
 
+// Fix bug of id not being set when user logs in after the component is mounted
 const Announcement = () => {
   const [announcementData, setAnnouncementData] = useState({});
-  const [userID, setUserID] = useState("");
   const [announcementID, setAnnouncementID] = useState("");
   const currentUser = useContext(AuthContext);
+  const [userID, setUserID] = useState(currentUser?.uid);
 
   const handleCreateAnnouncement = async (e) => {
     e.preventDefault();
 
     // Before submitting get the uid of the user who is creating the announcement
     // and add it to the announcementData object
-    setAnnouncementData({ ...announcementData, user_id: currentUser.uid });
+    setAnnouncementData((prev) => ({ ...prev, user_id: currentUser.uid }));
 
-    const res = await createAnnouncement(announcementData);
+    // const res = await createAnnouncement(announcementData);
+    console.log("Announcement Data", announcementData);
 
     console.log(currentUser.uid, announcementData);
-    console.log("Announcement Created", res);
+    // console.log("Announcement Created", res);
   };
   const handleGetAllUserAnnouncements = async (e) => {
     e.preventDefault();
