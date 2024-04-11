@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import profile from "./Images/profile.png";
 
 export default function ClientInfo() {
   return (
@@ -25,70 +26,75 @@ export default function ClientInfo() {
           </button>
         </div>
       </div>
-      <div className={styles["ClientInfo-wrapper-form"]}>
-        <div className={styles["ClientInfo-wrapper-form-text"]}>
-          {" "}
-          <label for="name">Full Name</label>
-          <input
-            type="text"
-            name="name"
-            className={styles["ClientInfo-wrapper-form-text-input"]}
-          ></input>
+      <div className={styles["ClientInfo-wrapper-form-main"]}>
+        {" "}
+        <img
+          src={profile}
+          className={styles["ClientInfo-wrapper-form-image"]}
+        />
+        <div className={styles["ClientInfo-wrapper-form"]}>
+          <div className={styles["ClientInfo-wrapper-form-container"]}>
+            <div className={styles["ClientInfo-wrapper-form-text"]}>
+              {" "}
+              <label for="name">Full Name</label>
+              <label for="gender">Gender</label>
+              <label for="email">Email</label>
+              <label for="number">Phone Number</label>
+              <label for="address">Local Address</label>
+              <label for="dob">Date of Birth</label>
+            </div>
+            <div className={styles["ClientInfo-wrapper-form-input"]}>
+              <input
+                type="text"
+                name="name"
+                className={styles["ClientInfo-wrapper-form-text-input"]}
+              ></input>
+              <input
+                type="text"
+                name="gender"
+                className={styles["ClientInfo-wrapper-form-text-input"]}
+              ></input>
+              <input
+                type="text"
+                name="email"
+                className={styles["ClientInfo-wrapper-form-text-input"]}
+              ></input>
+              <input
+                type="text"
+                name="number"
+                className={styles["ClientInfo-wrapper-form-text-input"]}
+              ></input>
+              <input
+                type="text"
+                name="address"
+                className={styles["ClientInfo-wrapper-form-text-input"]}
+              ></input>
+              <input
+                type="date"
+                name="dob"
+                className={styles["ClientInfo-wrapper-form-text-input"]}
+              ></input>
+            </div>
+          </div>
+          <div className={styles["ClientInfo-wrapper-form-container-annv"]}>
+            <div className={styles["ClientInfo-wrapper-form-text"]}>
+              <label for="Annv">Anniversary</label>
+            </div>
+            <div className={styles["ClientInfo-wrapper-form-input"]}>
+              <input
+                type="date"
+                name="Annv"
+                className={styles["ClientInfo-wrapper-form-text-input"]}
+              ></input>
+            </div>
+          </div>
         </div>
-        <div className={styles["ClientInfo-wrapper-form-text"]}>
-          {" "}
-          <label for="gender">Gender</label>
-          <input
-            type="text"
-            name="gender"
-            className={styles["ClientInfo-wrapper-form-text-input"]}
-          ></input>
-        </div>
-        <div className={styles["ClientInfo-wrapper-form-text"]}>
-          {" "}
-          <label for="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            className={styles["ClientInfo-wrapper-form-text-input"]}
-          ></input>
-        </div>
-        <div className={styles["ClientInfo-wrapper-form-text"]}>
-          {" "}
-          <label for="number">Phone Number</label>
-          <input
-            type="text"
-            name="number"
-            className={styles["ClientInfo-wrapper-form-text-input"]}
-          ></input>
-        </div>
-        <div className={styles["ClientInfo-wrapper-form-text"]}>
-          {" "}
-          <label for="address">Local Address</label>
-          <input
-            type="text"
-            name="address"
-            className={styles["ClientInfo-wrapper-form-text-input"]}
-          ></input>
-        </div>
-        <div className={styles["ClientInfo-wrapper-form-text"]}>
-          {" "}
-          <label for="dob">Date of Birth</label>
-          <input
-            type="date"
-            name="dob"
-            className={styles["ClientInfo-wrapper-form-text-input"]}
-          ></input>
-        </div>
-        <div className={styles["ClientInfo-wrapper-form-text"]}>
-          {" "}
-          <label for="anniv">Anniversary</label>
-          <input
-            type="date"
-            name="anniv"
-            className={styles["ClientInfo-wrapper-form-text-input"]}
-          ></input>
-        </div>
+      </div>
+      <div className={styles["ClientInfo-wrapper-form-notes"]}>
+        <p className={styles["ClientInfo-wrapper-form-notes-text"]}>
+          Personal Notes
+        </p>
+        <textarea></textarea>
       </div>
     </div>
   );
