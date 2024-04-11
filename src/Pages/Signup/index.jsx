@@ -111,7 +111,7 @@ export default function SignUp() {
         <input
           placeholder="Email"
           name="email"
-          value={loginDetails.email}
+          value={signupDetails.email}
           onChange={(event) => {
             console.log(loginDetails);
             setSignupDetails({
@@ -123,7 +123,7 @@ export default function SignUp() {
         <input
           placeholder="Password"
           name="password"
-          value={loginDetails.password}
+          value={signupDetails.password}
           onChange={(event) => {
             console.log(loginDetails);
             setSignupDetails({
@@ -133,9 +133,9 @@ export default function SignUp() {
           }}
         />
         <input
-          placeholder="Password"
+          placeholder="name"
           name="name"
-          value={loginDetails.password}
+          value={signupDetails.name}
           onChange={(event) => {
             console.log(loginDetails);
             setSignupDetails({
