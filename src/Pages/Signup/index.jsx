@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
+
 import {
   signInEmailAndPassword,
   signInwithGoogle,
@@ -18,10 +19,14 @@ import {
 
 export default function SignUp() {
   const [response, setResponse] = useState(null);
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
 
   const testSignUp = async () => {
     const res = await signUpWithEmailAndPassword(
-      "abhiwhite@gmail.com",
+      "abhitest@gmail.com",
       "123456"
     );
     // print the response
@@ -31,8 +36,8 @@ export default function SignUp() {
 
   const testSignIn = async () => {
     const res = await signInEmailAndPassword(
-      "abhithecocklord@gmail.com",
-      "123456"
+      loginDetails.email,
+      loginDetails.password
     );
     console.log(res);
     setResponse(res);
@@ -52,7 +57,7 @@ export default function SignUp() {
       phone_number: "1234567890",
       address: "123, abc street",
       dob: "01-01-2000",
-      name: response?.user?.displayName || "Abhi the white nigger",
+      name: response?.user?.displayName || "Aishi test",
     });
     console.log("In app store additional details fx", res);
   };
@@ -98,7 +103,33 @@ export default function SignUp() {
   return (
     <div style={{ display: "flex", gap: "40px" }}>
       <button onClick={testSignUp}>Test SignUp</button>
-      <button onClick={testSignIn}>Test SignIn</button>
+      <div>
+        <input
+          placeholder="Email"
+          name="email"
+          value={loginDetails.email}
+          onChange={(event) => {
+            console.log(loginDetails);
+            setLoginDetails({
+              ...loginDetails,
+              [event.target.name]: event.target.value,
+            });
+          }}
+        />
+        <input
+          placeholder="Password"
+          name="password"
+          value={loginDetails.password}
+          onChange={(event) => {
+            console.log(loginDetails);
+            setLoginDetails({
+              ...loginDetails,
+              [event.target.name]: event.target.value,
+            });
+          }}
+        />
+        <button onClick={testSignIn}>Test SignIn</button>
+      </div>
       <button onClick={storeAdditionalDetails}>
         Test Adding Other details
       </button>

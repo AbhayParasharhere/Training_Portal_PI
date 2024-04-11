@@ -11,6 +11,8 @@ import {
   getDocs,
   updateDoc,
   serverTimestamp,
+  arrayUnion,
+  Timestamp,
 } from "firebase/firestore";
 
 {
@@ -79,6 +81,7 @@ export async function checkChatExist(combinedId) {
   console.log("This is the response for checking: ", res);
   return res;
 }
+
 export async function createNewChat(combinedId) {
   const res = await setDoc(doc(db, "chats", combinedId), { messages: [] });
 }
@@ -102,4 +105,44 @@ export async function updateUserChat(
   } catch (err) {
     console.log(err);
   }
+}
+
+export async function getCurrentUser(setCurrentUserDetails, uid) {
+  try {
+    const userDoc = await getDoc(doc(db, "userDetail", uid));
+
+    setCurrentUserDetails(userDoc.data());
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getUserChats(currentId, setAllChats) {
+  try {
+    onSnapshot(doc(db, "userChats", currentId), (doc) => {
+      setAllChats(doc.data());
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function saveMessage(message, chatId, userId) {
+  try {
+    const res = updateDoc(doc(db, "chats", chatId), {
+      messages: arrayUnion({
+        message: message,
+        userId: userId,
+        time: Timestamp.now(),
+      }),
+    });
+    return res;
+  } catch (err) {
+    console.log("Saving messsage error: ", err);
+  }
+}
+export async function getAllMessages(chatId, setAllMessages) {
+  onSnapshot(doc(db, "chats", chatId), (response) => {
+    setAllMessages(response.data());
+  });
 }
