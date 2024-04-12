@@ -15,9 +15,11 @@ const AdminConsole = () => {
   const [courseTitle, setCourseTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [video, setVideo] = useState(null);
+  const [videoID, setVideoID] = useState("");
   const [videoName, setVideoName] = useState("");
   const [videoRank, setVideoRank] = useState(0);
   const [sectionName, setSectionName] = useState(null);
+  const [sectionID, setSectionID] = useState(null);
   const [sectionRank, setSectionRank] = useState(0);
   const [allCourses, setAllCourses] = useState([]);
 
@@ -35,7 +37,7 @@ const AdminConsole = () => {
     const selectedCourseID = selectedCourseRef.current.value;
     event.preventDefault();
     const sectionID = v4();
-    // console.log(allCourses);
+
     console.log("ADD SECTION ", selectedCourseID, sectionName);
     const res = await addSection(
       selectedCourseID,
@@ -47,20 +49,31 @@ const AdminConsole = () => {
   };
 
   const handleUploadVideo = async (event) => {
+    if (!video || !videoName || !sectionID || !videoRank) {
+      alert("Please fill in all the fields");
+      return;
+    }
+
     event.preventDefault();
-    const selectedCourse = selectedCourseRef.current.value;
+    const selectedCourseID = selectedCourseRef.current.value;
+
+    const currentTimestamp = new Date().getTime();
+    const videoID =
+      videoName + `+${selectedCourseID}+${sectionID}+${currentTimestamp}`;
 
     console.log(
       "Uploading Video",
-      selectedCourse,
-      sectionName,
+      selectedCourseID,
+      sectionID,
+      videoID,
       video,
       videoName,
       videoRank
     );
     const res = await addVideo(
-      selectedCourse,
-      sectionName,
+      selectedCourseID,
+      sectionID,
+      videoID,
       video,
       videoName,
       videoRank
@@ -111,10 +124,6 @@ const AdminConsole = () => {
       "Enter the section name in the course: " + selectedCourse
     );
 
-    const videoID =
-      "video_" +
-      videoName.toLowerCase().replace(/ /g, "_") +
-      `+${selectedCourse}+${selectedSection}`;
     const confirmation = window.confirm(
       "Are you sure you want to delete this video?"
     );
@@ -208,6 +217,11 @@ const AdminConsole = () => {
         />
         <input
           type="text"
+          placeholder="Section ID"
+          onChange={(event) => setSectionID(event.target.value)}
+        />
+        <input
+          type="text"
           placeholder="Video Name"
           value={videoName}
           onChange={(event) => setVideoName(event.target.value)}
@@ -224,6 +238,12 @@ const AdminConsole = () => {
         Delete Selected Section
         <button onClick={handleDeleteSection}>Delete Section</button>
         Delete Selected Video
+        <input
+          type="text"
+          placeholder="Video ID"
+          value={videoID}
+          onChange={(event) => setVideoID(event.target.value)}
+        />
         <button onClick={handleDeleteVideo}>Delete Video</button>
         <hr />
         <h2>Update Courses</h2>

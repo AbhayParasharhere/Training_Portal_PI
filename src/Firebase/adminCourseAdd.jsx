@@ -231,24 +231,25 @@ const updateVideoRankArray = async (sectionDoc, videoTitle, videoRank) => {
   }
 };
 
+// videoID format = videoName + `+${selectedCourseID}+${sectionID}+${currentTimestamp}`;
+// This function can allow and disallow duplicates based on the videoID,
+// if you want to allow duplicates then do not concatenate the currentTimestamp
+// if you want to disallow duplicates then concatenate the currentTimestamp
 // Function to add video to a given section id and course id
 const addVideo = async (
   courseID,
   sectionID,
+  videoID,
   videoFile,
   videoTitle,
   videoRank
 ) => {
   try {
-    if (!courseID || !sectionID || !videoFile || !videoTitle) {
+    if (!courseID || !sectionID || !videoID || !videoFile || !videoTitle) {
       throw new Error(
         "Unable to upload video: Course ID, Section ID, Video File, and Video Title is required"
       );
     }
-    const formattedVideoTitle =
-      "video_" +
-      videoTitle.toLowerCase().replace(/ /g, "_") +
-      `+${courseID}+${sectionID}`;
 
     // First put the videoTitle in the correct order in the video_rank array in the section document
     // Get the section document
@@ -261,15 +262,15 @@ const addVideo = async (
       throw new Error("Section document does not exist");
     }
     // Check in the section document if the video already exists
-    if (sectionDoc.data()?.video_rank?.includes(formattedVideoTitle)) {
+    if (sectionDoc.data()?.video_rank?.includes(videoID)) {
       throw new Error("Video already exists");
     }
 
     // Update the video rank array in the section document
-    updateVideoRankArray(sectionDoc, formattedVideoTitle, videoRank);
+    updateVideoRankArray(sectionDoc, videoID, videoRank);
 
     // Then upload the video to the storage and show the progress
-    const videoRef = ref(storage, `courseVideos/${formattedVideoTitle}`);
+    const videoRef = ref(storage, `courseVideos/${videoID}`);
     const uploadTask = uploadBytesResumable(videoRef, videoFile);
     uploadTask.on("state_changed", (snapshot) => {
       let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
