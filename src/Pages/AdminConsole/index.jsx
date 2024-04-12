@@ -11,6 +11,7 @@ import {
 import { getAllCourses } from "../../Firebase/courseLogic";
 
 const AdminConsole = () => {
+  const [courseTitle, setCourseTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [video, setVideo] = useState(null);
   const [videoName, setVideoName] = useState("");
@@ -124,6 +125,12 @@ const AdminConsole = () => {
       <hr />
       <form style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
         Add Course
+        <input
+          type="text"
+          placeholder="Course Title"
+          value={courseTitle}
+          onChange={(event) => setCourseTitle(event.target.value)}
+        />
         <label htmlFor="thumbnail_upload">Upload Thumbnail</label>
         <input
           type="file"
@@ -136,7 +143,7 @@ const AdminConsole = () => {
           onClick={(e) => {
             e.preventDefault();
             let res = addCourse(
-              "Test Course 6",
+              courseTitle,
               "Test Category 3",
               "Test Description 2",
               thumbnail
