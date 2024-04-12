@@ -9,24 +9,21 @@ import {
 } from "firebase/storage";
 import { getCourseFromCourseID } from "./courseLogic";
 
-const generateThumbnailName = (title, file) => {
+const generateThumbnailName = (courseID, file) => {
   if (!file) {
     return "No file provided";
   }
   const extension = file?.name.split(".")[file?.name.split(".").length - 1];
-  const res = "thumbnail+" + String(title) + "." + String(extension);
+  const res =
+    "thumbnail+" + "course_" + String(courseID) + "." + String(extension);
   console.log(res);
   return res;
 };
 
-const uploadThumbnail = async (
-  formattedTitle,
-  thumbnailImage,
-  thumbnailName
-) => {
+const uploadThumbnail = async (courseID, thumbnailImage, thumbnailName) => {
   const thumbnailStorageRef = ref(
     storage,
-    `courses/${formattedTitle}/${thumbnailName}`
+    `courses/${courseID}/${thumbnailName}`
   );
   let res = "";
   const uploadedImage = await uploadBytes(thumbnailStorageRef, thumbnailImage);
@@ -34,17 +31,24 @@ const uploadThumbnail = async (
   return res;
 };
 
-const addCourse = async (title, category, description, thumbnailImage) => {
+const addCourse = async (
+  courseID,
+  title,
+  category,
+  description,
+  thumbnailImage
+) => {
   try {
     if (!title) {
       return "Title is required";
     }
-    const formattedTitle = "course_" + title.toLowerCase().replace(/ /g, "_");
-    if (await getCourseFromCourseID(formattedTitle)) {
+    // const formattedTitle = "course_" + title.toLowerCase().replace(/ /g, "_");
+    if (await getCourseFromCourseID(courseID)) {
       throw new Error("Course already exists");
     }
     await addModifyCourse(
-      formattedTitle,
+      courseID,
+      title,
       category,
       description,
       thumbnailImage
@@ -59,7 +63,8 @@ const addCourse = async (title, category, description, thumbnailImage) => {
 // Function to add or modify the course
 // We will get the course title, category, description, and the course raw image
 const addModifyCourse = async (
-  formattedTitle,
+  courseID,
+  title,
   category,
   description,
   thumbnailImage
@@ -69,12 +74,9 @@ const addModifyCourse = async (
 
     // Store the image in the firebase storage and get the download URL
     if (thumbnailImage) {
-      const thumbnailName = generateThumbnailName(
-        formattedTitle,
-        thumbnailImage
-      );
+      const thumbnailName = generateThumbnailName(courseID, thumbnailImage);
       downloadURL = await uploadThumbnail(
-        formattedTitle,
+        courseID,
         thumbnailImage,
         thumbnailName
       );
@@ -82,10 +84,10 @@ const addModifyCourse = async (
     }
 
     // Add the course to the database with doc id as the formatted title
-    const docRef = doc(collection(db, "Courses"), formattedTitle);
+    const docRef = doc(collection(db, "Courses"), courseID);
 
     await setDoc(docRef, {
-      title: formattedTitle,
+      title: title,
       category: category,
       description: description,
       thumbnailURL: downloadURL,
@@ -100,11 +102,7 @@ const addModifyCourse = async (
 };
 
 // To update the section rank array in the course document
-const updateSectionRankArray = async (
-  courseID,
-  formattedSectionTitle,
-  sectionRank
-) => {
+const updateSectionRankArray = async (courseID, sectionID, sectionRank) => {
   const currentCourse = await getCourseFromCourseID(courseID);
   const courseRef = doc(db, "Courses", courseID);
   const sectionRankArray = currentCourse?.sections_rank;
@@ -113,7 +111,7 @@ const updateSectionRankArray = async (
   if (!sectionRankArray) {
     console.log("Adding the first section");
     await updateDoc(courseRef, {
-      sections_rank: [formattedSectionTitle],
+      sections_rank: [sectionID],
     });
     return "Section Added";
   } else if (sectionRank >= sectionRankArray?.length || sectionRank < 0) {
@@ -123,7 +121,7 @@ const updateSectionRankArray = async (
       sectionRank <= 0
     );
     await updateDoc(courseRef, {
-      sections_rank: [...sectionRankArray, formattedSectionTitle],
+      sections_rank: [...sectionRankArray, sectionID],
     });
   } else {
     console.log("Adding at a specific position", sectionRank);
@@ -133,7 +131,7 @@ const updateSectionRankArray = async (
       updatedSectionRankArray.push(sectionRankArray[i]);
     }
     // Then push the new section
-    updatedSectionRankArray.push(formattedSectionTitle);
+    updatedSectionRankArray.push(sectionID);
 
     // Then push all the elements after the section rank
     for (let i = sectionRank; i < sectionRankArray.length; i++) {
@@ -148,20 +146,18 @@ const updateSectionRankArray = async (
 };
 
 // Function to add the section from a given course id
-const addSection = async (courseID, sectionTitle, sectionRank) => {
+const addSection = async (courseID, sectionID, sectionTitle, sectionRank) => {
   try {
     if (!courseID || !sectionTitle) {
       return "Unable to create a new section document: Course ID and Section Title is required";
     }
 
-    // If sections collection exists then we need to create a new section document with the section title
+    // If sections collection exists then we need to create a new section document
     // else we need to create the sections collection first
-    const formattedSectionTitle =
-      "section_" + sectionTitle.toLowerCase().replace(/ /g, "_");
 
     const sectionRef = doc(
       collection(db, `Courses/${courseID}/sections`),
-      formattedSectionTitle
+      sectionID
     );
 
     // Check if the section doc already exists
@@ -178,7 +174,7 @@ const addSection = async (courseID, sectionTitle, sectionRank) => {
     });
 
     // Now update the course document with the updated section rank array
-    updateSectionRankArray(courseID, formattedSectionTitle, sectionRank);
+    updateSectionRankArray(courseID, sectionID, sectionRank);
 
     return "Section Added";
   } catch (error) {

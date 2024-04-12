@@ -9,6 +9,7 @@ import {
   deleteVideo,
 } from "../../Firebase/adminCourseAdd";
 import { getAllCourses } from "../../Firebase/courseLogic";
+import { v4 } from "uuid";
 
 const AdminConsole = () => {
   const [courseTitle, setCourseTitle] = useState("");
@@ -31,11 +32,17 @@ const AdminConsole = () => {
   }, []);
 
   const handleAddSection = async (event) => {
-    const selectedCourse = selectedCourseRef.current.value;
+    const selectedCourseID = selectedCourseRef.current.value;
     event.preventDefault();
-    console.log(allCourses);
-    console.log(selectedCourse, sectionName);
-    const res = await addSection(selectedCourse, sectionName, sectionRank);
+    const sectionID = v4();
+    // console.log(allCourses);
+    console.log("ADD SECTION ", selectedCourseID, sectionName);
+    const res = await addSection(
+      selectedCourseID,
+      sectionID,
+      sectionName,
+      sectionRank
+    );
     console.log(res);
   };
 
@@ -142,7 +149,9 @@ const AdminConsole = () => {
         <button
           onClick={(e) => {
             e.preventDefault();
+            const courseID = v4();
             let res = addCourse(
+              courseID,
               courseTitle,
               "Test Category 3",
               "Test Description 2",
@@ -163,6 +172,7 @@ const AdminConsole = () => {
             allCourses
               .filter((course) => course.status !== "deleted")
               .map((course) => {
+                // console.log(course.id, course.title);
                 return (
                   <option key={course.id} value={course.id}>
                     {course.title}
