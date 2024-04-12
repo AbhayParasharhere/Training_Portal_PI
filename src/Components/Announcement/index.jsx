@@ -14,21 +14,23 @@ const Announcement = () => {
   const [announcementData, setAnnouncementData] = useState({});
   const [announcementID, setAnnouncementID] = useState("");
   const currentUser = useContext(AuthContext);
-  const [userID, setUserID] = useState(currentUser?.uid);
+  const [userID, setUserID] = useState("");
+
+  // Update announcementData when currentUser changes
+  useEffect(() => {
+    setAnnouncementData((prev) => ({
+      ...prev,
+      user_id: currentUser?.uid,
+    }));
+  }, [currentUser]);
 
   const handleCreateAnnouncement = async (e) => {
     e.preventDefault();
-
-    // Before submitting get the uid of the user who is creating the announcement
-    // and add it to the announcementData object
-    setAnnouncementData((prev) => ({ ...prev, user_id: currentUser.uid }));
-
-    // const res = await createAnnouncement(announcementData);
     console.log("Announcement Data", announcementData);
-
-    console.log(currentUser.uid, announcementData);
-    // console.log("Announcement Created", res);
+    const res = await createAnnouncement(announcementData);
+    console.log("Announcement Created", res);
   };
+
   const handleGetAllUserAnnouncements = async (e) => {
     e.preventDefault();
     const res = await getAllUserAnnouncements(currentUser?.uid);
@@ -48,7 +50,16 @@ const Announcement = () => {
 
   const handleUpdateAnnouncement = async (e) => {
     e.preventDefault();
-    const res = await updateAnnouncement(announcementID, announcementData);
+
+    // Remove user_id from announcementData
+    const updatedAnnouncementData = { ...announcementData };
+    delete updatedAnnouncementData?.user_id;
+    console.log("Updated Announcement Data", updatedAnnouncementData);
+
+    const res = await updateAnnouncement(
+      announcementID,
+      updatedAnnouncementData
+    );
     console.log("Announcement Updated", res);
   };
 
@@ -65,6 +76,7 @@ const Announcement = () => {
         <input
           type="text"
           placeholder="Enter the announcement title"
+          value={announcementData.title}
           onChange={(e) =>
             setAnnouncementData({ ...announcementData, title: e.target.value })
           }
@@ -72,6 +84,7 @@ const Announcement = () => {
         <textarea
           type="text"
           placeholder="Enter the announcement description"
+          value={announcementData.description}
           onChange={(e) =>
             setAnnouncementData({
               ...announcementData,
@@ -116,6 +129,7 @@ const Announcement = () => {
         <input
           type="text"
           placeholder="Enter the announcement title"
+          value={announcementData.title}
           onChange={(e) =>
             setAnnouncementData({ ...announcementData, title: e.target.value })
           }
@@ -123,6 +137,7 @@ const Announcement = () => {
         <textarea
           type="text"
           placeholder="Enter the announcement description"
+          value={announcementData.description}
           onChange={(e) =>
             setAnnouncementData({
               ...announcementData,
