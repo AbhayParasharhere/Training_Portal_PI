@@ -1,20 +1,6 @@
 import { db } from "./firebaseConfig";
-import {
-  setDoc,
-  doc,
-  collection,
-  addDoc,
-  onSnapshot,
-  getDoc,
-  query,
-  where,
-  getDocs,
-  updateDoc,
-  serverTimestamp,
-  arrayUnion,
-  Timestamp,
-} from "firebase/firestore";
 
+// Firebase import and setup
 {
   /*
         Logic: There are going to be 2 new collections :
@@ -36,37 +22,48 @@ import {
                             timeCreated:"",
                             lastMessage:[]
                         }
-                }
-    */
+                }
+    */
 }
-const userChatCollectionRef = collection(db, "userChats");
-const userCollectionRef = collection(db, "userDetail");
+
+import {
+  setDoc,
+  doc,
+  collection,
+  onSnapshot,
+  getDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  serverTimestamp,
+  arrayUnion,
+  Timestamp,
+} from "firebase/firestore";
+
+// userChatCollectionRef and userCollectionRef definitions
 
 export async function createUserChats(currentUser) {
-  //created chats info doc for each user after registration
   try {
-    console.log("Current user id: ", currentUser);
     const res = await setDoc(doc(db, "userChats", currentUser), {});
-    console.log("Response for adding doc in user chat collection", res);
+    return res;
   } catch (err) {
     console.log(err);
     return err;
   }
 }
+
 export async function searchUser(searchUserName, setUser) {
   try {
-    console.log("searching");
     const userSearch = query(
       userCollectionRef,
       where("name", "==", searchUserName)
     );
     const querySnapshot = await getDocs(userSearch);
     const allUsers = [];
-    console.log("This is the query snapshot: ", querySnapshot);
     querySnapshot.forEach((doc) => {
       allUsers.push({ ...doc.data(), id: doc.id });
     });
-    console.log("These are all the users ", allUsers);
     setUser(allUsers);
   } catch (err) {
     console.log(err);
@@ -74,16 +71,13 @@ export async function searchUser(searchUserName, setUser) {
 }
 
 export async function checkChatExist(combinedId) {
-  //Checking if the chat already exists
-  console.log("checking starts");
-
   const res = await getDoc(doc(db, "chats", combinedId));
-  console.log("This is the response for checking: ", res);
   return res;
 }
 
 export async function createNewChat(combinedId) {
   const res = await setDoc(doc(db, "chats", combinedId), { messages: [] });
+  return res;
 }
 
 export async function updateUserChat(
@@ -93,7 +87,6 @@ export async function updateUserChat(
   userName
 ) {
   try {
-    console.log("Making user chat");
     const res = await updateDoc(doc(db, "userChats", currentUserId), {
       [combinedId + ".userInfo"]: {
         uid: userId,
@@ -110,7 +103,6 @@ export async function updateUserChat(
 export async function getCurrentUser(setCurrentUserDetails, uid) {
   try {
     const userDoc = await getDoc(doc(db, "userDetail", uid));
-
     setCurrentUserDetails(userDoc.data());
   } catch (err) {
     console.log(err);
@@ -119,9 +111,10 @@ export async function getCurrentUser(setCurrentUserDetails, uid) {
 
 export async function getUserChats(currentId, setAllChats) {
   try {
-    onSnapshot(doc(db, "userChats", currentId), (doc) => {
+    const unsubscribe = onSnapshot(doc(db, "userChats", currentId), (doc) => {
       setAllChats(doc.data());
     });
+    return unsubscribe;
   } catch (err) {
     console.log(err);
   }
@@ -129,7 +122,7 @@ export async function getUserChats(currentId, setAllChats) {
 
 export async function saveMessage(message, chatId, userId) {
   try {
-    const res = updateDoc(doc(db, "chats", chatId), {
+    const res = await updateDoc(doc(db, "chats", chatId), {
       messages: arrayUnion({
         message: message,
         userId: userId,
@@ -138,11 +131,16 @@ export async function saveMessage(message, chatId, userId) {
     });
     return res;
   } catch (err) {
-    console.log("Saving messsage error: ", err);
+    console.log("Saving message error: ", err);
   }
 }
+
 export async function getAllMessages(chatId, setAllMessages) {
-  onSnapshot(doc(db, "chats", chatId), (response) => {
-    setAllMessages(response.data());
-  });
+  try {
+    const unsubscribe = onSnapshot(doc(db, "chats", chatId), (response) => {
+      setAllMessages(response.data());
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }

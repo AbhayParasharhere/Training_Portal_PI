@@ -1,26 +1,31 @@
-import { createContext, useEffect, useState, useContext, unsub } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import { getCurrentUser } from "../Firebase/chat";
 import { AuthContext } from "./authContext";
 
-{
-  /*This function is to get the current user details and that current user is accessable by every file in this project
-      as the child of AuthContext.Procider function is set to be the App component
-  */
-}
-
 export const CurrentUserContext = createContext();
 
-export const CurrentUserContextProvider = ({ children }) => {
+export const CurrentUserContextProvider = ({
+  children,
+  newDetailsAdded,
+  setNewDetailsAdded,
+}) => {
   const currentUser = useContext(AuthContext);
-
   const [currentUserDetails, setCurrentUserDetails] = useState();
-  useEffect(() => {
-    getCurrentUser(setCurrentUserDetails, currentUser?.uid);
 
-    return () => {
-      null;
-    };
-  }, [currentUser]);
+  useEffect(() => {
+    if (newDetailsAdded && currentUser && currentUser.uid) {
+      console.log("Fetching current user");
+      getCurrentUser(setCurrentUserDetails, currentUser.uid)
+        .then(() => {
+          // Set newDetailsAdded to false after fetching details
+          setNewDetailsAdded(false);
+        })
+        .catch((error) =>
+          console.error("Error fetching current user details:", error)
+        );
+    }
+  }, [currentUser, newDetailsAdded]);
+
   return (
     <CurrentUserContext.Provider value={currentUserDetails}>
       {children}

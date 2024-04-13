@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import styles from "./styles.module.scss";
 import {
   checkChatExist,
@@ -16,9 +16,9 @@ import { CurrentUserContext } from "../../context/currentUserContext";
 
 export default function Chat() {
   const [searchUserName, setSearchUserName] = useState("");
-  const [user, setUser] = useState();
-  const [allChats, setAllChats] = useState();
-  const [message, setMessage] = useState();
+  const [user, setUser] = useState(null);
+  const [allChats, setAllChats] = useState(null);
+  const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
   const [chatUserDetails, setChatUserDetails] = useState({
     displayName: "User Name",
@@ -28,15 +28,23 @@ export default function Chat() {
   const currentUser = useContext(AuthContext);
   const currentUserDetails = useContext(CurrentUserContext);
 
-  const userChat = () => {
-    createUserChats(currentUser?.uid);
-  };
+  console.log("Current user details: ", currentUserDetails);
+
+  useEffect(() => {
+    if (currentUser?.uid) {
+      const unsubscribe = getUserChats(currentUser.uid, setAllChats);
+      // return () => {
+      //   if (unsubscribe) {
+      //     console.log("Unsubscribing working", unsubscribe);
+      //   }
+      // };
+    }
+  }, [currentUser?.uid]);
 
   useEffect(() => {
     setSearchUserName("");
-    setUser();
-    setAllChats();
-    setMessage();
+    setUser(null);
+    setMessage("");
     setAllMessages([]);
     setChatUserDetails({
       displayName: "User Name",
@@ -44,59 +52,38 @@ export default function Chat() {
     });
   }, [currentUser]);
 
-  useEffect(() => {
-    currentUser?.uid && getUserChats(currentUser.uid, setAllChats); // This gets all the chats that the current user has
-
-    //NOTE- We are getting all the chats in an object of objects, Then to iterate through it we convert the key value pairings into an array using Object.entries
-  }, [currentUser?.uid]);
   const handleSearch = async () => {
-    //Searching for the user, we want tos chat with
-    await searchUser(searchUserName, setUser); //Storing all the info of all the matching users in a state of array
-  };
-
-  const handleKey = (e) => {
-    e.code === "Enter" && handleSearch(); //search by entering
+    if (searchUserName.trim() !== "") {
+      await searchUser(searchUserName, setUser);
+    }
   };
 
   const handleSelect = async (id, name) => {
-    //When an user from the list is clicked, we get its info and make a combined id for their chat
-    console.log("This is the id provided: ", id);
     const combinedId =
       currentUser?.uid > id ? currentUser?.uid + id : id + currentUser?.uid;
-    console.log("This is the combined id: ", combinedId);
 
     try {
+      if (!combinedId || !id || !name || !currentUser) {
+        return;
+      }
+
       const chat = await checkChatExist(combinedId);
+
       if (!chat.exists()) {
-        const makeChat = await createNewChat(combinedId);
-
-        const currentUserChat = await updateUserChat(
-          currentUser?.uid,
-          combinedId,
-          id,
-          name
-        );
-        console.log("After updating currentt user chat");
-
-        const otherUserChat = await updateUserChat(
-          id,
-          combinedId,
-          currentUser?.uid,
-          currentUserDetails?.name
-        );
-        console.log("After updating other  user chat");
+        await Promise.all([
+          createNewChat(combinedId),
+          updateUserChat(currentUser?.uid, combinedId, id, name),
+          updateUserChat(
+            id,
+            combinedId,
+            currentUser?.uid,
+            currentUserDetails?.name
+          ),
+        ]);
       }
     } catch (err) {
       console.log(err);
     }
-  };
-  const renderChat = (displayName, id) => {
-    setChatUserDetails({
-      ...chatUserDetails,
-      displayName: displayName,
-      id: id,
-    });
-    console.log("These are the details fo chat user", chatUserDetails);
   };
 
   const handleMessage = (event) => {
@@ -104,28 +91,33 @@ export default function Chat() {
   };
 
   const handleSaveMessage = async () => {
-    if (!message) {
-      console.log("Cannot store empty string");
-      return;
+    if (message.trim() !== "") {
+      await saveMessage(message, chatUserDetails.id, currentUser?.uid);
+      setMessage("");
     }
-    const savingResponse = await saveMessage(
-      message,
-      chatUserDetails.id,
-      currentUser?.uid
-    );
-
-    console.log(
-      "The response after calling save message function: ",
-      savingResponse
-    );
-    setMessage("");
   };
 
   useEffect(() => {
-    console.log("All the messages: ", allMessages);
-    chatUserDetails.id !== "User id" &&
-      getAllMessages(chatUserDetails.id, setAllMessages);
+    if (chatUserDetails.id !== "User id") {
+      const unsubscribe = getAllMessages(chatUserDetails.id, setAllMessages);
+      return () => {
+        //   if (unsubscribe) {
+        //     console.log("Unbscribing for messages ", unsubscribe);
+        //   }
+        // };
+        unsubscribe();
+      };
+    }
   }, [chatUserDetails]);
+
+  const renderChat = (displayName, id) => {
+    setChatUserDetails({
+      ...chatUserDetails,
+      displayName: displayName,
+      id: id,
+    });
+  };
+
   return (
     <div
       style={{
@@ -138,38 +130,33 @@ export default function Chat() {
       <div>XYZ</div>
       <input
         placeholder="Enter User Name"
-        onKeyDown={handleKey}
+        onKeyDown={(e) => e.code === "Enter" && handleSearch()}
         value={searchUserName}
-        onChange={(event) => {
-          setSearchUserName(event.target.value);
-          //   console.log(setMessage);
-        }}
+        onChange={(event) => setSearchUserName(event.target.value)}
       />
-      <button>Send</button>
-      {user?.map((user) => {
-        //Displaying all the matching users in a list format
-        return (
-          <div
-            style={{
-              marginTop: "20px",
-              backgroundColor: "white",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 20,
-              cursor: "pointer",
-            }}
-            onClick={() => handleSelect(user.id, user.name)}
-          >
-            <div>{user.name}</div>
-            <div>{user.email}</div>
-          </div>
-        );
-      })}
+      <button onClick={handleSearch}>Search</button>
+      {user?.map((user) => (
+        <div
+          key={user.id}
+          style={{
+            marginTop: "20px",
+            backgroundColor: "white",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 20,
+            cursor: "pointer",
+          }}
+          onClick={() => handleSelect(user.id, user.name)}
+        >
+          <div>{user.name}</div>
+          <div>{user.email}</div>
+        </div>
+      ))}
 
       <button
         style={{ marginTop: "40px", maxWidth: "200px" }}
-        onClick={userChat}
+        onClick={() => createUserChats(currentUser?.uid)}
       >
         Create User Chat doc
       </button>
@@ -184,35 +171,30 @@ export default function Chat() {
           }}
         >
           {allChats &&
-            Object.entries(allChats)?.map((chats) => {
-              return (
-                <div
-                  key={chats[0]}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 20,
-                    height: 100,
-                    backgroundColor: "white",
-                    cursor: "pointer",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    renderChat(chats[1].userInfo.displayName, chats[0]);
-                  }}
-                >
-                  <p>{chats[0]}</p>
-                  <p>{chats[1].userInfo.displayName}</p>
-                </div>
-              );
-            })}
+            Object.entries(allChats)?.map(([id, chat]) => (
+              <div
+                key={id}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 20,
+                  height: 100,
+                  backgroundColor: "white",
+                  cursor: "pointer",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onClick={() => renderChat(chat.userInfo?.displayName, id)}
+              >
+                <p>{id}</p>
+                <p>{chat.userInfo?.displayName}</p>
+              </div>
+            ))}
         </div>
         <div
           style={{
             flex: 2,
-
             height: "100%",
             display: "flex",
             flexDirection: "column",
@@ -242,31 +224,28 @@ export default function Chat() {
               width: "100%",
             }}
           >
-            {allMessages?.messages?.map((chat) => {
-              return (
-                <div
-                  style={{
-                    minWidth: "200px",
-                    maxWidth: "250px",
-                    backgroundColor:
-                      chat.userId === currentUser.uid ? "white" : "grey",
-                    color: chat.userId === currentUser.uid ? "black" : "white",
-                    marginBottom: "20px",
-                    alignSelf:
-                      chat.userId === currentUser.uid
-                        ? "flex-end"
-                        : "flex-start",
-                    padding: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 10,
-                  }}
-                >
-                  <p>{chat.message}</p>
-                </div>
-              );
-            })}
+            {allMessages?.messages?.map((chat) => (
+              <div
+                key={chat.id}
+                style={{
+                  minWidth: "200px",
+                  maxWidth: "250px",
+                  backgroundColor:
+                    chat.userId === currentUser.uid ? "white" : "grey",
+                  color: chat.userId === currentUser.uid ? "black" : "white",
+                  marginBottom: "20px",
+                  alignSelf:
+                    chat.userId === currentUser.uid ? "flex-end" : "flex-start",
+                  padding: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 10,
+                }}
+              >
+                <p>{chat.message}</p>
+              </div>
+            ))}
           </div>
 
           <div

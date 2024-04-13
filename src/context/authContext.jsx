@@ -8,16 +8,14 @@ export const AuthContext = createContext();
     as the child of AuthContext.Procider function is set to be the App component
 */
 }
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children, setNewDetailsAdded }) => {
   const [currentUser, setCurrentUser] = useState();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      setNewDetailsAdded(true);
       //   console.log(user);
     });
-    return () => {
-      unsub();
-    };
   }, []);
   return (
     <AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>

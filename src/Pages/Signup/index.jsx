@@ -17,7 +17,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 
-export default function SignUp() {
+export default function SignUp({ setNewDetailsAdded }) {
   const [response, setResponse] = useState(null);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
@@ -30,22 +30,30 @@ export default function SignUp() {
   });
 
   const testSignUp = async () => {
-    const res = await signUpWithEmailAndPassword(
-      signupDetails.email,
-      signupDetails.password
-    );
-    // print the response
-    console.log(res);
-    setResponse(res);
+    try {
+      const res = await signUpWithEmailAndPassword(
+        signupDetails.email,
+        signupDetails.password
+      );
+      console.log(res);
+      await setResponse(res);
+      // print the response
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const testSignIn = async () => {
-    const res = await signInEmailAndPassword(
-      loginDetails.email,
-      loginDetails.password
-    );
-    console.log(res);
-    setResponse(res);
+    try {
+      const res = await signInEmailAndPassword(
+        loginDetails.email,
+        loginDetails.password
+      );
+      console.log(res);
+      await setResponse(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const testGoogleSignIn = async () => {
@@ -55,16 +63,19 @@ export default function SignUp() {
   };
 
   const storeAdditionalDetails = async () => {
-    // store the additional details in the userDetail collection
-
-    const res = await storeUserAdditionalDetails(response?.user?.uid, {
-      email: response?.user?.email,
-      phone_number: "1234567890",
-      address: "123, abc street",
-      dob: "01-01-2000",
-      name: response?.user?.displayName || signupDetails.name,
-    });
-    console.log("In app store additional details fx", res);
+    try {
+      const res = await storeUserAdditionalDetails(response?.user?.uid, {
+        email: response?.user?.email,
+        phone_number: "1234567890",
+        address: "123, abc street",
+        dob: "01-01-2000",
+        name: response?.user?.displayName || signupDetails.name,
+      });
+      console.log("In app store additional details fx", res);
+      setNewDetailsAdded(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const [imageFile, setImageFile] = useState(null);

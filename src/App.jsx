@@ -1,5 +1,6 @@
 import "./App.scss";
 import Header from "./CommonComponents/Header";
+import React, { useState } from "react";
 import SignUp from "./Pages/Signup";
 import AllCourses from "./Pages/AllCourses";
 import CalendarModal from "./CommonComponents/CalendarModal";
@@ -9,7 +10,8 @@ import Register_2Component from "./Components/Register_2/Register_2Component";
 import LoginComponent from "./Components/Login/LoginComponent";
 import Chat from "./Pages/Chat";
 import { useContext } from "react";
-import { AuthContext } from "./context/authContext";
+import { AuthContext, AuthContextProvider } from "./context/authContext";
+import { CurrentUserContextProvider } from "./context/currentUserContext";
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
@@ -19,15 +21,24 @@ import { AuthContext } from "./context/authContext";
 
 function App() {
   const currentUser = useContext(AuthContext);
+  const [newDetailsAdded, setNewDetailsAdded] = useState(false);
 
   console.log("This is the current user: ", currentUser);
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
-      <Header />
-      <Chat />
-      <SignUp />
-      {/* <AllCourses /> */}
-      {/* <LoginComponent /> */}
+      <AuthContextProvider setNewDetailsAdded={setNewDetailsAdded}>
+        <CurrentUserContextProvider
+          setNewDetailsAdded={setNewDetailsAdded}
+          newDetailsAdded={newDetailsAdded}
+        >
+          {" "}
+          <Header />
+          <Chat />
+          <SignUp setNewDetailsAdded={setNewDetailsAdded} />
+          {/* <AllCourses /> */}
+          {/* <LoginComponent /> */}
+        </CurrentUserContextProvider>
+      </AuthContextProvider>
     </div>
   );
 }
