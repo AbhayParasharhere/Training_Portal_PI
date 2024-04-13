@@ -7,6 +7,7 @@ import Button from "./CommonComponents/Button";
 import Announcement from "./CommonComponents/Announcement";
 import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
+import MainCover from "./Pages/Welcome/components/MainCover";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -24,8 +25,9 @@ function App() {
       {/* <SignUp /> */}
       {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
-      <Login />
+      {/* <Login /> */}
       {/* <AdminConsole /> */}
+      <MainCover />
     </div>
   );
 }
