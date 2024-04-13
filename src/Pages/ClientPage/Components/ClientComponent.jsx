@@ -8,7 +8,6 @@ import search_icon from "../Images/search_icon.png";
 import red_button from "../Images/red_button.png";
 import plus from "../Images/plus.png";
 import arrow_down from "../Images/arrow_down.png";
-import { languages } from "monaco-editor";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
