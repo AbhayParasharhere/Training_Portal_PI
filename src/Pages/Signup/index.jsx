@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
+
 import {
   signInEmailAndPassword,
   signInwithGoogle,
@@ -16,26 +17,43 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 
-export default function SignUp() {
+export default function SignUp({ setNewDetailsAdded }) {
   const [response, setResponse] = useState(null);
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+  const [signupDetails, setSignupDetails] = useState({
+    email: "",
+    password: "",
+  });
 
   const testSignUp = async () => {
-    const res = await signUpWithEmailAndPassword(
-      "abhithedicklord@gmail.com",
-      "123456"
-    );
-    // print the response
-    console.log(res);
-    setResponse(res);
+    try {
+      const res = await signUpWithEmailAndPassword(
+        signupDetails.email,
+        signupDetails.password
+      );
+      console.log(res);
+      await setResponse(res);
+      // print the response
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const testSignIn = async () => {
-    const res = await signInEmailAndPassword(
-      "abhithedicklord@gmail.com",
-      "123456"
-    );
-    console.log(res);
-    setResponse(res);
+    try {
+      const res = await signInEmailAndPassword(
+        loginDetails.email,
+        loginDetails.password
+      );
+      console.log(res);
+      await setResponse(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const testGoogleSignIn = async () => {
@@ -45,15 +63,19 @@ export default function SignUp() {
   };
 
   const storeAdditionalDetails = async () => {
-    // store the additional details in the userDetail collection
-
-    const res = await storeUserAdditionalDetails(response?.user?.uid, {
-      phone_number: "1234567890",
-      address: "123, abc street",
-      dob: "01-01-2000",
-      name: response?.user?.displayName || "Abhay",
-    });
-    console.log("In app store additional details fx", res);
+    try {
+      const res = await storeUserAdditionalDetails(response?.user?.uid, {
+        email: response?.user?.email,
+        phone_number: "1234567890",
+        address: "123, abc street",
+        dob: "01-01-2000",
+        name: response?.user?.displayName || signupDetails.name,
+      });
+      console.log("In app store additional details fx", res);
+      setNewDetailsAdded(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const [imageFile, setImageFile] = useState(null);
@@ -96,8 +118,69 @@ export default function SignUp() {
   };
   return (
     <div style={{ display: "flex", gap: "40px" }}>
-      <button onClick={testSignUp}>Test SignUp</button>
-      <button onClick={testSignIn}>Test SignIn</button>
+      <div>
+        <input
+          placeholder="Email"
+          name="email"
+          value={signupDetails.email}
+          onChange={(event) => {
+            setSignupDetails({
+              ...signupDetails,
+              [event.target.name]: event.target.value,
+            });
+          }}
+        />
+        <input
+          placeholder="Password"
+          name="password"
+          value={signupDetails.password}
+          onChange={(event) => {
+            setSignupDetails({
+              ...signupDetails,
+              [event.target.name]: event.target.value,
+            });
+          }}
+        />
+        <input
+          placeholder="name"
+          name="name"
+          value={signupDetails.name}
+          onChange={(event) => {
+            setSignupDetails({
+              ...signupDetails,
+              [event.target.name]: event.target.value,
+            });
+          }}
+        />
+        <button onClick={testSignUp}>Test SignUp</button>
+      </div>
+      <div>
+        <input
+          placeholder="Email"
+          name="email"
+          value={loginDetails.email}
+          onChange={(event) => {
+            console.log(loginDetails);
+            setLoginDetails({
+              ...loginDetails,
+              [event.target.name]: event.target.value,
+            });
+          }}
+        />
+        <input
+          placeholder="Password"
+          name="password"
+          value={loginDetails.password}
+          onChange={(event) => {
+            console.log(loginDetails);
+            setLoginDetails({
+              ...loginDetails,
+              [event.target.name]: event.target.value,
+            });
+          }}
+        />
+        <button onClick={testSignIn}>Test SignIn</button>
+      </div>
       <button onClick={storeAdditionalDetails}>
         Test Adding Other details
       </button>
