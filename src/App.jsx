@@ -6,6 +6,7 @@ import CalendarModal from "./CommonComponents/CalendarModal";
 import Button from "./CommonComponents/Button";
 import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
+import Client from "./Pages/ClientPage";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -21,7 +22,8 @@ function App() {
       {/* <SignUp /> */}
       {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
-      <Login />
+      {/* <Login /> */}
+      <Client />
       {/* <AdminConsole /> */}
     </div>
   );
