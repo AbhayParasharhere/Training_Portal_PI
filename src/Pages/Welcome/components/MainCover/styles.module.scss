@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css?family=Inter");
+
+.wcover--graph-heading-container {
+  min-height: 800px;
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+.wcover--logo-graph-container {
+  flex: 1;
+}
+.wcover--logo {
+  height: 100px;
+}
+.wcover--heading-text {
+  font-family: Epilogue;
+  font-size: 46px;
+  font-weight: 400;
+  line-height: 72px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+}
+.wcover--button-container {
+  display: flex;
+  gap: 20px;
+}
+.wcover--signup-button {
+  background-color: #2d355c;
+  border: none;
+  height: 45px;
+  width: 115px;
+  border-radius: 5px;
+  color: white;
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+.wcover--login-button {
+  background-color: transparent;
+  height: 45px;
+  width: 115px;
+  border: 2px solid #3064d4;
+  color: #3064d4;
+  border-radius: 5px;
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+.wcover--graph-container {
+  background: #0e56f014;
+  margin-top: 30px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //   align-items: center;
+  padding: 40px;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  gap: 20px;
+  text-align: left;
+  max-width: 400px;
+  height: 200px;
+  padding-left: 70px;
+  padding-right: 50px;
+}
+.wcover--image-desc-container {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.wcover--cover-image {
+  width: 100%;
+  background-color: #2d355c;
+  border-radius: 20px;
+  height: 500px;
+}
+.wcover--desc-text {
+  max-width: 550px;
+  font-family: Epilogue;
+  font-size: 18px;
+  font-weight: 400;
+  align-self: center;
+  line-height: 27px;
+  //   letter-spacing: -0.03em;
+  color: #1e1e1e;
+}
