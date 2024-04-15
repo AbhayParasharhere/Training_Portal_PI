@@ -1,6 +1,8 @@
 // DashboardAnimation.js
 import React, { useRef, useEffect, useState } from "react";
 import styles from "./styles.module.scss"; // Assuming you have your CSS in a separate file
+import rectangleHorizontal from "./images/rectangle-horizontal.png";
+import rectangleVertical from "./images/reactangle-vertical.png";
 
 const DashboardAnimation = ({ children }) => {
   const interBubbleRef = useRef(null);
@@ -65,8 +67,37 @@ const DashboardAnimation = ({ children }) => {
       </div>
       {/*The code for the animation ends here */}
       <div className={styles["dashpreview--main-container"]}>
+        <img
+          src={rectangleHorizontal}
+          className={styles["dashpreview--rectangle-left-middle"]}
+        />
+        <img
+          src={rectangleVertical}
+          className={styles["dashpreview--rectangle-left-top"]}
+        />
+        <img
+          src={rectangleVertical}
+          className={styles["dashpreview--rectangle-right-top"]}
+        />
+        <img
+          src={rectangleHorizontal}
+          className={styles["dashpreview--rectangle-right-middle"]}
+        />
+        <img
+          src={rectangleHorizontal}
+          className={styles["dashpreview--rectangle-right-bottom"]}
+        />
         Everything at one place{" "}
         <div className={styles["dashpreview--image-container"]}>
+          <div className={styles["dashpreview--features-exlpore"]}>
+            EXPLORE FEATURES
+          </div>
+          <div className={styles["dashpreview--features-track"]}>
+            TRACK PROGRESS
+          </div>
+          <div className={styles["dashpreview--features-update"]}>
+            STAY UPDATED
+          </div>
           <div className={styles["dashpreview--image"]}></div>
         </div>
       </div>{" "}
