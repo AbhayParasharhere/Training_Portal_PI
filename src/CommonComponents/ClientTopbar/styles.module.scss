@@ -29,13 +29,13 @@
   border-color: #123c97;
 }
 .ClientInfo-wrapper-topbar-buttons-save {
-  background-color: #123c97;
+  background-color: #3064d4;
   color: white;
   width: 144px;
 
   height: Hug (46px) px;
   border-radius: 4px;
-  font-size: 19px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +49,7 @@
   opacity: 94%;
   background-color: #a80532f0;
   color: white;
-  font-size: 19px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,7 +64,7 @@
   scale: 1.1;
   //   transition: ease-in-out 0.3s;
   //   transition-timing-function: ease-in-out 0.3s;
-  transition: all 0.3s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 .ClientInfo-wrapper-topbar-buttons {
   display: flex;
@@ -75,11 +75,11 @@
 @media screen and (max-width: 950px) {
   .ClientInfo-wrapper-topbar-buttons-save {
     width: 104px;
-    font-size: 13px;
+    font-size: 10px;
   }
   .ClientInfo-wrapper-topbar-buttons-meet {
     width: 104px;
-    font-size: 13px;
+    font-size: 10px;
   }
   .ClientInfo-wrapper-topbar-text {
     font-size: 15px;
@@ -89,11 +89,11 @@
 @media screen and (max-width: 710px) {
   .ClientInfo-wrapper-topbar-buttons-save {
     width: 98px;
-    font-size: 12px;
+    font-size: 9px;
   }
   .ClientInfo-wrapper-topbar-buttons-meet {
     width: 98px;
-    font-size: 12px;
+    font-size: 9px;
   }
   .ClientInfo-wrapper-topbar-text {
     font-size: 11px;
@@ -104,12 +104,12 @@
   .ClientInfo-wrapper-topbar-buttons-save {
     width: 70px;
     height: 25px;
-    font-size: 7px;
+    font-size: 6px;
   }
   .ClientInfo-wrapper-topbar-buttons-meet {
     width: 70px;
     height: 25px;
-    font-size: 7px;
+    font-size: 6px;
   }
   .ClientInfo-wrapper-topbar-text {
     font-size: 6px;
