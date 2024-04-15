@@ -1,7 +1,8 @@
+// DashboardAnimation.js
 import React, { useRef, useEffect, useState } from "react";
 import styles from "./styles.module.scss"; // Assuming you have your CSS in a separate file
 
-const DashboardPreview = () => {
+const DashboardAnimation = ({ children }) => {
   const interBubbleRef = useRef(null);
   const [curX, setCurX] = useState(0);
   const [curY, setCurY] = useState(0);
@@ -62,8 +63,15 @@ const DashboardPreview = () => {
         <div className={styles["g5"]}></div>
         <div ref={interBubbleRef} className={styles["interactive"]}></div>
       </div>
+      {/*The code for the animation ends here */}
+      <div className={styles["dashpreview--main-container"]}>
+        Everything at one place{" "}
+        <div className={styles["dashpreview--image-container"]}>
+          <div className={styles["dashpreview--image"]}></div>
+        </div>
+      </div>{" "}
     </div>
   );
 };
 
-export default DashboardPreview;
+export default DashboardAnimation;

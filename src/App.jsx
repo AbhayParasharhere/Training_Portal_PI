@@ -8,7 +8,7 @@ import Announcement from "./CommonComponents/Announcement";
 import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
 import MainCover from "./Pages/Welcome/components/MainCover";
-import DashboardPreview from "./Pages/Welcome/components/DashboardPreview";
+import DashboardPreview from "./Pages/Welcome/components/DashboardAnimation";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
