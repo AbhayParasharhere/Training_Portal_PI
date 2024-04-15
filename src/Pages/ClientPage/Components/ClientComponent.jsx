@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import line from "../Images/vertical-line.png";
 import delete_bin from "../Images/delete_bin.png";
@@ -11,6 +11,7 @@ import arrow_down from "../Images/arrow_down.png";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
+
   const list = [
     {
       id: "0",
@@ -20,6 +21,36 @@ export default function ClientComponent() {
     },
     {
       id: "1",
+      name: "Devon smith",
+      email: "devons@gmail.com",
+      number: "899999998",
+    },
+    {
+      id: "2",
+      name: "Devon smith",
+      email: "devons@gmail.com",
+      number: "899999998",
+    },
+    {
+      id: "3",
+      name: "Devon smith",
+      email: "devons@gmail.com",
+      number: "899999998",
+    },
+    {
+      id: "4",
+      name: "Devon smith",
+      email: "devons@gmail.com",
+      number: "899999998",
+    },
+    {
+      id: "5",
+      name: "Devon smith",
+      email: "devons@gmail.com",
+      number: "899999998",
+    },
+    {
+      id: "6",
       name: "Devon smith",
       email: "devons@gmail.com",
       number: "899999998",
@@ -34,19 +65,64 @@ export default function ClientComponent() {
       setPrevIndex(index);
     }
   };
+  const parentDivRef = useRef(null);
+
+  const handleInputChange = () => {
+    // Change border color of parent div here
+    parentDivRef.current.style.borderColor = "blue";
+
+    // Change to your desired color
+    // console.log("Parent", parentDivRef);
+  };
+  const InputChangeColor = () => {
+    // Change border color of parent div here
+    parentDivRef.current.style.borderColor = "#d6d6d6";
+
+    // Change to your desired color
+    // console.log("Parent", parentDivRef);
+  };
+  const offDialog = () => {
+    parentDivRef.current.style.borderColor = "#d6d6d6";
+    if (prevIndex) {
+      setPrevIndex(null);
+    }
+  };
+
+  const addClient = () => {
+    console.log("add client");
+  };
+
+  const viewDetails = () => {
+    console.log("view details");
+  };
+
+  const edit = () => {
+    console.log("edit client");
+  };
+
+  const dltBtn = () => {
+    console.log("delete client");
+  };
 
   return (
-    <div className={styles["ClientComponent-wrapper"]}>
+    <div className={styles["ClientComponent-wrapper"]} onClick={offDialog}>
       <div className={styles["ClientComponent-wrapper-topbar"]}>
         <div className={styles["ClientComponent-wrapper-topbar-head"]}>
           <p className={styles["ClientComponent-topbar-clients"]}>Clients</p>
-          <p className={styles["ClientComponent-topbar-count"]}>(18)</p>
+          <p className={styles["ClientComponent-topbar-count"]}>
+            ({list.length})
+          </p>
         </div>
         <div className={styles["ClientComponent-wrapper-topbar-search"]}>
-          <div className={styles["ClientComponent-wrapper-topbar-search-div"]}>
+          <div
+            className={styles["ClientComponent-wrapper-topbar-search-div"]}
+            ref={parentDivRef}
+            onMouseOver={handleInputChange}
+            onChange={handleInputChange}
+          >
             <img src={search_icon} height="24px" />
             <input
-              type={"text"}
+              type="text"
               className={styles["ClientComponent-wrapper-topbar-search-bar"]}
               placeholder="Search Clients"
             />
@@ -60,8 +136,47 @@ export default function ClientComponent() {
               All Clients
             </div>
             <img src={arrow_down} height="24px" />
+            <div
+              className={
+                styles[
+                  "ClientComponent-wrapper-topbar-search-menu-div-dropdown"
+                ]
+              }
+            >
+              {" "}
+              <div
+                className={
+                  styles[
+                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
+                  ]
+                }
+              >
+                All Clients
+              </div>
+              <div
+                className={
+                  styles[
+                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
+                  ]
+                }
+              >
+                Newest
+              </div>
+              <div
+                className={
+                  styles[
+                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
+                  ]
+                }
+              >
+                Oldest
+              </div>
+            </div>
           </div>
-          <div className={styles["ClientComponent-wrapper-topbar-search-add"]}>
+          <div
+            className={styles["ClientComponent-wrapper-topbar-search-add"]}
+            onClick={addClient}
+          >
             <img src={plus} height="26px" />
           </div>
         </div>
@@ -83,14 +198,23 @@ export default function ClientComponent() {
                   {/* {!dialogActive && ( */}
                   {prevIndex === item.id && (
                     <dialog className={styles["ClientComponent-dialog-show"]}>
-                      <div className={styles["ClientComponent-dialog-content"]}>
+                      <div
+                        className={styles["ClientComponent-dialog-content"]}
+                        onClick={viewDetails}
+                      >
                         <img src={search_eye} height="18px" /> View Details
                       </div>
-                      <div className={styles["ClientComponent-dialog-content"]}>
+                      <div
+                        className={styles["ClientComponent-dialog-content"]}
+                        onClick={edit}
+                      >
                         <img src={pencil} height="18px" />
                         Edit{" "}
                       </div>
-                      <div className={styles["ClientComponent-dialog-content"]}>
+                      <div
+                        className={styles["ClientComponent-dialog-content"]}
+                        onClick={dltBtn}
+                      >
                         <img src={delete_bin} height="18px" />
                         <span
                           className={

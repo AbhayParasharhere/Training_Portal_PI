@@ -67,6 +67,11 @@
   width: 73%;
   background-color: #f9f9f9;
 }
+.ClientComponent-wrapper-topbar-search-bar:focus {
+  // font-size: 18px;
+  border: none;
+  outline: none;
+}
 .ClientComponent-wrapper-topbar-search-bar::placeholder {
   // font-size: 22px;
   color: #525252;
@@ -85,9 +90,44 @@
   background-color: #f5f6fb;
   border-radius: 8px;
   width: 30%;
+  cursor: pointer;
   // padding-left: 4px;
   gap: 4px;
+  position: relative;
 }
+.ClientComponent-wrapper-topbar-search-menu-div-dropdown {
+  display: none;
+  width: 100%;
+  padding-top: 20px;
+  height: 114px;
+  position: absolute;
+  top: 40px;
+  border-radius: 8px;
+
+  // background-color: #f5f6fb;
+  background-color: #f9f9f9;
+  z-index: 1;
+}
+.ClientComponent-wrapper-topbar-search-menu-div:hover {
+  .ClientComponent-wrapper-topbar-search-menu-div-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    align-items: center;
+    transition: all 2s ease-in-out;
+  }
+}
+.ClientComponent-wrapper-topbar-search-menu-div-dropdown-content {
+  display: block;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
+}
+
 .ClientComponent-wrapper-topbar-search-menu {
   font-family: Open Sans;
   font-size: 14px;
@@ -98,6 +138,8 @@
   color: #525252;
 }
 .ClientComponent-wrapper-topbar-search-add {
+  cursor: pointer;
+  transition: all 0.8s ease-in-out;
   background-color: #a80532f0;
   opacity: 94%;
   display: flex;
@@ -106,6 +148,9 @@
   width: 10%;
 
   border-radius: 8px;
+}
+.ClientComponent-wrapper-topbar-search-add:hover {
+  scale: 1.1;
 }
 
 .ClientComponent-table {
@@ -151,7 +196,7 @@ td {
   height: 25px;
   margin-right: 20px;
   cursor: pointer;
-  position: relative;
+  // position: relative;
 }
 .ClientComponent-dialog-div {
   position: relative;
@@ -173,12 +218,13 @@ td {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .ClientComponent-dialog {
-  display: none;
+  // display: none;
   position: absolute;
 }
 .ClientComponent-dialog-content {
   display: flex;
   gap: 4px;
+  cursor: pointer;
   align-items: center;
   //   justify-content: space-between;
   font-family: Open Sans;
@@ -189,8 +235,14 @@ td {
   //   text-align: left;
   color: #393e46;
 }
+.ClientComponent-dialog-content:hover {
+  scale: 1.1;
+  transition: all 0.8s ease-in-out;
+}
+
 .ClientComponent-dialog-content-delete {
   color: #da1212;
+  cursor: pointer;
 }
 // #dialog {
 //   position: absolute;
@@ -215,9 +267,23 @@ td {
 //     width: 50%;
 //   }
 // }
+@media only screen and (min-width: 2000px) {
+  .ClientComponent-dialog-show {
+    left: -200%; /* Move the dialog box to the left side of the icon */
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .ClientComponent-dialog-show {
+    left: -350%; /* Move the dialog box to the left side of the icon */
+  }
+}
+
 @media only screen and (max-width: 940px) {
   .ClientComponent-wrapper-topbar-search {
     width: 50%;
+  }
+  .ClientComponent-dialog-show {
+    left: -450%; /* Move the dialog box to the left side of the icon */
   }
 }
 @media only screen and (max-width: 720px) {
@@ -242,6 +308,15 @@ td {
   }
   .ClientComponent-wrapper-topbar-search-bar {
     width: 62%;
+  }
+  .ClientComponent-dialog-show {
+    left: -500%;
+    height: 80px;
+    width: 90px; /* Move the dialog box to the left side of the icon */
+  }
+  .ClientComponent-dialog-content,
+  .ClientComponent-dialog-content-delete {
+    font-size: 10px;
   }
 }
 @media only screen and (max-width: 415px) {
