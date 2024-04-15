@@ -2,6 +2,12 @@ import React from "react";
 import styles from "./styles.module.scss";
 
 export default function ClientTopbar() {
+  function SaveChanges() {
+    console.log("Save Changes");
+  }
+  function OrganizeMeet() {
+    console.log("Organize Meet");
+  }
   return (
     <div className={styles["ClientInfo-wrapper-topbar"]}>
       <div className={styles["ClientInfo-wrapper-topbar-div"]}>
@@ -16,10 +22,16 @@ export default function ClientTopbar() {
         </div>
       </div>
       <div className={styles["ClientInfo-wrapper-topbar-buttons"]}>
-        <button className={styles["ClientInfo-wrapper-topbar-buttons-save"]}>
+        <button
+          className={styles["ClientInfo-wrapper-topbar-buttons-save"]}
+          onClick={SaveChanges}
+        >
           Save Changes
         </button>
-        <button className={styles["ClientInfo-wrapper-topbar-buttons-meet"]}>
+        <button
+          className={styles["ClientInfo-wrapper-topbar-buttons-meet"]}
+          onClick={OrganizeMeet}
+        >
           Organize Meet
         </button>
       </div>
