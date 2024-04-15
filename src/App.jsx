@@ -9,6 +9,7 @@ import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
 import MainCover from "./Pages/Welcome/components/MainCover";
 import DashboardPreview from "./Pages/Welcome/components/DashboardPreview";
+import InvitePage from "./Pages/InvitePage";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -21,15 +22,15 @@ function App() {
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       {/* <Header /> */}
-      {/* <SignUp />
-      <Announcement /> */}
+      {/* <SignUp /> */}
+      {/* <Announcement /> */}
       {/* <SignUp /> */}
       {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
       {/* <Login /> */}
       {/* <AdminConsole /> */}
       {/* <MainCover /> */}
-      <DashboardPreview />
+      <InvitePage />
     </div>
   );
 }
