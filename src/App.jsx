@@ -29,8 +29,8 @@ function App() {
       {/* <LoginComponent /> */}
       {/* <Login /> */}
       {/* <AdminConsole /> */}
-      {/* <MainCover /> */}
-      <InvitePage />
+      <MainCover />
+      {/* <InvitePage /> */}
     </div>
   );
 }
