@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import cameraIcon from "./images/camera-icon.png";
 import batteryIcon from "./images/battery-icon.png";
 import circleIcon from "./images/circle-icon.png";
 import commentIcon from "./images/comment-icon.png";
+import closeIcon from "./images/close-line.png";
+import twitterIcon from "./images/TwitterLogo.png";
+import instagramIcon from "./images/InstagramLogo.png";
+import linkedInIcon from "./images/LinkedinLogo.png";
 
 export default function VideoTutorial() {
-  console.log(
-    ReactPlayer.canPlay(
-      "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/courseVideos%2FGolden%20rule%20in%20Finance%2Bf7432a38-0ecf-4ef8-b596-ee6601acb0f7%2B3b87f1cf-07ee-4b6b-b6e4-6bed77ffc025%2B1712954519526?alt=media&token=546c8c16-cf46-455b-8731-e7e8781bf45e"
-    )
-  );
-
   const advantageBlockData = [
     {
       icon: cameraIcon,
@@ -34,6 +32,10 @@ export default function VideoTutorial() {
       desc: "Stay updated with training modules and market insights for continuous growth.",
     },
   ];
+  const [displayNone, setDisplayNone] = useState(false);
+  const handleCancel = () => {
+    setDisplayNone(true);
+  };
   const advantageBlock = advantageBlockData.map((advantage) => {
     return (
       <div className={styles["videoT--advantage-block"]}>
@@ -53,6 +55,22 @@ export default function VideoTutorial() {
 
   return (
     <div className={styles["videoT--main-container"]}>
+      <div
+        className={
+          styles[
+            displayNone ? "display-none" : "videoT--social-media-container"
+          ]
+        }
+      >
+        <img className={styles["videoT--social-media"]} src={twitterIcon} />
+        <img className={styles["videoT--social-media"]} src={instagramIcon} />
+        <img className={styles["videoT--social-media"]} src={linkedInIcon} />
+      </div>
+      <img
+        className={styles[displayNone ? "display-none" : "videoT--close-icon"]}
+        src={closeIcon}
+        onClick={handleCancel}
+      />
       <div className={styles["videoT--title-video-container"]}>
         <div className={styles["videoT--title-container"]}>
           Getting Started is Easy
