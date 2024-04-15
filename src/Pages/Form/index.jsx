@@ -30,11 +30,13 @@ export default function ClientInfo() {
                 name="name"
                 className={styles["ClientInfo-wrapper-form-text-input"]}
               ></input>
-              <input
-                type="text"
+              <select
                 name="gender"
-                className={styles["ClientInfo-wrapper-form-text-input"]}
-              ></input>
+                className={styles["ClientInfo-wrapper-form-text-input-select"]}
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
               <input
                 type="text"
                 name="email"
@@ -53,7 +55,7 @@ export default function ClientInfo() {
               <input
                 type="date"
                 name="dob"
-                className={styles["ClientInfo-wrapper-form-text-input"]}
+                className={styles["ClientInfo-wrapper-form-text-input-date"]}
               ></input>
             </div>
           </div>
@@ -65,7 +67,7 @@ export default function ClientInfo() {
               <input
                 type="date"
                 name="Annv"
-                className={styles["ClientInfo-wrapper-form-text-input"]}
+                className={styles["ClientInfo-wrapper-form-text-input-date"]}
               ></input>
             </div>
           </div>

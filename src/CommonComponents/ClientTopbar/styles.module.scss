@@ -20,6 +20,7 @@
   padding-right: 2%;
   padding-bottom: 20px;
   color: #a1a1a1;
+  cursor: pointer;
 }
 .ClientInfo-wrapper-topbar-text-line:hover {
   border-top: #123c97;
@@ -40,10 +41,11 @@
   justify-content: center;
   align-items: center;
   border: none;
+  cursor: pointer;
 }
 .ClientInfo-wrapper-topbar-buttons-meet {
   width: 144px;
-
+  cursor: pointer;
   height: Hug (46px) px;
   border-radius: 4px;
   opacity: 94%;
