@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import ReactPlayer from "react-player";
 import cameraIcon from "./images/camera-icon.png";
 import batteryIcon from "./images/battery-icon.png";
 import circleIcon from "./images/circle-icon.png";
