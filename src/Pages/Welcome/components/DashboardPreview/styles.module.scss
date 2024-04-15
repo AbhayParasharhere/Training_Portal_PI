@@ -104,7 +104,7 @@ body {
     left: calc(50% - var(--circle-size) / 2);
 
     transform-origin: center center;
-    animation: moveVertical 5s ease infinite;
+    animation: moveVertical 15s ease infinite;
 
     opacity: 1;
   }
@@ -125,7 +125,7 @@ body {
     left: calc(50% - var(--circle-size) / 2);
 
     transform-origin: calc(50% - 400px);
-    animation: moveInCircle 10s reverse infinite;
+    animation: moveInCircle 20s reverse infinite;
 
     opacity: 1;
   }
@@ -146,7 +146,7 @@ body {
     left: calc(50% - var(--circle-size) / 2 - 500px);
 
     transform-origin: calc(50% + 400px);
-    animation: moveInCircle 40s linear infinite;
+    animation: moveInCircle 30s linear infinite;
 
     opacity: 1;
   }
