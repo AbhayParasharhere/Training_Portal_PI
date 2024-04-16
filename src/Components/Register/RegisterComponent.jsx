@@ -5,6 +5,7 @@ import GoogleButton from "../../../assets/Continue_Google.png";
 import FB_button from "../../../assets/Continue_FB.png";
 import line from "../../../assets/line.png";
 import Button from "../../CommonComponents/Button";
+// make a component folder in signup page and put these two folders in it, call these component in the signup page and though the signup page pass the states/ functions that calls the autheication process ofbackend into these components
 
 export default function RegisterComponent() {
   return (
