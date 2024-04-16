@@ -8,12 +8,12 @@ import DashboardAnimation from "./components/DashboardAnimation";
 
 export default function Welcome() {
   return (
-    <>
+    <div style={{ width: "100%" }}>
       <MainCover />
       <MarqueeText />
       <DashboardAnimation />
       <VideoTutorial />
       <Footer />
-    </>
+    </div>
   );
 }
