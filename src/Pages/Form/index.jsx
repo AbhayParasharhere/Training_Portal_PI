@@ -77,7 +77,10 @@ export default function ClientInfo() {
         <p className={styles["ClientInfo-wrapper-form-notes-text"]}>
           Personal Notes
         </p>
-        <textarea rows="15"></textarea>
+        <textarea
+          rows="15"
+          className={styles["ClientInfo-wrapper-form-notes-textarea"]}
+        ></textarea>
       </div>
     </div>
   );

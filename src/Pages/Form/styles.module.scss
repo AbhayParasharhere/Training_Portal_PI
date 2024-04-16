@@ -32,14 +32,15 @@
   gap: 15%;
 }
 .ClientInfo-wrapper-form-image {
-  width: 8%;
-  height: 8%;
+  width: 12%;
+  height: 12%;
 }
 
 .ClientInfo-wrapper-form-text {
   display: flex;
   flex-direction: column;
   gap: 18px;
+
   font-family: Open Sans;
   font-size: 15px;
   font-weight: 600;
@@ -51,17 +52,29 @@
 .ClientInfo-wrapper-form-input {
   display: flex;
   flex-direction: column;
-
-  gap: 17px;
+  justify-content: space-between;
+  gap: 18px;
 }
 .ClientInfo-wrapper-form-text-input {
   background-color: #f5f6fb;
   border: 1px solid #a1a1a1;
   width: 140%;
-  height: 22px;
+  height: 20px;
   // margin-left: 5%;
   border-radius: 5px;
+  padding-left: 4%;
 }
+
+.ClientInfo-wrapper-form-text-input::placeholder {
+  font-family: Open Sans;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+}
+
 .ClientInfo-wrapper-form-text-input-select {
   background-color: #f5f6fb;
   border: 1px solid #a1a1a1;
@@ -99,10 +112,14 @@
   text-align: left;
   color: #1e1e1e;
 }
+.ClientInfo-wrapper-form-notes-textarea {
+  border: none;
+  border-radius: 5px;
+}
 
 @media screen and (min-width: 2000px) {
   .ClientInfo-wrapper-form-text {
-    gap: 50px;
+    gap: 48px;
     font-size: 22px;
   }
   .ClientInfo-wrapper-form-input {
@@ -110,6 +127,10 @@
   }
   .ClientInfo-wrapper-form-text-input {
     height: 28px;
+  }
+  .ClientInfo-wrapper-form-image {
+    width: 8%;
+    height: 8%;
   }
 }
 @media screen and (max-width: 930px) {
@@ -132,7 +153,7 @@
     display: flex;
     flex-direction: column;
 
-    gap: 17px;
+    gap: 18px;
   }
   .ClientInfo-wrapper-form-text-input-date {
     width: 100%;
