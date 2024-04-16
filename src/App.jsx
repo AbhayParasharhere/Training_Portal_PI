@@ -11,6 +11,7 @@ import AdminConsole from "./Pages/AdminConsole";
 import MainCover from "./Pages/Welcome/components/MainCover";
 import DashboardPreview from "./Pages/Welcome/components/DashboardPreview";
 import InvitePage from "./Pages/InvitePage";
+import Home from "./Pages/Dashboard/components/Home";
 
 
 import MarqueeText from "./Pages/Welcome/components/MarqueeText";
@@ -52,8 +53,7 @@ function App() {
 
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
-
-      <Footer />
+      <Home />
 
     </div>
   );

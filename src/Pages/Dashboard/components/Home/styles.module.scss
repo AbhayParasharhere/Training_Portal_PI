@@ -1,0 +1,300 @@
+p {
+  margin: 0;
+}
+.home--main-container {
+  max-width: 100%;
+  max-width: 750px;
+  //   background-color: #2d355c;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.home--welcome-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.home--greetings-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  //   align-items: center;
+  justify-content: center;
+  height: 120px;
+  gap: 10px;
+  background-color: #2d355c;
+  padding: 15px 30px;
+  border-radius: 5px;
+  color: white;
+}
+.home--greetings-title {
+  font-family: Epilogue;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 45px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--greetings-desc-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.home--greetings-desc {
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  //   line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--course-greeting-container {
+  height: 80px;
+  width: 100%;
+  background-color: #4462a43d;
+  padding: 15px 30px;
+  display: flex;
+  gap: 20px;
+  border-radius: 5px;
+  border: 1px solid #4462a4;
+  align-items: center;
+  justify-content: start;
+}
+.home--congratulations-emoji {
+  height: 20px;
+  margin: 0;
+}
+.home--course-greeting-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.home--course-greeting-title {
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--course-greeting-desc {
+  font-family: Epilogue;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #123c97;
+}
+
+// Notifications container start
+.home--recent-notifications-main-container {
+  display: flex;
+  margin-top: 40px;
+  max-width: 100%;
+  //   background-color: black;
+  //   align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.home--sales-course-notification-container {
+  flex: 3;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  //   background-color: #2d355c;
+}
+.home--notification-links-container {
+  display: flex;
+  gap: 50px;
+  text-wrap: none;
+}
+.home--notification-links {
+  font-family: Open Sans;
+  font-size: 17px;
+  max-width: 100%;
+  font-weight: 600;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: start;
+  color: #a1a1a1;
+}
+.home--notification-links-underline {
+  width: 120%;
+}
+.home--notification-lists-container {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  border-radius: 5px;
+  flex-direction: column;
+}
+.home--notification-lists {
+  max-width: 100%;
+  padding: 20px 20px;
+  display: flex;
+  background-color: #f5f6fb;
+
+  align-items: center;
+  justify-content: space-between;
+}
+.home--list-title-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.home--continue-button {
+  background-color: #a80532f0;
+  border: none;
+  color: white;
+  height: 40px;
+  width: 100px;
+  font-family: Epilogue;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 5px;
+  text-align: center;
+}
+.home--client-birthday-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 20px;
+  align-items: center;
+  //   justify-content: center;
+  flex: 1.3;
+  background-color: #f5f6fb;
+}
+.home--client-birthday-inner-container {
+  display: flex;
+  gap: 10px;
+}
+.home--client-birthday-title {
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: center;
+  color: #1e1e1e;
+}
+.home--client-birthday-list {
+  background-color: white;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+.home--client-birthday {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+.home--client-image {
+  height: 40px;
+}
+.home--birthday-name-date-container {
+  display: flex;
+  flex-direction: column;
+}
+.home--client-name {
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #393e46;
+}
+.home--birthday-date {
+  font-family: Open Sans;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  color: #686868;
+}
+.home--cake-icon {
+  max-height: 20px;
+  align-self: flex-start;
+}
+
+//Important updates css start
+.home--important-updates-container {
+  width: 100%;
+  background-color: #f5f6fb;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding: 20px 0px;
+  justify-content: center;
+}
+.home--important-updates-title {
+  font-family: Archivo;
+  font-size: 17px;
+  margin-left: 10px;
+  font-weight: 600;
+  line-height: 25.5x;
+  align-self: flex-start;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--annoucement-list-container {
+  width: 95%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.home--annoucement-container {
+  width: 95%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+}
+.home--annoucement-details-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home--annoucement-details-text {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #525252;
+}
+.home--annoucement-text {
+  font-family: Plus Jakarta Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24.5px;
+  color: #1a202c;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+li::marker {
+  color: rgba(168, 5, 50, 0.94);
+}
