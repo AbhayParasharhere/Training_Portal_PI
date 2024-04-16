@@ -4,11 +4,23 @@ import SignUp from "./Pages/Signup";
 import AllCourses from "./Pages/AllCourses";
 import CalendarModal from "./CommonComponents/CalendarModal";
 import Button from "./CommonComponents/Button";
+
 import Announcement from "./CommonComponents/Announcement";
 import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
 import MainCover from "./Pages/Welcome/components/MainCover";
-import DashboardPreview from "./Pages/Welcome/components/DashboardAnimation";
+import InvitePage from "./Pages/InvitePage";
+import Home from "./Pages/Dashboard/components/Home";
+
+
+import MarqueeText from "./Pages/Welcome/components/MarqueeText";
+
+
+import Footer from "./Pages/Welcome/components/Footer";
+
+import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
+
+
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -21,15 +33,27 @@ function App() {
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       {/* <Header /> */}
-      {/* <SignUp />
-      <Announcement /> */}
+      {/* <SignUp /> */}
+      {/* <Announcement /> */}
       {/* <SignUp /> */}
       {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
       {/* <Login /> */}
       {/* <AdminConsole /> */}
+
+
       {/* <MainCover /> */}
-      <DashboardPreview />
+      {/* <InvitePage /> */}
+
+
+//       <MainCover />
+      {/* <InvitePage /> */}
+
+
+      {/* <MainCover /> */}
+      {/* <InvitePage /> */}
+    
+
     </div>
   );
 }
