@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css?family=Open San");
+
+.sidebar--main-container {
+  height: 100%;
+  padding: 30px 40px;
+  padding-right: 50px;
+  background-color: #f5f6fb;
+}
+.sidebar--menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sidebar--company-logo {
+  height: 75px;
+  max-width: 130px;
+  align-self: center;
+  margin-bottom: 20px;
+}
+.sidebar--menu-title-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.sidebar--menu-icon {
+  height: 25px;
+}
+.sidebar--menu-text {
+  src: url(/src/fonts/OpenSans-VariableFont_wdth,wght.ttf);
+  font-family: "Open Sans";
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.sidebar--support-logout-container {
+  margin-top: 40px;
+}
