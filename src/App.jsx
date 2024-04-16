@@ -15,15 +15,12 @@ import MainCover from "./Pages/Welcome/components/MainCover";
 import InvitePage from "./Pages/InvitePage";
 import Home from "./Pages/Dashboard/components/Home";
 
-
 import MarqueeText from "./Pages/Welcome/components/MarqueeText";
-
 
 import Footer from "./Pages/Welcome/components/Footer";
 
 import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
-
-
+import Welcome from "./Pages/Welcome";
 
 
 // Sign Up steps
@@ -48,19 +45,15 @@ function App() {
 
       {/* <AdminConsole /> */}
 
-
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
 
-
-//       <MainCover />
+      {/* //       <MainCover /> */}
       {/* <InvitePage /> */}
 
-
+      <Welcome />
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
-    
-
     </div>
   );
 }
