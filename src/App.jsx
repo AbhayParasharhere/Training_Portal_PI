@@ -8,6 +8,9 @@ import Button from "./CommonComponents/Button";
 import Announcement from "./CommonComponents/Announcement";
 import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
+
+import Client from "./Pages/ClientPage";
+
 import MainCover from "./Pages/Welcome/components/MainCover";
 import InvitePage from "./Pages/InvitePage";
 import Home from "./Pages/Dashboard/components/Home";
@@ -19,6 +22,7 @@ import MarqueeText from "./Pages/Welcome/components/MarqueeText";
 import Footer from "./Pages/Welcome/components/Footer";
 
 import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
+
 
 
 
@@ -39,6 +43,9 @@ function App() {
       {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
       {/* <Login /> */}
+
+      <Client />
+
       {/* <AdminConsole /> */}
 
 
