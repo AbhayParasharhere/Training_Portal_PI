@@ -9,7 +9,6 @@ import Announcement from "./CommonComponents/Announcement";
 import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
 import MainCover from "./Pages/Welcome/components/MainCover";
-import DashboardPreview from "./Pages/Welcome/components/DashboardPreview";
 import InvitePage from "./Pages/InvitePage";
 import Home from "./Pages/Dashboard/components/Home";
 
@@ -45,7 +44,7 @@ function App() {
 
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
-      <MarqueeText />
+
 
 //       <MainCover />
       {/* <InvitePage /> */}
@@ -53,7 +52,7 @@ function App() {
 
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
-      <Home />
+    
 
     </div>
   );
