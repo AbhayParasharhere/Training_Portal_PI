@@ -5,6 +5,23 @@ import AllCourses from "./Pages/AllCourses";
 import CalendarModal from "./CommonComponents/CalendarModal";
 import Button from "./CommonComponents/Button";
 
+import Announcement from "./CommonComponents/Announcement";
+import Login from "./Pages/Login";
+import AdminConsole from "./Pages/AdminConsole";
+import MainCover from "./Pages/Welcome/components/MainCover";
+import DashboardPreview from "./Pages/Welcome/components/DashboardPreview";
+import InvitePage from "./Pages/InvitePage";
+
+
+import MarqueeText from "./Pages/Welcome/components/MarqueeText";
+
+
+import Footer from "./Pages/Welcome/components/Footer";
+
+import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
+
+
+
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
@@ -23,8 +40,21 @@ function App() {
       {/* <LoginComponent /> */}
       {/* <Login /> */}
       {/* <AdminConsole /> */}
+
+
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
+      <MarqueeText />
+
+//       <MainCover />
+      {/* <InvitePage /> */}
+
+
+      {/* <MainCover /> */}
+      {/* <InvitePage /> */}
+
+      <Footer />
+
     </div>
   );
 }
