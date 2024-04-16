@@ -11,7 +11,11 @@ import MainCover from "./Pages/Welcome/components/MainCover";
 import DashboardPreview from "./Pages/Welcome/components/DashboardPreview";
 import InvitePage from "./Pages/InvitePage";
 
+
 import MarqueeText from "./Pages/Welcome/components/MarqueeText";
+
+
+import Footer from "./Pages/Welcome/components/Footer";
 
 import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
 
@@ -35,12 +39,18 @@ function App() {
       {/* <Login /> */}
       {/* <AdminConsole /> */}
 
+
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
       <MarqueeText />
 
 //       <MainCover />
       {/* <InvitePage /> */}
+
+
+      {/* <MainCover /> */}
+      {/* <InvitePage /> */}
+      <Footer />
 
     </div>
   );
