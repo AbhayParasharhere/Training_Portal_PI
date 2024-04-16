@@ -11,6 +11,7 @@ import MainCover from "./Pages/Welcome/components/MainCover";
 import DashboardPreview from "./Pages/Welcome/components/DashboardPreview";
 import InvitePage from "./Pages/InvitePage";
 import Footer from "./Pages/Welcome/components/Footer";
+import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
