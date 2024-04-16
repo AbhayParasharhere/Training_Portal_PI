@@ -12,6 +12,7 @@ import {
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
 export default function MainCover() {
+  const [graphSize, setGraphSize] = useState({ width: 400, height: 200 });
   const [graphData, setGraphData] = useState([
     { name: "M", value: "10" },
     { name: "T", value: "5" },
@@ -21,6 +22,7 @@ export default function MainCover() {
     { name: "S", value: "20" },
     { name: "S", value: "10" },
   ]);
+
   const [dataChange, setDataChange] = useState(1);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,7 +68,7 @@ export default function MainCover() {
       <div className={styles["wcover--graph-heading-container"]}>
         <div className={styles["wcover--logo-graph-container"]}>
           <img src={PILogo} className={styles["wcover--logo"]} />
-          <div>
+          <div className={styles["wcover--graph-heading-inner-container"]}>
             <p className={styles["wcover--heading-text"]}>
               Say goodbye to scattered materials and regulatory headaches
             </p>
@@ -80,8 +82,8 @@ export default function MainCover() {
           <div className={styles["wcover--graph-container"]}>
             Weekly Sales
             <Bar
-              height={200}
-              width={400}
+              height={graphData.height}
+              width={graphData.width}
               data={{
                 labels: graphData.map((data) => data.name),
                 datasets: [

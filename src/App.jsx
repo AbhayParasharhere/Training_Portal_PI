@@ -30,9 +30,8 @@ function App() {
       {/* <LoginComponent /> */}
       {/* <Login /> */}
       {/* <AdminConsole /> */}
-      {/* <MainCover /> */}
+      <MainCover />
       {/* <InvitePage /> */}
-      <VideoTutorial />
     </div>
   );
 }
