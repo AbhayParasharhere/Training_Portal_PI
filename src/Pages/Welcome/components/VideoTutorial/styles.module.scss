@@ -1,6 +1,12 @@
 p {
   margin: 0;
 }
+button {
+  cursor: pointer;
+}
+button:hover {
+  scale: 1.05;
+}
 .videoT--main-container {
   width: 100%;
   position: relative;
@@ -81,9 +87,13 @@ p {
   gap: 10px;
   padding: 0 30px;
 }
+.videoT--advantage-block:hover {
+  background-color: #123c97;
+  transition: all 0.3s ease-in;
+}
 .videoT--advantage-icon {
-  height: 30px;
-  width: 30px;
+  max-height: 30px;
+  max-width: 30px;
 }
 .videoT--advantage-title-text {
   font-family: Epilogue;
