@@ -1,13 +1,9 @@
 import "./App.scss";
-import React, { useState } from "react";
 import Header from "./CommonComponents/Header";
 import SignUp from "./Pages/Signup";
+import AllCourses from "./Pages/AllCourses";
 import CalendarModal from "./CommonComponents/CalendarModal";
 import Button from "./CommonComponents/Button";
-import RegisterComponent from "./Components/Register/RegisterComponent";
-import Register_2Component from "./Components/Register_2/Register_2Component";
-import LoginComponent from "./Components/Login/LoginComponent";
-import Sidebar from "./CommonComponents/Sidebar";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -18,16 +14,17 @@ import Sidebar from "./CommonComponents/Sidebar";
 
 function App() {
   return (
-    <div style={{ display: "flex", gap: "40px" }}>
-      {/* <Header />
-      <SignUp />
-      <CalendarModal />
-
-      <Button value="Next" onClick = {() => {console.log("Hey")}}/> */}
-      {/* <RegisterComponent /> */}
-      {/* <Register_2Component /> */}
+    <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
+      {/* <Header /> */}
+      {/* <SignUp /> */}
+      {/* <Announcement /> */}
+      {/* <SignUp /> */}
+      {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
-      <Sidebar />
+      {/* <Login /> */}
+      {/* <AdminConsole /> */}
+      {/* <MainCover /> */}
+      {/* <InvitePage /> */}
     </div>
   );
 }
