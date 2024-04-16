@@ -108,13 +108,21 @@
   background-color: #f9f9f9;
   z-index: 1;
 }
+.ClientComponent-wrapper-topbar-search-menu-arrow-up {
+  display: none;
+}
 .ClientComponent-wrapper-topbar-search-menu-div:hover {
   .ClientComponent-wrapper-topbar-search-menu-div-dropdown {
     display: flex;
     flex-direction: column;
     gap: 5%;
     align-items: center;
-    transition: all 2s ease-in-out;
+  }
+  .ClientComponent-wrapper-topbar-search-menu-arrow-up {
+    display: block;
+  }
+  .ClientComponent-wrapper-topbar-search-menu-arrow-down {
+    display: none;
   }
 }
 .ClientComponent-wrapper-topbar-search-menu-div-dropdown-content {
@@ -139,7 +147,7 @@
 }
 .ClientComponent-wrapper-topbar-search-add {
   cursor: pointer;
-  transition: all 0.8s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: #a80532f0;
   opacity: 94%;
   display: flex;
@@ -237,7 +245,7 @@ td {
 }
 .ClientComponent-dialog-content:hover {
   scale: 1.1;
-  transition: all 0.8s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .ClientComponent-dialog-content-delete {

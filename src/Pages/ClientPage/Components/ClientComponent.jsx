@@ -8,6 +8,7 @@ import search_icon from "../Images/search_icon.png";
 import red_button from "../Images/red_button.png";
 import plus from "../Images/plus.png";
 import arrow_down from "../Images/arrow_down.png";
+import arrow_up from "../Images/arrow_up.png";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
@@ -117,7 +118,6 @@ export default function ClientComponent() {
           <div
             className={styles["ClientComponent-wrapper-topbar-search-div"]}
             ref={parentDivRef}
-            onMouseOver={handleInputChange}
             onChange={handleInputChange}
           >
             <img src={search_icon} height="24px" />
@@ -135,7 +135,20 @@ export default function ClientComponent() {
             >
               All Clients
             </div>
-            <img src={arrow_down} height="24px" />
+            <img
+              src={arrow_down}
+              height="24px"
+              className={
+                styles["ClientComponent-wrapper-topbar-search-menu-arrow-down"]
+              }
+            />
+            <img
+              src={arrow_up}
+              height="24px"
+              className={
+                styles["ClientComponent-wrapper-topbar-search-menu-arrow-up"]
+              }
+            />
             <div
               className={
                 styles[
