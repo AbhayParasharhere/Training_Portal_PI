@@ -6,6 +6,9 @@ p {
   max-width: 750px;
   //   background-color: #2d355c;
   padding: 10px 0px;
+  // margin-right: 20px;
+  box-sizing: border-box;
+  // background-color: #123c97;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -14,17 +17,19 @@ p {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  width: 100%;
 }
 .home--greetings-container {
   width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   //   align-items: center;
   justify-content: center;
-  height: 120px;
+  height: 140px;
   gap: 10px;
   background-color: #2d355c;
-  padding: 15px 30px;
+  padding: 0px 30px;
   border-radius: 5px;
   color: white;
 }
@@ -43,17 +48,18 @@ p {
 }
 .home--greetings-desc {
   font-family: Open Sans;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   //   line-height: 24px;
   letter-spacing: -0.03em;
   text-align: left;
 }
 .home--course-greeting-container {
-  height: 80px;
+  height: 100px;
   width: 100%;
+  box-sizing: border-box;
   background-color: #4462a43d;
-  padding: 15px 30px;
+  padding: 0px 25px;
   display: flex;
   gap: 20px;
   border-radius: 5px;
@@ -74,7 +80,7 @@ p {
   font-family: Epilogue;
   font-size: 17px;
   font-weight: 500;
-  line-height: 25.5px;
+  line-height: 10.5px;
   letter-spacing: -0.03em;
   text-align: left;
 }
@@ -124,7 +130,17 @@ p {
   color: #a1a1a1;
 }
 .home--notification-links-underline {
+  border: 1px solid #a1a1a1;
+  border-radius: 1px;
   width: 120%;
+}
+.home--list-text {
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
 }
 .home--notification-lists-container {
   width: 100%;
@@ -144,7 +160,7 @@ p {
 }
 .home--list-title-container {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   align-items: center;
   justify-content: center;
 }

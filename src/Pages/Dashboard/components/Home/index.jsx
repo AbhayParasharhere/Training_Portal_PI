@@ -62,7 +62,9 @@ export default function Home() {
             <div className={styles["home--notification-lists"]}>
               <div className={styles["home--list-title-container"]}>
                 <img src={playIcon} />
-                <p>Regulatory Compliance 101</p>
+                <p className={styles["home--list-text"]}>
+                  Regulatory Compliance 101
+                </p>
               </div>
               <button className={styles["home--continue-button"]}>
                 Continue
@@ -72,7 +74,9 @@ export default function Home() {
             <div className={styles["home--notification-lists"]}>
               <div className={styles["home--list-title-container"]}>
                 <img src={playIcon} />
-                <p>Regulatory Compliance 101</p>
+                <p className={styles["home--list-text"]}>
+                  Regulatory Compliance 101
+                </p>
               </div>
               <button className={styles["home--continue-button"]}>
                 Continue
@@ -81,7 +85,9 @@ export default function Home() {
             <div className={styles["home--notification-lists"]}>
               <div className={styles["home--list-title-container"]}>
                 <img src={playIcon} />
-                <p>Regulatory Compliance 101</p>
+                <p className={styles["home--list-text"]}>
+                  Regulatory Compliance 101
+                </p>
               </div>
               <button className={styles["home--continue-button"]}>
                 Continue

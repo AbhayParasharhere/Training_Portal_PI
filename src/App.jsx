@@ -21,7 +21,7 @@ import Footer from "./Pages/Welcome/components/Footer";
 
 import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
 import Welcome from "./Pages/Welcome";
-
+import Dashboard from "./Pages/Dashboard";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -41,7 +41,7 @@ function App() {
       {/* <LoginComponent /> */}
       {/* <Login /> */}
 
-      <Client />
+      {/* <Client /> */}
 
       {/* <AdminConsole /> */}
 
@@ -51,9 +51,10 @@ function App() {
       {/* //       <MainCover /> */}
       {/* <InvitePage /> */}
 
-      <Welcome />
+      {/* <Welcome /> */}
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
+      <Dashboard />
     </div>
   );
 }

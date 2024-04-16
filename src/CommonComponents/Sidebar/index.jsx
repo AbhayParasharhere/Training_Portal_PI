@@ -38,8 +38,10 @@ export default function Sidebar() {
   return (
     <div className={styles["sidebar--main-container"]}>
       <div className={styles["sidebar--menu-container"]}>
-        <img src={PIlogo} className={styles["sidebar--company-logo"]} />
-        {renderMenu}
+        <div className={styles["sidebar--menu-inner-container"]}>
+          <img src={PIlogo} className={styles["sidebar--company-logo"]} />
+          {renderMenu}
+        </div>
         <div className={styles["sidebar--support-logout-container"]}>
           <div className={styles["sidebar--menu-title-container"]}>
             <img src={FAQIcon} className={styles["sidebar--menu-icon"]} />
