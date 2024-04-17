@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./styles.module.scss";
 import profile from "./Images/profile.png";
 import ClientTopbar from "../../CommonComponents/ClientTopbar";
+import arrow_down from "./Images/arrow_down.png";
+import arrow_up from "./Images/arrow_up.png";
 
 export default function ClientInfo() {
   return (
@@ -30,13 +32,69 @@ export default function ClientInfo() {
                 name="name"
                 className={styles["ClientInfo-wrapper-form-text-input"]}
               ></input>
-              <select
+              <div
+                className={
+                  styles["ClientComponent-wrapper-topbar-search-menu-div"]
+                }
+              >
+                <div
+                  className={
+                    styles["ClientComponent-wrapper-topbar-search-menu"]
+                  }
+                ></div>
+                <img
+                  src={arrow_down}
+                  height="24px"
+                  className={
+                    styles[
+                      "ClientComponent-wrapper-topbar-search-menu-arrow-down"
+                    ]
+                  }
+                />
+                <img
+                  src={arrow_up}
+                  height="24px"
+                  className={
+                    styles[
+                      "ClientComponent-wrapper-topbar-search-menu-arrow-up"
+                    ]
+                  }
+                />
+                <div
+                  className={
+                    styles[
+                      "ClientComponent-wrapper-topbar-search-menu-div-dropdown"
+                    ]
+                  }
+                >
+                  {" "}
+                  <div
+                    className={
+                      styles[
+                        "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
+                      ]
+                    }
+                  >
+                    Male
+                  </div>
+                  <div
+                    className={
+                      styles[
+                        "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
+                      ]
+                    }
+                  >
+                    Female
+                  </div>
+                </div>
+              </div>
+              {/* <select
                 name="gender"
                 className={styles["ClientInfo-wrapper-form-text-input-select"]}
               >
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-              </select>
+              </select> */}
               <input
                 type="text"
                 name="email"
