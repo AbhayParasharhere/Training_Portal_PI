@@ -8,6 +8,7 @@ import Button from "./CommonComponents/Button";
 import Announcement from "./CommonComponents/Announcement";
 import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
+import ClientInfo from "./Pages/Form";
 
 import Client from "./Pages/ClientPage";
 
@@ -39,6 +40,10 @@ function App() {
       {/* <SignUp /> */}
       {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
+
+      {/* <AdminConsole /> */}
+      <ClientInfo />
+
       {/* <Login /> */}
 
       {/* <Client /> */}
@@ -55,6 +60,7 @@ function App() {
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
       <Dashboard />
+
     </div>
   );
 }
