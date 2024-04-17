@@ -1,0 +1,325 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+.ClientComponent-wrapper-table {
+  width: 100%;
+  height: 100%;
+}
+.ClientComponent-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.ClientComponent-wrapper-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.ClientComponent-wrapper-topbar-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ClientComponent-topbar-clients {
+  font-family: Open Sans;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #616161;
+}
+.ClientComponent-topbar-count {
+  font-family: Open Sans;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #818181;
+}
+.ClientComponent-wrapper-topbar-search {
+  display: flex;
+  gap: 6px;
+  width: 38%;
+  justify-content: flex-end;
+}
+.ClientComponent-wrapper-topbar-search-div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border: 2px solid #d6d6d6;
+  border-radius: 8px;
+  width: 40%;
+  height: 35px;
+  top: 30px;
+  left: 842px;
+  background-color: #f9f9f9;
+  padding-left: 2%;
+}
+.ClientComponent-wrapper-topbar-search-bar {
+  border: none;
+  padding-top: 5px;
+  height: 29px;
+  width: 73%;
+  background-color: #f9f9f9;
+  color: #525252;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.ClientComponent-wrapper-topbar-search-bar:focus {
+  border: none;
+  outline: none;
+}
+.ClientComponent-wrapper-topbar-search-bar::placeholder {
+  color: #525252;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.ClientComponent-wrapper-topbar-search-menu-div {
+  margin-left: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f6fb;
+  border-radius: 8px;
+  width: 30%;
+  cursor: pointer;
+
+  gap: 4px;
+  position: relative;
+}
+.ClientComponent-wrapper-topbar-search-menu-div-dropdown {
+  display: none;
+  width: 100%;
+  padding-top: 20px;
+  height: 114px;
+  position: absolute;
+  top: 40px;
+  border-radius: 8px;
+
+  background-color: #f9f9f9;
+  z-index: 1;
+}
+.ClientComponent-wrapper-topbar-search-menu-div-dropdown-content:hover {
+  scale: 1.05;
+  transition: all 0.1s ease-in-out;
+}
+.ClientComponent-wrapper-topbar-search-menu-arrow-up {
+  display: none;
+}
+.ClientComponent-wrapper-topbar-search-menu-div:hover {
+  .ClientComponent-wrapper-topbar-search-menu-div-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    align-items: center;
+  }
+  .ClientComponent-wrapper-topbar-search-menu-arrow-up {
+    display: block;
+  }
+  .ClientComponent-wrapper-topbar-search-menu-arrow-down {
+    display: none;
+  }
+}
+.ClientComponent-wrapper-topbar-search-menu-div-dropdown-content {
+  display: block;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
+}
+
+.ClientComponent-wrapper-topbar-search-menu {
+  font-family: Open Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
+}
+.ClientComponent-wrapper-topbar-search-add {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: #a80532f0;
+  opacity: 94%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+
+  border-radius: 8px;
+}
+.ClientComponent-wrapper-topbar-search-add:hover {
+  scale: 1.05;
+}
+
+.ClientComponent-table {
+  background-color: #f5f6fb;
+  width: 100%;
+  height: 100%;
+
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding-left: 5%;
+}
+.ClientComponent-th {
+  font-family: Open Sans;
+  src: url(../../../../fonts/OpenSans-VariableFont_wdthwght.ttf);
+  height: 71px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  color: #616161;
+  text-align: left;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.ClientComponent-tr {
+  border-bottom: 1px solid #d6d6d6;
+  height: 71px;
+  font-family: Open Sans;
+  src: url(../../../../fonts/OpenSans-VariableFont_wdthwght.ttf);
+  font-size: 16px;
+
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  color: #393e46;
+
+  text-align: left;
+}
+.ClientComponent-tr-line {
+  height: 25px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.ClientComponent-dialog-div {
+  position: relative;
+}
+
+.ClientComponent-dialog-show {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  position: absolute;
+  top: 100%;
+  left: -300%; /* Move the dialog box to the left side of the icon */
+  height: 90px;
+  width: 120px; /* Set a width for the dialog box */
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.ClientComponent-dialog {
+  position: absolute;
+}
+.ClientComponent-dialog-content {
+  display: flex;
+  gap: 4px;
+  cursor: pointer;
+  align-items: center;
+
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+
+  letter-spacing: -0.03em;
+
+  color: #393e46;
+}
+.ClientComponent-dialog-content:hover {
+  scale: 1.05;
+  transition: all 0.1s ease-in-out;
+}
+
+.ClientComponent-dialog-content-delete {
+  color: #da1212;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 2000px) {
+  .ClientComponent-dialog-show {
+    left: -200%; /* Move the dialog box to the left side of the icon */
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .ClientComponent-dialog-show {
+    left: -350%; /* Move the dialog box to the left side of the icon */
+  }
+}
+
+@media only screen and (max-width: 940px) {
+  .ClientComponent-wrapper-topbar-search {
+    width: 50%;
+  }
+  .ClientComponent-dialog-show {
+    left: -450%; /* Move the dialog box to the left side of the icon */
+  }
+}
+@media only screen and (max-width: 720px) {
+  .ClientComponent-wrapper-topbar-search {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .ClientComponent-wrapper-topbar-search {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .ClientComponent-wrapper-topbar-search-bar::placeholder {
+    font-size: 12px;
+  }
+  .ClientComponent-wrapper-topbar-search-menu {
+    font-size: 12px;
+  }
+  .ClientComponent-wrapper-topbar-search {
+    width: 90%;
+  }
+  .ClientComponent-wrapper-topbar-search-bar {
+    width: 62%;
+  }
+  .ClientComponent-dialog-show {
+    left: -500%;
+    height: 80px;
+    width: 90px; /* Move the dialog box to the left side of the icon */
+  }
+  .ClientComponent-dialog-content,
+  .ClientComponent-dialog-content-delete {
+    font-size: 10px;
+  }
+}
+@media only screen and (max-width: 415px) {
+  .ClientComponent-wrapper-topbar-search-bar::placeholder {
+    font-size: 10px;
+  }
+  .ClientComponent-wrapper-topbar-search-menu {
+    font-size: 10px;
+  }
+  .ClientComponent-wrapper-topbar-search {
+    width: 90%;
+  }
+  .ClientComponent-wrapper-topbar-search-bar {
+    width: 60%;
+  }
+}

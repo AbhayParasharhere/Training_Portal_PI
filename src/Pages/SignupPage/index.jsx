@@ -16,7 +16,9 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import RegisterComponent from "./Components/Register/RegisterComponent";
+
 import Register_2Component from "./Components/RegisterTwo/RegisterTwoComponent";
+
 
 export default function SignUp() {
   const [response, setResponse] = useState(null);
