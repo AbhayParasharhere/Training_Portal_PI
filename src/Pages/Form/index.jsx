@@ -125,7 +125,9 @@ export default function ClientInfo() {
               <input
                 type="date"
                 name="Annv"
-                className={styles["ClientInfo-wrapper-form-text-input-date"]}
+                className={
+                  styles["ClientInfo-wrapper-form-text-input-date-annv"]
+                }
               ></input>
             </div>
           </div>
