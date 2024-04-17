@@ -22,7 +22,6 @@ import Footer from "./Pages/Welcome/components/Footer";
 import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
 import Welcome from "./Pages/Welcome";
 
-
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
@@ -40,8 +39,6 @@ function App() {
       {/* <AllCourses /> */}
       {/* <LoginComponent /> */}
       {/* <Login /> */}
-
-      <Client />
 
       {/* <AdminConsole /> */}
 
