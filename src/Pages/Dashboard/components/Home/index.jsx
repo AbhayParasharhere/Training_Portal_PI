@@ -3,9 +3,31 @@ import styles from "./styles.module.scss";
 import congratulationsEmoji from "./images/congratulations-emoji.png";
 import playIcon from "./images/play-icon.png";
 import clientPhoto from "./images/client-sample-image.png";
+import profilePhoto from "./images/profile-photo.png";
 import cakeIcon from "./images/cakeIcon.png";
+import appointmentIcon from "./images/appointment-icon.png";
+import bellIcon from "./images/bell-icon.png";
+import clipboardIcon from "./images/clipboard-icon.png";
 
 export default function Home() {
+  const mobileIconsData = [
+    { icon: cakeIcon, text: "Client Birthday’s & anniversay" },
+    { icon: profilePhoto, text: "Statistics" },
+    { icon: bellIcon, text: "Notifications" },
+    { icon: appointmentIcon, text: "Client Appointments" },
+    { icon: clipboardIcon, text: "Important Updates" },
+  ];
+  const mobileIcons = mobileIconsData.map((data) => {
+    return (
+      <div className={styles["home--mobile-icons-inner-container"]}>
+        <div className={styles["home--mobile-icon-image-container"]}>
+          <img src={data.icon} className={styles["home--mobile-icon-image"]} />
+        </div>
+        <p className={styles["home--mobile-icon-desc-text"]}>{data.text} </p>
+      </div>
+    );
+  });
+
   return (
     <div className={styles["home--main-container"]}>
       <div className={styles["home--welcome-container"]}>
@@ -61,18 +83,21 @@ export default function Home() {
           <div className={styles["home--notification-lists-container"]}>
             <div className={styles["home--notification-lists"]}>
               <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} />
-                <p>Regulatory Compliance 101</p>
+                <img src={playIcon} className={styles["home--play-icon"]} />
+                <p className={styles["home--list-text"]}>
+                  Regulatory Compliance 101
+                </p>
               </div>
               <button className={styles["home--continue-button"]}>
                 Continue
               </button>
             </div>
-            <div></div>
             <div className={styles["home--notification-lists"]}>
               <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} />
-                <p>Regulatory Compliance 101</p>
+                <img src={playIcon} className={styles["home--play-icon"]} />
+                <p className={styles["home--list-text"]}>
+                  Regulatory Compliance 101
+                </p>
               </div>
               <button className={styles["home--continue-button"]}>
                 Continue
@@ -80,8 +105,10 @@ export default function Home() {
             </div>{" "}
             <div className={styles["home--notification-lists"]}>
               <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} />
-                <p>Regulatory Compliance 101</p>
+                <img src={playIcon} className={styles["home--play-icon"]} />
+                <p className={styles["home--list-text"]}>
+                  Regulatory Compliance 101
+                </p>
               </div>
               <button className={styles["home--continue-button"]}>
                 Continue
@@ -175,6 +202,97 @@ export default function Home() {
 
       {/*Notification part completed */}
 
+      {/* ***Notification and clients appointment container for tablet design*** */}
+
+      <div
+        className={styles["home--mobile-appointment-notification-container"]}
+      >
+        {/*Tablet notification container starts */}
+
+        <div className={styles["statsSummary--notifications-container"]}>
+          <div
+            className={styles["statsSummary--notifications-inner-container"]}
+          >
+            <p className={styles["statsSummary--notifications-title"]}>
+              Notifications
+            </p>
+            <div className={styles["statsSummary--lists-container"]}>
+              <div className={styles["statsSummary--list"]}>
+                <p className={styles["statsSummary--list-title"]}>
+                  Upcoming event/meeting
+                </p>
+                <p className={styles["statsSummary--list-desc"]}>
+                  Your webinar is about to get started very soon. Join the link
+                  from Webinar page
+                </p>
+              </div>
+              <div className={styles["statsSummary--list"]}>
+                <p className={styles["statsSummary--list-title"]}>
+                  Upcoming event/meeting
+                </p>
+                <p className={styles["statsSummary--list-desc"]}>
+                  Your webinar is about to get started very soon. Join the link
+                  from Webinar page
+                </p>
+              </div>{" "}
+              <div className={styles["statsSummary--list"]}>
+                <p className={styles["statsSummary--list-title"]}>
+                  Upcoming event/meeting
+                </p>
+                <p className={styles["statsSummary--list-desc"]}>
+                  Your webinar is about to get started very soon. Join the link
+                  from Webinar page
+                </p>
+              </div>{" "}
+              <div className={styles["statsSummary--list"]}>
+                <p className={styles["statsSummary--list-title"]}>
+                  Upcoming event/meeting
+                </p>
+                <p className={styles["statsSummary--list-desc"]}>
+                  Your webinar is about to get started very soon. Join the link
+                  from Webinar page
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*Tablet notification container ends */}
+
+        {/*Tablet appointment container starts */}
+        <div className={styles["statsSummary--appointment-container"]}>
+          <div className={styles["statsSummary--appointment-inner-container"]}>
+            <p className={styles["statsSummary--appointment-title"]}>
+              Clients Appointment
+            </p>
+            <div>
+              <p className={styles["statsSummary--meeting-title"]}>
+                Meeting Name
+              </p>
+              <p className={styles["statsSummary--appointment-desc-text"]}>
+                Client Name: John Williams|Time:120 min
+              </p>
+            </div>
+            <div>
+              <ul className={styles["statsSummary--unordered-list"]}>
+                <li className={styles["statsSummary--appointment-marker"]}>
+                  Web, Apr 3
+                </li>
+                <li className={styles["statsSummary--appointment-marker"]}>
+                  11 AM - 12:45
+                </li>
+              </ul>
+              <button className={styles["statsSummary--appointment-button"]}>
+                Join Link
+              </button>
+            </div>
+          </div>
+        </div>
+        {/*Tablet appointment container ends */}
+      </div>
+
+      {/* ***Notification and clients appointment container for tablet design Ends*** */}
+
+      {/*Annoucement part start*/}
       <div className={styles["home--important-updates-container"]}>
         <p className={styles["home--important-updates-title"]}>
           Import Updates
@@ -214,6 +332,13 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/*Annoucement part Completed*/}
+
+      {/*MOBILE RESPONSIVE ICONS STARTS*/}
+      <div className={styles["home--mobile-icons-container"]}>
+        {mobileIcons}
+      </div>
+      {/*MOBILE RESPONSIVE ICONS ENDS*/}
     </div>
   );
 }
