@@ -8,6 +8,8 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
+import cakeIcon from "./images/cakeIcon.png";
+import clientPhoto from "./images/client-sample-image.png";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
@@ -141,6 +143,55 @@ export default function StatsSummary() {
           </div>
         </div>
       </div>
+      {/*Birthday container for tablet responsive starts */}
+      <div className={styles["statsSummary--mobile-birthday-container"]}>
+        <p className={styles["home--client-birthday-title"]}>
+          Upcoming Clients Bithdays And Anniversary
+        </p>
+        <div className={styles["home--client-birthday-list"]}>
+          <div className={styles["home--client-birthday"]}>
+            <div className={styles["home--client-birthday-inner-container"]}>
+              <img src={clientPhoto} className={styles["home--client-image"]} />
+              <div className={styles["home--birthday-name-date-container"]}>
+                <p className={styles["home--client-name"]}>Client Name</p>
+                <p className={styles["home--birthday-date"]}>
+                  April 24, 2024
+                </p>{" "}
+              </div>
+            </div>
+            <img src={cakeIcon} className={styles["home--cake-icon"]} />
+          </div>
+        </div>
+        <div className={styles["home--client-birthday-list"]}>
+          <div className={styles["home--client-birthday"]}>
+            <div className={styles["home--client-birthday-inner-container"]}>
+              <img src={clientPhoto} className={styles["home--client-image"]} />
+              <div className={styles["home--birthday-name-date-container"]}>
+                <p className={styles["home--client-name"]}>Client Name</p>
+                <p className={styles["home--birthday-date"]}>
+                  April 24, 2024
+                </p>{" "}
+              </div>
+            </div>
+            <img src={cakeIcon} className={styles["home--cake-icon"]} />
+          </div>
+        </div>{" "}
+        <div className={styles["home--client-birthday-list"]}>
+          <div className={styles["home--client-birthday"]}>
+            <div className={styles["home--client-birthday-inner-container"]}>
+              <img src={clientPhoto} className={styles["home--client-image"]} />
+              <div className={styles["home--birthday-name-date-container"]}>
+                <p className={styles["home--client-name"]}>Client Name</p>
+                <p className={styles["home--birthday-date"]}>
+                  April 24, 2024
+                </p>{" "}
+              </div>
+            </div>
+            <img src={cakeIcon} className={styles["home--cake-icon"]} />
+          </div>
+        </div>
+      </div>
+      {/*Birthday container for tablet responsive ends*/}
     </div>
   );
 }

@@ -195,3 +195,109 @@
   height: 25px;
   background-color: transparent;
 }
+//*** For tablet design ***
+.home--client-birthday-inner-container {
+  display: flex;
+  gap: 10px;
+}
+.home--client-birthday-title {
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: center;
+  color: #1e1e1e;
+}
+.home--client-birthday-list {
+  background-color: white;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+.home--client-birthday {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+.home--client-image {
+  height: 40px;
+}
+.home--birthday-name-date-container {
+  display: flex;
+  flex-direction: column;
+}
+.home--client-name {
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #393e46;
+}
+.home--birthday-date {
+  font-family: Open Sans;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  color: #686868;
+}
+.home--cake-icon {
+  max-height: 20px;
+  align-self: flex-start;
+}
+.statsSummary--mobile-birthday-container {
+  width: 100%;
+  display: none;
+  box-sizing: border-box;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 20px;
+  align-items: center;
+  //   justify-content: center;
+  background-color: #f5f6fb;
+}
+//*** For tablet design ***
+
+@media (max-width: 1130px) {
+  .statsSummary--main-container {
+    max-width: 250px;
+  }
+  .statsSummary--notifications-container {
+    display: none;
+  }
+  .statsSummary--appointment-container {
+    display: none;
+  }
+  .statsSummary--mobile-birthday-container {
+    display: flex;
+  }
+}
+@media (max-width: 710px) {
+  .statsSummary--main-container {
+    max-width: 200px;
+  }
+  .home--client-birthday-title {
+    font-size: 12px;
+  }
+  .home--client-name {
+    font-size: 8px;
+  }
+  .home--birthday-date {
+    font-size: 8px;
+  }
+}
+@media (max-width: 630px) {
+  .statsSummary--main-container {
+    display: none;
+  }
+}

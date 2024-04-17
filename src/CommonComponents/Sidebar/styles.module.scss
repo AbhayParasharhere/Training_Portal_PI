@@ -47,3 +47,8 @@
   flex-direction: column;
   gap: 30px;
 }
+@media (max-width: 1130px) {
+  .sidebar--main-container {
+    display: none;
+  }
+}
