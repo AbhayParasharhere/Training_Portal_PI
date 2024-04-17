@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import profile from "./Images/profile.png";
+import ClientTopbar from "../../CommonComponents/ClientTopbar";
+import arrow_right from "./Images/arrow_right.png";
 
 export default function PurchasedPolicy() {
   const list = [
@@ -21,31 +23,7 @@ export default function PurchasedPolicy() {
   ];
   return (
     <div className={styles["PurchasedPolicy-wrapper"]}>
-      <div className={styles["PurchasedPolicy-wrapper-topbar"]}>
-        <div className={styles["PurchasedPolicy-wrapper-topbar-div"]}>
-          <div className={styles["PurchasedPolicy-wrapper-topbar-text"]}>
-            Client Information
-          </div>
-          <div className={styles["PurchasedPolicy-wrapper-topbar-text"]}>
-            Purchased Policies
-          </div>
-          <div className={styles["PurchasedPolicy-wrapper-topbar-text"]}>
-            Financial Goals
-          </div>
-        </div>
-        <div className={styles["PurchasedPolicy-wrapper-topbar-buttons"]}>
-          <button
-            className={styles["PurchasedPolicy-wrapper-topbar-buttons-save"]}
-          >
-            Save Changes
-          </button>
-          <button
-            className={styles["PurchasedPolicy-wrapper-topbar-buttons-meet"]}
-          >
-            Organize Meet
-          </button>
-        </div>
-      </div>
+      <ClientTopbar save="false" />
       <div className={styles["PurchasedPolicy-wrapper-main"]}>
         <div className={styles["PurchasedPolicy-wrapper-main-title"]}>
           Total number of policies purchased:{" "}
@@ -58,49 +36,62 @@ export default function PurchasedPolicy() {
             <div className={styles["PurchasedPolicy-wrapper-main-policy-type"]}>
               Term Life Insurance
             </div>
-            <div className={styles["PurchasedPolicy-wrapper-main-policy-id"]}>
-              <div
-                className={styles["PurchasedPolicy-wrapper-main-policy-number"]}
-              >
-                Policy Number:{" "}
-                <span
+            <div className={styles["PurchasedPolicy-wrapper-main-policy-div"]}>
+              <div className={styles["PurchasedPolicy-wrapper-main-policy-id"]}>
+                <div
                   className={
-                    styles["PurchasedPolicy-wrapper-main-policy-number-span"]
+                    styles["PurchasedPolicy-wrapper-main-policy-number"]
                   }
                 >
-                  {" "}
-                  {item.number}{" "}
-                </span>
-              </div>
-              <div
-                className={
-                  styles["PurchasedPolicy-wrapper-main-policy-effective"]
-                }
-              >
-                Policy Effective Date:{" "}
-                <span
+                  Policy Number:{" "}
+                  <span
+                    className={
+                      styles["PurchasedPolicy-wrapper-main-policy-number-span"]
+                    }
+                  >
+                    {" "}
+                    {item.number}{" "}
+                  </span>
+                </div>
+                <div
                   className={
-                    styles["PurchasedPolicy-wrapper-main-policy-effective-span"]
+                    styles["PurchasedPolicy-wrapper-main-policy-effective"]
                   }
                 >
-                  {item.effective}
-                </span>
-              </div>
-              <div
-                className={
-                  styles["PurchasedPolicy-wrapper-main-policy-premium"]
-                }
-              >
-                Premium amount:{" "}
-                <span
+                  Policy Effective Date:{" "}
+                  <span
+                    className={
+                      styles[
+                        "PurchasedPolicy-wrapper-main-policy-effective-span"
+                      ]
+                    }
+                  >
+                    {item.effective}
+                  </span>
+                </div>
+                <div
                   className={
-                    styles["PurchasedPolicy-wrapper-main-policy-effective-span"]
+                    styles["PurchasedPolicy-wrapper-main-policy-premium"]
                   }
                 >
-                  {" "}
-                  ${item.amount} per month{" "}
-                </span>
+                  Premium amount:{" "}
+                  <span
+                    className={
+                      styles[
+                        "PurchasedPolicy-wrapper-main-policy-effective-span"
+                      ]
+                    }
+                  >
+                    {" "}
+                    ${item.amount} per month{" "}
+                  </span>
+                </div>
               </div>
+              <img
+                src={arrow_right}
+                height="24px"
+                className={styles["PurchasedPolicy-wrapper-main-policy-image"]}
+              />
             </div>
             <div className={styles["PurchasedPolicy-wrapper-main-policy-term"]}>
               <div

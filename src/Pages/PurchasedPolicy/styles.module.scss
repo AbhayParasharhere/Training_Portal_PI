@@ -1,61 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
-.PurchasedPolicy-wrapper-topbar {
-  display: flex;
-  justify-content: space-between;
-}
-.PurchasedPolicy-wrapper-topbar-div {
-  display: flex;
-  gap: 15%;
-  width: 40%;
-  // width: 50%;
-}
-.PurchasedPolicy-wrapper-topbar-text {
-  font-family: Open Sans;
-  min-width: 36%;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 25.5px;
-  letter-spacing: -0.03em;
-  text-align: left;
-  border-bottom: 4px solid #a1a1a1;
-  padding-right: 2%;
-  padding-bottom: 20px;
-  color: #a1a1a1;
-}
-.PurchasedPolicy-wrapper-topbar-text-line:active {
-  border-top: #123c97;
-}
-.PurchasedPolicy-wrapper-topbar-text:active {
-  color: #123c97;
-  border-color: #123c97;
-}
-.PurchasedPolicy-wrapper-topbar-buttons-save {
-  background-color: #123c97;
-  color: white;
-  width: 48%;
-  height: Hug (46px) px;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.PurchasedPolicy-wrapper-topbar-buttons-meet {
-  width: 48%;
-  height: Hug (46px) px;
-  border-radius: 4px;
-  opacity: 94%;
-  background-color: #a80532f0;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.PurchasedPolicy-wrapper-topbar-buttons {
-  display: flex;
-  gap: 4%;
-  width: 24%;
-}
 .PurchasedPolicy-wrapper-main-title {
   margin-top: 35px;
   font-family: Open Sans;
@@ -95,6 +39,7 @@
 .PurchasedPolicy-wrapper-main-policy-term {
   display: flex;
   gap: 5%;
+  width: 90%;
 
   font-family: Open Sans;
   font-size: 16px;
@@ -104,8 +49,12 @@
   text-align: left;
   color: #616161;
 }
+.PurchasedPolicy-wrapper-main-policy-div {
+  display: flex;
+  justify-content: space-between;
+}
 .PurchasedPolicy-wrapper-main-policy-term {
-  gap: 9%;
+  gap: 11%;
 }
 .PurchasedPolicy-wrapper-main-policy-number-span,
 .PurchasedPolicy-wrapper-main-policy-effective-span {
@@ -116,7 +65,31 @@
   letter-spacing: -0.03em;
   text-align: left;
 }
-
+@media screen and (min-width: 2000px) {
+  .PurchasedPolicy-wrapper-main-policy-term {
+    gap: 8.1%;
+    font-size: 22px;
+  }
+  .PurchasedPolicy-wrapper-main-policy-id {
+    font-size: 22px;
+  }
+  .PurchasedPolicy-wrapper-main-policy-effective-span,
+  .PurchasedPolicy-wrapper-main-policy-number-span {
+    font-size: 22px;
+  }
+  .PurchasedPolicy-wrapper-main-policy-type {
+    font-size: 24px;
+  }
+  // .PurchasedPolicy-wrapper-form-image {
+  //   width: 30%;
+  //   height: 30%;
+  // }
+}
+@media screen and (max-width: 1440px) {
+  .PurchasedPolicy-wrapper-main-policy-term {
+    gap: 9%;
+  }
+}
 @media screen and (max-width: 930px) {
   // .PurchasedPolicy-wrapper-form-image {
   //   width: 30%;
