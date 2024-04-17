@@ -1,0 +1,33 @@
+.marqueeText--mainWrapper {
+  display: flex;
+  gap: 96px;
+  overflow: hidden;
+}
+
+.marqueeText--subWrapper {
+  animation: marquee 8s linear infinite;
+  white-space: nowrap;
+  display: flex;
+  justify-content: flex-start;
+  background: transparent;
+  gap: 96px;
+}
+
+h2 {
+  font-size: 60px;
+  font-weight: 700;
+  color: #fff;
+  -webkit-text-stroke-width: 0.7px;
+  -webkit-text-stroke-color: #000;
+  text-shadow: 0 0 2px #000;
+  letter-spacing: 0.5px;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 96px));
+  }
+}
