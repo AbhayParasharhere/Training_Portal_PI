@@ -121,13 +121,11 @@ export default function ClientInfo() {
             <div className={styles["ClientInfo-wrapper-form-text"]}>
               <label for="Annv">Anniversary</label>
             </div>
-            <div className={styles["ClientInfo-wrapper-form-input"]}>
+            <div className={styles["ClientInfo-wrapper-form-input-date"]}>
               <input
                 type="date"
                 name="Annv"
-                className={
-                  styles["ClientInfo-wrapper-form-text-input-date-annv"]
-                }
+                className={styles["ClientInfo-wrapper-form-text-input"]}
               ></input>
             </div>
           </div>

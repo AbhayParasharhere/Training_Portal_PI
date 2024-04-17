@@ -59,7 +59,7 @@
   background-color: #f5f6fb;
   border: 1px solid #a1a1a1;
   width: 120%;
-  height: 20px;
+  height: 22px;
   // margin-left: 5%;
   border-radius: 5px;
   padding-left: 8%;
@@ -163,10 +163,18 @@
 .ClientInfo-wrapper-form-text-input-date-annv {
   background-color: #f5f6fb;
   border: 1px solid #a1a1a1;
-  width: 122%;
+  width: 120%;
   height: 26px;
   // margin-left: 5%;
   border-radius: 5px;
+  padding-left: 8%;
+  font-family: Open Sans;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
 }
 .ClientInfo-wrapper-form-text-input:focus {
   border: 1px solid blue;
