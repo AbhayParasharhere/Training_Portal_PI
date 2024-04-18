@@ -9,7 +9,7 @@ export default function Tools() {
   return (
     <div className={styles["Tools-main"]}>
       <Sidebar />
-      {/* <div className={styles["ClientInfo-wrapper"]}>
+      <div className={styles["ClientInfo-wrapper"]}>
         <ToolsTopbar />
         <div className={styles["ClientInfo-wrapper-main"]}>
           <div className={styles["ClientInfo-wrapper-main-content"]}>
@@ -24,7 +24,7 @@ export default function Tools() {
             <img src={arrow_right} height="28px" />
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
