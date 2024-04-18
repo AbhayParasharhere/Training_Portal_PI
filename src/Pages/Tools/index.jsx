@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import Sidebar from "../../CommonComponents/Sidebar";
 import ToolsTopbar from "../../CommonComponents/ToolsTopbar";
 import Group from "./Images/Group.png";
 import arrow_right from "./Images/arrow_right.png";
-import Sidebar from "../../CommonComponents/Sidebar";
 
 export default function Tools() {
   return (
