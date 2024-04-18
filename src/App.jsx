@@ -60,7 +60,7 @@ function App() {
       {/* <Welcome /> */}
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
-      <Dashboard />
+      {/* <Dashboard /> */}
       <SalesAdding />
     </div>
   );
