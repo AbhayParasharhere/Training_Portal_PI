@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+.ClientInfo-wrapper-topbar {
+  display: flex;
+  justify-content: space-between;
+}
+.ClientInfo-wrapper-topbar-div {
+  display: flex;
+  gap: 7%;
+  //   width: 40%;
+  //   width: 50%;
+}
+.ClientInfo-wrapper-topbar-text {
+  font-family: Open Sans;
+  min-width: 36%;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  border-bottom: 4px solid #a1a1a1;
+  padding-right: 2%;
+  padding-bottom: 20px;
+  color: #a1a1a1;
+  cursor: pointer;
+}
+.ClientInfo-wrapper-topbar-text-line:hover {
+  border-top: #123c97;
+}
+.ClientInfo-wrapper-topbar-text:hover {
+  color: #123c97;
+  border-color: #123c97;
+}
+
+@media screen and (max-width: 1024px) {
+  .ClientInfo-wrapper-topbar-text {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .ClientInfo-wrapper-topbar-text {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .ClientInfo-wrapper-topbar-text {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .ClientInfo-wrapper-topbar-text {
+    font-size: 6px;
+    padding-bottom: 0px;
+    border-bottom: 2px solid;
+  }
+}
+@media screen and (max-width: 320px) {
+  .ClientInfo-wrapper-topbar-text {
+    font-size: 5px;
+    padding-bottom: 0px;
+    border-bottom: 2px solid;
+  }
+}
