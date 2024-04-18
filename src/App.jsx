@@ -42,7 +42,7 @@ function App() {
       {/* <LoginComponent /> */}
 
       {/* <AdminConsole /> */}
-      <ClientInfo />
+      {/* <ClientInfo /> */}
 
       {/* <Login /> */}
 
@@ -60,7 +60,6 @@ function App() {
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
       <Dashboard />
-
     </div>
   );
 }
