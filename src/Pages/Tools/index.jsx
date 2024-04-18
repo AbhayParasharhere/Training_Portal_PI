@@ -3,22 +3,26 @@ import styles from "./styles.module.scss";
 import ToolsTopbar from "../../CommonComponents/ToolsTopbar";
 import Group from "./Images/Group.png";
 import arrow_right from "./Images/arrow_right.png";
+import Sidebar from "../../CommonComponents/Sidebar";
 
 export default function Tools() {
   return (
-    <div className={styles["ClientInfo-wrapper"]}>
-      <ToolsTopbar />
-      <div className={styles["ClientInfo-wrapper-main"]}>
-        <div className={styles["ClientInfo-wrapper-main-content"]}>
-          <div className={styles["ClientInfo-wrapper-main-content-div"]}>
-            <div className={styles["ClientInfo-wrapper-main-content-image"]}>
-              <img src={Group} height="28px" />
+    <div className={styles["Tools-main"]}>
+      <Sidebar />
+      <div className={styles["ClientInfo-wrapper"]}>
+        <ToolsTopbar />
+        <div className={styles["ClientInfo-wrapper-main"]}>
+          <div className={styles["ClientInfo-wrapper-main-content"]}>
+            <div className={styles["ClientInfo-wrapper-main-content-div"]}>
+              <div className={styles["ClientInfo-wrapper-main-content-image"]}>
+                <img src={Group} height="28px" />
+              </div>
+              <div className={styles["ClientInfo-wrapper-main-content-file"]}>
+                File name
+              </div>
             </div>
-            <div className={styles["ClientInfo-wrapper-main-content-file"]}>
-              File name
-            </div>
+            <img src={arrow_right} height="28px" />
           </div>
-          <img src={arrow_right} height="28px" />
         </div>
       </div>
     </div>

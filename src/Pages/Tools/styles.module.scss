@@ -1,10 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
+.Tools-main {
+  display: flex;
+  gap: 2%;
+}
 .ClientInfo-wrapper {
   padding: 15px;
 }
 .ClientInfo-wrapper-main {
   margin-top: 25px;
+  width: 200%;
 }
 .ClientInfo-wrapper-main-content-image {
   background-color: #a805322e;
@@ -45,5 +50,8 @@
   }
   .ClientInfo-wrapper-main-content {
     padding: 20px;
+  }
+  .ClientInfo-wrapper-main {
+    width: 260%;
   }
 }
