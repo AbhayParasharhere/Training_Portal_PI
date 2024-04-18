@@ -7,7 +7,8 @@ import Sidebar from "../../CommonComponents/Sidebar";
 
 export default function Tools() {
   return (
-    <div className={styles["Tools-main"]}>
+    // <div className={styles["Tools-main"]}>
+    <div>
       <Sidebar />
       {/* <div className={styles["ClientInfo-wrapper"]}>
         <ToolsTopbar />
