@@ -6,10 +6,12 @@
 }
 .ClientInfo-wrapper {
   padding: 15px;
+
+  height: 100vh;
 }
 .ClientInfo-wrapper-main {
   margin-top: 25px;
-  width: 150%;
+  width: 100%;
 }
 .ClientInfo-wrapper-main-content-image {
   background-color: #a805322e;
@@ -38,6 +40,7 @@
 }
 .ClientInfo-wrapper-main-content {
   padding: 15px;
+  width: 150%;
   background-color: #f4f4f5;
   display: flex;
   justify-content: space-between;
