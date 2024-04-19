@@ -23,6 +23,7 @@ import Footer from "./Pages/Welcome/components/Footer";
 import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
 import Welcome from "./Pages/Welcome";
 import Dashboard from "./Pages/Dashboard";
+import KpiTest from "./CommonComponents/KpiTest";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -42,7 +43,6 @@ function App() {
       {/* <LoginComponent /> */}
 
       {/* <AdminConsole /> */}
-      <ClientInfo />
 
       {/* <Login /> */}
 
@@ -59,8 +59,7 @@ function App() {
       {/* <Welcome /> */}
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
-      <Dashboard />
-
+      <KpiTest />
     </div>
   );
 }
