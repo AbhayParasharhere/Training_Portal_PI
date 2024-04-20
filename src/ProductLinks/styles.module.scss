@@ -1,0 +1,55 @@
+.Tools-main {
+  display: flex;
+  gap: 20px;
+}
+.ClientInfo-wrapper {
+  padding: 15px;
+
+  height: 100vh;
+}
+.ClientInfo-wrapper-main {
+  margin-top: 25px;
+  width: 100%;
+}
+.ClientInfo-wrapper-main-content-image {
+  background-color: #a805322e;
+  border: 2px solid #a80532f0;
+  width: 41px;
+  height: 37px;
+
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ClientInfo-wrapper-main-content-file {
+  font-family: Open Sans;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #000000;
+}
+.ClientInfo-wrapper-main-content-div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.ClientInfo-wrapper-main-content {
+  padding: 15px;
+  width: 150%;
+  background-color: #f4f4f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (min-width: 2000px) {
+  .ClientInfo-wrapper-main-content-file {
+    font-size: 32px;
+  }
+  .ClientInfo-wrapper-main-content {
+    padding: 20px;
+  }
+}

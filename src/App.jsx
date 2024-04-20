@@ -27,7 +27,7 @@ import Dashboard from "./Pages/Dashboard";
 import Tools from "./Pages/Tools";
 
 import SalesAdding from "./Pages/SalesAdding";
-
+import ProductLinks from "./ProductLinks";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -60,13 +60,13 @@ function App() {
 
       {/* //       <MainCover /> */}
       {/* <InvitePage /> */}
-      <Tools />
+      {/* <Tools /> */}
       {/* <Welcome /> */}
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
       {/* <Dashboard /> */}
 
-
+      <ProductLinks />
     </div>
   );
 }
