@@ -28,7 +28,6 @@ import Tools from "./Pages/Tools";
 
 import SalesAdding from "./Pages/SalesAdding";
 
-
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
@@ -49,7 +48,7 @@ function App() {
       {/* <AdminConsole /> */}
       {/* <ClientInfo /> */}
 
-      {/* <Login /> */}
+      <Login />
 
       {/* <Client /> */}
 
@@ -60,13 +59,11 @@ function App() {
 
       {/* //       <MainCover /> */}
       {/* <InvitePage /> */}
-      <Tools />
+      {/* <Tools /> */}
       {/* <Welcome /> */}
       {/* <MainCover /> */}
       {/* <InvitePage /> */}
       {/* <Dashboard /> */}
-
-
     </div>
   );
 }

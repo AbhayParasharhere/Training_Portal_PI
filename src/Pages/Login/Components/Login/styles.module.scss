@@ -1,18 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 .RegisterComponent--Container {
   display: flex;
   justify-content: center;
+  padding: 2%;
 }
 .RegisterComponent--main {
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f8f8f8;
-  gap: 4%;
-  width: 60%;
+  gap: 18px;
+  width: 50%;
   height: 100%;
+  border-radius: 10px;
 }
 .RegisterComponent--main--logo {
-  width: 15%;
+  width: 25%;
 }
 .RegisterComponent--main--text {
   color: #525252;
@@ -25,23 +33,67 @@
 .RegisterComponent--main--ContinueButton {
   display: flex;
   justify-content: center;
-  gap: 5%;
+  gap: 8%;
+  width: 100%;
+  align-items: center;
 }
 .RegisterComponent--main--GoogleButton {
-  width: 30%;
+  border: 1px solid #e8e8e8;
+  display: flex;
+  gap: 4%;
+  // justify-content: space-between;
+
+  padding-left: 2%;
+  padding-right: 3%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  align-items: center;
+  height: fit-content;
+  width: 35%;
+  background-color: white;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+.RegisterComponent--main--GoogleButton-text {
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16.34px;
+  text-align: left;
 }
 .RegisterComponent--main--FBbutton {
-  width: 30%;
-}
+  border: 1px solid #e8e8e8;
+  display: flex;
+  gap: 4%;
+  width: 35%;
+  // justify-content: space-between;
 
+  padding-left: 2%;
+  padding-right: 3%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  align-items: center;
+  height: fit-content;
+  // width: 50%;
+  background-color: white;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+.RegisterComponent--main--FBbutton-text {
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16.34px;
+  text-align: left;
+}
 .RegisterComponent--main--hr {
   margin-top: 2%;
-  width: 53%;
+  width: 64%;
 }
 .RegisterComponent--main--input {
   border: none;
   border-bottom: 1px solid rgba(82, 82, 82, 0.2);
-  width: 53%;
+  width: 64%;
   padding-left: 10px;
   color: black;
   opacity: 0.5;
@@ -52,10 +104,11 @@
 
 .RegisterComponent--main--Login {
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 21px;
   text-align: left;
+  color: #a1a1a1;
 }
 .RegisterComponent--main--LoginLink {
   text-decoration: none;
@@ -63,23 +116,53 @@
 }
 .RegisterComponent--main--checkbox--div {
   font-family: Open Sans;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 17.7px;
   text-align: left;
 
-  margin-top: 20px;
-  width: 55%;
+  margin-top: 10px;
+  width: 66%;
   gap: 5px;
   // align-self: flex-start;
   display: flex;
 }
+@media screen and (min-width: 2000px) {
+  .RegisterComponent--main--GoogleButton {
+    width: 25%;
+  }
+  .RegisterComponent--main--FBbutton {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .RegisterComponent--main--text {
+    font-size: 25px;
+  }
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 10px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 10px;
+  }
+}
 @media screen and (max-width: 550px) {
   .RegisterComponent--main--text {
-    font-size: 30px;
+    font-size: 15px;
   }
   .RegisterComponent--main--Login {
-    font-size: 16px;
+    font-size: 12px;
+  }
+  .RegisterComponent--main--ContinueButton {
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 8px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 8px;
   }
 }
 @media screen and (max-width: 370px) {
@@ -87,7 +170,7 @@
     font-size: 25px;
   }
   .RegisterComponent--main--Login {
-    font-size: 14px;
+    font-size: 10px;
   }
   .RegisterComponent--main--checkbox--div {
     font-size: 12px;
