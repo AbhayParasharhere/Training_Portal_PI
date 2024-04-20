@@ -9,7 +9,6 @@ export default function Dashboard() {
   return (
     <div className={styles["dashboard--main-container"]}>
       <div className={styles["dashboard--main-inner-container"]}>
-        <Sidebar />
         <Home />
         <StatsSummary />
       </div>
