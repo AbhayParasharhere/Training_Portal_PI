@@ -26,6 +26,7 @@ import Dashboard from "./Pages/Dashboard";
 import SalesAdding from "./Pages/SalesAdding";
 import SidebarLayout from "./Layouts/Sidebar";
 import RegisterComponent from "./Pages/SignupPage/Components/Register/RegisterComponent";
+import Register_2Component from "./Pages/SignupPage/Components/RegisterTwo/RegisterTwoComponent";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
       <Route path="/welcome" element={<Welcome />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<RegisterComponent />} />
+      <Route path="/addDetails" element={<Register_2Component />} />
       <Route element={<SidebarLayout />} path="/">
         <Route index element={<Dashboard />} />
         <Route path="/Add-Sales" element={<SalesAdding />} />
