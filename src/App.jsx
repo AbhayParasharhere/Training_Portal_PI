@@ -32,7 +32,6 @@ import RegisterComponent from "./Pages/SignupPage/Components/Register/RegisterCo
 import Register_2Component from "./Pages/SignupPage/Components/RegisterTwo/RegisterTwoComponent";
 import ClientComponent from "./Pages/ClientPage/Components/ClientComponent";
 
-
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
@@ -58,38 +57,7 @@ const router = createBrowserRouter(
 function App() {
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
-<<<<<<< HEAD
       <RouterProvider router={router} />
-=======
-      {/* <Header /> */}
-      {/* <SignUp /> */}
-      {/* <Announcement /> */}
-      {/* <SignUp /> */}
-      {/* <AllCourses /> */}
-      {/* <LoginComponent /> */}
-
-      {/* <AdminConsole /> */}
-      {/* <ClientInfo /> */}
-
-      {/* <Login /> */}
-
-      {/* <Client /> */}
-
-      {/* <AdminConsole /> */}
-
-      {/* <MainCover /> */}
-      {/* <InvitePage /> */}
-
-      {/* //       <MainCover /> */}
-      {/* <InvitePage /> */}
-      <Tools />
-      {/* <Welcome /> */}
-      {/* <MainCover /> */}
-      {/* <InvitePage /> */}
-      {/* <Dashboard /> */}
-
-
->>>>>>> d6157750062fa72555a353a8c94b98b1d3cc06c0
     </div>
   );
 }
