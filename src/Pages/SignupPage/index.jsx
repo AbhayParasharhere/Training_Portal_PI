@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import {
-  signInEmailAndPassword,
-  signInwithGoogle,
-  signUpWithEmailAndPassword,
-  storeUserAdditionalDetails,
-} from "../../Firebase/authentication";
 
-import { v4 } from "uuid";
 import { storage } from "../../Firebase/firebaseConfig";
 import {
   getDownloadURL,

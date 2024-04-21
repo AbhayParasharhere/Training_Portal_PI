@@ -13,26 +13,31 @@ import communicationIcon from "./images/communication-icon.png";
 import PIlogo from "./images/PI-logo.png";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
+import plusIcon from "./images/plus-icon.png";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const menuData = [
-    { icon: dashboardIcon, title: "Dashboard" },
-    { icon: coursesIcon, title: "Courses" },
-    { icon: productTrainingIcon, title: "Product Training" },
-    { icon: statisticsIcon, title: "Statistics" },
-    { icon: clientsIcon, title: "Clients" },
-    { icon: toolsResourcesIcon, title: "Tools and Resources" },
-    { icon: announcementIcon, title: "Announcements" },
-    { icon: webinarIcon, title: "Webinar" },
-    { icon: complianceIcon, title: "Compliance and Policy" },
-    { icon: communicationIcon, title: "Communication" },
+    { icon: dashboardIcon, title: "Dashboard", link: "/" },
+    { icon: coursesIcon, title: "Courses", link: "/" },
+    { icon: productTrainingIcon, title: "Product Training", link: "/" },
+    { icon: statisticsIcon, title: "Statistics", link: "/" },
+    { icon: clientsIcon, title: "Clients", link: "/clients" },
+    { icon: plusIcon, title: "Add Sales", link: "/addSales" },
+    { icon: toolsResourcesIcon, title: "Tools and Resources", link: "/" },
+    { icon: announcementIcon, title: "Announcements", link: "/" },
+    { icon: webinarIcon, title: "Webinar", link: "/" },
+    { icon: complianceIcon, title: "Compliance and Policy", link: "/" },
+    { icon: communicationIcon, title: "Communication", link: "/" },
   ];
   const renderMenu = menuData.map((menu) => {
     return (
-      <div className={styles["sidebar--menu-title-container"]}>
-        <img src={menu.icon} className={styles["sidebar--menu-icon"]} />
-        <p className={styles["sidebar--menu-text"]}>{menu.title}</p>
-      </div>
+      <Link to={menu.link} style={{ textDecoration: "none", color: "#000000" }}>
+        <div className={styles["sidebar--menu-title-container"]}>
+          <img src={menu.icon} className={styles["sidebar--menu-icon"]} />
+          <p className={styles["sidebar--menu-text"]}>{menu.title}</p>
+        </div>
+      </Link>
     );
   });
   return (
