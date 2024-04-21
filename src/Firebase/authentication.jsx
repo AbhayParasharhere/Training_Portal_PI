@@ -37,10 +37,12 @@ const storeUserAdditionalDetails = async (uid, additionalDetails) => {
     return "User details stored successfully";
   } catch (error) {
     console.error(error);
-    return error;
+
+    return "Failed";
   }
 };
 
+// Return the uid of the user
 const signUpWithEmailAndPassword = async (email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -48,7 +50,10 @@ const signUpWithEmailAndPassword = async (email, password) => {
       email,
       password
     );
-    return userCredential;
+
+    const uid = userCredential.user.uid;
+    console.log("This is the uid: ", uid);
+    return uid;
   } catch (error) {
     console.error(error);
     return "Failed";

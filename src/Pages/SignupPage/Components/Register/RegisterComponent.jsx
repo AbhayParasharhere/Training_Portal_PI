@@ -6,6 +6,7 @@ import FB_button from "../../Images/Continue_FB.png";
 import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
+import { signUpWithEmailAndPassword } from "../../../../Firebase/authentication";
 
 export default function RegisterComponent(props) {
   const navigate = useNavigate();
@@ -16,6 +17,24 @@ export default function RegisterComponent(props) {
       ...registerCredentials,
       [event.target.name]: event.target.value,
     });
+  };
+  const handleSignUpClick = async () => {
+    try {
+      const signUpUidResponse = await signUpWithEmailAndPassword(
+        registerCredentials.email,
+        registerCredentials.password
+      );
+
+      if (signUpUidResponse === "Failed") {
+        throw new Error("Failed to sign up");
+      }
+      navigate("/addDetails", {
+        state: { uid: signUpUidResponse },
+      });
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
   };
   return (
     <div className={styles["RegisterComponent--Container"]}>
@@ -57,20 +76,8 @@ export default function RegisterComponent(props) {
           name="confirmPassword"
           onChange={handleChange}
         />
-        <Link
-          to="/addDetails"
-          style={{
-            width: "100%",
-            alignSelf: "center",
-            alignItems: "center",
-            display: "flex",
-            justifyContent: "center",
-          }}
-          state={{ registerCredentials: registerCredentials }}
-        >
-          {" "}
-          <Button value="Next" />
-        </Link>
+
+        <Button value="Next" onClick={handleSignUpClick} />
         <p className={styles["RegisterComponent--main--Login"]}>
           Already have an account?
           <Link

@@ -18,20 +18,11 @@ import { v4 } from "uuid";
 
 export default function Register_2Component() {
   const [response, setResponse] = useState(null);
-  const user = useContext(AuthContext);
 
   const [additionalDetails, setAdditionalDetails] = useState();
   const location = useLocation();
   const navigate = useNavigate();
   const credentials = location?.state?.registerCredentials;
-
-  const signUp = async (email, password) => {
-    const res = await signUpWithEmailAndPassword(email, password);
-    // print the response
-    console.log("Signup response: ", res);
-    setResponse(res);
-    return res;
-  };
 
   const testGoogleSignIn = async () => {
     const res = await signInwithGoogle();
@@ -41,16 +32,15 @@ export default function Register_2Component() {
 
   const storeAdditionalDetails = async (name, number, city, country, dob) => {
     // store the additional details in the userDetail collection
-
-    const res = await storeUserAdditionalDetails(response?.user?.uid, {
-      phone_number: number,
-      city: city,
-      country: country,
-      dob: dob,
-      name: response?.user?.displayName || name,
-    });
-    return res;
-    console.log("In app store additional details fx", res);
+    // const res = await storeUserAdditionalDetails(response?.user?.uid, {
+    //   phone_number: number,
+    //   city: city,
+    //   country: country,
+    //   dob: dob,
+    //   name: response?.user?.displayName || name,
+    // });
+    // return res;
+    // console.log("In app store additional details fx", res);
   };
 
   const handleChange = (event) => {
@@ -61,22 +51,25 @@ export default function Register_2Component() {
     });
   };
 
-  const handleClick = async () => {
+  const handleSignUpClick = async () => {
     try {
-      const response = await signUp(credentials.email, credentials.password);
-      console.log("user: ", user);
-      if (user) {
-        const storeResponse = await storeAdditionalDetails(
-          additionalDetails.name,
-          additionalDetails.number,
-          additionalDetails.city,
-          additionalDetails.country,
-          additionalDetails.DOB
-        );
-        console.log("store response: ", storeResponse);
-        // if (storeResponse) {
-        //   navigate("/");
-        // }
+      const uid = location?.state?.uid;
+
+      if (!uid) {
+        throw new Error("No uid provided by the previous page");
+      }
+      const storeAdditionalDetailsResponse = await storeUserAdditionalDetails(
+        uid,
+        additionalDetails
+      );
+      console.log("store response: ", storeAdditionalDetailsResponse);
+      if (storeAdditionalDetailsResponse === "Failed") {
+        throw new Error("Failed to store additional details");
+      }
+      if (
+        storeAdditionalDetailsResponse === "User details stored successfully"
+      ) {
+        navigate("/");
       }
     } catch (err) {
       console.log(err);
@@ -144,7 +137,7 @@ export default function Register_2Component() {
             onChange={handleChange}
           ></input>
         </div>
-        <Button value="Create Account" onClick={handleClick} />
+        <Button value="Create Account" onClick={handleSignUpClick} />
         <p className={styles["RegisterComponent--main--Login"]}>
           By clicking Create Account, you agree to our{" "}
           <a href="" className={styles["RegisterComponent--main--LoginLink"]}>
