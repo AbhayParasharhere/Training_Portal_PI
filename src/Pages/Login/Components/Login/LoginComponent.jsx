@@ -6,11 +6,24 @@ import FB_button from "../../Images/Continue_FB.png";
 import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../../../context/authContext";
 
 export default function LoginComponent(props) {
-  const user = useContext(AuthContext);
   const [loginCredentials, setLoginCredentials] = useState();
+  const [emailError, setEmailError] = useState();
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const errorStyle = {
+    borderColor: "red",
+    transition: "all 0.3s ease-in-out",
+    background: "#FB717136",
+  };
 
   function handleChange(event) {
     event.preventDefault();
@@ -23,10 +36,7 @@ export default function LoginComponent(props) {
   return (
     <div className={styles["RegisterComponent--Container"]}>
       <div className={styles["RegisterComponent--main"]}>
-        <img
-          src={logo}
-          className={styles["RegisterComponent--main--logo"]}
-        ></img>
+        <img src={logo} className={styles["RegisterComponent--main--logo"]} />
         <p className={styles["RegisterComponent--main--text"]}>
           Log In into your account
         </p>
@@ -49,7 +59,9 @@ export default function LoginComponent(props) {
           placeholder="Email Address"
           name="email"
           onChange={handleChange}
-        ></input>
+          style={emailError ? errorStyle : {}}
+        />
+        <div className={styles["email-error"]}>{emailError}</div>
 
         <input
           className={styles["RegisterComponent--main--input"]}
@@ -57,12 +69,26 @@ export default function LoginComponent(props) {
           type="password"
           name="password"
           onChange={handleChange}
-        ></input>
+        />
 
         <Button
           value="Next"
           onClick={() => {
             console.log("Credentials: ", loginCredentials);
+            // Validate email
+            if (
+              !loginCredentials?.email ||
+              !validateEmail(loginCredentials?.email)
+            ) {
+              setEmailError("Invalid email address");
+            } else {
+              setEmailError("");
+            }
+
+            // Return if email is invalid
+            if (emailError) {
+              return;
+            }
             props.signIn(loginCredentials.email, loginCredentials.password);
           }}
         />
