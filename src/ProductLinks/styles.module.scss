@@ -1,55 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap");
+
 .Tools-main {
   display: flex;
   gap: 20px;
+  overflow-x: hidden;
 }
-.ClientInfo-wrapper {
+.ProductLinks-wrapper {
   padding: 15px;
 
   height: 100vh;
 }
-.ClientInfo-wrapper-main {
+.ProductLinks-wrapper-main {
   margin-top: 25px;
   width: 100%;
 }
-.ClientInfo-wrapper-main-content-image {
-  background-color: #a805322e;
-  border: 2px solid #a80532f0;
-  width: 41px;
-  height: 37px;
 
-  border-radius: 5px;
+.ProductLinks-wrapper-main-content-div {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+
+  gap: 20px;
 }
-.ClientInfo-wrapper-main-content-file {
-  font-family: Open Sans;
-  font-size: 18px;
+.ProductLinks-wrapper-main-content-div-name {
+  font-family: Epilogue;
+  font-size: 20px;
   font-weight: 600;
-  line-height: 27px;
+  line-height: 30px;
   letter-spacing: -0.03em;
   text-align: left;
   color: #000000;
 }
-.ClientInfo-wrapper-main-content-div {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.ProductLinks-wrapper-main-content-div-description {
+  font-family: Epilogue;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
 }
-.ClientInfo-wrapper-main-content {
+.ProductLinks-wrapper-main-content-div-join {
+  width: 139px;
+  height: 42px;
+  background-color: white;
+  padding: 0px 20px 0px 20px;
+  gap: 8px;
+  border-radius: 4px;
+  color: #4462a4;
+  border: 2px solid #4462a4;
+  opacity: 0px;
+  font-family: Epilogue;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.ProductLinks-wrapper-main-content-img {
+  height: 180px;
+}
+.ProductLinks-wrapper-main-content {
   padding: 15px;
-  width: 150%;
-  background-color: #f4f4f5;
+  gap: 4%;
+  background-color: #f5f6fb;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  // justify-content: space-between;
 }
 
 @media screen and (min-width: 2000px) {
-  .ClientInfo-wrapper-main-content-file {
+  .ProductLinks-wrapper-main-content-file {
     font-size: 32px;
   }
-  .ClientInfo-wrapper-main-content {
+  .ProductLinks-wrapper-main-content {
     padding: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .Tools-main {
+    overflow-x: auto;
   }
 }
