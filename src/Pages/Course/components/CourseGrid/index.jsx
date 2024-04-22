@@ -5,6 +5,63 @@ import filterIcon from "./images/filter-icon.png";
 import coursePlaceholder from "./images/course-placeholder.png";
 
 export default function CourseGrid() {
+  const courseData = [
+    {
+      placeholder: coursePlaceholder,
+      catagory: "Finance and ",
+      title: "The basics of finanace and insurance",
+    },
+    {
+      placeholder: coursePlaceholder,
+      catagory: "Finance",
+      title: "The basics of finanace",
+    },
+    {
+      placeholder: coursePlaceholder,
+      catagory: "Finance",
+      title: "The basics of finanace",
+    },
+    {
+      placeholder: coursePlaceholder,
+      catagory: "Finance",
+      title: "The basics of finanace",
+    },
+    {
+      placeholder: coursePlaceholder,
+      catagory: "Finance",
+      title: "The basics of finanace",
+    },
+    {
+      placeholder: coursePlaceholder,
+      catagory: "Finance",
+      title: "The basics of finanace",
+    },
+    {
+      placeholder: coursePlaceholder,
+      catagory: "Finance",
+      title: "The basics of finanace",
+    },
+    {
+      placeholder: coursePlaceholder,
+      catagory: "Finance",
+      title: "The basics of finanace",
+    },
+  ];
+
+  const renderCourse = courseData.map((course) => {
+    return (
+      <div className={styles["courseGrid--course-container"]}>
+        <div
+          className={styles["courseGrid--course-placeholder"]}
+          style={{ backgroundImage: `url(${course.placeholder})` }}
+        ></div>
+        <div className={styles["courseGrid--course-catagory"]}>
+          {course.catagory}
+        </div>
+        <p className={styles["courseGrid--course-title"]}>{course.title}</p>
+      </div>
+    );
+  });
   return (
     <div className={styles["courseGrid--main-container"]}>
       <div className={styles["courseGrid--title-container"]}>
@@ -23,46 +80,12 @@ export default function CourseGrid() {
         </button>
       </div>
       <div className={styles["courseGrid--grid-container"]}>
-        <div className={styles["courseGrid--course-container"]}>
-          <img
-            src={coursePlaceholder}
-            className={styles["courseGrid--course-placeholder"]}
-          />
+        {/* <div className={styles["courseGrid--course-container"]}>
+          <div className={styles["courseGrid--course-placeholder"]}></div>
           <div className={styles["courseGrid--course-catagory"]}>catagory</div>
           <p className={styles["courseGrid--course-title"]}>Course title</p>
-        </div>
-        <div className={styles["courseGrid--course-container"]}>
-          <img
-            src={coursePlaceholder}
-            className={styles["courseGrid--course-placeholder"]}
-          />
-          <div className={styles["courseGrid--course-catagory"]}>catagory</div>
-          <p className={styles["courseGrid--course-title"]}>Course title</p>
-        </div>{" "}
-        <div className={styles["courseGrid--course-container"]}>
-          <img
-            src={coursePlaceholder}
-            className={styles["courseGrid--course-placeholder"]}
-          />
-          <div className={styles["courseGrid--course-catagory"]}>catagory</div>
-          <p className={styles["courseGrid--course-title"]}>Course title</p>
-        </div>{" "}
-        <div className={styles["courseGrid--course-container"]}>
-          <img
-            src={coursePlaceholder}
-            className={styles["courseGrid--course-placeholder"]}
-          />
-          <div className={styles["courseGrid--course-catagory"]}>catagory</div>
-          <p className={styles["courseGrid--course-title"]}>Course title</p>
-        </div>{" "}
-        <div className={styles["courseGrid--course-container"]}>
-          <img
-            src={coursePlaceholder}
-            className={styles["courseGrid--course-placeholder"]}
-          />
-          <div className={styles["courseGrid--course-catagory"]}>catagory</div>
-          <p className={styles["courseGrid--course-title"]}>Course title</p>
-        </div>
+        </div> */}
+        {renderCourse}
       </div>
     </div>
   );
