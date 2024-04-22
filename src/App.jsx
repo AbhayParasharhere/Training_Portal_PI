@@ -23,10 +23,14 @@ import Footer from "./Pages/Welcome/components/Footer";
 import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
 import Welcome from "./Pages/Welcome";
 import Dashboard from "./Pages/Dashboard";
+
+import Tools from "./Pages/Tools";
+
 import SalesAdding from "./Pages/SalesAdding";
 import SidebarLayout from "./Layouts/Sidebar";
 import RegisterComponent from "./Pages/SignupPage/Components/Register/RegisterComponent";
 import Register_2Component from "./Pages/SignupPage/Components/RegisterTwo/RegisterTwoComponent";
+
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -53,6 +57,7 @@ function App() {
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       <RouterProvider router={router} />
+
     </div>
   );
 }
