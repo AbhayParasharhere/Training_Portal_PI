@@ -7,7 +7,6 @@ import SalesDetails from "./components/SalesDetails";
 export default function SalesAdding() {
   return (
     <div className={styles["salesAdding--main-container"]}>
-      <Sidebar />
       {/* <ClientDetails /> */}
       <SalesDetails />
     </div>
