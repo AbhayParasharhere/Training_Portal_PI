@@ -1,6 +1,16 @@
 .RegisterComponent--Container {
   display: flex;
   justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.phone-error {
+  color: #ff5050;
+  font-family: Open Sans;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 14.98px;
+  text-align: left;
 }
 
 .RegisterComponent--main {

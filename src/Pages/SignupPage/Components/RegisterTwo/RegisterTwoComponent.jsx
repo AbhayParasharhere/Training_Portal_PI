@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../Images/logo.png";
 import GoogleButton from "../../Images/Continue_Google.png";
@@ -6,42 +6,13 @@ import FB_button from "../../Images/Continue_FB.png";
 import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  signInEmailAndPassword,
-  signInwithGoogle,
-  signUpWithEmailAndPassword,
-  storeUserAdditionalDetails,
-} from "../../../../Firebase/authentication";
-import { AuthContext } from "../../../../context/authContext";
-
-import { v4 } from "uuid";
+import { storeUserAdditionalDetails } from "../../../../Firebase/authentication";
 
 export default function Register_2Component() {
-  const [response, setResponse] = useState(null);
-
   const [additionalDetails, setAdditionalDetails] = useState();
   const location = useLocation();
   const navigate = useNavigate();
-  const credentials = location?.state?.registerCredentials;
-
-  const testGoogleSignIn = async () => {
-    const res = await signInwithGoogle();
-    console.log(res);
-    setResponse(res);
-  };
-
-  const storeAdditionalDetails = async (name, number, city, country, dob) => {
-    // store the additional details in the userDetail collection
-    // const res = await storeUserAdditionalDetails(response?.user?.uid, {
-    //   phone_number: number,
-    //   city: city,
-    //   country: country,
-    //   dob: dob,
-    //   name: response?.user?.displayName || name,
-    // });
-    // return res;
-    // console.log("In app store additional details fx", res);
-  };
+  const [phoneError, setPhoneError] = useState();
 
   const handleChange = (event) => {
     console.log("Details: ", additionalDetails);
@@ -51,7 +22,33 @@ export default function Register_2Component() {
     });
   };
 
+  const errorStyle = {
+    borderColor: "red",
+    transition: "all 0.3s ease-in-out",
+    background: "#FB717136",
+  };
+
+  const validatePhoneNumber = (number) => {
+    return String(number).match(/^[0-9]{10}$/);
+  };
+
   const handleSignUpClick = async () => {
+    // First check if the phone number is valid
+    if (
+      !additionalDetails?.number ||
+      !validatePhoneNumber(additionalDetails?.number)
+    ) {
+      setPhoneError("Invalid phone number. Please enter a valid phone number");
+      return;
+    } else {
+      setPhoneError("");
+    }
+
+    // If there are any errors, return
+    if (phoneError) {
+      return;
+    }
+
     try {
       const uid = location?.state?.uid;
 
@@ -108,34 +105,37 @@ export default function Register_2Component() {
           className={styles["RegisterComponent--main--input"]}
           placeholder="Date of Birth"
           name="DOB"
+          type="date"
           onChange={handleChange}
-        ></input>
+        />
 
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Phone number"
           name="number"
+          style={phoneError ? errorStyle : {}}
           onChange={handleChange}
-        ></input>
+        />
+        <div className={styles["phone-error"]}>{phoneError}</div>
         <input
           className={styles["RegisterComponent--main--input"]}
-          placeholder="Are you New or Existing Broker"
+          placeholder="Are you a New or Existing Broker?"
           name="brokerStatus"
           onChange={handleChange}
-        ></input>
+        />
         <div className={styles["RegisterComponent--main--Residence"]}>
           <input
             className={styles["RegisterComponent--main--Residence--input"]}
             placeholder="City"
             name="city"
             onChange={handleChange}
-          ></input>
+          />
           <input
             className={styles["RegisterComponent--main--Residence--input"]}
             placeholder="Country"
             name="country"
             onChange={handleChange}
-          ></input>
+          />
         </div>
         <Button value="Create Account" onClick={handleSignUpClick} />
         <p className={styles["RegisterComponent--main--Login"]}>

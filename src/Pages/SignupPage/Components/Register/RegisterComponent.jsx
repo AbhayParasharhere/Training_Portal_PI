@@ -11,6 +11,8 @@ import { signUpWithEmailAndPassword } from "../../../../Firebase/authentication"
 export default function RegisterComponent(props) {
   const navigate = useNavigate();
   const [registerCredentials, setRegisterCredentials] = useState();
+  const [emailError, setEmailError] = useState();
+  const [passwordError, setPasswordError] = useState();
   const handleChange = (event) => {
     console.log(registerCredentials);
     setRegisterCredentials({
@@ -18,7 +20,48 @@ export default function RegisterComponent(props) {
       [event.target.name]: event.target.value,
     });
   };
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const errorStyle = {
+    borderColor: "red",
+    transition: "all 0.3s ease-in-out",
+    background: "#FB717136",
+  };
+
   const handleSignUpClick = async () => {
+    // First check if the email adress is valid
+    if (
+      !registerCredentials?.email ||
+      !validateEmail(registerCredentials?.email)
+    ) {
+      setEmailError("Invalid email format. Please enter a valid email address");
+    } else {
+      setEmailError("");
+    }
+
+    // Check if the confirm password matches the password
+    if (
+      !registerCredentials?.password ||
+      !registerCredentials?.confirmPassword ||
+      registerCredentials?.password !== registerCredentials?.confirmPassword
+    ) {
+      setPasswordError("Passwords do not match, please try again");
+    } else {
+      setPasswordError("");
+    }
+
+    // If there are any errors, return
+    if (emailError || passwordError) {
+      return;
+    }
+
     try {
       const signUpUidResponse = await signUpWithEmailAndPassword(
         registerCredentials.email,
@@ -39,10 +82,7 @@ export default function RegisterComponent(props) {
   return (
     <div className={styles["RegisterComponent--Container"]}>
       <div className={styles["RegisterComponent--main"]}>
-        <img
-          src={logo}
-          className={styles["RegisterComponent--main--logo"]}
-        ></img>
+        <img src={logo} className={styles["RegisterComponent--main--logo"]} />
         <p className={styles["RegisterComponent--main--text"]}>
           Register by creating an account
         </p>
@@ -55,27 +95,34 @@ export default function RegisterComponent(props) {
           <img
             src={FB_button}
             className={styles["RegisterComponent--main--FBbutton"]}
-          ></img>
+          />
         </div>
         <img src={line} className={styles["RegisterComponent--main--hr"]} />
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Email Address"
           name="email"
+          type="email"
           onChange={handleChange}
+          style={emailError ? errorStyle : {}}
         />
+        <span className={styles["email-error"]}>{emailError}</span>
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Password"
           name="password"
+          type="password"
           onChange={handleChange}
         />
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Confirm Password"
           name="confirmPassword"
+          type="password"
+          style={passwordError ? errorStyle : {}}
           onChange={handleChange}
         />
+        <div className={styles["password-error"]}>{passwordError}</div>
 
         <Button value="Next" onClick={handleSignUpClick} />
         <p className={styles["RegisterComponent--main--Login"]}>
@@ -84,7 +131,6 @@ export default function RegisterComponent(props) {
             to="/login"
             className={styles["RegisterComponent--main--LoginLink"]}
           >
-            {" "}
             Log In
           </Link>
         </p>
