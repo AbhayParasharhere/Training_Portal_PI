@@ -7,7 +7,7 @@ import {
   FacebookAuthProvider,
 } from "firebase/auth";
 import { db } from "./firebaseConfig";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { logEvent } from "firebase/analytics";
 // import { FacebookAuthProvider } from "firebase/auth/cordova";
 
@@ -38,6 +38,24 @@ const storeUserAdditionalDetails = async (uid, additionalDetails) => {
   } catch (error) {
     console.error(error);
 
+    return "Failed";
+  }
+};
+
+// Get the current details of the user
+const getUserDetails = async (uid) => {
+  try {
+    const docRef = doc(db, "userDetail", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data());
+      return docSnap.data();
+    } else {
+      throw new Error("No such used details!");
+    }
+  } catch (error) {
+    console.log(error);
     return "Failed";
   }
 };
@@ -85,6 +103,7 @@ const signInwithFacebook = async () => {
 };
 
 export {
+  getUserDetails,
   signInEmailAndPassword,
   signUpWithEmailAndPassword,
   signInwithGoogle,

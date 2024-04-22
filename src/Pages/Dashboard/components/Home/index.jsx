@@ -9,7 +9,7 @@ import appointmentIcon from "./images/appointment-icon.png";
 import bellIcon from "./images/bell-icon.png";
 import clipboardIcon from "./images/clipboard-icon.png";
 
-export default function Home() {
+export default function Home({ userDetails, announcements }) {
   const mobileIconsData = [
     { icon: cakeIcon, text: "Client Birthday’s & anniversay" },
     { icon: profilePhoto, text: "Statistics" },
@@ -33,7 +33,7 @@ export default function Home() {
       <div className={styles["home--welcome-container"]}>
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
-            Good Morning Gurpreet
+            Good Morning {userDetails?.name || "Broker"}
           </p>
           <div className={styles["home--greetings-desc-container"]}>
             <p className={styles["home--greetings-desc"]}>
@@ -41,7 +41,7 @@ export default function Home() {
             </p>
             <p className={styles["home--greetings-desc"]}>
               Your hub for Managing Clients, Monitoring Sales, and Acheiving
-              Sucess. Let's Get Started
+              Success. Let's Get Started
             </p>
           </div>
         </div>
@@ -295,8 +295,37 @@ export default function Home() {
       {/*Annoucement part start*/}
       <div className={styles["home--important-updates-container"]}>
         <p className={styles["home--important-updates-title"]}>
-          Import Updates
+          Important Updates
         </p>
+        {announcements?.length !== 0 ? (
+          <div className={styles["home--annoucement-list-container"]}>
+            {announcements.map((announcement) => {
+              return (
+                <div className={styles["home--annoucement-container"]}>
+                  <div
+                    className={styles["home--annoucement-details-container"]}
+                  >
+                    <p className={styles["home--annoucement-details-text"]}>
+                      {announcement?.createdBy}
+                    </p>
+                    <p className={styles["home--annoucement-details-text"]}>
+                      {announcement?.updatedAt?.toDate().toLocaleString()}
+                    </p>
+                  </div>
+                  <div>
+                    <ui>
+                      <li className={styles["home--annoucement-text"]}>
+                        {announcement?.title}
+                      </li>
+                    </ui>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p>No Announcement</p>
+        )}
         <div className={styles["home--annoucement-list-container"]}>
           <div className={styles["home--annoucement-container"]}>
             <div className={styles["home--annoucement-details-container"]}>
