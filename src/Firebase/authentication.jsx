@@ -9,6 +9,7 @@ import {
 import { db } from "./firebaseConfig";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { logEvent } from "firebase/analytics";
+import { toast } from "react-toastify";
 // import { FacebookAuthProvider } from "firebase/auth/cordova";
 
 const signInEmailAndPassword = async (email, password) => {
@@ -20,6 +21,7 @@ const signInEmailAndPassword = async (email, password) => {
     );
     return "Success";
   } catch (error) {
+    toast.error("Invalid Credentials");
     console.error(error);
     return "Failed";
   }

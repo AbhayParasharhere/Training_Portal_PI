@@ -6,6 +6,7 @@ import {
   signInwithFacebook,
 } from "../../Firebase/authentication";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 // import {
 //   signInEmailAndPassword,
 //   signUpWithEmailAndPassword,
@@ -24,6 +25,7 @@ export default function Login() {
         console.log("This is res ", res);
       }
     } catch (err) {
+      toast.error("Invalid Credentials");
       console.log("Invalid Credentials");
     }
   };

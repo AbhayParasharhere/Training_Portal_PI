@@ -6,6 +6,7 @@ import FB_button from "../../Images/Continue_FB.png";
 import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
@@ -89,7 +90,14 @@ export default function LoginComponent(props) {
             if (emailError) {
               return;
             }
-            props.signIn(loginCredentials.email, loginCredentials.password);
+
+            //  Notify if missing password or email
+            if (!loginCredentials?.email || !loginCredentials?.password) {
+              toast.error("Please enter email and password");
+              return;
+            }
+
+            props.signIn(loginCredentials?.email, loginCredentials?.password);
           }}
         />
         <p className={styles["RegisterComponent--main--Login"]}>
