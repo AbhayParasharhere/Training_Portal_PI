@@ -13,6 +13,7 @@ import Button from "./CommonComponents/Button";
 import Announcement from "./CommonComponents/Announcement";
 import Login from "./Pages/Login";
 import AdminConsole from "./Pages/AdminConsole";
+import AdminPanel from "./Pages/AdminPanel";
 import ClientInfo from "./Pages/Form";
 import Client from "./Pages/ClientPage";
 import MainCover from "./Pages/Welcome/components/MainCover";
@@ -31,7 +32,6 @@ import SidebarLayout from "./Layouts/Sidebar";
 import RegisterComponent from "./Pages/SignupPage/Components/Register/RegisterComponent";
 import Register_2Component from "./Pages/SignupPage/Components/RegisterTwo/RegisterTwoComponent";
 
-
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
 // Then create the user and provide next stage form of
@@ -46,6 +46,8 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<RegisterComponent />} />
       <Route path="/addDetails" element={<Register_2Component />} />
+      {/* <Route path="/admin" element={<AdminConsole />} /> */}
+      <Route path="/admin" element={<AdminPanel />} />
       <Route element={<SidebarLayout />} path="/">
         <Route index element={<Dashboard />} />
         <Route path="/Add-Sales" element={<SalesAdding />} />
@@ -57,7 +59,6 @@ function App() {
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       <RouterProvider router={router} />
-
     </div>
   );
 }
