@@ -49,32 +49,32 @@ export default function Register_2Component() {
     // If there are any errors, return
     if (phoneError) {
       return;
-    }
+    } else {
+      try {
+        setLoading(true);
+        const uid = location?.state?.uid;
 
-    try {
-      setLoading(true);
-      const uid = location?.state?.uid;
-
-      if (!uid) {
-        throw new Error("No uid provided by the previous page");
+        if (!uid) {
+          throw new Error("No uid provided by the previous page");
+        }
+        const storeAdditionalDetailsResponse = await storeUserAdditionalDetails(
+          uid,
+          additionalDetails
+        );
+        setLoading(false);
+        console.log("store response: ", storeAdditionalDetailsResponse);
+        if (storeAdditionalDetailsResponse === "Failed") {
+          throw new Error("Failed to store additional details");
+        }
+        if (
+          storeAdditionalDetailsResponse === "User details stored successfully"
+        ) {
+          navigate("/");
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
       }
-      const storeAdditionalDetailsResponse = await storeUserAdditionalDetails(
-        uid,
-        additionalDetails
-      );
-      setLoading(false);
-      console.log("store response: ", storeAdditionalDetailsResponse);
-      if (storeAdditionalDetailsResponse === "Failed") {
-        throw new Error("Failed to store additional details");
-      }
-      if (
-        storeAdditionalDetailsResponse === "User details stored successfully"
-      ) {
-        navigate("/");
-      }
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
     }
   };
   return (

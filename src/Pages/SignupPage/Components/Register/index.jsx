@@ -63,26 +63,26 @@ export default function RegisterComponent(props) {
     // If there are any errors, return
     if (emailError || passwordError) {
       return;
-    }
+    } else {
+      try {
+        setLoading(true);
+        const signUpUidResponse = await signUpWithEmailAndPassword(
+          registerCredentials.email,
+          registerCredentials.password
+        );
+        setLoading(false);
 
-    try {
-      setLoading(true);
-      const signUpUidResponse = await signUpWithEmailAndPassword(
-        registerCredentials.email,
-        registerCredentials.password
-      );
-      setLoading(false);
-
-      if (signUpUidResponse === "Failed") {
-        throw new Error("Failed to sign up");
+        if (signUpUidResponse === "Failed") {
+          throw new Error("Failed to sign up");
+        }
+        navigate("/addDetails", {
+          state: { uid: signUpUidResponse },
+        });
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+        return error;
       }
-      navigate("/addDetails", {
-        state: { uid: signUpUidResponse },
-      });
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      return error;
     }
   };
   return (
