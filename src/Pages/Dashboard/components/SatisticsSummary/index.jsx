@@ -13,7 +13,7 @@ import clientPhoto from "./images/client-sample-image.png";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
-export default function StatsSummary() {
+export default function StatsSummary({ userDetails }) {
   const [graphData, setGraphData] = useState([
     { name: "M", value: "12" },
     { name: "T", value: "5" },
@@ -29,10 +29,12 @@ export default function StatsSummary() {
         <p className={styles["statsSummary--title"]}>Statistics</p>
         <div className={styles["statsSummary--profile-inner-container"]}>
           <img
-            src={samplePhoto}
+            src={userDetails?.photoURL || samplePhoto}
             className={styles["statsSummary--profile-image"]}
           />
-          <p className={styles["statsSummary--name"]}>Gurpreet Singh</p>
+          <p className={styles["statsSummary--name"]}>
+            {userDetails?.name || "Broker"}
+          </p>
           <p className={styles["statsSummary--desc"]}>
             Check out your weekly sales snapshot
           </p>
