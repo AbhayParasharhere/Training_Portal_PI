@@ -13,6 +13,7 @@ import communicationIcon from "./images/communication-icon.png";
 import PIlogo from "./images/PI-logo.png";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const menuData = [
@@ -47,10 +48,12 @@ export default function Sidebar() {
             <img src={FAQIcon} className={styles["sidebar--menu-icon"]} />
             <p className={styles["sidebar--menu-text"]}>FAQs and Support</p>
           </div>
-          <div className={styles["sidebar--menu-title-container"]}>
-            <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
-            <p className={styles["sidebar--menu-text"]}>Log Out</p>
-          </div>
+          <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+            <div className={styles["sidebar--menu-title-container"]}>
+              <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
+              <p className={styles["sidebar--menu-text"]}>Log Out</p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

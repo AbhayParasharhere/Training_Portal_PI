@@ -7,8 +7,9 @@ import {
   FacebookAuthProvider,
 } from "firebase/auth";
 import { db } from "./firebaseConfig";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { logEvent } from "firebase/analytics";
+import { toast } from "react-toastify";
 // import { FacebookAuthProvider } from "firebase/auth/cordova";
 
 const signInEmailAndPassword = async (email, password) => {
@@ -20,6 +21,7 @@ const signInEmailAndPassword = async (email, password) => {
     );
     return "Success";
   } catch (error) {
+    toast.error("Invalid Credentials");
     console.error(error);
     return "Failed";
   }
@@ -42,6 +44,24 @@ const storeUserAdditionalDetails = async (uid, additionalDetails) => {
   }
 };
 
+// Get the current details of the user
+const getUserDetails = async (uid) => {
+  try {
+    const docRef = doc(db, "userDetail", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data());
+      return docSnap.data();
+    } else {
+      throw new Error("No such used details!");
+    }
+  } catch (error) {
+    console.log(error);
+    return "Failed";
+  }
+};
+
 // Return the uid of the user
 const signUpWithEmailAndPassword = async (email, password) => {
   try {
@@ -55,6 +75,7 @@ const signUpWithEmailAndPassword = async (email, password) => {
     console.log("This is the uid: ", uid);
     return uid;
   } catch (error) {
+    toast.error("Failed to sign up, please try again.");
     console.error(error);
     return "Failed";
   }
@@ -85,6 +106,7 @@ const signInwithFacebook = async () => {
 };
 
 export {
+  getUserDetails,
   signInEmailAndPassword,
   signUpWithEmailAndPassword,
   signInwithGoogle,
