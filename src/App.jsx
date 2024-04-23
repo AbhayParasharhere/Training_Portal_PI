@@ -33,6 +33,7 @@ import RegisterComponent from "./Pages/SignupPage/Components/Register";
 import Register_2Component from "./Pages/SignupPage/Components/RegisterTwo";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AnnouncementPage from "./Pages/Announcement";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -52,6 +53,7 @@ const router = createBrowserRouter(
         <Route index element={<Dashboard />} />
         <Route path="/Add-Sales" element={<SalesAdding />} />
         <Route path="/support" element={<FAQSupport />} />
+        <Route path="/announcement" element={<AnnouncementPage />} />
       </Route>
     </>
   )
