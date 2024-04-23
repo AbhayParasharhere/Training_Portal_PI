@@ -7,12 +7,15 @@ import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { signUpWithEmailAndPassword } from "../../../../Firebase/authentication";
+import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 export default function RegisterComponent(props) {
   const navigate = useNavigate();
   const [registerCredentials, setRegisterCredentials] = useState();
   const [emailError, setEmailError] = useState();
   const [passwordError, setPasswordError] = useState();
+  const [loading, setLoading] = useState(false);
   const handleChange = (event) => {
     console.log(registerCredentials);
     setRegisterCredentials({
@@ -36,11 +39,11 @@ export default function RegisterComponent(props) {
   };
 
   const handleSignUpClick = async () => {
+    if (!registerCredentials?.email || !registerCredentials?.password) {
+      toast.error("Please enter all the details");
+    }
     // First check if the email adress is valid
-    if (
-      !registerCredentials?.email ||
-      !validateEmail(registerCredentials?.email)
-    ) {
+    if (!validateEmail(registerCredentials?.email)) {
       setEmailError("Invalid email format. Please enter a valid email address");
     } else {
       setEmailError("");
@@ -63,10 +66,12 @@ export default function RegisterComponent(props) {
     }
 
     try {
+      setLoading(true);
       const signUpUidResponse = await signUpWithEmailAndPassword(
         registerCredentials.email,
         registerCredentials.password
       );
+      setLoading(false);
 
       if (signUpUidResponse === "Failed") {
         throw new Error("Failed to sign up");
@@ -75,7 +80,8 @@ export default function RegisterComponent(props) {
         state: { uid: signUpUidResponse },
       });
     } catch (error) {
-      console.error(error);
+      setLoading(false);
+      console.log(error);
       return error;
     }
   };
@@ -124,7 +130,10 @@ export default function RegisterComponent(props) {
         />
         <div className={styles["password-error"]}>{passwordError}</div>
 
-        <Button value="Next" onClick={handleSignUpClick} />
+        {!loading && <Button value="Next" onClick={handleSignUpClick} />}
+        <div style={{ margin: "20px 0 10px 0" }}>
+          <ClipLoader color="#" loading={loading} size={30} />
+        </div>
         <p className={styles["RegisterComponent--main--Login"]}>
           Already have an account?
           <Link

@@ -16,7 +16,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 
-export default function SignUp() {
+export default function SignUpTest() {
   const [response, setResponse] = useState(null);
 
   const testSignUp = async () => {

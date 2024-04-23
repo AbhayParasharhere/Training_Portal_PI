@@ -7,8 +7,10 @@ import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { storeUserAdditionalDetails } from "../../../../Firebase/authentication";
+import { ClipLoader } from "react-spinners";
 
 export default function Register_2Component() {
+  const [loading, setLoading] = useState(false);
   const [additionalDetails, setAdditionalDetails] = useState();
   const location = useLocation();
   const navigate = useNavigate();
@@ -50,6 +52,7 @@ export default function Register_2Component() {
     }
 
     try {
+      setLoading(true);
       const uid = location?.state?.uid;
 
       if (!uid) {
@@ -59,6 +62,7 @@ export default function Register_2Component() {
         uid,
         additionalDetails
       );
+      setLoading(false);
       console.log("store response: ", storeAdditionalDetailsResponse);
       if (storeAdditionalDetailsResponse === "Failed") {
         throw new Error("Failed to store additional details");
@@ -69,6 +73,7 @@ export default function Register_2Component() {
         navigate("/");
       }
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -137,7 +142,12 @@ export default function Register_2Component() {
             onChange={handleChange}
           />
         </div>
-        <Button value="Create Account" onClick={handleSignUpClick} />
+        {!loading && (
+          <Button value="Create Account" onClick={handleSignUpClick} />
+        )}
+        <div style={{ margin: "20px 0 10px 0" }}>
+          <ClipLoader color="#" loading={loading} size={30} />
+        </div>
         <p className={styles["RegisterComponent--main--Login"]}>
           By clicking Create Account, you agree to our{" "}
           <a href="" className={styles["RegisterComponent--main--LoginLink"]}>

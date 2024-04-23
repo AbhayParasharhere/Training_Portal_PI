@@ -75,6 +75,7 @@ const signUpWithEmailAndPassword = async (email, password) => {
     console.log("This is the uid: ", uid);
     return uid;
   } catch (error) {
+    toast.error("Failed to sign up, please try again.");
     console.error(error);
     return "Failed";
   }
