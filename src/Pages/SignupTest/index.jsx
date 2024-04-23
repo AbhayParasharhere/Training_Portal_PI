@@ -16,7 +16,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 
-export default function SignUp() {
+export default function SignUpTest() {
   const [response, setResponse] = useState(null);
 
   const testSignUp = async () => {
@@ -67,6 +67,7 @@ export default function SignUp() {
     // uploading it to a generic folder userPhoto, the file name will be (email of the user_uuidrandom)
     try {
       if (imageFile == null) return;
+      // NOTE -> Change the filename of the image to the uid of the user
       const imgRef = ref(storage, `userPhoto/${"generic@nomail.com"}_${v4()}`);
       await uploadBytes(imgRef, imageFile);
       uploadBytes(imgRef, imageFile).then((snapshot) => {

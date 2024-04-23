@@ -6,7 +6,6 @@ import {
   Route,
 } from "react-router-dom";
 import Header from "./CommonComponents/Header";
-import SignUp from "./Pages/Signup";
 import AllCourses from "./Pages/AllCourses";
 import CalendarModal from "./CommonComponents/CalendarModal";
 import Button from "./CommonComponents/Button";
@@ -28,9 +27,10 @@ import Tools from "./Pages/Tools";
 
 import SalesAdding from "./Pages/SalesAdding";
 import SidebarLayout from "./Layouts/Sidebar";
-import RegisterComponent from "./Pages/SignupPage/Components/Register/RegisterComponent";
-import Register_2Component from "./Pages/SignupPage/Components/RegisterTwo/RegisterTwoComponent";
-
+import RegisterComponent from "./Pages/SignupPage/Components/Register";
+import Register_2Component from "./Pages/SignupPage/Components/RegisterTwo";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -57,7 +57,7 @@ function App() {
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       <RouterProvider router={router} />
-
+      <ToastContainer />
     </div>
   );
 }

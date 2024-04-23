@@ -8,6 +8,7 @@ import {
   orderBy,
   limit,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { v4 } from "uuid";
@@ -85,6 +86,46 @@ const getAllAnnouncementsSortedByUpdatedAtDescending = async () => {
     });
 
     return announcements;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+// Function to get all the announcements from the database sorted by the created date of the announcements
+// in descending order and limit the number of announcements to 500
+// Make sure the status of the announcement is not deleted
+const getAllAnnouncementsSortedByUpdatedAtDescendingRealTime = (
+  setAnnouncements
+) => {
+  try {
+    const announcementRef = collection(db, "announcements");
+
+    // Create a query with the necessary conditions
+    const announcementQuery = query(
+      announcementRef,
+      where("status", "!=", "deleted"),
+      orderBy("updated_at", "desc"),
+      limit(500)
+    );
+
+    // Set up an onSnapshot listener for real-time updates
+    const unsubscribe = onSnapshot(
+      announcementQuery,
+      (announcementsSnapshot) => {
+        const announcements = [];
+
+        announcementsSnapshot.forEach((doc) => {
+          announcements.push({ id: doc.id, ...doc.data() });
+        });
+
+        // Update the state with the new list of announcements
+        setAnnouncements(announcements);
+      }
+    );
+
+    // Return the unsubscribe function to allow stopping the listener if needed
+    return unsubscribe;
   } catch (error) {
     console.log(error);
     return error;
@@ -182,6 +223,7 @@ export {
   createAnnouncement,
   getAllUserAnnouncements,
   getAllAnnouncementsSortedByUpdatedAtDescending,
+  getAllAnnouncementsSortedByUpdatedAtDescendingRealTime,
   updateAnnouncement,
   deleteAnnouncement,
 };
