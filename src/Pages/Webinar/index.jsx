@@ -44,6 +44,34 @@ export default function Webinar() {
       description:
         "Join us for an interactive webinar session led by John Doe, aseasoned sales trainer with over 15 years of experience in theinsurance industry. In this webinar, John will share valuableinsights and practical tips for mastering sales techniquesspecifically tailored for life insurance brokers. Whether you're aseasoned professional or just starting out in the industry, thiswebinar will equip you with the knowledge and skills you need toexcel in selling life insurance products. Don't miss thisopportunity to learn from one of the best in the field and take yoursales game to the next level!",
     },
+    ,
+    {
+      title: "Mastering Sales Techniques for Life Insurance Brokers",
+      host: "John Doe, Senior Sales Trainer",
+      date: "May 5, 2024",
+      time: "10:00 AM - 11:30 AM EST",
+      agenda: [
+        "Introduction to Effective Selling: Understanding the psychology of selling and building rapport with clients.  ",
+        "Overcoming Objections: Techniques for addressing common objections and objections unique to the life insurance industry.",
+        "Q&A Session: An interactive Q&A session where attendees can ask questions and get personalized advice from the host.",
+      ],
+      description:
+        "Join us for an interactive webinar session led by John Doe, aseasoned sales trainer with over 15 years of experience in theinsurance industry. In this webinar, John will share valuableinsights and practical tips for mastering sales techniquesspecifically tailored for life insurance brokers. Whether you're aseasoned professional or just starting out in the industry, thiswebinar will equip you with the knowledge and skills you need toexcel in selling life insurance products. Don't miss thisopportunity to learn from one of the best in the field and take yoursales game to the next level!",
+    },
+    ,
+    {
+      title: "Mastering Sales Techniques for Life Insurance Brokers",
+      host: "John Doe, Senior Sales Trainer",
+      date: "May 5, 2024",
+      time: "10:00 AM - 11:30 AM EST",
+      agenda: [
+        "Introduction to Effective Selling: Understanding the psychology of selling and building rapport with clients.  ",
+        "Overcoming Objections: Techniques for addressing common objections and objections unique to the life insurance industry.",
+        "Q&A Session: An interactive Q&A session where attendees can ask questions and get personalized advice from the host.",
+      ],
+      description:
+        "Join us for an interactive webinar session led by John Doe, aseasoned sales trainer with over 15 years of experience in theinsurance industry. In this webinar, John will share valuableinsights and practical tips for mastering sales techniquesspecifically tailored for life insurance brokers. Whether you're aseasoned professional or just starting out in the industry, thiswebinar will equip you with the knowledge and skills you need toexcel in selling life insurance products. Don't miss thisopportunity to learn from one of the best in the field and take yoursales game to the next level!",
+    },
   ];
 
   const handleClick = (index) => {
