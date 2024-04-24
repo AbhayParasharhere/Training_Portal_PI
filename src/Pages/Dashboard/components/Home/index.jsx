@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import congratulationsEmoji from "./images/congratulations-emoji.png";
 import playIcon from "./images/play-icon.png";
@@ -8,6 +8,8 @@ import cakeIcon from "./images/cakeIcon.png";
 import appointmentIcon from "./images/appointment-icon.png";
 import bellIcon from "./images/bell-icon.png";
 import clipboardIcon from "./images/clipboard-icon.png";
+import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../../../../context/authContext";
 
 export default function Home({ userDetails, announcements }) {
   const mobileIconsData = [
@@ -17,6 +19,37 @@ export default function Home({ userDetails, announcements }) {
     { icon: appointmentIcon, text: "Client Appointments" },
     { icon: clipboardIcon, text: "Important Updates" },
   ];
+  const getTimeDifference = (updatedAt) => {
+    // Convert `updatedAt` to a Date object
+    const updatedDate = new Date(updatedAt);
+
+    // Get the current date and time
+    const currentDate = new Date();
+
+    // Calculate the time difference in milliseconds
+    const timeDifference = currentDate - updatedDate;
+
+    // Convert the time difference to total minutes
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+
+    // Calculate total hours
+    const hoursDifference = Math.floor(minutesDifference / 60);
+
+    // Calculate total days, and remaining hours and minutes
+    const days = Math.floor(hoursDifference / 24);
+    const hours = hoursDifference % 24;
+    const minutes = minutesDifference % 60;
+
+    // Determine the appropriate format based on the difference
+    if (days > 0) {
+      return `${days} days ago`;
+    } else if (hours > 0) {
+      return `${hours} hours ago`;
+    } else {
+      return `${minutes} minutes ago`;
+    }
+  };
+
   const mobileIcons = mobileIconsData.map((data) => {
     return (
       <div className={styles["home--mobile-icons-inner-container"]}>
@@ -306,10 +339,10 @@ export default function Home({ userDetails, announcements }) {
                     className={styles["home--annoucement-details-container"]}
                   >
                     <p className={styles["home--annoucement-details-text"]}>
-                      {announcement?.createdBy}
+                      {announcement?.created_by}
                     </p>
                     <p className={styles["home--annoucement-details-text"]}>
-                      {announcement?.updatedAt?.toDate().toLocaleString()}
+                      {getTimeDifference(announcement?.updated_at.toDate())}
                     </p>
                   </div>
                   <div>
@@ -326,7 +359,7 @@ export default function Home({ userDetails, announcements }) {
         ) : (
           <p>No Announcement</p>
         )}
-        <div className={styles["home--annoucement-list-container"]}>
+        {/* <div className={styles["home--annoucement-list-container"]}>
           <div className={styles["home--annoucement-container"]}>
             <div className={styles["home--annoucement-details-container"]}>
               <p className={styles["home--annoucement-details-text"]}>Admin</p>
@@ -359,7 +392,7 @@ export default function Home({ userDetails, announcements }) {
               </ui>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       {/*Annoucement part Completed*/}
 

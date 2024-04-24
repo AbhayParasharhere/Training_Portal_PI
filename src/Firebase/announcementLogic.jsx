@@ -12,13 +12,21 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { v4 } from "uuid";
+import secureLocalStorage from "react-secure-storage";
 // Function to create an annoucement from the announcement object as the input
 // which contains the announcement title, announcement description, uid of the user who created the announcement
 const createAnnouncement = async (announcementData) => {
-  const createdTimestamp = new Date().toISOString();
-  const updatedTimestamp = new Date().toISOString();
+  const createdTimestamp = new Date();
+  const updatedTimestamp = new Date();
   try {
-    if (!announcementData || announcementData?.user_id === undefined) {
+    const currentUserName = secureLocalStorage.getItem("userDetails");
+    console.log(
+      "currentUserName",
+      currentUserName,
+      secureLocalStorage.getItem("userDetails")
+    );
+    // announcementData.created_by =
+    if (!announcementData || announcementData?.created_by === undefined) {
       throw new Error("Invalid announcement data");
     }
     // there is a collection named announcements in the database
