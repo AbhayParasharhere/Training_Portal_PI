@@ -9,6 +9,7 @@ import red_button from "../Images/red_button.png";
 import plus from "../Images/plus.png";
 import arrow_down from "../Images/arrow_down.png";
 import arrow_up from "../Images/arrow_up.png";
+import client_img from "../Images/client_img.png";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
@@ -194,18 +195,111 @@ export default function ClientComponent() {
           </div>
         </div>
       </div>
+      <div className={styles["ClientComponent-wrapper-topbar-mobile"]}>
+        <div
+          className={styles["ClientComponent-wrapper-topbar-search-div"]}
+          ref={parentDivRef}
+          onChange={handleInputChange}
+        >
+          <img src={search_icon} height="18px" />
+          <input
+            type="text"
+            className={styles["ClientComponent-wrapper-topbar-search-bar"]}
+            placeholder="Search Clients"
+          />
+        </div>
+        <div
+          className={styles["ClientComponent-wrapper-topbar-mobile-clients"]}
+        >
+          <div
+            className={styles["ClientComponent-wrapper-topbar-search-menu-div"]}
+          >
+            <div
+              className={styles["ClientComponent-wrapper-topbar-search-menu"]}
+            >
+              All Clients
+            </div>
+            <img
+              src={arrow_down}
+              height="24px"
+              className={
+                styles["ClientComponent-wrapper-topbar-search-menu-arrow-down"]
+              }
+            />
+            <img
+              src={arrow_up}
+              height="24px"
+              className={
+                styles["ClientComponent-wrapper-topbar-search-menu-arrow-up"]
+              }
+            />
+            <div
+              className={
+                styles[
+                  "ClientComponent-wrapper-topbar-search-menu-div-dropdown"
+                ]
+              }
+            >
+              {" "}
+              <div
+                className={
+                  styles[
+                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
+                  ]
+                }
+              >
+                All Clients
+              </div>
+              <div
+                className={
+                  styles[
+                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
+                  ]
+                }
+              >
+                Newest
+              </div>
+              <div
+                className={
+                  styles[
+                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
+                  ]
+                }
+              >
+                Oldest
+              </div>
+            </div>
+          </div>
+          <div
+            className={styles["ClientComponent-wrapper-topbar-search-add"]}
+            onClick={addClient}
+          >
+            <img src={plus} height="26px" />
+          </div>
+        </div>
+      </div>
       <div className={styles["ClientComponent-wrapper-table"]}>
         <table className={styles["ClientComponent-table"]}>
           <tr className={styles["ClientComponent-th"]}>
-            <th>Client name</th>
-            <th>Email id</th>
-            <th>Phone number</th>
+            <th className={styles["ClientComponent-th-name"]}>Client name</th>
+            <th className={styles["ClientComponent-th-email"]}>Email id</th>
+            <th className={styles["ClientComponent-th-phone"]}>Phone number</th>
           </tr>
           {list.map((item) => (
             <tr key={item.id} className={styles["ClientComponent-tr"]}>
-              <td>{item.name}</td>
-              <td>{item.email}</td>
-              <td>{item.number}</td>
+              <td className={styles["ClientComponent-td-name"]}>
+                <img
+                  src={client_img}
+                  className={styles["ClientComponent-td-img"]}
+                />{" "}
+                {item.name}
+              </td>
+              <td className={styles["ClientComponent-td-email"]}>
+                {item.email}
+              </td>
+              <td className={styles["ClientComponent-td-phone"]}>
+                {item.number}
+              </td>
               <td>
                 <div className={styles["ClientComponent-dialog-div"]}>
                   {/* {!dialogActive && ( */}
