@@ -114,4 +114,6 @@ const createLoginCount = async (userID) => {
   }
 };
 
+// Function to the get the total videos by a user within a particular date range
+
 export { getSalesData, getClientsData, getLoggedInTime, createLoginCount };

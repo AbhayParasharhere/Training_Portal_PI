@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
@@ -11,7 +11,7 @@ export default function Statistics() {
   const [loading, setLoading] = useState(true);
   const [statData, setStatData] = useState({});
 
-  useEffect(() => {
+  useMemo(() => {
     async function fetchData() {
       try {
         setLoading(true);
