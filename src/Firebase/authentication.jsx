@@ -19,7 +19,7 @@ const signInEmailAndPassword = async (email, password) => {
       email,
       password
     );
-    return "Success";
+    return { status: "Success", uid: userCredential.user.uid };
   } catch (error) {
     toast.error("Invalid Credentials");
     console.error(error);
@@ -62,6 +62,8 @@ const getUserDetails = async (uid) => {
   }
 };
 
+// Check if the user email exists
+
 // Return the uid of the user
 const signUpWithEmailAndPassword = async (email, password) => {
   try {
@@ -75,6 +77,13 @@ const signUpWithEmailAndPassword = async (email, password) => {
     console.log("This is the uid: ", uid);
     return uid;
   } catch (error) {
+    if (error.code === "auth/email-already-in-use") {
+      toast.error("User with this email, already exists, please login", {
+        autoClose: 9000,
+      });
+      return "User exists";
+    }
+
     toast.error("Failed to sign up, please try again.");
     console.error(error);
     return "Failed";
@@ -85,8 +94,7 @@ const signInwithGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
     const res = await signInWithPopup(auth, provider);
-    console.log(res);
-    return "Success";
+    return { status: "Success", uid: res.user.uid };
   } catch (error) {
     console.log(error);
     return "Failed";
@@ -97,8 +105,7 @@ const signInwithFacebook = async () => {
     const provider = new FacebookAuthProvider();
     console.log("This is the provider: ", provider, "Auth: ", auth);
     const res = await signInWithPopup(auth, provider);
-    console.log(res);
-    return "Success";
+    return { status: "Success", uid: res.user.uid };
   } catch (error) {
     console.log(error);
     return "Failed";

@@ -14,6 +14,7 @@ import line from "./Images/line.png";
 import Button from "../../CommonComponents/Button";
 import { Link } from "react-router-dom";
 import { set } from "firebase/database";
+import { createLoginCount } from "../../Firebase/kpi";
 
 function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
@@ -50,7 +51,10 @@ function LoginComponent(props) {
         </p>
         <p className={styles["RegisterComponent--main--text-mobile"]}>Log In</p>
         <div className={styles["RegisterComponent--main--ContinueButton"]}>
-          <button className={styles["RegisterComponent--main--GoogleButton"]}>
+          <button
+            className={styles["RegisterComponent--main--GoogleButton"]}
+            onClick={props.googleSignIn}
+          >
             <img
               src={google_logo}
               className={styles["RegisterComponent--main--GoogleButton-img"]}
@@ -81,7 +85,9 @@ function LoginComponent(props) {
           onChange={handleChange}
           style={emailError ? errorStyle : {}}
         />
-        <div className={styles["email-error"]}>{emailError}</div>
+        {emailError && (
+          <div className={styles["email-error"]}>{emailError}</div>
+        )}
 
         <input
           className={styles["RegisterComponent--main--input"]}
@@ -137,12 +143,18 @@ export default function Login() {
   const handleSignIn = async (email, password) => {
     try {
       setLoading(true);
-      const res = await signInEmailAndPassword(email, password);
-      if (res === "Success") {
+      const { status, uid } = await signInEmailAndPassword(email, password);
+
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        // Save the login count
+        const loginCountSaveStaus = await createLoginCount(uid);
+        console.log("This is login count status ", loginCountSaveStaus);
         setLoading(false);
         navigate("/");
       } else {
-        console.log("This is res ", res);
+        console.log("This is status ", status);
       }
     } catch (err) {
       setLoading(false);
@@ -152,25 +164,35 @@ export default function Login() {
   };
   const handleGoogleSignIn = async () => {
     try {
-      const res = await signInwithGoogle();
-      console.log(res);
-      if (res === "Success") {
+      const { status, uid } = await signInwithGoogle();
+
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        // Save the login count
+        const loginCountSaveStaus = await createLoginCount(uid);
+        console.log("This is login count status ", loginCountSaveStaus);
         navigate("/");
       } else {
-        console.log("This is res ", res);
+        console.log("This is status ", status);
       }
     } catch (err) {
       console.log("Invalid Credentials");
     }
   };
+
   const handleFacebookSignIn = async () => {
     try {
-      const res = await signInwithFacebook();
-      console.log(res);
-      if (res === "Success") {
+      const { status, uid } = await signInwithFacebook();
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        // Save the login count
+        const loginCountSaveStaus = await createLoginCount(uid);
+        console.log("This is login count status ", loginCountSaveStaus);
         navigate("/");
       } else {
-        console.log("This is res ", res);
+        console.log("This is status ", status);
       }
     } catch (err) {
       console.log("Invalid Credentials");

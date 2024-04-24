@@ -83,6 +83,10 @@ export default function Register_2Component() {
         if (
           storeAdditionalDetailsResponse === "User details stored successfully"
         ) {
+          // Save the login count
+          const loginCountSaveStaus = await createLoginCount(uid);
+          console.log("This is login count status ", loginCountSaveStaus, uid);
+
           navigate("/");
         }
       } catch (err) {
@@ -104,7 +108,7 @@ export default function Register_2Component() {
         <p className={styles["RegisterComponent--main--text-mobile"]}>
           Register
         </p>
-        <div className={styles["RegisterComponent--main--ContinueButton"]}>
+        {/* <div className={styles["RegisterComponent--main--ContinueButton"]}>
           <button className={styles["RegisterComponent--main--GoogleButton"]}>
             <img
               src={google_logo}
@@ -126,9 +130,9 @@ export default function Register_2Component() {
               Continue with Facebook
             </div>
           </button>
-        </div>
+        </div> */}
 
-        <img src={line} className={styles["RegisterComponent--main--hr"]} />
+        {/* <img src={line} className={styles["RegisterComponent--main--hr"]} /> */}
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Full Name"

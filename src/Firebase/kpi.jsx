@@ -1,4 +1,12 @@
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  setDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
 // Functions to get all sales data for a particular user within a particular date range
@@ -68,6 +76,8 @@ const getLoggedInTime = async (userID, startDate, endDate) => {
   try {
     const loggedInTime = [];
     const loggedInRef = collection(db, "userDetail", userID, "loginCount");
+
+    // Get all the documents with doc id between startDate and endDate
     const snapShot = await getDocs(
       query(
         loggedInRef,
@@ -75,14 +85,33 @@ const getLoggedInTime = async (userID, startDate, endDate) => {
         where("created_at", "<=", endDate)
       )
     );
+
     snapShot.forEach((doc) => {
       loggedInTime.push({ ...doc.data(), id: doc.id });
     });
-    return loggedInTime;
+    return { data: loggedInTime, count: loggedInTime.length };
   } catch (error) {
     console.log(error);
     return error;
   }
 };
 
-export { getSalesData, getClientsData };
+// Function to create the loginCount document for a particular user
+// This function should be called whenever a user logs in and during the creation of the user
+const createLoginCount = async (userID) => {
+  try {
+    // The doc id should be the date and time of the login
+    await setDoc(
+      doc(db, "userDetail", userID, "loginCount", new Date().toISOString()),
+      {
+        created_at: new Date(),
+      }
+    );
+    return "Success in saving login count";
+  } catch (error) {
+    console.log("Could not save to login count", error);
+    return error;
+  }
+};
+
+export { getSalesData, getClientsData, getLoggedInTime, createLoginCount };
