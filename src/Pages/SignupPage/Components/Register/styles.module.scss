@@ -190,9 +190,7 @@
   .RegisterComponent--main {
     width: 80%;
   }
-  .RegisterComponent--main--text {
-    font-size: 22px;
-  }
+
   .RegisterComponent--main--FBbutton-text {
     font-size: 8px;
   }
@@ -218,9 +216,7 @@
   .RegisterComponent--main {
     width: 100%;
   }
-  .RegisterComponent--main--text {
-    font-size: 19px;
-  }
+
   .RegisterComponent--main--FBbutton-text {
     font-size: 8px;
   }
@@ -238,9 +234,6 @@
   }
 }
 @media screen and (max-width: 651px) {
-  .RegisterComponent--main--text {
-    font-size: 18px;
-  }
   .RegisterComponent--main--Login {
     font-size: 12px;
   }
