@@ -13,6 +13,7 @@ import communicationIcon from "./images/communication-icon.png";
 import PIlogo from "./images/PI-logo.png";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const menuData = [
@@ -38,17 +39,21 @@ export default function Sidebar() {
   return (
     <div className={styles["sidebar--main-container"]}>
       <div className={styles["sidebar--menu-container"]}>
-        <img src={PIlogo} className={styles["sidebar--company-logo"]} />
-        {renderMenu}
+        <div className={styles["sidebar--menu-inner-container"]}>
+          <img src={PIlogo} className={styles["sidebar--company-logo"]} />
+          {renderMenu}
+        </div>
         <div className={styles["sidebar--support-logout-container"]}>
           <div className={styles["sidebar--menu-title-container"]}>
             <img src={FAQIcon} className={styles["sidebar--menu-icon"]} />
             <p className={styles["sidebar--menu-text"]}>FAQs and Support</p>
           </div>
-          <div className={styles["sidebar--menu-title-container"]}>
-            <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
-            <p className={styles["sidebar--menu-text"]}>Log Out</p>
-          </div>
+          <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+            <div className={styles["sidebar--menu-title-container"]}>
+              <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
+              <p className={styles["sidebar--menu-text"]}>Log Out</p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,15 +1,24 @@
-@import url("https://fonts.googleapis.com/css?family=Open San");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 .sidebar--main-container {
-  height: 100%;
-  padding: 30px 40px;
+  min-height: 900px;
+  padding: 30px 35px;
+  max-width: 200px;
+  min-width: 200px;
   padding-right: 50px;
   background-color: #f5f6fb;
 }
 .sidebar--menu-container {
+  min-height: 950px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  // gap: 30px;
+}
+.sidebar--menu-inner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 .sidebar--company-logo {
   height: 75px;
@@ -23,17 +32,24 @@
   align-items: center;
 }
 .sidebar--menu-icon {
-  height: 25px;
+  height: 20px;
 }
 .sidebar--menu-text {
   src: url(/src/fonts/OpenSans-VariableFont_wdth,wght.ttf);
   font-family: "Open Sans";
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 25.5px;
   letter-spacing: -0.03em;
   text-align: left;
 }
 .sidebar--support-logout-container {
-  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+@media (max-width: 1130px) {
+  .sidebar--main-container {
+    display: none;
+  }
 }
