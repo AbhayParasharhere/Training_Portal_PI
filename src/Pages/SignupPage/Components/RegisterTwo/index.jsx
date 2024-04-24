@@ -8,6 +8,7 @@ import Button from "../../../../CommonComponents/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { storeUserAdditionalDetails } from "../../../../Firebase/authentication";
 import { ClipLoader } from "react-spinners";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Register_2Component() {
   const [loading, setLoading] = useState(false);
@@ -61,8 +62,21 @@ export default function Register_2Component() {
           uid,
           additionalDetails
         );
+
+        // Also store the user details in the local storage
+        const userName = additionalDetails?.name || "Broker";
+        const userPhoto =
+          additionalDetails?.photoURL ||
+          "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf";
         setLoading(false);
+
+        secureLocalStorage.setItem("userDetails", [userName, userPhoto]);
+        console.log(
+          "Set Details: User Details JSON",
+          secureLocalStorage.getItem("userDetails")
+        );
         console.log("store response: ", storeAdditionalDetailsResponse);
+
         if (storeAdditionalDetailsResponse === "Failed") {
           throw new Error("Failed to store additional details");
         }
