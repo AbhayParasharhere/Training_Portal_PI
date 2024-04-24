@@ -9,6 +9,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  padding: 2%;
 }
 .ClientComponent-wrapper-topbar {
   display: flex;
@@ -44,33 +45,36 @@
   gap: 6px;
   width: 38%;
   justify-content: flex-end;
+  align-items: center;
 }
 .ClientComponent-wrapper-topbar-search-div {
   display: flex;
+
   gap: 8px;
   align-items: center;
   border: 2px solid #d6d6d6;
   border-radius: 8px;
-  width: 40%;
+  width: 60%;
   height: 35px;
-  top: 30px;
-  left: 842px;
+
   background-color: #f9f9f9;
   padding-left: 2%;
 }
 .ClientComponent-wrapper-topbar-search-bar {
   border: none;
-  padding-top: 5px;
-  height: 29px;
+  // padding-top: 5px;
+  // height: 29px;
   width: 73%;
   background-color: #f9f9f9;
   color: #525252;
   font-family: Open Sans;
   font-size: 16px;
   font-weight: 400;
-  line-height: 24px;
+
   letter-spacing: -0.03em;
   text-align: left;
+  display: flex;
+  align-items: center;
 }
 .ClientComponent-wrapper-topbar-search-bar:focus {
   border: none;
@@ -94,7 +98,7 @@
   border-radius: 8px;
   width: 30%;
   cursor: pointer;
-
+  height: 48px;
   gap: 4px;
   position: relative;
 }
@@ -159,7 +163,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 10%;
+  width: 56px;
+  height: 48px;
 
   border-radius: 8px;
 }

@@ -120,7 +120,7 @@ export default function ClientComponent() {
             ref={parentDivRef}
             onChange={handleInputChange}
           >
-            <img src={search_icon} height="24px" />
+            <img src={search_icon} height="18px" />
             <input
               type="text"
               className={styles["ClientComponent-wrapper-topbar-search-bar"]}
