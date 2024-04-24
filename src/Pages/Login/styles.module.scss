@@ -30,6 +30,21 @@
   // line-height: 38.13px;
   text-align: left;
 }
+.RegisterComponent--main--text-mobile {
+  display: none;
+  color: #525252;
+  font-family: Open Sans;
+  font-size: 25px;
+  font-weight: 600;
+  // line-height: 38.13px;
+  text-align: left;
+}
+.RegisterComponent--main--GoogleButton-img {
+  height: 25px;
+}
+.RegisterComponent--main--FBbutton-img {
+  height: 25px;
+}
 .RegisterComponent--main--ContinueButton {
   display: flex;
   justify-content: center;
@@ -127,7 +142,7 @@
   // align-self: flex-start;
   display: flex;
 }
-@media screen and (min-width: 2000px) {
+@media (min-width: 2000px) {
   .RegisterComponent--main--GoogleButton {
     width: 25%;
   }
@@ -136,9 +151,9 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media (max-width: 1200px) {
   .RegisterComponent--main--text {
-    font-size: 25px;
+    font-size: 32px;
   }
   .RegisterComponent--main--FBbutton-text {
     font-size: 10px;
@@ -147,16 +162,78 @@
     font-size: 10px;
   }
 }
-@media screen and (max-width: 550px) {
+@media (max-width: 1037px) {
   .RegisterComponent--main--text {
-    font-size: 15px;
+    font-size: 32px;
+  }
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 9px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 9px;
+  }
+}
+@media (max-width: 952px) {
+  .RegisterComponent--main {
+    width: 80%;
+  }
+  .RegisterComponent--main--text {
+    font-size: 28px;
+  }
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 8px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 8px;
+  }
+  .RegisterComponent--main--GoogleButton {
+    width: 25%;
+  }
+  .RegisterComponent--main--FBbutton {
+    width: 25%;
+  }
+}
+@media (max-width: 814px) {
+  .RegisterComponent--main--GoogleButton {
+    width: 30%;
+  }
+  .RegisterComponent--main--FBbutton {
+    width: 30%;
+  }
+}
+@media (max-width: 744px) {
+  .RegisterComponent--main {
+    width: 100%;
+  }
+  .RegisterComponent--main--text {
+    font-size: 25px;
+  }
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 8px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 8px;
+  }
+  .RegisterComponent--main--GoogleButton {
+    width: 25%;
+  }
+  .RegisterComponent--main--FBbutton {
+    width: 25%;
+  }
+  .RegisterComponent--main--ContinueButton {
+    gap: 2%;
+  }
+}
+@media (max-width: 651px) {
+  .RegisterComponent--main--text {
+    font-size: 18px;
   }
   .RegisterComponent--main--Login {
     font-size: 12px;
   }
   .RegisterComponent--main--ContinueButton {
-    gap: 0;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 15px;
   }
   .RegisterComponent--main--FBbutton-text {
     font-size: 8px;
@@ -164,15 +241,85 @@
   .RegisterComponent--main--GoogleButton-text {
     font-size: 8px;
   }
+  .RegisterComponent--main--GoogleButton {
+    width: 40%;
+  }
+  .RegisterComponent--main--FBbutton {
+    width: 40%;
+  }
 }
-@media screen and (max-width: 370px) {
+@media (max-width: 579px) {
   .RegisterComponent--main--text {
-    font-size: 25px;
+    display: none;
+  }
+  .RegisterComponent--main--text-mobile {
+    display: block;
   }
   .RegisterComponent--main--Login {
     font-size: 10px;
   }
-  .RegisterComponent--main--checkbox--div {
-    font-size: 12px;
+  .RegisterComponent--main--ContinueButton {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 434px) {
+  .RegisterComponent--main--input {
+    height: 25px;
+    font-size: 8px;
+  }
+}
+@media (max-width: 400px) {
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 7px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 7px;
+  }
+  .RegisterComponent--main--Login {
+    font-size: 8px;
+  }
+}
+@media (max-width: 361px) {
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 5px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 5px;
+  }
+  .RegisterComponent--main--Login {
+    font-size: 7px;
+  }
+  .RegisterComponent--main--input {
+    font-size: 7px;
+  }
+  .RegisterComponent--main--GoogleButton-img {
+    height: 15px;
+  }
+  .RegisterComponent--main--FBbutton-img {
+    height: 15px;
+  }
+}
+@media (max-width: 284px) {
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 4px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 4px;
+  }
+  .RegisterComponent--main--text-mobile {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 257px) {
+  .RegisterComponent--main--FBbutton-text {
+    font-size: 3.5px;
+  }
+  .RegisterComponent--main--GoogleButton-text {
+    font-size: 3.5px;
+  }
+  .RegisterComponent--main--Login {
+    font-size: 6px;
   }
 }
