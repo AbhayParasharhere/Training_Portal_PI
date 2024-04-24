@@ -33,6 +33,8 @@ import RegisterComponent from "./Pages/SignupPage/Components/Register";
 import Register_2Component from "./Pages/SignupPage/Components/RegisterTwo";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AnnouncementPage from "./Pages/Announcement";
+import Webinar from "./Pages/Webinar";
 import Compliance from "./Pages/Compliance";
 
 // Sign Up steps
@@ -53,6 +55,8 @@ const router = createBrowserRouter(
         <Route index element={<Dashboard />} />
         <Route path="/Add-Sales" element={<SalesAdding />} />
         <Route path="/support" element={<FAQSupport />} />
+        <Route path="/announcement" element={<AnnouncementPage />} />
+        <Route path="/webinar" element={<Webinar />} />
         <Route path="/compliance" element={<Compliance />} />
       </Route>
     </>
@@ -60,7 +64,7 @@ const router = createBrowserRouter(
 );
 function App() {
   return (
-    <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <RouterProvider router={router} />
       <ToastContainer />
     </div>

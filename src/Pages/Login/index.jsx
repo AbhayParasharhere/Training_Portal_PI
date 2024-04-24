@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import logo from "./Images/logo.png";
-import GoogleButton from "./Images/Continue_Google.png";
-import FB_button from "./Images/Continue_FB.png";
+import google_logo from "./Images/google_logo.png";
+import facebook_logo from "./Images/facebook_logo.png";
 import line from "./Images/line.png";
 import Button from "../../CommonComponents/Button";
 import { Link } from "react-router-dom";
@@ -48,17 +48,29 @@ function LoginComponent(props) {
         <p className={styles["RegisterComponent--main--text"]}>
           Log In into your account
         </p>
+        <p className={styles["RegisterComponent--main--text-mobile"]}>Log In</p>
         <div className={styles["RegisterComponent--main--ContinueButton"]}>
-          <img
-            src={GoogleButton}
-            className={styles["RegisterComponent--main--GoogleButton"]}
-            onClick={() => props.googleSignIn()}
-          />
-          <img
-            src={FB_button}
-            className={styles["RegisterComponent--main--FBbutton"]}
-            onClick={() => props.facebookSignIn()}
-          />
+          <button className={styles["RegisterComponent--main--GoogleButton"]}>
+            <img
+              src={google_logo}
+              className={styles["RegisterComponent--main--GoogleButton-img"]}
+            />
+            <div
+              className={styles["RegisterComponent--main--GoogleButton-text"]}
+            >
+              Continue with Google
+            </div>
+          </button>
+
+          <button className={styles["RegisterComponent--main--FBbutton"]}>
+            <img
+              src={facebook_logo}
+              className={styles["RegisterComponent--main--FBbutton-img"]}
+            />
+            <div className={styles["RegisterComponent--main--FBbutton-text"]}>
+              Continue with Facebook
+            </div>
+          </button>
         </div>
 
         <img src={line} className={styles["RegisterComponent--main--hr"]} />

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../Images/logo.png";
-import GoogleButton from "../../Images/Continue_Google.png";
-import FB_button from "../../Images/Continue_FB.png";
+import google_logo from "../../Images/google_logo.png";
+import facebook_logo from "../../Images/facebook_logo.png";
 import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -101,15 +101,31 @@ export default function Register_2Component() {
         <p className={styles["RegisterComponent--main--text"]}>
           Register by creating an account
         </p>
+        <p className={styles["RegisterComponent--main--text-mobile"]}>
+          Register
+        </p>
         <div className={styles["RegisterComponent--main--ContinueButton"]}>
-          <img
-            src={GoogleButton}
-            className={styles["RegisterComponent--main--GoogleButton"]}
-          ></img>
-          <img
-            src={FB_button}
-            className={styles["RegisterComponent--main--FBbutton"]}
-          ></img>
+          <button className={styles["RegisterComponent--main--GoogleButton"]}>
+            <img
+              src={google_logo}
+              className={styles["RegisterComponent--main--GoogleButton-img"]}
+            />
+            <div
+              className={styles["RegisterComponent--main--GoogleButton-text"]}
+            >
+              Continue with Google
+            </div>
+          </button>
+
+          <button className={styles["RegisterComponent--main--FBbutton"]}>
+            <img
+              src={facebook_logo}
+              className={styles["RegisterComponent--main--FBbutton-img"]}
+            />
+            <div className={styles["RegisterComponent--main--FBbutton-text"]}>
+              Continue with Facebook
+            </div>
+          </button>
         </div>
 
         <img src={line} className={styles["RegisterComponent--main--hr"]} />
@@ -142,6 +158,7 @@ export default function Register_2Component() {
           name="brokerStatus"
           onChange={handleChange}
         />
+
         <div className={styles["RegisterComponent--main--Residence"]}>
           <input
             className={styles["RegisterComponent--main--Residence--input"]}
@@ -157,7 +174,11 @@ export default function Register_2Component() {
           />
         </div>
         {!loading && (
-          <Button value="Create Account" onClick={handleSignUpClick} />
+          <Button
+            value="Create Account"
+            onClick={handleSignUpClick}
+            className={styles["RegisterComponent--main--button"]}
+          />
         )}
         <div style={{ margin: "20px 0 10px 0" }}>
           <ClipLoader color="#" loading={loading} size={30} />
