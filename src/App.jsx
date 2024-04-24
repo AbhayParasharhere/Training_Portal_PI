@@ -36,6 +36,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AnnouncementPage from "./Pages/Announcement";
 import Webinar from "./Pages/Webinar";
 import Compliance from "./Pages/Compliance";
+import Statistics from "./Pages/Statistics";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -58,6 +59,7 @@ const router = createBrowserRouter(
         <Route path="/announcement" element={<AnnouncementPage />} />
         <Route path="/webinar" element={<Webinar />} />
         <Route path="/compliance" element={<Compliance />} />
+        <Route path="/statistics" element={<Statistics />} />
       </Route>
     </>
   )

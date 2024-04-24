@@ -1,0 +1,51 @@
+import React from "react";
+import styles from "./styles.module.scss";
+import profileImage from "./images/sample-image.png";
+
+export default function Statistics() {
+  const generalStatData = [
+    { stat: 11, title1: "Courses", title2: "Completed", bar: true },
+    { stat: 22, title1: "Videos", title2: "Watched", bar: true },
+    { stat: 5, title1: "Login in", title2: "this week", bar: false },
+  ];
+  const renderGeneralStat = generalStatData.map((stat) => {
+    return (
+      <div className={styles["statistics--general-progress-container"]}>
+        <div className={styles["statistics--general-progress-inner-container"]}>
+          <p className={styles["statistics--general-progress-number"]}>
+            {stat.stat}
+          </p>
+          <div className={styles["statistics--general-stat-title-container"]}>
+            <p className={styles["statistics--general-stat-title"]}>
+              {stat.title1}
+            </p>
+            <p
+              className={styles["statistics--general-stat-title"]}
+              style={{ lineHeight: "40px" }}
+            >
+              {stat.title2}
+            </p>
+          </div>
+        </div>
+        {stat.bar && <hr className={styles["statistics--progress-bar"]} />}
+      </div>
+    );
+  });
+  return (
+    <div className={styles["statistics--main-container"]}>
+      <div className={styles["statistics--general-container"]}>
+        <div className={styles["statistics--general-inner-container"]}>
+          {renderGeneralStat}
+        </div>
+        <div className={styles["statistics--profile-container"]}>
+          <img
+            src={profileImage}
+            className={styles["statistics--profile-image"]}
+          />
+          <p className={styles["statistics--user-name"]}>Gurpreet singh</p>
+        </div>
+      </div>
+      <div className={styles["statistics--graph-container"]}></div>
+    </div>
+  );
+}
