@@ -125,7 +125,7 @@ export default function ClientComponent() {
             <input
               type="text"
               className={styles["ClientComponent-wrapper-topbar-search-bar"]}
-              placeholder="Search Clients"
+              placeholder="Search client"
             />
           </div>
           <div
@@ -134,7 +134,7 @@ export default function ClientComponent() {
             <div
               className={styles["ClientComponent-wrapper-topbar-search-menu"]}
             >
-              All Clients
+              All clients
             </div>
             <img
               src={arrow_down}
@@ -165,7 +165,7 @@ export default function ClientComponent() {
                   ]
                 }
               >
-                All Clients
+                All clients
               </div>
               <div
                 className={
@@ -205,7 +205,7 @@ export default function ClientComponent() {
           <input
             type="text"
             className={styles["ClientComponent-wrapper-topbar-search-bar"]}
-            placeholder="Search Clients"
+            placeholder="Search client"
           />
         </div>
         <div
@@ -217,7 +217,7 @@ export default function ClientComponent() {
             <div
               className={styles["ClientComponent-wrapper-topbar-search-menu"]}
             >
-              All Clients
+              All clients
             </div>
             <img
               src={arrow_down}
@@ -248,7 +248,7 @@ export default function ClientComponent() {
                   ]
                 }
               >
-                All Clients
+                All clients
               </div>
               <div
                 className={
