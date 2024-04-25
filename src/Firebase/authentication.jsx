@@ -12,7 +12,7 @@ import { logEvent } from "firebase/analytics";
 import { toast } from "react-toastify";
 // import { FacebookAuthProvider } from "firebase/auth/cordova";
 
-const signInEmailAndPassword = async (email, password) => {
+const signInEmailAndPassword = async (email, password, setLoading) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -21,7 +21,9 @@ const signInEmailAndPassword = async (email, password) => {
     );
     return "Success";
   } catch (error) {
+    setLoading(false);
     toast.error("Invalid Credentials");
+
     console.error(error);
     return "Failed";
   }

@@ -7,7 +7,7 @@ import CourseDetail from "./components/CourseDetail";
 export default function Course() {
   return (
     <div className={styles["course--main-container"]}>
-      <Sidebar />
+      {/* <Sidebar /> */}
       {/* <CourseGrid /> */}
       <CourseDetail />
     </div>
