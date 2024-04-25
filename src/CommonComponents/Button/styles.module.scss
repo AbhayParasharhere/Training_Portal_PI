@@ -17,34 +17,23 @@
     font-size: 12px;
   }
 }
-@media screen and (max-width: 653px) {
-  .button {
-    font-size: 10px;
-  }
-}
+
 @media screen and (max-width: 558px) {
   .button {
-    font-size: 10px;
-    height: 22px;
-    width: 40%;
+    font-size: 11px;
   }
 }
 @media screen and (max-width: 510px) {
   .button {
-    font-size: 9px;
-
-    width: 45%;
+    // font-size: 9px;
+    height: 32px;
+    width: 40%;
   }
 }
 @media screen and (max-width: 361px) {
   .button {
-    font-size: 7px;
+    font-size: 9px;
     height: 22px;
-    width: 55%;
-  }
-}
-@media screen and (max-width: 257px) {
-  .button {
-    font-size: 6px;
+    // width: 55%;
   }
 }
