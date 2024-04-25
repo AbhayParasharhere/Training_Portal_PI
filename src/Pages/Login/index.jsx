@@ -169,19 +169,13 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (email, password) => {
-    try {
-      setLoading(true);
-      const res = await signInEmailAndPassword(email, password);
-      if (res === "Success") {
-        setLoading(false);
-        navigate("/");
-      } else {
-        console.log("This is res ", res);
-      }
-    } catch (err) {
+    setLoading(true);
+    const res = await signInEmailAndPassword(email, password, setLoading);
+    if (res === "Success") {
       setLoading(false);
-      toast.error("Failed to sign in, please try again.");
-      console.log("Invalid Credentials");
+      navigate("/");
+    } else {
+      console.log("This is res ", res);
     }
   };
   const handleGoogleSignIn = async () => {

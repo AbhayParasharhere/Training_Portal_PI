@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./styles.module.scss";
 import dashboardIcon from "./images/dashboard-icon.png";
 import dashboardRedIcon from "./images/dashboard-red-icon.png";
@@ -24,8 +24,9 @@ import FAQIcon from "./images/FAQ-icon.png";
 import FAQRedIcon from "./images/FAQ-red-icon.png";
 import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { AuthContext } from "../../context/authContext";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const [menuActive, setMenuActive] = useState();
   const navigate = useNavigate();
 
@@ -126,18 +127,6 @@ export default function Sidebar() {
       </NavLink>
     );
   });
-  const handleLogout = () => {
-    const auth = getAuth();
-    console.log("working");
-    signOut(auth)
-      .then(() => {
-        console.log("navigating");
-        redirect("/login");
-      })
-      .catch((error) => {
-        toast.error("An error occured");
-      });
-  };
   return (
     <div className={styles["sidebar--main-container"]}>
       <div className={styles["sidebar--menu-container"]}>
@@ -173,7 +162,7 @@ export default function Sidebar() {
           <div
             className={styles["sidebar--menu-title-container"]}
             style={{ cursor: "pointer" }}
-            onClick={handleLogout}
+            onClick={props.logout}
           >
             <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
             <p className={styles["sidebar--menu-text"]}>Log Out</p>
