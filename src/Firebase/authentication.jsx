@@ -112,6 +112,21 @@ const signInwithFacebook = async () => {
   }
 };
 
+// Check if we already have the user in the database by checking in userDEtails collection
+const checkIfUserExists = async (uid) => {
+  if (!uid) {
+    console.log("Failed to get user details as uid is not provided");
+    return "Failed";
+  }
+  const userDetails = await getUserDetails(uid);
+
+  if (userDetails === "Failed") {
+    console.log("Failed to get user details");
+    return "Failed";
+  }
+  return userDetails;
+};
+
 export {
   getUserDetails,
   signInEmailAndPassword,
@@ -119,4 +134,5 @@ export {
   signInwithGoogle,
   storeUserAdditionalDetails,
   signInwithFacebook,
+  checkIfUserExists,
 };

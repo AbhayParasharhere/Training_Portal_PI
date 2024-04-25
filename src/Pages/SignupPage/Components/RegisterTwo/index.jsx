@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { storeUserAdditionalDetails } from "../../../../Firebase/authentication";
 import { ClipLoader } from "react-spinners";
 import secureLocalStorage from "react-secure-storage";
+import { createLoginCount } from "../../../../Firebase/kpi";
 
 export default function Register_2Component() {
   const [loading, setLoading] = useState(false);

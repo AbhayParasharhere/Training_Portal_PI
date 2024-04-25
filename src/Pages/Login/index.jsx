@@ -3,6 +3,7 @@ import {
   signInEmailAndPassword,
   signInwithGoogle,
   signInwithFacebook,
+  checkIfUserExists,
 } from "../../Firebase/authentication";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -169,10 +170,19 @@ export default function Login() {
       console.log("This is uid status ", status, uid);
 
       if (status === "Success" && uid) {
-        // Save the login count
-        const loginCountSaveStaus = await createLoginCount(uid);
-        console.log("This is login count status ", loginCountSaveStaus);
-        navigate("/");
+        const checkExists = await checkIfUserExists(uid);
+        console.log("This is checkIfUserExists ", checkExists);
+        if ((await checkIfUserExists(uid)) === "Failed") {
+          navigate("/addDetails", {
+            state: { uid: uid },
+          });
+          return;
+        } else {
+          // Save the login count
+          const loginCountSaveStaus = await createLoginCount(uid);
+          console.log("This is login count status ", loginCountSaveStaus);
+          navigate("/");
+        }
       } else {
         console.log("This is status ", status);
       }
@@ -187,10 +197,19 @@ export default function Login() {
       console.log("This is uid status ", status, uid);
 
       if (status === "Success" && uid) {
-        // Save the login count
-        const loginCountSaveStaus = await createLoginCount(uid);
-        console.log("This is login count status ", loginCountSaveStaus);
-        navigate("/");
+        const checkExists = await checkIfUserExists(uid);
+        console.log("This is checkIfUserExists ", checkExists);
+        if ((await checkIfUserExists(uid)) === "Failed") {
+          navigate("/addDetails", {
+            state: { uid: uid },
+          });
+          return;
+        } else {
+          // Save the login count
+          const loginCountSaveStaus = await createLoginCount(uid);
+          console.log("This is login count status ", loginCountSaveStaus);
+          navigate("/");
+        }
       } else {
         console.log("This is status ", status);
       }

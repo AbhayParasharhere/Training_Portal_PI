@@ -7,6 +7,7 @@ import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  checkIfUserExists,
   getUserDetails,
   signInwithFacebook,
   signInwithGoogle,
@@ -97,21 +98,6 @@ export default function RegisterComponent(props) {
         return error;
       }
     }
-  };
-
-  // Check if we already have the user in the database by checking in userDEtails collection
-  const checkIfUserExists = async (uid) => {
-    if (!uid) {
-      console.log("Failed to get user details as uid is not provided");
-      return "Failed";
-    }
-    const userDetails = await getUserDetails(uid);
-
-    if (userDetails === "Failed") {
-      console.log("Failed to get user details");
-      return "Failed";
-    }
-    return userDetails;
   };
 
   const handleGoogleSignUp = async () => {
