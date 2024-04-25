@@ -23,8 +23,6 @@ import { auth } from "../../Firebase/firebaseConfig";
 import firebase from "firebase/compat/app";
 import { AuthContext } from "../../context/authContext";
 
-
-
 function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
   const [emailError, setEmailError] = useState();
@@ -160,26 +158,25 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (email, password) => {
-    try {
-      setLoading(true);
-      const { status, uid } = await signInEmailAndPassword(email, password);
+    setLoading(true);
+    const { status, uid } = await signInEmailAndPassword(
+      email,
+      password,
+      setLoading
+    );
 
-      console.log("This is uid status ", status, uid);
+    console.log("This is uid status ", status, uid);
 
-      if (status === "Success" && uid) {
-        // Save the login count
-        const loginCountSaveStaus = await createLoginCount(uid);
-        console.log("This is login count status ", loginCountSaveStaus);
-        setLoading(false);
-        navigate("/");
-      } else {
-        console.log("This is status ", status);
-      }
-    } catch (err) {
+    if (status === "Success" && uid) {
+      // Save the login count
+      const loginCountSaveStaus = await createLoginCount(uid);
+      console.log("This is login count status ", loginCountSaveStaus);
       setLoading(false);
-      toast.error("Failed to sign in, please try again.");
-      console.log("Invalid Credentials");
+      navigate("/");
+    } else {
+      console.log("This is status ", status);
     }
+  };
   const handleGoogleSignIn = async () => {
     try {
       const { status, uid } = await signInwithGoogle();
