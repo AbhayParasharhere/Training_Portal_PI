@@ -3,16 +3,15 @@
 .Tools-main {
   display: flex;
   gap: 20px;
+  overflow-x: hidden;
 }
 .ClientInfo-wrapper {
-  padding: 15px;
-
+  padding-top: 15px;
+  padding-left: 15px;
+  width: 70%;
   height: 100vh;
 }
-.ClientInfo-wrapper-main {
-  margin-top: 25px;
-  width: 100%;
-}
+
 .ClientInfo-wrapper-main-content-image {
   background-color: #a805322e;
   border: 2px solid #a80532f0;
@@ -39,8 +38,9 @@
   gap: 20px;
 }
 .ClientInfo-wrapper-main-content {
+  margin-top: 5px;
   padding: 15px;
-  width: 150%;
+  width: 100%;
   background-color: #f4f4f5;
   display: flex;
   justify-content: space-between;
@@ -53,5 +53,10 @@
   }
   .ClientInfo-wrapper-main-content {
     padding: 20px;
+  }
+}
+@media (max-width: 370px) {
+  .ClientInfo-wrapper-main-content {
+    width: 120%;
   }
 }
