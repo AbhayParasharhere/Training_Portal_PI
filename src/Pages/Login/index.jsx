@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   signInEmailAndPassword,
   signInwithGoogle,
   signInwithFacebook,
   checkIfUserExists,
 } from "../../Firebase/authentication";
-import { useNavigate } from "react-router-dom";
+
+import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import logo from "./Images/logo.png";
@@ -16,11 +17,17 @@ import Button from "../../CommonComponents/Button";
 import { Link } from "react-router-dom";
 import { set } from "firebase/database";
 import { createLoginCount } from "../../Firebase/kpi";
+import secureLocalStorage from "react-secure-storage";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../Firebase/firebaseConfig";
+import firebase from "firebase/compat/app";
+import { AuthContext } from "../../context/authContext";
+
+
 
 function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
   const [emailError, setEmailError] = useState();
-
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -140,6 +147,17 @@ function LoginComponent(props) {
 
 export default function Login() {
   const navigate = useNavigate();
+  const [loadingRedirect, setLoadingRedirect] = useState(false);
+  let currentUser = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log("This is the use effect current user: ", currentUser);
+    if (currentUser?.uid) {
+      setLoadingRedirect(true);
+      navigate("/");
+    }
+  }, [currentUser]);
+
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (email, password) => {
     try {
@@ -162,7 +180,6 @@ export default function Login() {
       toast.error("Failed to sign in, please try again.");
       console.log("Invalid Credentials");
     }
-  };
   const handleGoogleSignIn = async () => {
     try {
       const { status, uid } = await signInwithGoogle();
@@ -218,7 +235,9 @@ export default function Login() {
     }
   };
 
-  return (
+  return loadingRedirect ? (
+    <div>Loading..</div>
+  ) : (
     <div>
       <LoginComponent
         signIn={handleSignIn}
