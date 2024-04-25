@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../Images/logo.png";
 import google_logo from "../../Images/google_logo.png";
@@ -16,6 +16,7 @@ import {
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import { createLoginCount } from "../../../../Firebase/kpi";
+import { AuthContext } from "../../../../context/authContext";
 
 export default function RegisterComponent(props) {
   const navigate = useNavigate();
@@ -30,6 +31,16 @@ export default function RegisterComponent(props) {
       [event.target.name]: event.target.value,
     });
   };
+  const [loadingRedirect, setLoadingRedirect] = useState(false);
+  let currentUser = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log("This is the use effect current user: ", currentUser);
+    if (currentUser?.uid) {
+      setLoadingRedirect(true);
+      navigate("/");
+    }
+  }, [currentUser]);
 
   const validateEmail = (email) => {
     return String(email)

@@ -22,14 +22,13 @@ import PIlogo from "./images/PI-logo.png";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
 import FAQRedIcon from "./images/FAQ-red-icon.png";
+import addSalesIcon from "./images/add-sales-icon.png";
+import addSalesRedIcon from "./images/add-sales-red-icon.png";
+
 import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
-import { AuthContext } from "../../context/authContext";
 
 export default function Sidebar(props) {
   const [menuActive, setMenuActive] = useState();
-  const navigate = useNavigate();
-
   const handleMenuActive = (index) => {
     setMenuActive(index);
   };
@@ -63,6 +62,13 @@ export default function Sidebar(props) {
       title: "Clients",
       link: "/clients",
       clickedIcon: clientsRedIcon,
+    },
+    ,
+    {
+      icon: addSalesIcon,
+      title: "Add Sales",
+      link: "/addSales",
+      clickedIcon: addSalesRedIcon,
     },
     {
       icon: toolsResourcesIcon,
