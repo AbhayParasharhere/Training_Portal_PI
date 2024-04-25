@@ -125,15 +125,6 @@ const storeVideoProgress = async (userID, courseId, videoID) => {
       courseId,
       created_at: new Date(),
     });
-
-    // // try retrieving the video progress for the user
-    // const videoRef = doc(db, "userDetails", userID, "videoProgress", videoID);
-    // const videoSnapshot = await getDoc(videoRef);
-    // if (videoSnapshot.exists()) {
-    //   console.log("Video progress saved", videoSnapshot.data());
-    // } else {
-    //   console.log("Could not save video progress");
-    // }
     return "Success in storing video progress";
   } catch (error) {
     console.log("Could not save video progress", error);
