@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   signInEmailAndPassword,
   signInwithGoogle,
   signInwithFacebook,
 } from "../../Firebase/authentication";
-import { useNavigate } from "react-router-dom";
+
+import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import logo from "./Images/logo.png";
@@ -14,11 +15,33 @@ import line from "./Images/line.png";
 import Button from "../../CommonComponents/Button";
 import { Link } from "react-router-dom";
 import { set } from "firebase/database";
+import secureLocalStorage from "react-secure-storage";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../Firebase/firebaseConfig";
+import firebase from "firebase/compat/app";
+import { AuthContext } from "../../context/authContext";
+
+// Define a flag to track whether redirection has already occurred
+let redirectionDone = false;
+
+// export async function loader(redirect) {
+//   if (redirectionDone) {
+//     return null;
+//   }
+
+//   const user = onAuthStateChanged(auth, (user) => {
+//     if (user && !redirectionDone) {
+//       redirectionDone = true; // Mark redirection as done
+//       redirect("/");
+//       return "Redirected";
+//     }
+//   });
+//   return user;
+// }
 
 function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
   const [emailError, setEmailError] = useState();
-
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -133,6 +156,17 @@ function LoginComponent(props) {
 
 export default function Login() {
   const navigate = useNavigate();
+  const [loadingRedirect, setLoadingRedirect] = useState(false);
+  let currentUser = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log("This is the use effect current user: ", currentUser);
+    if (currentUser?.uid) {
+      setLoadingRedirect(true);
+      navigate("/");
+    }
+  }, [currentUser]);
+
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (email, password) => {
     try {
@@ -177,7 +211,9 @@ export default function Login() {
     }
   };
 
-  return (
+  return loadingRedirect ? (
+    <div>Loading..</div>
+  ) : (
     <div>
       <LoginComponent
         signIn={handleSignIn}

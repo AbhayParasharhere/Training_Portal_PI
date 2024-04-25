@@ -8,10 +8,12 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
+import { useNavigate } from "react-router-dom";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
 export default function MainCover() {
+  const navigate = useNavigate();
   const [graphSize, setGraphSize] = useState({ width: 400, height: 200 });
   const [graphData, setGraphData] = useState([
     { name: "M", value: "10" },
@@ -73,10 +75,18 @@ export default function MainCover() {
               Say goodbye to scattered materials and regulatory headaches
             </p>
             <div className={styles["wcover--button-container"]}>
-              <button className={styles["wcover--signup-button"]}>
+              <button
+                className={styles["wcover--signup-button"]}
+                onClick={() => navigate("/signup")}
+              >
                 Sign Up
               </button>
-              <button className={styles["wcover--login-button"]}>Log In</button>
+              <button
+                className={styles["wcover--login-button"]}
+                onClick={() => navigate("/login")}
+              >
+                Log In
+              </button>
             </div>
           </div>
           <div className={styles["wcover--graph-container"]}>

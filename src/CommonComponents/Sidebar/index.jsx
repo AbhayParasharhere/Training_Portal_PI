@@ -22,10 +22,12 @@ import PIlogo from "./images/PI-logo.png";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
 import FAQRedIcon from "./images/FAQ-red-icon.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 
 export default function Sidebar() {
   const [menuActive, setMenuActive] = useState();
+  const navigate = useNavigate();
 
   const handleMenuActive = (index) => {
     setMenuActive(index);
@@ -124,6 +126,18 @@ export default function Sidebar() {
       </NavLink>
     );
   });
+  const handleLogout = () => {
+    const auth = getAuth();
+    console.log("working");
+    signOut(auth)
+      .then(() => {
+        console.log("navigating");
+        redirect("/login");
+      })
+      .catch((error) => {
+        toast.error("An error occured");
+      });
+  };
   return (
     <div className={styles["sidebar--main-container"]}>
       <div className={styles["sidebar--menu-container"]}>
@@ -155,12 +169,15 @@ export default function Sidebar() {
               <p className={styles["sidebar--menu-text"]}>FAQs and Support</p>
             </div>
           </NavLink>
-          <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
-            <div className={styles["sidebar--menu-title-container"]}>
-              <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
-              <p className={styles["sidebar--menu-text"]}>Log Out</p>
-            </div>
-          </Link>
+
+          <div
+            className={styles["sidebar--menu-title-container"]}
+            style={{ cursor: "pointer" }}
+            onClick={handleLogout}
+          >
+            <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
+            <p className={styles["sidebar--menu-text"]}>Log Out</p>
+          </div>
         </div>
       </div>
     </div>
