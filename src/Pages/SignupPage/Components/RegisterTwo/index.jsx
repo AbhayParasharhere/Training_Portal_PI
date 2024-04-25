@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { storeUserAdditionalDetails } from "../../../../Firebase/authentication";
 import { ClipLoader } from "react-spinners";
 import secureLocalStorage from "react-secure-storage";
+import { createLoginCount } from "../../../../Firebase/kpi";
 
 export default function Register_2Component() {
   const [loading, setLoading] = useState(false);
@@ -70,7 +71,7 @@ export default function Register_2Component() {
           "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf";
         setLoading(false);
 
-        secureLocalStorage.setItem("userDetails", [userName, userPhoto]);
+        secureLocalStorage.setItem("userDetails", [userName, userPhoto, uid]);
         console.log(
           "Set Details: User Details JSON",
           secureLocalStorage.getItem("userDetails")
@@ -83,6 +84,10 @@ export default function Register_2Component() {
         if (
           storeAdditionalDetailsResponse === "User details stored successfully"
         ) {
+          // Save the login count
+          const loginCountSaveStaus = await createLoginCount(uid);
+          console.log("This is login count status ", loginCountSaveStaus, uid);
+
           navigate("/");
         }
       } catch (err) {
@@ -104,7 +109,7 @@ export default function Register_2Component() {
         <p className={styles["RegisterComponent--main--text-mobile"]}>
           Register
         </p>
-        <div className={styles["RegisterComponent--main--ContinueButton"]}>
+        {/* <div className={styles["RegisterComponent--main--ContinueButton"]}>
           <button className={styles["RegisterComponent--main--GoogleButton"]}>
             <img
               src={google_logo}
@@ -126,9 +131,9 @@ export default function Register_2Component() {
               Continue with Facebook
             </div>
           </button>
-        </div>
+        </div> */}
 
-        <img src={line} className={styles["RegisterComponent--main--hr"]} />
+        {/* <img src={line} className={styles["RegisterComponent--main--hr"]} /> */}
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Full Name"

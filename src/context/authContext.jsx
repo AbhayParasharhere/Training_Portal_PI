@@ -21,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
     const userPhoto =
       photoURL ||
       "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf";
-    secureLocalStorage.setItem("userDetails", [userName, userPhoto]);
+    secureLocalStorage.setItem("userDetails", [userName, userPhoto, uid]);
     console.log(
       "Auth context: User Details JSON",
       secureLocalStorage.getItem("userDetails")

@@ -3,6 +3,7 @@ import {
   signInEmailAndPassword,
   signInwithGoogle,
   signInwithFacebook,
+  checkIfUserExists,
 } from "../../Firebase/authentication";
 
 import { redirect, useLoaderData, useNavigate } from "react-router-dom";
@@ -15,29 +16,12 @@ import line from "./Images/line.png";
 import Button from "../../CommonComponents/Button";
 import { Link } from "react-router-dom";
 import { set } from "firebase/database";
+import { createLoginCount } from "../../Firebase/kpi";
 import secureLocalStorage from "react-secure-storage";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../Firebase/firebaseConfig";
 import firebase from "firebase/compat/app";
 import { AuthContext } from "../../context/authContext";
-
-// Define a flag to track whether redirection has already occurred
-let redirectionDone = false;
-
-// export async function loader(redirect) {
-//   if (redirectionDone) {
-//     return null;
-//   }
-
-//   const user = onAuthStateChanged(auth, (user) => {
-//     if (user && !redirectionDone) {
-//       redirectionDone = true; // Mark redirection as done
-//       redirect("/");
-//       return "Redirected";
-//     }
-//   });
-//   return user;
-// }
 
 function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
@@ -73,7 +57,10 @@ function LoginComponent(props) {
         </p>
         <p className={styles["RegisterComponent--main--text-mobile"]}>Log In</p>
         <div className={styles["RegisterComponent--main--ContinueButton"]}>
-          <button className={styles["RegisterComponent--main--GoogleButton"]}>
+          <button
+            className={styles["RegisterComponent--main--GoogleButton"]}
+            onClick={props.googleSignIn}
+          >
             <img
               src={google_logo}
               className={styles["RegisterComponent--main--GoogleButton-img"]}
@@ -104,7 +91,9 @@ function LoginComponent(props) {
           onChange={handleChange}
           style={emailError ? errorStyle : {}}
         />
-        <div className={styles["email-error"]}>{emailError}</div>
+        {emailError && (
+          <div className={styles["email-error"]}>{emailError}</div>
+        )}
 
         <input
           className={styles["RegisterComponent--main--input"]}
@@ -170,35 +159,73 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (email, password) => {
     setLoading(true);
-    const res = await signInEmailAndPassword(email, password, setLoading);
-    if (res === "Success") {
+    const { status, uid } = await signInEmailAndPassword(
+      email,
+      password,
+      setLoading
+    );
+
+    console.log("This is uid status ", status, uid);
+
+    if (status === "Success" && uid) {
+      // Save the login count
+      const loginCountSaveStaus = await createLoginCount(uid);
+      console.log("This is login count status ", loginCountSaveStaus);
       setLoading(false);
       navigate("/");
     } else {
-      console.log("This is res ", res);
+      console.log("This is status ", status);
     }
   };
   const handleGoogleSignIn = async () => {
     try {
-      const res = await signInwithGoogle();
-      console.log(res);
-      if (res === "Success") {
-        navigate("/");
+      const { status, uid } = await signInwithGoogle();
+
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        const checkExists = await checkIfUserExists(uid);
+        console.log("This is checkIfUserExists ", checkExists);
+        if ((await checkIfUserExists(uid)) === "Failed") {
+          navigate("/addDetails", {
+            state: { uid: uid },
+          });
+          return;
+        } else {
+          // Save the login count
+          const loginCountSaveStaus = await createLoginCount(uid);
+          console.log("This is login count status ", loginCountSaveStaus);
+          navigate("/");
+        }
       } else {
-        console.log("This is res ", res);
+        console.log("This is status ", status);
       }
     } catch (err) {
       console.log("Invalid Credentials");
     }
   };
+
   const handleFacebookSignIn = async () => {
     try {
-      const res = await signInwithFacebook();
-      console.log(res);
-      if (res === "Success") {
-        navigate("/");
+      const { status, uid } = await signInwithFacebook();
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        const checkExists = await checkIfUserExists(uid);
+        console.log("This is checkIfUserExists ", checkExists);
+        if ((await checkIfUserExists(uid)) === "Failed") {
+          navigate("/addDetails", {
+            state: { uid: uid },
+          });
+          return;
+        } else {
+          // Save the login count
+          const loginCountSaveStaus = await createLoginCount(uid);
+          console.log("This is login count status ", loginCountSaveStaus);
+          navigate("/");
+        }
       } else {
-        console.log("This is res ", res);
+        console.log("This is status ", status);
       }
     } catch (err) {
       console.log("Invalid Credentials");

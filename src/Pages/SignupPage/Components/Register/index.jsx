@@ -6,9 +6,16 @@ import facebook_logo from "../../Images/facebook_logo.png";
 import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { signUpWithEmailAndPassword } from "../../../../Firebase/authentication";
+import {
+  checkIfUserExists,
+  getUserDetails,
+  signInwithFacebook,
+  signInwithGoogle,
+  signUpWithEmailAndPassword,
+} from "../../../../Firebase/authentication";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
+import { createLoginCount } from "../../../../Firebase/kpi";
 
 export default function RegisterComponent(props) {
   const navigate = useNavigate();
@@ -65,12 +72,19 @@ export default function RegisterComponent(props) {
       return;
     } else {
       try {
+        // Check if the user email already exists in the userDetail collection
         setLoading(true);
         const signUpUidResponse = await signUpWithEmailAndPassword(
           registerCredentials.email,
           registerCredentials.password
         );
         setLoading(false);
+        console.log("This is the response ", signUpUidResponse);
+
+        if (signUpUidResponse === "User exists") {
+          navigate("/login");
+          return;
+        }
 
         if (signUpUidResponse === "Failed") {
           throw new Error("Failed to sign up");
@@ -83,6 +97,57 @@ export default function RegisterComponent(props) {
         console.log(error);
         return error;
       }
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      const { status, uid } = await signInwithGoogle();
+
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        if ((await checkIfUserExists(uid)) !== "Failed") {
+          toast.error("User with this email, already exists, please login", {
+            autoClose: 9000,
+          });
+          navigate("/login");
+          return;
+        } else {
+          navigate("/addDetails", {
+            state: { uid: uid },
+          });
+        }
+      } else {
+        console.log("This is status ", status);
+      }
+    } catch (err) {
+      console.log("Invalid Credentials");
+    }
+  };
+
+  const handleFacebookSignUp = async () => {
+    try {
+      const { status, uid } = await signInwithFacebook();
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        if ((await checkIfUserExists(uid)) !== "Failed") {
+          toast.error("User with this email, already exists, please login", {
+            autoClose: 9000,
+          });
+          navigate("/login");
+          return;
+        } else {
+          navigate("/addDetails", {
+            state: { uid: uid },
+          });
+        }
+      } else {
+        console.log("This is status ", status);
+      }
+    } catch (err) {
+      console.log("Invalid Credentials");
     }
   };
   return (
@@ -98,7 +163,7 @@ export default function RegisterComponent(props) {
         <div className={styles["RegisterComponent--main--ContinueButton"]}>
           <button
             className={styles["RegisterComponent--main--GoogleButton"]}
-            onClick={props.google}
+            onClick={handleGoogleSignUp}
           >
             <img
               src={google_logo}
@@ -107,17 +172,20 @@ export default function RegisterComponent(props) {
             <div
               className={styles["RegisterComponent--main--GoogleButton-text"]}
             >
-              Continue with Google
+              SignUp with Google
             </div>
           </button>
 
-          <button className={styles["RegisterComponent--main--FBbutton"]}>
+          <button
+            className={styles["RegisterComponent--main--FBbutton"]}
+            onClick={handleFacebookSignUp}
+          >
             <img
               src={facebook_logo}
               className={styles["RegisterComponent--main--FBbutton-img"]}
             />
             <div className={styles["RegisterComponent--main--FBbutton-text"]}>
-              Continue with Facebook
+              SignUp with Facebook
             </div>
           </button>
         </div>
@@ -130,7 +198,9 @@ export default function RegisterComponent(props) {
           onChange={handleChange}
           style={emailError ? errorStyle : {}}
         />
-        <span className={styles["email-error"]}>{emailError}</span>
+        {emailError && (
+          <span className={styles["email-error"]}>{emailError}</span>
+        )}
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Password"
@@ -146,7 +216,9 @@ export default function RegisterComponent(props) {
           style={passwordError ? errorStyle : {}}
           onChange={handleChange}
         />
-        <div className={styles["password-error"]}>{passwordError}</div>
+        {passwordError && (
+          <div className={styles["password-error"]}>{passwordError}</div>
+        )}
 
         {!loading && <Button value="Next" onClick={handleSignUpClick} />}
         <div style={{ margin: "20px 0 10px 0" }}>
