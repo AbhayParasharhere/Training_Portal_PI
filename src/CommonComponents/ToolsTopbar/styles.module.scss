@@ -1,70 +1,80 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
-.ClientInfo-wrapper-topbar-div {
+.Tools-wrapper-topbar-div {
   display: flex;
   gap: 4%;
-  width: 120%;
+  // width: 100%;
   margin: 0;
   padding: 0;
+  margin-bottom: 25px;
+  overflow-x: hidden;
+  //   width: 40%;
+  //   width: 50%;
 }
-.ClientInfo-wrapper-topbar-text {
+.Tools-wrapper-topbar-text,
+.Tools-wrapper-topbar-text-product,
+.Tools-wrapper-topbar-text-finance {
   font-family: Open Sans;
-  //   width: 200px;
+  //   min-width: 30%;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 25.5px;
   letter-spacing: -0.03em;
   text-align: left;
-  border-bottom: 3px solid #a1a1a1;
+  border-bottom: 4px solid #a1a1a1;
   //   padding-right: 0;
-  padding-right: 1%;
+  padding-right: 2%;
   padding-bottom: 10px;
   color: #a1a1a1;
   cursor: pointer;
 }
 
-.ClientInfo-wrapper-topbar-text:hover {
+.Tools-wrapper-topbar-text:hover {
   color: #123c97;
   border-color: #123c97;
-  font-weight: 600;
-  transition: all 0.2s ease-in-out;
 }
 
 @media screen and (min-width: 2000px) {
-  .ClientInfo-wrapper-topbar-text {
+  .Tools-wrapper-topbar-text,
+  .Tools-wrapper-topbar-text-product,
+  .Tools-wrapper-topbar-text-finance {
     font-size: 25px;
     // width: 200%;
   }
 }
 
 @media screen and (max-width: 1024px) {
-  .ClientInfo-wrapper-topbar-text {
+  .Tools-wrapper-topbar-text,
+  .Tools-wrapper-topbar-text-product,
+  .Tools-wrapper-topbar-text-finance {
     font-size: 15px;
   }
 }
 
 @media screen and (max-width: 950px) {
-  .ClientInfo-wrapper-topbar-text {
-    font-size: 12px;
+  .Tools-wrapper-topbar-text,
+  .Tools-wrapper-topbar-text-product,
+  .Tools-wrapper-topbar-text-finance {
+    font-size: 12.5px;
   }
 }
 
 @media screen and (max-width: 710px) {
-  .ClientInfo-wrapper-topbar-text {
-    font-size: 11px;
+  .Tools-wrapper-topbar-text-product,
+  .Tools-wrapper-topbar-text-finance {
+    display: none;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .ClientInfo-wrapper-topbar-text {
-    font-size: 6px;
+  .Tools-wrapper-topbar-text {
     padding-bottom: 0px;
     border-bottom: 2px solid;
   }
 }
 @media screen and (max-width: 320px) {
-  .ClientInfo-wrapper-topbar-text {
-    font-size: 5px;
+  .Tools-wrapper-topbar-text {
+    font-size: 11px;
     padding-bottom: 0px;
     border-bottom: 2px solid;
   }
