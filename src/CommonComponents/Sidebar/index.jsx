@@ -116,6 +116,7 @@ export default function Sidebar(props) {
           isActive && setMenuActive(index);
           return isActive ? clickStyles : linkStyles;
         }}
+        key={index}
       >
         <div className={styles["sidebar--menu-title-container"]} key={index}>
           <img

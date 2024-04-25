@@ -6,6 +6,7 @@ import {
   addDoc,
   setDoc,
   doc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
@@ -114,6 +115,60 @@ const createLoginCount = async (userID) => {
   }
 };
 
+// For a given courseId, video ID and user ID, we need to store the video progress
+// Store a document qith video id in videProgress subcollection in teh userDEtails collections for the current userDocument
+// The document should have the video ID and the timestamp of the video watched
+const storeVideoProgress = async (userID, courseId, videoID) => {
+  try {
+    await setDoc(doc(db, "userDetails", userID, "videoProgress", videoID), {
+      videoID,
+      courseId,
+      created_at: new Date(),
+    });
+
+    // // try retrieving the video progress for the user
+    // const videoRef = doc(db, "userDetails", userID, "videoProgress", videoID);
+    // const videoSnapshot = await getDoc(videoRef);
+    // if (videoSnapshot.exists()) {
+    //   console.log("Video progress saved", videoSnapshot.data());
+    // } else {
+    //   console.log("Could not save video progress");
+    // }
+    return "Success in storing video progress";
+  } catch (error) {
+    console.log("Could not save video progress", error);
+    return error;
+  }
+};
+
+// Get all videos that are watched by a user within a particular date range
+const getVideosWatched = async (userID, startDate, endDate) => {
+  try {
+    const videosWatched = [];
+    const videosRef = collection(db, "userDetails", userID, "videoProgress");
+    const snapShot = await getDocs(
+      query(
+        videosRef,
+        where("created_at", ">=", startDate),
+        where("created_at", "<=", endDate)
+      )
+    );
+    snapShot.forEach((doc) => {
+      videosWatched.push({ ...doc.data(), id: doc.id });
+    });
+    return { data: videosWatched, count: videosWatched.length };
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
 // Function to the get the total videos by a user within a particular date range
 
-export { getSalesData, getClientsData, getLoggedInTime, createLoginCount };
+export {
+  getSalesData,
+  getClientsData,
+  getLoggedInTime,
+  createLoginCount,
+  storeVideoProgress,
+  getVideosWatched,
+};

@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./styles.module.scss";
 import arrowUp from "./images/arrow-up.png";
 import arrowDown from "./images/arrow-down.png";
 import playIcon from "./images/play-icon.png";
+import { AuthContext } from "../../../../context/authContext";
+import { storeVideoProgress } from "../../../../Firebase/kpi";
 
 export default function CourseDetail() {
+  const currentUser = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+  const [currentCourse, setCurrentCourse] = useState({
+    id: "SampleCourseID2",
+    title: "Course Title",
+    description: "Course Description",
+  });
+  const [currentVideo, setCurrentVideo] = useState({
+    id: "SampleVideoID2",
+    src: "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/courseVideos%2FGolden%20rule%20in%20Finance%2Bf7432a38-0ecf-4ef8-b596-ee6601acb0f7%2B3b87f1cf-07ee-4b6b-b6e4-6bed77ffc025%2B1712954519526?alt=media&token=546c8c16-cf46-455b-8731-e7e8781bf45e",
+  });
   const [dropdown, setDropdown] = useState([-1]);
   const handleDropdown = (index) => {
     if (dropdown.includes(index)) {
@@ -21,11 +34,31 @@ export default function CourseDetail() {
     { section1: ["S1v1", "S1v2", "S1v3"] },
     { section2: ["S2V1", "S2V2", "S2V3"] },
   ];
+
+  const handleCurrentVideoWatched = async () => {
+    console.log("Video watched");
+    // Mark the video as watched
+    const videoID = currentVideo?.id;
+    const courseID = currentCourse?.id;
+    const storeVideoProgressResponse = await storeVideoProgress(
+      currentUser?.uid,
+      courseID,
+      videoID
+    );
+    console.log(
+      storeVideoProgressResponse,
+      currentUser?.uid,
+      courseID,
+      videoID
+    );
+  };
+
   const renderSections = courseData.map((section, index) => {
     return (
       <div
         className={styles["courseDetail--section-dropdown"]}
         onClick={() => handleDropdown(index)}
+        key={index}
       >
         <div className={styles["courseDetail--section-name-container"]}>
           <p className={styles["courseDetail--section-title"]}>Section Name</p>
@@ -36,7 +69,12 @@ export default function CourseDetail() {
         </div>
         <div
           className={styles["courseDetail--video-list-container"]}
-          style={{ display: dropdown.includes(index) ? "flex" : "none" }}
+          style={{
+            transition: "opacity 0.5s ease-in-out, height 0.5s ease-in-out",
+            opacity: dropdown.includes(index) ? 1 : 0,
+            height: dropdown.includes(index) ? "auto" : 0,
+            overflow: "hidden",
+          }}
         >
           <div className={styles["courseDetail--video-list"]}>
             <div className={styles["courseDetail--video-icon-name-container"]}>
@@ -59,12 +97,12 @@ export default function CourseDetail() {
       <div className={styles["courseDetail--inner-container"]}>
         <div className={styles["courseDetail--video-desc-container"]}>
           <div className={styles["courseDetail--video-container"]}>
-            <video className={styles["courseDetail--course-video"]} controls>
-              <source
-                src={
-                  "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/courseVideos%2FGolden%20rule%20in%20Finance%2Bf7432a38-0ecf-4ef8-b596-ee6601acb0f7%2B3b87f1cf-07ee-4b6b-b6e4-6bed77ffc025%2B1712954519526?alt=media&token=546c8c16-cf46-455b-8731-e7e8781bf45e"
-                }
-              />
+            <video
+              className={styles["courseDetail--course-video"]}
+              controls
+              onEnded={handleCurrentVideoWatched}
+            >
+              <source src={currentVideo.src} />
             </video>
           </div>
           <div className={styles["courseDetail--course-desc-container"]}>
@@ -88,39 +126,6 @@ export default function CourseDetail() {
               Course Videos
             </p>
             {renderSections}
-            {/* <div
-              className={styles["courseDetail--section-dropdown"]}
-              onClick={handleDropdown}
-            >
-              <div className={styles["courseDetail--section-name-container"]}>
-                <p className={styles["courseDetail--section-title"]}>
-                  Section Name
-                </p>
-                <img
-                  src={dropdown ? arrowUp : arrowDown}
-                  className={styles["courseDetail--arrow-icon"]}
-                />
-              </div>
-              <div
-                className={styles["courseDetail--video-list-container"]}
-                style={{ display: dropdown ? "flex" : "none" }}
-              >
-                <div className={styles["courseDetail--video-list"]}>
-                  <div
-                    className={
-                      styles["courseDetail--video-icon-name-container"]
-                    }
-                  >
-                    <img
-                      src={playIcon}
-                      className={styles["courseDetail--play-icon"]}
-                    />
-                    Video Name
-                  </div>
-                  <p>30 min</p>
-                </div>
-              </div>
-            </div> */}
           </div>
           <div className={styles["courseDetail--feedback-container"]}>
             <p className={styles["courseDetail--feedback-title"]}>
