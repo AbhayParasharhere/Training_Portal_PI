@@ -4,7 +4,7 @@ import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
 import { getLoggedInTime } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
-import { HashLoader } from "react-spinners";
+import Spinner from "../../CommonComponents/Spinner";
 
 export default function Statistics() {
   const currentUser = useContext(AuthContext);
@@ -15,10 +15,13 @@ export default function Statistics() {
     async function fetchData() {
       try {
         setLoading(true);
+        const currentDate = new Date();
+        const previousDate = new Date();
+        previousDate.setDate(currentDate.getDate() - 7);
         const { data, count } = await getLoggedInTime(
           currentUser?.uid,
-          new Date("2021-01-01"),
-          new Date()
+          previousDate,
+          currentDate
         );
         setStatData((prev) => ({ ...prev, loginCount: count }));
         setLoading(false);
@@ -115,17 +118,7 @@ export default function Statistics() {
   return (
     <>
       {loading ? (
-        <div
-          style={{
-            width: "80%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <HashLoader color={"#3064d4"} loading={loading} size={300} />
-        </div>
+        <Spinner loading={loading} />
       ) : (
         <div className={styles["statistics--main-container"]}>
           <div className={styles["statistics--general-container"]}>
@@ -140,21 +133,6 @@ export default function Statistics() {
               <p className={styles["statistics--user-name"]}>Gurpreet singh</p>
             </div>
           </div>
-          {/* <div className={styles["statistics--graph-container"]}>
-        <div className={styles["statistics--client-graph-stat-switch"]}>
-        <p className={styles["statistics--graph-title"]}>Client Status</p>
-        <div className={styles["statistics--time-switch-button-container"]}>
-        <button className={styles["statistics--time-switch-button"]}>
-              Weekly
-            </button>
-            <button className={styles["statistics--time-switch-button"]}>
-            Total
-            </button>
-            </div>
-            </div>
-            
-            <StatisticsChart />
-          </div> */}
           {renderGraph}
         </div>
       )}
