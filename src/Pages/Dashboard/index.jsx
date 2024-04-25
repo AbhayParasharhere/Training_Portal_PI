@@ -40,7 +40,7 @@ export default function Dashboard() {
         // Fetch user details
         const userDetails = await getUserDetails(uid);
         setUserDetails(userDetails);
-        console.log("User Info", uid, userDetails);
+        // console.log("User Info", uid, userDetails);
 
         // Start real-time listener for announcements
         const unsubscribe =
