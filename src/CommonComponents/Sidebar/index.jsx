@@ -178,7 +178,7 @@ export default function Sidebar(props) {
         onClick={() => {
           props.setMobileSidebar(true);
         }}
-        style={{ display: props.mobileSidebar ? "none" : "flex" }}
+        style={{ height: props.mobileSidebar && 0 }}
       >
         <img
           className={styles["sidebar--mobile-hamburger"]}
