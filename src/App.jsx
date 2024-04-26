@@ -23,6 +23,8 @@ import Webinar from "./Pages/Webinar";
 import Compliance from "./Pages/Compliance";
 import Statistics from "./Pages/Statistics";
 import Course from "./Pages/Course";
+import ClientComponent from "./Pages/ClientPage/Components/ClientComponent";
+import Tools from "./Pages/Tools";
 import CourseDetail from "./Pages/Course/components/CourseDetail";
 
 // Sign Up steps
@@ -48,6 +50,8 @@ const router = createBrowserRouter(
         <Route path="/compliance" element={<Compliance />} />
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/courses" element={<Course />} />
+        <Route path="/clients" element={<ClientComponent />} />
+        <Route path="/tools" element={<Tools />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />
       </Route>
     </>
