@@ -10,15 +10,55 @@ import bellIcon from "./images/bell-icon.png";
 import clipboardIcon from "./images/clipboard-icon.png";
 import secureLocalStorage from "react-secure-storage";
 import { AuthContext } from "../../../../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 export default function Home({ userDetails, announcements }) {
+  const [latestStats, setLatestStates] = useState("course");
+  const navigate = useNavigate();
   const mobileIconsData = [
-    { icon: cakeIcon, text: "Client Birthday’s & anniversay" },
-    { icon: profilePhoto, text: "Statistics" },
-    { icon: bellIcon, text: "Notifications" },
-    { icon: appointmentIcon, text: "Client Appointments" },
-    { icon: clipboardIcon, text: "Important Updates" },
+    { icon: cakeIcon, text: "Client Birthday’s & anniversay", to: "/clients" },
+    { icon: profilePhoto, text: "Statistics", to: "/statistics" },
+    { icon: bellIcon, text: "Notifications", to: "/statistics" },
+    { icon: appointmentIcon, text: "Client Appointments", to: "/clients" },
+    { icon: clipboardIcon, text: "Important Updates", to: "/announcement" },
   ];
+
+  const latestStatsData = {
+    course: [
+      { title: "Concepts of Insaurance", button: "Continue", to: "/courses" },
+      { title: "Compliance Policies", button: "Continue", to: "/courses" },
+      { title: "Concepts of Sales", button: "Continue", to: "/courses" },
+    ],
+    policies: [
+      { title: "Life Insaurance", button: "View", to: "/addSales" },
+      { title: "Home loan", button: "View", to: "/addSales" },
+      { title: "Investing in funds", button: "View", to: "/addSales" },
+    ],
+    sales: [
+      { title: "Abhay Parashar", button: "View", to: "/clients" },
+      { title: "Mr. Sanjay", button: "View", to: "/clients" },
+      { title: "Mr. Dharmendar", button: "View", to: "/clients" },
+    ],
+  };
+
+  const renderLatestStats = latestStatsData[latestStats].map((stat, index) => {
+    return (
+      <div
+        className={styles["home--notification-lists"]}
+        onClick={() => navigate(stat.to)}
+        key={index}
+      >
+        <div className={styles["home--list-title-container"]}>
+          <img src={playIcon} className={styles["home--play-icon"]} />
+          <p className={styles["home--list-text"]}>{stat.title}</p>
+        </div>
+        <button className={styles["home--continue-button"]}>
+          {stat.button}
+        </button>
+      </div>
+    );
+  });
   const getTimeDifference = (updatedAt) => {
     // Convert `updatedAt` to a Date object
     const updatedDate = new Date(updatedAt);
@@ -52,7 +92,10 @@ export default function Home({ userDetails, announcements }) {
 
   const mobileIcons = mobileIconsData.map((data) => {
     return (
-      <div className={styles["home--mobile-icons-inner-container"]}>
+      <div
+        className={styles["home--mobile-icons-inner-container"]}
+        onClick={() => navigate(data.to)}
+      >
         <div className={styles["home--mobile-icon-image-container"]}>
           <img src={data.icon} className={styles["home--mobile-icon-image"]} />
         </div>
@@ -100,53 +143,55 @@ export default function Home({ userDetails, announcements }) {
       <div className={styles["home--recent-notifications-main-container"]}>
         <div className={styles["home--sales-course-notification-container"]}>
           <div className={styles["home--notification-links-container"]}>
-            <p className={styles["home--notification-links"]}>
+            <p
+              className={styles["home--notification-links"]}
+              onClick={() => setLatestStates("course")}
+              style={{
+                color: latestStats === "course" ? "#4462A4" : "#A1A1A1",
+              }}
+            >
               Course Progress
-              <hr className={styles["home--notification-links-underline"]} />
+              <hr
+                className={styles["home--notification-links-underline"]}
+                style={{
+                  borderColor: latestStats === "course" ? "#4462A4" : "#A1A1A1",
+                }}
+              />
             </p>
-            <p className={styles["home--notification-links"]}>
+            <p
+              className={styles["home--notification-links"]}
+              onClick={() => setLatestStates("sales")}
+              style={{
+                color: latestStats === "sales" ? "#4462A4" : "#A1A1A1",
+              }}
+            >
               Recent Sales{" "}
-              <hr className={styles["home--notification-links-underline"]} />
+              <hr
+                className={styles["home--notification-links-underline"]}
+                style={{
+                  borderColor: latestStats === "sales" ? "#4462A4" : "#A1A1A1",
+                }}
+              />
             </p>
-            <p className={styles["home--notification-links"]}>
+            <p
+              className={styles["home--notification-links"]}
+              onClick={() => setLatestStates("policies")}
+              style={{
+                color: latestStats === "policies" ? "#4462A4" : "#A1A1A1",
+              }}
+            >
               Latest Policies{" "}
-              <hr className={styles["home--notification-links-underline"]} />
+              <hr
+                className={styles["home--notification-links-underline"]}
+                style={{
+                  borderColor:
+                    latestStats === "policies" ? "#4462A4" : "#A1A1A1",
+                }}
+              />
             </p>
           </div>
           <div className={styles["home--notification-lists-container"]}>
-            <div className={styles["home--notification-lists"]}>
-              <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} className={styles["home--play-icon"]} />
-                <p className={styles["home--list-text"]}>
-                  Regulatory Compliance 101
-                </p>
-              </div>
-              <button className={styles["home--continue-button"]}>
-                Continue
-              </button>
-            </div>
-            <div className={styles["home--notification-lists"]}>
-              <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} className={styles["home--play-icon"]} />
-                <p className={styles["home--list-text"]}>
-                  Regulatory Compliance 101
-                </p>
-              </div>
-              <button className={styles["home--continue-button"]}>
-                Continue
-              </button>
-            </div>{" "}
-            <div className={styles["home--notification-lists"]}>
-              <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} className={styles["home--play-icon"]} />
-                <p className={styles["home--list-text"]}>
-                  Regulatory Compliance 101
-                </p>
-              </div>
-              <button className={styles["home--continue-button"]}>
-                Continue
-              </button>
-            </div>
+            {renderLatestStats}
           </div>
         </div>
         <div className={styles["home--client-birthday-container"]}>
@@ -154,7 +199,11 @@ export default function Home({ userDetails, announcements }) {
             Upcoming Clients Bithdays And Anniversary
           </p>
           <div className={styles["home--client-birthday-list"]}>
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -169,7 +218,11 @@ export default function Home({ userDetails, announcements }) {
               </div>
               <img src={cakeIcon} className={styles["home--cake-icon"]} />
             </div>
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -184,7 +237,11 @@ export default function Home({ userDetails, announcements }) {
               </div>
               <img src={cakeIcon} className={styles["home--cake-icon"]} />
             </div>{" "}
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -199,7 +256,11 @@ export default function Home({ userDetails, announcements }) {
               </div>
               <img src={cakeIcon} className={styles["home--cake-icon"]} />
             </div>{" "}
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -214,7 +275,11 @@ export default function Home({ userDetails, announcements }) {
               </div>
               <img src={cakeIcon} className={styles["home--cake-icon"]} />
             </div>{" "}
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -334,65 +399,39 @@ export default function Home({ userDetails, announcements }) {
           <div className={styles["home--annoucement-list-container"]}>
             {announcements.map((announcement) => {
               return (
-                <div className={styles["home--annoucement-container"]}>
+                <HashLink
+                  to="/announcement#announcement"
+                  style={{ width: "100%", textDecoration: "none" }}
+                >
                   <div
-                    className={styles["home--annoucement-details-container"]}
+                    className={styles["home--annoucement-container"]}
+                    style={{ cursor: "pointer" }}
                   >
-                    <p className={styles["home--annoucement-details-text"]}>
-                      {announcement?.created_by}
-                    </p>
-                    <p className={styles["home--annoucement-details-text"]}>
-                      {getTimeDifference(announcement?.updated_at.toDate())}
-                    </p>
+                    <div
+                      className={styles["home--annoucement-details-container"]}
+                    >
+                      <p className={styles["home--annoucement-details-text"]}>
+                        {announcement?.created_by}
+                      </p>
+                      <p className={styles["home--annoucement-details-text"]}>
+                        {getTimeDifference(announcement?.updated_at.toDate())}
+                      </p>
+                    </div>
+                    <div>
+                      <ui>
+                        <li className={styles["home--annoucement-text"]}>
+                          {announcement?.title}
+                        </li>
+                      </ui>
+                    </div>
                   </div>
-                  <div>
-                    <ui>
-                      <li className={styles["home--annoucement-text"]}>
-                        {announcement?.title}
-                      </li>
-                    </ui>
-                  </div>
-                </div>
+                </HashLink>
               );
             })}
           </div>
         ) : (
           <p>No Announcement</p>
         )}
-        {/* <div className={styles["home--annoucement-list-container"]}>
-          <div className={styles["home--annoucement-container"]}>
-            <div className={styles["home--annoucement-details-container"]}>
-              <p className={styles["home--annoucement-details-text"]}>Admin</p>
-              <p className={styles["home--annoucement-details-text"]}>
-                20 min ago{" "}
-              </p>
-            </div>
-            <div>
-              <ui>
-                <li className={styles["home--annoucement-text"]}>
-                  The upcoming webinar on customer retention strategies is
-                  scheduled for next Tuesday at 10 AM EST.
-                </li>
-              </ui>
-            </div>
-          </div>
-          <div className={styles["home--annoucement-container"]}>
-            <div className={styles["home--annoucement-details-container"]}>
-              <p className={styles["home--annoucement-details-text"]}>Admin</p>
-              <p className={styles["home--annoucement-details-text"]}>
-                20 min ago{" "}
-              </p>
-            </div>
-            <div>
-              <ui>
-                <li className={styles["home--annoucement-text"]}>
-                  The upcoming webinar on customer retention strategies is
-                  scheduled for next Tuesday at 10 AM EST.
-                </li>
-              </ui>
-            </div>
-          </div>
-        </div> */}
       </div>
       {/*Annoucement part Completed*/}
 

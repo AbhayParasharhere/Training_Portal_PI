@@ -71,6 +71,12 @@
   gap: 60px;
   text-align: left;
   color: #1a202c;
+  transition: all 0.15s ease-in;
+  cursor: pointer;
+}
+
+.statsSummary--sales-graph-container:hover {
+  scale: 1.05;
 }
 .statsSummary--notifications-container {
   background-color: #f5f6fb;
