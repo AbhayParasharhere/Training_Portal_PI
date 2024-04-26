@@ -17,11 +17,11 @@ export default function Home({ userDetails, announcements }) {
   const [latestStats, setLatestStates] = useState("course");
   const navigate = useNavigate();
   const mobileIconsData = [
-    { icon: cakeIcon, text: "Client Birthday’s & anniversay" },
-    { icon: profilePhoto, text: "Statistics" },
-    { icon: bellIcon, text: "Notifications" },
-    { icon: appointmentIcon, text: "Client Appointments" },
-    { icon: clipboardIcon, text: "Important Updates" },
+    { icon: cakeIcon, text: "Client Birthday’s & anniversay", to: "/clients" },
+    { icon: profilePhoto, text: "Statistics", to: "/statistics" },
+    { icon: bellIcon, text: "Notifications", to: "/statistics" },
+    { icon: appointmentIcon, text: "Client Appointments", to: "/clients" },
+    { icon: clipboardIcon, text: "Important Updates", to: "/announcement" },
   ];
 
   const latestStatsData = {
@@ -92,7 +92,10 @@ export default function Home({ userDetails, announcements }) {
 
   const mobileIcons = mobileIconsData.map((data) => {
     return (
-      <div className={styles["home--mobile-icons-inner-container"]}>
+      <div
+        className={styles["home--mobile-icons-inner-container"]}
+        onClick={() => navigate(data.to)}
+      >
         <div className={styles["home--mobile-icon-image-container"]}>
           <img src={data.icon} className={styles["home--mobile-icon-image"]} />
         </div>

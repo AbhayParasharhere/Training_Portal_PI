@@ -150,6 +150,11 @@
     font-size: 15px;
   }
 }
+@media (max-width: 1130px) {
+  .courseGrid--main-container {
+    padding: 20px 10px;
+  }
+}
 @media (max-width: 1000px) {
   .courseGrid--grid-container {
     grid-template-columns: 1fr 1fr 1fr;
@@ -176,9 +181,6 @@
   }
 }
 @media (max-width: 600px) {
-  .courseGrid--main-container {
-    padding: 20px 10px;
-  }
   .courseGrid--title-container {
     font-size: 14px;
   }

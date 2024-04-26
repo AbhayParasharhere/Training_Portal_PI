@@ -22,7 +22,13 @@ p {
 }
 .blue {
   color: #4462a4;
+  cursor: pointer;
 }
+
+.clientDetails--sales-navigate {
+  cursor: pointer;
+}
+
 .clientDetails--inner-container {
   display: flex;
   width: 100%;

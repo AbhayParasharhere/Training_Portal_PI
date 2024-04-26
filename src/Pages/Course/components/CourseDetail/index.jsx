@@ -95,39 +95,6 @@ export default function CourseDetail() {
               Course Videos
             </p>
             {renderSections}
-            {/* <div
-              className={styles["courseDetail--section-dropdown"]}
-              onClick={handleDropdown}
-            >
-              <div className={styles["courseDetail--section-name-container"]}>
-                <p className={styles["courseDetail--section-title"]}>
-                  Section Name
-                </p>
-                <img
-                  src={dropdown ? arrowUp : arrowDown}
-                  className={styles["courseDetail--arrow-icon"]}
-                />
-              </div>
-              <div
-                className={styles["courseDetail--video-list-container"]}
-                style={{ display: dropdown ? "flex" : "none" }}
-              >
-                <div className={styles["courseDetail--video-list"]}>
-                  <div
-                    className={
-                      styles["courseDetail--video-icon-name-container"]
-                    }
-                  >
-                    <img
-                      src={playIcon}
-                      className={styles["courseDetail--play-icon"]}
-                    />
-                    Video Name
-                  </div>
-                  <p>30 min</p>
-                </div>
-              </div>
-            </div> */}
           </div>
           <div className={styles["courseDetail--feedback-container"]}>
             <p className={styles["courseDetail--feedback-title"]}>
