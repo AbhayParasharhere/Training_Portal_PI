@@ -49,6 +49,7 @@ const router = createBrowserRouter(
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/courses" element={<Course />} />
         <Route path="/tools" element={<Tools />} />
+        <Route path="/clients" element={<Client />} />
       </Route>
     </>
   )
