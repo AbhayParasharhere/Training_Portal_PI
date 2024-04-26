@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import arrowUp from "./images/arrow-up.png";
 import arrowDown from "./images/arrow-down.png";
 import playIcon from "./images/play-icon.png";
+import { useNavigate } from "react-router-dom";
 
 export default function CourseDetail() {
   const [dropdown, setDropdown] = useState([-1]);
@@ -52,9 +53,15 @@ export default function CourseDetail() {
       </div>
     );
   });
+  const navigate = useNavigate();
   return (
     <div className={styles["courseDetail--main-container"]}>
-      <p className={styles["courseDetail--go-back"]}>{"<"}Go Back</p>
+      <p
+        className={styles["courseDetail--go-back"]}
+        onClick={() => navigate("/courses")}
+      >
+        {"<"}Go Back
+      </p>
       <p className={styles["courseDetail--course-title"]}>Course Title</p>
       <div className={styles["courseDetail--inner-container"]}>
         <div className={styles["courseDetail--video-desc-container"]}>
@@ -88,39 +95,6 @@ export default function CourseDetail() {
               Course Videos
             </p>
             {renderSections}
-            {/* <div
-              className={styles["courseDetail--section-dropdown"]}
-              onClick={handleDropdown}
-            >
-              <div className={styles["courseDetail--section-name-container"]}>
-                <p className={styles["courseDetail--section-title"]}>
-                  Section Name
-                </p>
-                <img
-                  src={dropdown ? arrowUp : arrowDown}
-                  className={styles["courseDetail--arrow-icon"]}
-                />
-              </div>
-              <div
-                className={styles["courseDetail--video-list-container"]}
-                style={{ display: dropdown ? "flex" : "none" }}
-              >
-                <div className={styles["courseDetail--video-list"]}>
-                  <div
-                    className={
-                      styles["courseDetail--video-icon-name-container"]
-                    }
-                  >
-                    <img
-                      src={playIcon}
-                      className={styles["courseDetail--play-icon"]}
-                    />
-                    Video Name
-                  </div>
-                  <p>30 min</p>
-                </div>
-              </div>
-            </div> */}
           </div>
           <div className={styles["courseDetail--feedback-container"]}>
             <p className={styles["courseDetail--feedback-title"]}>

@@ -7,6 +7,8 @@ import { getAuth, signOut } from "firebase/auth";
 
 export default function SidebarLayout() {
   const [logOut, setLogout] = useState(false);
+  const [mobileSidebar, setMobileSidebar] = useState(false);
+
   const navigate = useNavigate();
   const currentUser = useContext(AuthContext);
 
@@ -26,8 +28,12 @@ export default function SidebarLayout() {
   }
   return (
     <div className={styles["sidebarLayout--main-container"]}>
-      <Sidebar logout={handleLogout} />
-      <Outlet />
+      <Sidebar
+        logout={handleLogout}
+        mobileSidebar={mobileSidebar}
+        setMobileSidebar={setMobileSidebar}
+      />
+      {mobileSidebar ? null : <Outlet />}
     </div>
   );
 }

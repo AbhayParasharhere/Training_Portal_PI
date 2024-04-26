@@ -22,17 +22,16 @@ import PIlogo from "./images/PI-logo.png";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
 import FAQRedIcon from "./images/FAQ-red-icon.png";
+import addSalesIcon from "./images/add-sales-icon.png";
+import addSalesRedIcon from "./images/add-sales-red-icon.png";
+import hamburgerIcon from "./images/hamburger-icon.png";
+import crossIcon from "./images/cross-icon.png";
+
 import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
-import { AuthContext } from "../../context/authContext";
 
 export default function Sidebar(props) {
   const [menuActive, setMenuActive] = useState();
-  const navigate = useNavigate();
 
-  const handleMenuActive = (index) => {
-    setMenuActive(index);
-  };
   const menuData = [
     {
       icon: dashboardIcon,
@@ -63,6 +62,13 @@ export default function Sidebar(props) {
       title: "Clients",
       link: "/clients",
       clickedIcon: clientsRedIcon,
+    },
+    ,
+    {
+      icon: addSalesIcon,
+      title: "Add Sales",
+      link: "/addSales",
+      clickedIcon: addSalesRedIcon,
     },
     {
       icon: toolsResourcesIcon,
@@ -108,10 +114,6 @@ export default function Sidebar(props) {
     return (
       <NavLink
         to={menu.link}
-        // className={({ isActive }) => {
-        //   console.log("Navlink working");
-        //   return isActive ? "red" : "black";
-        // }}
         style={({ isActive }) => {
           isActive && setMenuActive(index);
           return isActive ? clickStyles : linkStyles;
@@ -128,47 +130,95 @@ export default function Sidebar(props) {
     );
   });
   return (
-    <div className={styles["sidebar--main-container"]}>
-      <div className={styles["sidebar--menu-container"]}>
-        <div className={styles["sidebar--menu-inner-container"]}>
-          <NavLink
-            style={{
-              alignSelf: "center",
-              // dispay: "flex",
-              // alignItems: "center",
-            }}
-          >
-            <img src={PIlogo} className={styles["sidebar--company-logo"]} />
-          </NavLink>
-          {renderMenu}
-        </div>
-        <div className={styles["sidebar--support-logout-container"]}>
-          <NavLink
-            to="/support"
-            style={({ isActive }) => {
-              isActive && setMenuActive(11);
-              return isActive ? clickStyles : linkStyles;
-            }}
-          >
-            <div className={styles["sidebar--menu-title-container"]}>
-              <img
-                src={menuActive === 11 ? FAQRedIcon : FAQIcon}
-                className={styles["sidebar--menu-icon"]}
-              />
-              <p className={styles["sidebar--menu-text"]}>FAQs and Support</p>
-            </div>
-          </NavLink>
+    <>
+      <div className={styles["sidebar--main-container"]}>
+        <div className={styles["sidebar--menu-container"]}>
+          <div className={styles["sidebar--menu-inner-container"]}>
+            <NavLink
+              style={{
+                alignSelf: "center",
+                // dispay: "flex",
+                // alignItems: "center",
+              }}
+            >
+              <img src={PIlogo} className={styles["sidebar--company-logo"]} />
+            </NavLink>
+            {renderMenu}
+          </div>
+          <div className={styles["sidebar--support-logout-container"]}>
+            <NavLink
+              to="/support"
+              style={({ isActive }) => {
+                isActive && setMenuActive(11);
+                return isActive ? clickStyles : linkStyles;
+              }}
+            >
+              <div className={styles["sidebar--menu-title-container"]}>
+                <img
+                  src={menuActive === 11 ? FAQRedIcon : FAQIcon}
+                  className={styles["sidebar--menu-icon"]}
+                />
+                <p className={styles["sidebar--menu-text"]}>FAQs and Support</p>
+              </div>
+            </NavLink>
 
-          <div
-            className={styles["sidebar--menu-title-container"]}
-            style={{ cursor: "pointer" }}
-            onClick={props.logout}
-          >
-            <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
-            <p className={styles["sidebar--menu-text"]}>Log Out</p>
+            <div
+              className={styles["sidebar--menu-title-container"]}
+              style={{ cursor: "pointer" }}
+              onClick={props.logout}
+            >
+              <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
+              <p className={styles["sidebar--menu-text"]}>Log Out</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div
+        className={styles["sidebar--mobile-hamburger-container"]}
+        onClick={() => {
+          props.setMobileSidebar(true);
+        }}
+        style={{ height: props.mobileSidebar && 0 }}
+      >
+        <img
+          className={styles["sidebar--mobile-hamburger"]}
+          src={hamburgerIcon}
+        />
+      </div>
+      <div
+        style={{ display: props.mobileSidebar ? "flex" : "none" }}
+        className={styles["sidebar--mobile-main-container"]}
+      >
+        <img
+          src={crossIcon}
+          className={styles["sidebar--mobile-cross-icon"]}
+          onClick={() => props.setMobileSidebar(false)}
+        />
+        <div className={styles["sidebar--mobile-menu-list-container"]}>
+          {menuData.map((menu, index) => {
+            return (
+              <NavLink
+                to={menu.link}
+                onClick={() => props.setMobileSidebar(false)}
+                style={({ isActive }) => {
+                  isActive && setMenuActive(index);
+                  return isActive ? clickStyles : linkStyles;
+                }}
+              >
+                <div className={styles["sidebar--mobile-menu-container"]}>
+                  <img
+                    src={menuActive === index ? menu.clickedIcon : menu.icon}
+                    className={styles["sidebar--mobile-menu-icon"]}
+                  />
+                  <p className={styles["sidebar--mobile-menu-title"]}>
+                    {menu.title}
+                  </p>
+                </div>
+              </NavLink>
+            );
+          })}
+        </div>
+      </div>
+    </>
   );
 }
