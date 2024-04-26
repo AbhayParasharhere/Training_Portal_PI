@@ -134,25 +134,21 @@ export default function Statistics() {
 
   return (
     <>
-      {loading ? (
-        <Spinner loading={loading} />
-      ) : (
-        <div className={styles["statistics--main-container"]}>
-          <div className={styles["statistics--general-container"]}>
-            <div className={styles["statistics--general-inner-container"]}>
-              {renderGeneralStat}
-            </div>
-            <div className={styles["statistics--profile-container"]}>
-              <img
-                src={profileImage}
-                className={styles["statistics--profile-image"]}
-              />
-              <p className={styles["statistics--user-name"]}>Gurpreet singh</p>
-            </div>
+      <div className={styles["statistics--main-container"]}>
+        <div className={styles["statistics--general-container"]}>
+          <div className={styles["statistics--general-inner-container"]}>
+            {renderGeneralStat}
           </div>
-          {renderGraph}
+          <div className={styles["statistics--profile-container"]}>
+            <img
+              src={profileImage}
+              className={styles["statistics--profile-image"]}
+            />
+            <p className={styles["statistics--user-name"]}>Gurpreet singh</p>
+          </div>
         </div>
-      )}
+        {renderGraph}
+      </div>
     </>
   );
 }
