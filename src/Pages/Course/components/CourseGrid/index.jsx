@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import searchIcon from "./images/search-icon.png";
 import filterIcon from "./images/filter-icon.png";
 import coursePlaceholder from "./images/course-placeholder.png";
+import { useNavigate } from "react-router-dom";
 
 export default function CourseGrid() {
   const courseData = [
@@ -47,10 +48,14 @@ export default function CourseGrid() {
       title: "The basics of finanace",
     },
   ];
-
-  const renderCourse = courseData.map((course) => {
+  const navigate = useNavigate();
+  const renderCourse = courseData.map((course, index) => {
     return (
-      <div className={styles["courseGrid--course-container"]}>
+      <div
+        className={styles["courseGrid--course-container"]}
+        key={index}
+        onClick={() => navigate(`/courses/${index}`)}
+      >
         <div
           className={styles["courseGrid--course-placeholder"]}
           style={{ backgroundImage: `url(${course.placeholder})` }}
@@ -79,14 +84,7 @@ export default function CourseGrid() {
           View courses by filter
         </button>
       </div>
-      <div className={styles["courseGrid--grid-container"]}>
-        {/* <div className={styles["courseGrid--course-container"]}>
-          <div className={styles["courseGrid--course-placeholder"]}></div>
-          <div className={styles["courseGrid--course-catagory"]}>catagory</div>
-          <p className={styles["courseGrid--course-title"]}>Course title</p>
-        </div> */}
-        {renderCourse}
-      </div>
+      <div className={styles["courseGrid--grid-container"]}>{renderCourse}</div>
     </div>
   );
 }

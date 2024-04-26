@@ -36,6 +36,10 @@
   display: flex;
   gap: 20px;
   align-items: center;
+  transition: all 0.07s ease-in;
+}
+.sidebar--menu-title-container:hover {
+  scale: 1.05;
 }
 .sidebar--menu-icon {
   height: 20px;

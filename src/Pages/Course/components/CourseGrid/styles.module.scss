@@ -1,6 +1,7 @@
 .courseGrid--main-container {
   box-sizing: border-box;
   padding: 35px;
+  padding-left: 0px;
   display: flex;
   max-width: 100%;
   //   background-color: #3064d4;
@@ -107,7 +108,13 @@
   //   background-color: #3064d4;
   flex-direction: column;
   gap: 5px;
+  cursor: pointer;
+  transition: all 0.09s ease-in;
 }
+.courseGrid--course-container:hover {
+  scale: 1.02;
+}
+
 .courseGrid--course-placeholder {
   //   max-height: 180px;
   // max-height: 100%;

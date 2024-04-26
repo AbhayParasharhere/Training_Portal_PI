@@ -8,8 +8,8 @@ export default function Course() {
   return (
     <div className={styles["course--main-container"]}>
       {/* <Sidebar /> */}
-      {/* <CourseGrid /> */}
-      <CourseDetail />
+      <CourseGrid />
+      {/* <CourseDetail /> */}
     </div>
   );
 }

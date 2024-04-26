@@ -23,6 +23,7 @@ import Webinar from "./Pages/Webinar";
 import Compliance from "./Pages/Compliance";
 import Statistics from "./Pages/Statistics";
 import Course from "./Pages/Course";
+import CourseDetail from "./Pages/Course/components/CourseDetail";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
         <Route path="/compliance" element={<Compliance />} />
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/courses" element={<Course />} />
+        <Route path="/courses/:courseId" element={<CourseDetail />} />
       </Route>
     </>
   )
