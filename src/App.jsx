@@ -24,6 +24,7 @@ import Compliance from "./Pages/Compliance";
 import Statistics from "./Pages/Statistics";
 import Course from "./Pages/Course";
 import CourseDetail from "./Pages/Course/components/CourseDetail";
+import NoPagesElement from "./CommonComponents/NoPageError";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -39,7 +40,11 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<RegisterComponent />} />
       <Route path="/addDetails" element={<Register_2Component />} />
-      <Route element={<SidebarLayout />} path="/">
+      <Route
+        element={<SidebarLayout />}
+        path="/"
+        errorElement={<NoPagesElement />}
+      >
         <Route index element={<Dashboard />} />
         <Route path="/addSales" element={<SalesAdding />} />
         <Route path="/support" element={<FAQSupport />} />
