@@ -11,9 +11,16 @@
   //   width: 40%;
   //   width: 50%;
 }
-.Tools-wrapper-topbar-text,
-.Tools-wrapper-topbar-text-product,
-.Tools-wrapper-topbar-text-finance {
+.Tools-wrapper-topbar-div-mobile {
+  display: none;
+  gap: 4%;
+  // width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 25px;
+  overflow-x: hidden;
+}
+.Tools-wrapper-topbar-text {
   font-family: Open Sans;
   //   min-width: 30%;
   font-size: 16px;
@@ -35,34 +42,33 @@
 }
 
 @media screen and (min-width: 2000px) {
-  .Tools-wrapper-topbar-text,
-  .Tools-wrapper-topbar-text-product,
-  .Tools-wrapper-topbar-text-finance {
+  .Tools-wrapper-topbar-text {
     font-size: 25px;
     // width: 200%;
   }
 }
 
 @media screen and (max-width: 1024px) {
-  .Tools-wrapper-topbar-text,
-  .Tools-wrapper-topbar-text-product,
-  .Tools-wrapper-topbar-text-finance {
+  .Tools-wrapper-topbar-text {
     font-size: 15px;
   }
 }
 
 @media screen and (max-width: 950px) {
-  .Tools-wrapper-topbar-text,
-  .Tools-wrapper-topbar-text-product,
-  .Tools-wrapper-topbar-text-finance {
+  .Tools-wrapper-topbar-text {
     font-size: 12.5px;
   }
 }
 
 @media screen and (max-width: 710px) {
-  .Tools-wrapper-topbar-text-product,
-  .Tools-wrapper-topbar-text-finance {
+  .Tools-wrapper-topbar-div {
     display: none;
+  }
+  .Tools-wrapper-topbar-div-mobile {
+    display: flex;
+  }
+  .Tools-wrapper-topbar-text {
+    font-size: 18px;
   }
 }
 
@@ -71,11 +77,19 @@
     padding-bottom: 0px;
     border-bottom: 2px solid;
   }
+  .Tools-wrapper-topbar-text {
+    font-size: 15px;
+  }
 }
 @media screen and (max-width: 320px) {
   .Tools-wrapper-topbar-text {
     font-size: 11px;
     padding-bottom: 0px;
     border-bottom: 2px solid;
+  }
+}
+@media screen and (max-width: 250px) {
+  .Tools-wrapper-topbar-text {
+    font-size: 9px;
   }
 }

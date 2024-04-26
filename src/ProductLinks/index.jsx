@@ -14,44 +14,37 @@ export default function ProductLinks() {
     },
   ];
   return (
-    <div className={styles["Tools-main"]}>
-      <Sidebar />
-      <div className={styles["ProductLinks-wrapper"]}>
-        <ToolsTopbar />
-        <div className={styles["ProductLinks-wrapper-main"]}>
-          {list.map((item) => (
-            <div className={styles["ProductLinks-wrapper-main-content"]}>
-              <img
-                src={Product}
-                className={styles["ProductLinks-wrapper-main-content-img"]}
-              />
+    <div className={styles["ProductLinks-wrapper"]}>
+      <ToolsTopbar />
+      <div className={styles["ProductLinks-wrapper-main"]}>
+        {list.map((item) => (
+          <div className={styles["ProductLinks-wrapper-main-content"]}>
+            <img
+              src={Product}
+              className={styles["ProductLinks-wrapper-main-content-img"]}
+            />
 
-              <div className={styles["ProductLinks-wrapper-main-content-div"]}>
-                <div
-                  className={
-                    styles["ProductLinks-wrapper-main-content-div-name"]
-                  }
-                >
-                  {item.productName}
-                </div>
-                <div
-                  className={
-                    styles["ProductLinks-wrapper-main-content-div-description"]
-                  }
-                >
-                  {item.productDescription}
-                </div>
-                <button
-                  className={
-                    styles["ProductLinks-wrapper-main-content-div-join"]
-                  }
-                >
-                  Join
-                </button>
+            <div className={styles["ProductLinks-wrapper-main-content-div"]}>
+              <div
+                className={styles["ProductLinks-wrapper-main-content-div-name"]}
+              >
+                {item.productName}
               </div>
+              <div
+                className={
+                  styles["ProductLinks-wrapper-main-content-div-description"]
+                }
+              >
+                {item.productDescription}
+              </div>
+              <button
+                className={styles["ProductLinks-wrapper-main-content-div-join"]}
+              >
+                Join
+              </button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
