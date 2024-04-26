@@ -129,10 +129,10 @@ p {
   justify-content: start;
   color: #a1a1a1;
   cursor: pointer;
-  transition: all 0.05s ease-in;
+  transition: all 0.15s ease-in;
 }
 .home--notification-links:hover {
-  scale: 1.04;
+  scale: 1.05;
 }
 .home--notification-links-underline {
   border: 1px solid #a1a1a1;
@@ -222,6 +222,10 @@ p {
   border: 1px solid #dedede;
   border-radius: 5px;
   justify-content: space-between;
+  transition: all 0.15s ease-in;
+}
+.home--client-birthday:hover {
+  scale: 1.05;
 }
 .home--client-image {
   height: 40px;
