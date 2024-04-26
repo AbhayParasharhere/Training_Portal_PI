@@ -16,6 +16,11 @@
   letter-spacing: -0.03em;
   text-align: left;
   color: #393e46;
+  cursor: pointer;
+  transition: all 0.07s ease-in;
+}
+.courseDetail--go-back:hover {
+  scale: 1.01;
 }
 .courseDetail--course-title {
   font-family: Epilogue;
@@ -46,6 +51,7 @@
   max-height: 400px;
   display: flex;
   align-items: flex-start;
+
 }
 
 .courseDetail--course-video {
@@ -186,13 +192,38 @@
   line-height: 27px;
   letter-spacing: -0.03em;
   text-align: left;
+  transition: all 0.1s ease in;
 }
 .courseDetail--arrow-icon {
   height: 30px;
+  transition: all 0.1s ease in;
+}
+.courseDetail--section-dropdown {
+  cursor: pointer;
+}
+.courseDetail--section-name-container:hover {
+  .courseDetail--arrow-icon {
+    scale: 1.1;
+  }
+  .courseDetail--section-title {
+    scale: 1.05;
+  }
+}
+.courseDetail--video-time {
+  transition: all 0.1s ease in;
+}
+.courseDetail--video-list:hover {
+  .courseDetail--video-icon-name-container {
+    scale: 1.05;
+  }
+  .courseDetail--video-time {
+    scale: 1.05;
+  }
 }
 .courseDetail--video-list-container {
   background-color: #f9fafb;
   padding: 10px 0px;
+  // transition: all 1  s ease in;
 }
 .courseDetail--video-list {
   height: 30px;
@@ -214,6 +245,7 @@
   font-weight: 400;
   letter-spacing: -0.03em;
   text-align: left;
+  transition: all 0.1s ease in;
 }
 .courseDetail--play-icon {
   height: 25px;

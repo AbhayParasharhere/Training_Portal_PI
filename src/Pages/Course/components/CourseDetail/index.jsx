@@ -3,8 +3,12 @@ import styles from "./styles.module.scss";
 import arrowUp from "./images/arrow-up.png";
 import arrowDown from "./images/arrow-down.png";
 import playIcon from "./images/play-icon.png";
+
 import { AuthContext } from "../../../../context/authContext";
 import { storeVideoProgress } from "../../../../Firebase/kpi";
+
+import { useNavigate } from "react-router-dom";
+
 
 export default function CourseDetail() {
   const currentUser = useContext(AuthContext);
@@ -90,9 +94,15 @@ export default function CourseDetail() {
       </div>
     );
   });
+  const navigate = useNavigate();
   return (
     <div className={styles["courseDetail--main-container"]}>
-      <p className={styles["courseDetail--go-back"]}>{"<"}Go Back</p>
+      <p
+        className={styles["courseDetail--go-back"]}
+        onClick={() => navigate("/courses")}
+      >
+        {"<"}Go Back
+      </p>
       <p className={styles["courseDetail--course-title"]}>Course Title</p>
       <div className={styles["courseDetail--inner-container"]}>
         <div className={styles["courseDetail--video-desc-container"]}>
