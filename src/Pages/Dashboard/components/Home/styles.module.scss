@@ -128,6 +128,11 @@ p {
   align-items: flex-start;
   justify-content: start;
   color: #a1a1a1;
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+}
+.home--notification-links:hover {
+  scale: 1.05;
 }
 .home--notification-links-underline {
   border: 1px solid #a1a1a1;
@@ -217,6 +222,10 @@ p {
   border: 1px solid #dedede;
   border-radius: 5px;
   justify-content: space-between;
+  transition: all 0.15s ease-in;
+}
+.home--client-birthday:hover {
+  scale: 1.05;
 }
 .home--client-image {
   height: 40px;
@@ -270,6 +279,8 @@ p {
   text-align: left;
 }
 .home--annoucement-list-container {
+  max-height: 170px;
+  overflow-y: scroll;
   width: 95%;
   padding: 10px;
   display: flex;
@@ -277,7 +288,7 @@ p {
   background-color: white;
   gap: 10px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .home--annoucement-container {
   width: 95%;

@@ -3,8 +3,9 @@ import styles from "./styles.module.scss";
 import checkIcon from "./images/check.png";
 import arrowDown from "./images/arrow-down.png";
 import arrowUp from "./images/arrow-up.png";
+import { toast } from "react-toastify";
 
-export default function SalesDetails() {
+export default function SalesDetails(props) {
   const [changeSalesArrowPolicy, setChangeSalesArrowPolicy] = useState(false);
   const [changeSalesArrowChannel, setChangeSalesArrowChannel] = useState(false);
   const [salesDetailsData, setSalesDetailsData] = useState({});
@@ -130,15 +131,28 @@ export default function SalesDetails() {
         }
       }}
     >
-      <p className={styles["clientDetails--navigation-text"]}>
+      <p
+        className={styles["clientDetails--navigation-text"]}
+        style={{ cursor: "pointer" }}
+        onClick={() => props.setDisplayComponent("client")}
+      >
         Client details {">"}
-        <span className={styles["blue"]}> Sales Details</span>
+        <span className={styles["blue"]} style={{ cursor: "pointer" }}>
+          {" "}
+          Sales Details
+        </span>
       </p>{" "}
       <div className={styles["salesDetails--inner-container"]}>
-        <p className={styles["salesDetails--title-text"]}>Client Details</p>
+        <p className={styles["salesDetails--title-text"]}>Sales Details</p>
         <div className={styles["salesDetails--input-main-container"]}>
           {renderSalesInput}
-          <button className={styles["salesDetails--save-button"]}>
+          <button
+            className={styles["salesDetails--save-button"]}
+            onClick={() => {
+              toast.success("Details Saved");
+              props.setDisplayComponent("client");
+            }}
+          >
             Save Details
           </button>
         </div>

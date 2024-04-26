@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   signInEmailAndPassword,
   signInwithGoogle,
   signInwithFacebook,
+  checkIfUserExists,
 } from "../../Firebase/authentication";
-import { useNavigate } from "react-router-dom";
+
+import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import logo from "./Images/logo.png";
@@ -14,11 +16,16 @@ import line from "./Images/line.png";
 import Button from "../../CommonComponents/Button";
 import { Link } from "react-router-dom";
 import { set } from "firebase/database";
+import { createLoginCount } from "../../Firebase/kpi";
+import secureLocalStorage from "react-secure-storage";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../Firebase/firebaseConfig";
+import firebase from "firebase/compat/app";
+import { AuthContext } from "../../context/authContext";
 
 function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
   const [emailError, setEmailError] = useState();
-
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -50,7 +57,10 @@ function LoginComponent(props) {
         </p>
         <p className={styles["RegisterComponent--main--text-mobile"]}>Log In</p>
         <div className={styles["RegisterComponent--main--ContinueButton"]}>
-          <button className={styles["RegisterComponent--main--GoogleButton"]}>
+          <button
+            className={styles["RegisterComponent--main--GoogleButton"]}
+            onClick={props.googleSignIn}
+          >
             <img
               src={google_logo}
               className={styles["RegisterComponent--main--GoogleButton-img"]}
@@ -81,7 +91,9 @@ function LoginComponent(props) {
           onChange={handleChange}
           style={emailError ? errorStyle : {}}
         />
-        <div className={styles["email-error"]}>{emailError}</div>
+        {emailError && (
+          <div className={styles["email-error"]}>{emailError}</div>
+        )}
 
         <input
           className={styles["RegisterComponent--main--input"]}
@@ -133,51 +145,96 @@ function LoginComponent(props) {
 
 export default function Login() {
   const navigate = useNavigate();
+  const [loadingRedirect, setLoadingRedirect] = useState(false);
+  let currentUser = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log("This is the use effect current user: ", currentUser);
+    if (currentUser?.uid) {
+      setLoadingRedirect(true);
+      navigate("/");
+    }
+  }, [currentUser]);
+
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (email, password) => {
-    try {
-      setLoading(true);
-      const res = await signInEmailAndPassword(email, password);
-      if (res === "Success") {
-        setLoading(false);
-        navigate("/");
-      } else {
-        console.log("This is res ", res);
-      }
-    } catch (err) {
+    setLoading(true);
+    const { status, uid } = await signInEmailAndPassword(
+      email,
+      password,
+      setLoading
+    );
+
+    console.log("This is uid status ", status, uid);
+
+    if (status === "Success" && uid) {
+      // Save the login count
+      const loginCountSaveStaus = await createLoginCount(uid);
+      console.log("This is login count status ", loginCountSaveStaus);
       setLoading(false);
-      toast.error("Failed to sign in, please try again.");
-      console.log("Invalid Credentials");
+      navigate("/");
+    } else {
+      console.log("This is status ", status);
     }
   };
   const handleGoogleSignIn = async () => {
     try {
-      const res = await signInwithGoogle();
-      console.log(res);
-      if (res === "Success") {
-        navigate("/");
+      const { status, uid } = await signInwithGoogle();
+
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        const checkExists = await checkIfUserExists(uid);
+        console.log("This is checkIfUserExists ", checkExists);
+        if ((await checkIfUserExists(uid)) === "Failed") {
+          navigate("/addDetails", {
+            state: { uid: uid },
+          });
+          return;
+        } else {
+          // Save the login count
+          const loginCountSaveStaus = await createLoginCount(uid);
+          console.log("This is login count status ", loginCountSaveStaus);
+          navigate("/");
+        }
       } else {
-        console.log("This is res ", res);
-      }
-    } catch (err) {
-      console.log("Invalid Credentials");
-    }
-  };
-  const handleFacebookSignIn = async () => {
-    try {
-      const res = await signInwithFacebook();
-      console.log(res);
-      if (res === "Success") {
-        navigate("/");
-      } else {
-        console.log("This is res ", res);
+        console.log("This is status ", status);
       }
     } catch (err) {
       console.log("Invalid Credentials");
     }
   };
 
-  return (
+  const handleFacebookSignIn = async () => {
+    try {
+      const { status, uid } = await signInwithFacebook();
+      console.log("This is uid status ", status, uid);
+
+      if (status === "Success" && uid) {
+        const checkExists = await checkIfUserExists(uid);
+        console.log("This is checkIfUserExists ", checkExists);
+        if ((await checkIfUserExists(uid)) === "Failed") {
+          navigate("/addDetails", {
+            state: { uid: uid },
+          });
+          return;
+        } else {
+          // Save the login count
+          const loginCountSaveStaus = await createLoginCount(uid);
+          console.log("This is login count status ", loginCountSaveStaus);
+          navigate("/");
+        }
+      } else {
+        console.log("This is status ", status);
+      }
+    } catch (err) {
+      console.log("Invalid Credentials");
+    }
+  };
+
+  return loadingRedirect ? (
+    <div>Loading..</div>
+  ) : (
     <div>
       <LoginComponent
         signIn={handleSignIn}
