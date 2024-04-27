@@ -25,7 +25,10 @@ export default function Tools() {
               {item.filename}
             </div>
           </div>
-          <img src={arrow_right} height="28px" />
+          <img
+            src={arrow_right}
+            className={styles["Tools-wrapper-main-content-arrow"]}
+          />
         </div>
       ))}
     </div>

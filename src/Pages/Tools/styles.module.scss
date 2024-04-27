@@ -3,7 +3,8 @@
 .Tools-wrapper {
   padding-top: 15px;
   padding-left: 15px;
-  width: 100vw;
+  // width: 100vw;
+  min-width: 80%;
 }
 
 .Tools-wrapper-main-content-image {
@@ -40,6 +41,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.Tools-wrapper-main-content-arrow {
+  height: 24px;
+}
 
 @media screen and (min-width: 2000px) {
   .Tools-wrapper-main-content-file {
@@ -55,19 +59,29 @@
   }
 }
 @media (max-width: 1130px) {
-  .Tools-wrapper-main-content {
-    width: 70%;
-  }
+  // .Tools-wrapper-main-content {
+  //   width: 70%;
+  // }
 }
 @media (max-width: 770px) {
   .Tools-wrapper-main-content {
-    width: 75%;
+    width: 90%;
   }
 }
 
 @media (max-width: 370px) {
   .Tools-wrapper-main-content {
     width: 85%;
+  }
+  .Tools-wrapper-main-content-image {
+    width: 33px;
+    height: 29px;
+  }
+  .Tools-wrapper-main-content-file {
+    font-size: 14px;
+  }
+  .Tools-wrapper-main-content-arrow {
+    height: 18px;
   }
 }
 // @media (max-width: 320px) {
