@@ -24,7 +24,6 @@ import Compliance from "./Pages/Compliance";
 import Statistics from "./Pages/Statistics";
 import Course from "./Pages/Course";
 
-import Tools from "./Pages/Tools";
 
 import ClientComponent from "./Pages/ClientPage/Components/ClientComponent";
 import Tools from "./Pages/Tools";
