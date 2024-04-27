@@ -10,7 +10,7 @@ import Login from "./Pages/Login";
 import Welcome from "./Pages/Welcome";
 import Dashboard from "./Pages/Dashboard";
 
-import SalesAdding from "./Pages/SalesAdding";
+
 import SidebarLayout from "./Layouts/Sidebar";
 import FAQSupport from "./Pages/FAQSupport";
 
