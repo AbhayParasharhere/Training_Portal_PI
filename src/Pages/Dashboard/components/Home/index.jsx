@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import congratulationsEmoji from "./images/congratulations-emoji.png";
 import playIcon from "./images/play-icon.png";
@@ -8,18 +8,94 @@ import cakeIcon from "./images/cakeIcon.png";
 import appointmentIcon from "./images/appointment-icon.png";
 import bellIcon from "./images/bell-icon.png";
 import clipboardIcon from "./images/clipboard-icon.png";
+import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../../../../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
-export default function Home() {
+export default function Home({ userDetails, announcements }) {
+  const [latestStats, setLatestStates] = useState("course");
+  const navigate = useNavigate();
   const mobileIconsData = [
-    { icon: cakeIcon, text: "Client Birthday’s & anniversay" },
-    { icon: profilePhoto, text: "Statistics" },
-    { icon: bellIcon, text: "Notifications" },
-    { icon: appointmentIcon, text: "Client Appointments" },
-    { icon: clipboardIcon, text: "Important Updates" },
+    { icon: cakeIcon, text: "Client Birthday’s & anniversay", to: "/clients" },
+    { icon: profilePhoto, text: "Statistics", to: "/statistics" },
+    { icon: bellIcon, text: "Notifications", to: "/statistics" },
+    { icon: appointmentIcon, text: "Client Appointments", to: "/clients" },
+    { icon: clipboardIcon, text: "Important Updates", to: "/announcement" },
   ];
+
+  const latestStatsData = {
+    course: [
+      { title: "Concepts of Insaurance", button: "Continue", to: "/courses" },
+      { title: "Compliance Policies", button: "Continue", to: "/courses" },
+      { title: "Concepts of Sales", button: "Continue", to: "/courses" },
+    ],
+    policies: [
+      { title: "Life Insaurance", button: "View", to: "/addSales" },
+      { title: "Home loan", button: "View", to: "/addSales" },
+      { title: "Investing in funds", button: "View", to: "/addSales" },
+    ],
+    sales: [
+      { title: "Abhay Parashar", button: "View", to: "/clients" },
+      { title: "Mr. Sanjay", button: "View", to: "/clients" },
+      { title: "Mr. Dharmendar", button: "View", to: "/clients" },
+    ],
+  };
+
+  const renderLatestStats = latestStatsData[latestStats].map((stat, index) => {
+    return (
+      <div
+        className={styles["home--notification-lists"]}
+        onClick={() => navigate(stat.to)}
+        key={index}
+      >
+        <div className={styles["home--list-title-container"]}>
+          <img src={playIcon} className={styles["home--play-icon"]} />
+          <p className={styles["home--list-text"]}>{stat.title}</p>
+        </div>
+        <button className={styles["home--continue-button"]}>
+          {stat.button}
+        </button>
+      </div>
+    );
+  });
+  const getTimeDifference = (updatedAt) => {
+    // Convert `updatedAt` to a Date object
+    const updatedDate = new Date(updatedAt);
+
+    // Get the current date and time
+    const currentDate = new Date();
+
+    // Calculate the time difference in milliseconds
+    const timeDifference = currentDate - updatedDate;
+
+    // Convert the time difference to total minutes
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+
+    // Calculate total hours
+    const hoursDifference = Math.floor(minutesDifference / 60);
+
+    // Calculate total days, and remaining hours and minutes
+    const days = Math.floor(hoursDifference / 24);
+    const hours = hoursDifference % 24;
+    const minutes = minutesDifference % 60;
+
+    // Determine the appropriate format based on the difference
+    if (days > 0) {
+      return `${days} days ago`;
+    } else if (hours > 0) {
+      return `${hours} hours ago`;
+    } else {
+      return `${minutes} minutes ago`;
+    }
+  };
+
   const mobileIcons = mobileIconsData.map((data) => {
     return (
-      <div className={styles["home--mobile-icons-inner-container"]}>
+      <div
+        className={styles["home--mobile-icons-inner-container"]}
+        onClick={() => navigate(data.to)}
+      >
         <div className={styles["home--mobile-icon-image-container"]}>
           <img src={data.icon} className={styles["home--mobile-icon-image"]} />
         </div>
@@ -33,7 +109,7 @@ export default function Home() {
       <div className={styles["home--welcome-container"]}>
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
-            Good Morning Gurpreet
+            Good Morning {userDetails?.name || "Broker"}
           </p>
           <div className={styles["home--greetings-desc-container"]}>
             <p className={styles["home--greetings-desc"]}>
@@ -41,7 +117,7 @@ export default function Home() {
             </p>
             <p className={styles["home--greetings-desc"]}>
               Your hub for Managing Clients, Monitoring Sales, and Acheiving
-              Sucess. Let's Get Started
+              Success. Let's Get Started
             </p>
           </div>
         </div>
@@ -67,53 +143,55 @@ export default function Home() {
       <div className={styles["home--recent-notifications-main-container"]}>
         <div className={styles["home--sales-course-notification-container"]}>
           <div className={styles["home--notification-links-container"]}>
-            <p className={styles["home--notification-links"]}>
+            <p
+              className={styles["home--notification-links"]}
+              onClick={() => setLatestStates("course")}
+              style={{
+                color: latestStats === "course" ? "#4462A4" : "#A1A1A1",
+              }}
+            >
               Course Progress
-              <hr className={styles["home--notification-links-underline"]} />
+              <hr
+                className={styles["home--notification-links-underline"]}
+                style={{
+                  borderColor: latestStats === "course" ? "#4462A4" : "#A1A1A1",
+                }}
+              />
             </p>
-            <p className={styles["home--notification-links"]}>
+            <p
+              className={styles["home--notification-links"]}
+              onClick={() => setLatestStates("sales")}
+              style={{
+                color: latestStats === "sales" ? "#4462A4" : "#A1A1A1",
+              }}
+            >
               Recent Sales{" "}
-              <hr className={styles["home--notification-links-underline"]} />
+              <hr
+                className={styles["home--notification-links-underline"]}
+                style={{
+                  borderColor: latestStats === "sales" ? "#4462A4" : "#A1A1A1",
+                }}
+              />
             </p>
-            <p className={styles["home--notification-links"]}>
+            <p
+              className={styles["home--notification-links"]}
+              onClick={() => setLatestStates("policies")}
+              style={{
+                color: latestStats === "policies" ? "#4462A4" : "#A1A1A1",
+              }}
+            >
               Latest Policies{" "}
-              <hr className={styles["home--notification-links-underline"]} />
+              <hr
+                className={styles["home--notification-links-underline"]}
+                style={{
+                  borderColor:
+                    latestStats === "policies" ? "#4462A4" : "#A1A1A1",
+                }}
+              />
             </p>
           </div>
           <div className={styles["home--notification-lists-container"]}>
-            <div className={styles["home--notification-lists"]}>
-              <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} className={styles["home--play-icon"]} />
-                <p className={styles["home--list-text"]}>
-                  Regulatory Compliance 101
-                </p>
-              </div>
-              <button className={styles["home--continue-button"]}>
-                Continue
-              </button>
-            </div>
-            <div className={styles["home--notification-lists"]}>
-              <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} className={styles["home--play-icon"]} />
-                <p className={styles["home--list-text"]}>
-                  Regulatory Compliance 101
-                </p>
-              </div>
-              <button className={styles["home--continue-button"]}>
-                Continue
-              </button>
-            </div>{" "}
-            <div className={styles["home--notification-lists"]}>
-              <div className={styles["home--list-title-container"]}>
-                <img src={playIcon} className={styles["home--play-icon"]} />
-                <p className={styles["home--list-text"]}>
-                  Regulatory Compliance 101
-                </p>
-              </div>
-              <button className={styles["home--continue-button"]}>
-                Continue
-              </button>
-            </div>
+            {renderLatestStats}
           </div>
         </div>
         <div className={styles["home--client-birthday-container"]}>
@@ -121,7 +199,11 @@ export default function Home() {
             Upcoming Clients Bithdays And Anniversary
           </p>
           <div className={styles["home--client-birthday-list"]}>
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -136,7 +218,11 @@ export default function Home() {
               </div>
               <img src={cakeIcon} className={styles["home--cake-icon"]} />
             </div>
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -151,7 +237,11 @@ export default function Home() {
               </div>
               <img src={cakeIcon} className={styles["home--cake-icon"]} />
             </div>{" "}
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -166,7 +256,11 @@ export default function Home() {
               </div>
               <img src={cakeIcon} className={styles["home--cake-icon"]} />
             </div>{" "}
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -181,7 +275,11 @@ export default function Home() {
               </div>
               <img src={cakeIcon} className={styles["home--cake-icon"]} />
             </div>{" "}
-            <div className={styles["home--client-birthday"]}>
+            <div
+              className={styles["home--client-birthday"]}
+              onClick={() => navigate("/clients")}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles["home--client-birthday-inner-container"]}>
                 <img
                   src={clientPhoto}
@@ -295,42 +393,45 @@ export default function Home() {
       {/*Annoucement part start*/}
       <div className={styles["home--important-updates-container"]}>
         <p className={styles["home--important-updates-title"]}>
-          Import Updates
+          Important Updates
         </p>
-        <div className={styles["home--annoucement-list-container"]}>
-          <div className={styles["home--annoucement-container"]}>
-            <div className={styles["home--annoucement-details-container"]}>
-              <p className={styles["home--annoucement-details-text"]}>Admin</p>
-              <p className={styles["home--annoucement-details-text"]}>
-                20 min ago{" "}
-              </p>
-            </div>
-            <div>
-              <ui>
-                <li className={styles["home--annoucement-text"]}>
-                  The upcoming webinar on customer retention strategies is
-                  scheduled for next Tuesday at 10 AM EST.
-                </li>
-              </ui>
-            </div>
+        {announcements?.length !== 0 ? (
+          <div className={styles["home--annoucement-list-container"]}>
+            {announcements.map((announcement) => {
+              return (
+                <HashLink
+                  to="/announcement#announcement"
+                  style={{ width: "100%", textDecoration: "none" }}
+                >
+                  <div
+                    className={styles["home--annoucement-container"]}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div
+                      className={styles["home--annoucement-details-container"]}
+                    >
+                      <p className={styles["home--annoucement-details-text"]}>
+                        {announcement?.created_by}
+                      </p>
+                      <p className={styles["home--annoucement-details-text"]}>
+                        {getTimeDifference(announcement?.updated_at.toDate())}
+                      </p>
+                    </div>
+                    <div>
+                      <ui>
+                        <li className={styles["home--annoucement-text"]}>
+                          {announcement?.title}
+                        </li>
+                      </ui>
+                    </div>
+                  </div>
+                </HashLink>
+              );
+            })}
           </div>
-          <div className={styles["home--annoucement-container"]}>
-            <div className={styles["home--annoucement-details-container"]}>
-              <p className={styles["home--annoucement-details-text"]}>Admin</p>
-              <p className={styles["home--annoucement-details-text"]}>
-                20 min ago{" "}
-              </p>
-            </div>
-            <div>
-              <ui>
-                <li className={styles["home--annoucement-text"]}>
-                  The upcoming webinar on customer retention strategies is
-                  scheduled for next Tuesday at 10 AM EST.
-                </li>
-              </ui>
-            </div>
-          </div>
-        </div>
+        ) : (
+          <p>No Announcement</p>
+        )}
       </div>
       {/*Annoucement part Completed*/}
 

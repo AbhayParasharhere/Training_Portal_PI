@@ -8,8 +8,11 @@ import closeIcon from "./images/close-line.png";
 import twitterIcon from "./images/TwitterLogo.png";
 import instagramIcon from "./images/InstagramLogo.png";
 import linkedInIcon from "./images/LinkedinLogo.png";
+import { useNavigate } from "react-router-dom";
 
 export default function VideoTutorial() {
+  const navigate = useNavigate();
+
   const advantageBlockData = [
     {
       icon: cameraIcon,
@@ -74,7 +77,10 @@ export default function VideoTutorial() {
       <div className={styles["videoT--title-video-container"]}>
         <div className={styles["videoT--title-container"]}>
           Getting Started is Easy
-          <button className={styles["videoT--action-button"]}>
+          <button
+            className={styles["videoT--action-button"]}
+            onClick={() => navigate("/login")}
+          >
             See it in Action
           </button>
         </div>

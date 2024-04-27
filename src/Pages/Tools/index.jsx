@@ -13,28 +13,26 @@ export default function Tools() {
     { filename: "File name" },
   ];
   return (
-    <div className={styles["Tools-main"]}>
-      <Sidebar />
-      <div className={styles["ClientInfo-wrapper"]}>
-        <ToolsTopbar />
-        {list.map((item) => (
-          <div className={styles["ClientInfo-wrapper-main"]}>
-            <div className={styles["ClientInfo-wrapper-main-content"]}>
-              <div className={styles["ClientInfo-wrapper-main-content-div"]}>
-                <div
-                  className={styles["ClientInfo-wrapper-main-content-image"]}
-                >
-                  <img src={Group} height="28px" />
-                </div>
-                <div className={styles["ClientInfo-wrapper-main-content-file"]}>
-                  {item.filename}
-                </div>
-              </div>
-              <img src={arrow_right} height="28px" />
+
+    <div className={styles["Tools-wrapper"]}>
+      <ToolsTopbar />
+      {list.map((item) => (
+        <div className={styles["Tools-wrapper-main-content"]}>
+          <div className={styles["Tools-wrapper-main-content-div"]}>
+            <div className={styles["Tools-wrapper-main-content-image"]}>
+              <img src={Group} height="28px" />
+            </div>
+            <div className={styles["Tools-wrapper-main-content-file"]}>
+              {item.filename}
             </div>
           </div>
-        ))}
-      </div>
+          <img
+            src={arrow_right}
+            className={styles["Tools-wrapper-main-content-arrow"]}
+          />
+
+        </div>
+      ))}
     </div>
   );
 }

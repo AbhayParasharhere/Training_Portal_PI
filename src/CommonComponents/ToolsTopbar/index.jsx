@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 
 export default function ToolsTopbar() {
   return (
+
     <>
       <div className={styles["Tools-wrapper-topbar-div"]}>
         <div className={styles["Tools-wrapper-topbar-text"]}>
@@ -23,5 +24,6 @@ export default function ToolsTopbar() {
         <div className={styles["Tools-wrapper-topbar-text"]}>Calculator</div>
       </div>
     </>
+
   );
 }
