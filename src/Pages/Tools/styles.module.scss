@@ -1,18 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
-.Tools-main {
-  display: flex;
-  gap: 20px;
-  overflow-x: hidden;
-}
-.ClientInfo-wrapper {
+
+.Tools-wrapper {
   padding-top: 15px;
   padding-left: 15px;
-  width: 70%;
-  height: 100vh;
+  // width: 100vw;
+  min-width: 80%;
 }
 
-.ClientInfo-wrapper-main-content-image {
+.Tools-wrapper-main-content-image {
+
   background-color: #a805322e;
   border: 2px solid #a80532f0;
   width: 41px;
@@ -23,7 +20,7 @@
   align-items: center;
   justify-content: center;
 }
-.ClientInfo-wrapper-main-content-file {
+.Tools-wrapper-main-content-file {
   font-family: Open Sans;
   font-size: 18px;
   font-weight: 600;
@@ -32,31 +29,70 @@
   text-align: left;
   color: #000000;
 }
-.ClientInfo-wrapper-main-content-div {
+.Tools-wrapper-main-content-div {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.ClientInfo-wrapper-main-content {
+
+.Tools-wrapper-main-content {
   margin-top: 5px;
   padding: 15px;
-  width: 100%;
+  width: 75%;
+
   background-color: #f4f4f5;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.Tools-wrapper-main-content-arrow {
+  height: 24px;
+}
 
 @media screen and (min-width: 2000px) {
-  .ClientInfo-wrapper-main-content-file {
+  .Tools-wrapper-main-content-file {
     font-size: 32px;
   }
-  .ClientInfo-wrapper-main-content {
+  .Tools-wrapper-main-content {
     padding: 20px;
   }
 }
-@media (max-width: 370px) {
-  .ClientInfo-wrapper-main-content {
-    width: 120%;
+
+@media (max-width: 1225px) {
+  .Tools-wrapper-main-content {
+    width: 80%;
   }
 }
+@media (max-width: 1130px) {
+  // .Tools-wrapper-main-content {
+  //   width: 70%;
+  // }
+}
+@media (max-width: 770px) {
+  .Tools-wrapper-main-content {
+    width: 90%;
+  }
+}
+
+@media (max-width: 370px) {
+  .Tools-wrapper-main-content {
+    width: 85%;
+  }
+  .Tools-wrapper-main-content-image {
+    width: 33px;
+    height: 29px;
+  }
+  .Tools-wrapper-main-content-file {
+    font-size: 14px;
+  }
+  .Tools-wrapper-main-content-arrow {
+    height: 18px;
+  }
+}
+// @media (max-width: 320px) {
+//   .Tools-wrapper-main-content {
+//     width: 100%;
+//   }
+// }
+
+

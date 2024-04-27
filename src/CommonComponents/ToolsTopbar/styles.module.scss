@@ -1,15 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
-.ClientInfo-wrapper-topbar-div {
+.Tools-wrapper-topbar-div {
   display: flex;
   gap: 4%;
-  width: 200%;
+  // width: 100%;
   margin: 0;
   padding: 0;
+  margin-bottom: 25px;
+  overflow-x: hidden;
   //   width: 40%;
   //   width: 50%;
 }
-.ClientInfo-wrapper-topbar-text {
+.Tools-wrapper-topbar-text,
+.Tools-wrapper-topbar-text-product,
+.Tools-wrapper-topbar-text-finance {
   font-family: Open Sans;
   //   min-width: 30%;
   font-size: 16px;
@@ -25,46 +29,52 @@
   cursor: pointer;
 }
 
-.ClientInfo-wrapper-topbar-text:hover {
+.Tools-wrapper-topbar-text:hover {
   color: #123c97;
   border-color: #123c97;
 }
 
 @media screen and (min-width: 2000px) {
-  .ClientInfo-wrapper-topbar-text {
+  .Tools-wrapper-topbar-text,
+  .Tools-wrapper-topbar-text-product,
+  .Tools-wrapper-topbar-text-finance {
     font-size: 25px;
     // width: 200%;
   }
 }
 
 @media screen and (max-width: 1024px) {
-  .ClientInfo-wrapper-topbar-text {
+  .Tools-wrapper-topbar-text,
+  .Tools-wrapper-topbar-text-product,
+  .Tools-wrapper-topbar-text-finance {
     font-size: 15px;
   }
 }
 
 @media screen and (max-width: 950px) {
-  .ClientInfo-wrapper-topbar-text {
-    font-size: 12px;
+  .Tools-wrapper-topbar-text,
+  .Tools-wrapper-topbar-text-product,
+  .Tools-wrapper-topbar-text-finance {
+    font-size: 12.5px;
   }
 }
 
 @media screen and (max-width: 710px) {
-  .ClientInfo-wrapper-topbar-text {
-    font-size: 11px;
+  .Tools-wrapper-topbar-text-product,
+  .Tools-wrapper-topbar-text-finance {
+    display: none;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .ClientInfo-wrapper-topbar-text {
-    font-size: 6px;
+  .Tools-wrapper-topbar-text {
     padding-bottom: 0px;
     border-bottom: 2px solid;
   }
 }
 @media screen and (max-width: 320px) {
-  .ClientInfo-wrapper-topbar-text {
-    font-size: 5px;
+  .Tools-wrapper-topbar-text {
+    font-size: 11px;
     padding-bottom: 0px;
     border-bottom: 2px solid;
   }
