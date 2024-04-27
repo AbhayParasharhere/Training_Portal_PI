@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../Images/logo.png";
 import google_logo from "../../Images/google_logo.png";
@@ -17,6 +17,11 @@ export default function Register_2Component() {
   const location = useLocation();
   const navigate = useNavigate();
   const [phoneError, setPhoneError] = useState();
+  useEffect(() => {
+    if (!location?.state?.uid) {
+      navigate("/signup");
+    }
+  }, location);
 
   const handleChange = (event) => {
     console.log("Details: ", additionalDetails);

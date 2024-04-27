@@ -5,7 +5,7 @@ import arrowUp from "./images/arrow-up.png";
 import clientImage from "./images/sample-client-avatar.png";
 import checkIcon from "./images/check.png";
 
-export default function ClientDetails() {
+export default function ClientDetails(props) {
   const [arrowChange, setArrowChange] = useState(false);
   const [arrowChangeClientChoosing, setArrowChangeClientChoosing] =
     useState(false);
@@ -192,15 +192,23 @@ export default function ClientDetails() {
       }}
     >
       <p className={styles["clientDetails--navigation-text"]}>
-        <span className={styles["blue"]}>Client details</span> {">"} Sales
-        Details
+        <span className={styles["blue"]}>Client details</span> {">"}{" "}
+        <span
+          className={styles["clientDetails--sales-navigate"]}
+          onClick={() => props.setDisplayComponent("sales")}
+        >
+          Sales Details
+        </span>
       </p>
       <div className={styles["clientDetails--inner-container"]}>
         <p className={styles["clientDetails--title-text"]}>Client Details</p>
         <div className={styles["clientDetails--input-choosing-container"]}>
           <div className={styles["clientDetails--input-container"]}>
             {renderClientInput}
-            <button className={styles["clientDetails--next-button"]}>
+            <button
+              className={styles["clientDetails--next-button"]}
+              onClick={() => props.setDisplayComponent("sales")}
+            >
               Next
             </button>
           </div>

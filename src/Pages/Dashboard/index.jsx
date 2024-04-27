@@ -80,7 +80,10 @@ export default function Dashboard() {
         <Home userDetails={userDetails} announcements={announcements} />
         <StatsSummary userDetails={userDetails} />
       </div>
-      <TabletImportantUpdates announcements={announcements} />
+      <TabletImportantUpdates
+        userDetails={userDetails}
+        announcements={announcements}
+      />
     </div>
   );
 }

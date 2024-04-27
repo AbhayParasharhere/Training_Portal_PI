@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
-import { getLoggedInTime } from "../../Firebase/kpi";
+import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
 import Spinner from "../../CommonComponents/Spinner";
 
@@ -23,7 +23,19 @@ export default function Statistics() {
           previousDate,
           currentDate
         );
-        setStatData((prev) => ({ ...prev, loginCount: count }));
+
+        // Get total videos watched by the user
+        const videoData = await getVideosWatched(
+          currentUser?.uid,
+          previousDate,
+          currentDate
+        );
+
+        setStatData((prev) => ({
+          ...prev,
+          loginCount: count,
+          videoCount: videoData?.count,
+        }));
         setLoading(false);
         console.log(data, count);
       } catch (error) {
@@ -36,8 +48,13 @@ export default function Statistics() {
   console.log("StatData", statData);
 
   const generalStatData = [
-    { stat: 11, title1: "Courses", title2: "Completed", bar: true },
-    { stat: 22, title1: "Videos", title2: "Watched", bar: true },
+    { stat: 0, title1: "Courses", title2: "Completed", bar: true },
+    {
+      stat: statData?.videoCount || "X",
+      title1: "Videos",
+      title2: "Watched",
+      bar: true,
+    },
     {
       stat: statData?.loginCount || "X",
       title1: "Login in",
@@ -117,25 +134,21 @@ export default function Statistics() {
 
   return (
     <>
-      {loading ? (
-        <Spinner loading={loading} />
-      ) : (
-        <div className={styles["statistics--main-container"]}>
-          <div className={styles["statistics--general-container"]}>
-            <div className={styles["statistics--general-inner-container"]}>
-              {renderGeneralStat}
-            </div>
-            <div className={styles["statistics--profile-container"]}>
-              <img
-                src={profileImage}
-                className={styles["statistics--profile-image"]}
-              />
-              <p className={styles["statistics--user-name"]}>Gurpreet singh</p>
-            </div>
+      <div className={styles["statistics--main-container"]}>
+        <div className={styles["statistics--general-container"]}>
+          <div className={styles["statistics--general-inner-container"]}>
+            {renderGeneralStat}
           </div>
-          {renderGraph}
+          <div className={styles["statistics--profile-container"]}>
+            <img
+              src={profileImage}
+              className={styles["statistics--profile-image"]}
+            />
+            <p className={styles["statistics--user-name"]}>Gurpreet singh</p>
+          </div>
         </div>
-      )}
+        {renderGraph}
+      </div>
     </>
   );
 }

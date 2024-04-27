@@ -13,6 +13,7 @@ export default function Tools() {
     { filename: "File name" },
   ];
   return (
+
     <div className={styles["Tools-wrapper"]}>
       <ToolsTopbar />
       {list.map((item) => (
@@ -29,6 +30,7 @@ export default function Tools() {
             src={arrow_right}
             className={styles["Tools-wrapper-main-content-arrow"]}
           />
+
         </div>
       ))}
     </div>

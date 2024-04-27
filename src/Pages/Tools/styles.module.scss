@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
+
 .Tools-wrapper {
   padding-top: 15px;
   padding-left: 15px;
@@ -8,6 +9,7 @@
 }
 
 .Tools-wrapper-main-content-image {
+
   background-color: #a805322e;
   border: 2px solid #a80532f0;
   width: 41px;
@@ -32,10 +34,12 @@
   align-items: center;
   gap: 20px;
 }
+
 .Tools-wrapper-main-content {
   margin-top: 5px;
   padding: 15px;
   width: 75%;
+
   background-color: #f4f4f5;
   display: flex;
   justify-content: space-between;
@@ -53,6 +57,7 @@
     padding: 20px;
   }
 }
+
 @media (max-width: 1225px) {
   .Tools-wrapper-main-content {
     width: 80%;
@@ -89,3 +94,5 @@
 //     width: 100%;
 //   }
 // }
+
+

@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 
 export default function AnnouncementPage() {
   return (
-    <div className={styles["announcement--main-container"]}>
+    <div id="announcement" className={styles["announcement--main-container"]}>
       Important Updates{" "}
       <div className={styles["announcement--list-container"]}>
         <div className={styles["announcement--container"]}>

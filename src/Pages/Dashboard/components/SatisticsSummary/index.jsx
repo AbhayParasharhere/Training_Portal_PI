@@ -10,10 +10,12 @@ import {
 } from "chart.js";
 import cakeIcon from "./images/cakeIcon.png";
 import clientPhoto from "./images/client-sample-image.png";
+import { useNavigate } from "react-router-dom";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
 export default function StatsSummary({ userDetails }) {
+  const navigate = useNavigate();
   const [graphData, setGraphData] = useState([
     { name: "M", value: "12" },
     { name: "T", value: "5" },
@@ -42,6 +44,8 @@ export default function StatsSummary({ userDetails }) {
         <div className={styles["statsSummary--sales-graph-container"]}>
           Weekly Sales Status
           <Bar
+            className={styles["statsSummary--graph"]}
+            onClick={() => navigate("/statistics")}
             data={{
               labels: graphData.map((data) => data.name),
               datasets: [
