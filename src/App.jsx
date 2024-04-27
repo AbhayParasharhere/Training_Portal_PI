@@ -10,7 +10,7 @@ import Login from "./Pages/Login";
 import Welcome from "./Pages/Welcome";
 import Dashboard from "./Pages/Dashboard";
 
-import SalesAdding from "./Pages/SalesAdding";
+
 import SidebarLayout from "./Layouts/Sidebar";
 import FAQSupport from "./Pages/FAQSupport";
 
@@ -27,8 +27,14 @@ import Course from "./Pages/Course";
 
 import ClientComponent from "./Pages/ClientPage/Components/ClientComponent";
 import Tools from "./Pages/Tools";
+
+
+import SalesAdding from "./Pages/SalesAdding";
+import ProductLinks from "./ProductLinks";
+
 import CourseDetail from "./Pages/Course/components/CourseDetail";
 import NoPagesElement from "./CommonComponents/NoPageError";
+
 
 
 // Sign Up steps
@@ -59,7 +65,7 @@ const router = createBrowserRouter(
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/courses" element={<Course />} />
 
-       
+       <Route path="/productlinks" element={<ProductLinks />} />
 
         <Route path="/clients" element={<ClientComponent />} />
         <Route path="/tools" element={<Tools />} />
@@ -71,11 +77,13 @@ const router = createBrowserRouter(
 );
 function App() {
   return (
+
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <RouterProvider router={router} />
       <ToastContainer />
+
     </div>
   );
 }
