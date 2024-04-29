@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./styles.module.scss";
 import arrowDown from "./images/arrow-down.png";
 import arrowUp from "./images/arrow-up.png";
 import clientImage from "./images/sample-client-avatar.png";
 import checkIcon from "./images/check.png";
+import { saveClientData } from "../../../../Firebase/addSalesClients";
+import { AuthContext } from "../../../../context/authContext";
+import { toast } from "react-toastify";
 
 export default function ClientDetails(props) {
   const [arrowChange, setArrowChange] = useState(false);
+  const [errorState, setErrorState] = useState("");
   const [arrowChangeClientChoosing, setArrowChangeClientChoosing] =
     useState(false);
+  const currentUser = useContext(AuthContext);
 
-  const [dropdownValue, setDropdownValue] = useState("");
+  const [dropdownValue, setDropdownValue] = useState();
+  const [clientDetails, setClientDetails] = useState({
+    client_gender: dropdownValue || "",
+    client_name: "",
+    client_address: "",
+    client_number: "",
+    client_DOB: "",
+    client_anniversary: "",
+    client_email: "",
+  });
   const [clientDropdownValue, setClientDropdownValue] = useState("");
 
   const toggleArrowChange = () => {
@@ -22,20 +36,115 @@ export default function ClientDetails(props) {
 
   const handleDropdownValue = (value) => {
     setDropdownValue(value);
+    setClientDetails({ ...clientDetails, client_gender: value });
+    console.log(dropdownValue);
   };
   const handleClientDropdownValue = (img, text) => {
     setClientDropdownValue({ img: img, text: text });
   };
   const clientInputData = [
-    { text: "Client Name", type: "text", height: 35 },
-    { text: "Choosing from existing client", type: "mobile", height: 35 },
-    { text: "Gender", type: "dropdown", height: 35 },
-    { text: "Email Address", type: "text", height: 35 },
-    { text: "Phone Number", type: "text", height: 35 },
-    { text: "Local Address", type: "text", height: 50 },
-    { text: "Date of Birth", type: "text", height: 35 },
-    { text: "Anniversary", type: "text", height: 35 },
+    {
+      text: "Client Name",
+      type: "text",
+      height: 35,
+      name: "client_name",
+      required: true,
+    },
+    {
+      text: "Choosing from existing client",
+      type: "mobile",
+      height: 35,
+    },
+    {
+      text: "Gender",
+      type: "dropdown",
+      height: 35,
+      name: "client_gender",
+      required: true,
+    },
+    {
+      text: "Email Address",
+      type: "text",
+      height: 35,
+      name: "client_email",
+      required: true,
+    },
+    {
+      text: "Phone Number",
+      type: "text",
+      height: 35,
+      name: "client_number",
+      required: true,
+    },
+    {
+      text: "Local Address",
+      type: "text",
+      height: 50,
+      name: "client_address",
+      required: true,
+    },
+    { text: "Date of Birth", type: "date", height: 35, name: "client_DOB" },
+    {
+      text: "Anniversary",
+      type: "date",
+      height: 35,
+      name: "client_anniversary",
+    },
+    {
+      text: "Client Image",
+      type: "file",
+      height: 35,
+      name: "client_image",
+    },
   ];
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+  const handleClientChange = (event) => {
+    setClientDetails((prev) => {
+      return {
+        ...prev,
+        [event.target.name]:
+          event.target.type === "file"
+            ? event.target.files[0]
+            : event.target.value,
+      };
+    });
+    console.log(clientDetails);
+  };
+
+  const handleClientSubmit = async () => {
+    try {
+      if (
+        clientDetails.client_name === "" ||
+        clientDetails.client_gender === "" ||
+        clientDetails.client_email === "" ||
+        clientDetails.client_number === "" ||
+        clientDetails.client_address === ""
+      ) {
+        toast.error("Fill the requirements");
+        return;
+      } else {
+        if (!validateEmail(clientDetails.client_email)) {
+          setErrorState({ input: "client_email", text: "Invalid Email" });
+          toast.error("Invalid Email");
+          return;
+        }
+      }
+      if (clientDropdownValue) {
+        console.log("There is a client selected");
+      }
+      const clientId = await saveClientData(clientDetails, currentUser?.uid);
+      props.setDisplayComponent("sales");
+      props.setClientId(clientId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const renderClientInput = clientInputData.map((input, index) => {
     if (input.type === "dropdown") {
       return (
@@ -43,7 +152,10 @@ export default function ClientDetails(props) {
           className={styles["clientDetails--input-inner-container"]}
           key={index}
         >
-          <p className={styles["clientDetails--input-text"]}>{input.text}</p>
+          <p className={styles["clientDetails--input-text"]}>
+            {input.text}{" "}
+            {input.required && <span style={{ color: "red" }}>*</span>}
+          </p>
           <div
             className={styles["clientDetails--input-dropdown"]}
             style={{
@@ -171,11 +283,18 @@ export default function ClientDetails(props) {
     }
     return (
       <div className={styles["clientDetails--input-inner-container"]}>
-        <p className={styles["clientDetails--input-text"]}>{input.text}</p>
+        <p className={styles["clientDetails--input-text"]}>
+          {input.text}{" "}
+          {input.required && <span style={{ color: "red" }}>*</span>}
+        </p>
         <input
           className={styles["clientDetails--input"]}
           style={{ height: input.height }}
+          type={input.type}
+          name={input.name}
+          onChange={handleClientChange}
         />
+        {errorState?.input === input.name && <p>{errorState.text}</p>}
       </div>
     );
   });
@@ -207,7 +326,7 @@ export default function ClientDetails(props) {
             {renderClientInput}
             <button
               className={styles["clientDetails--next-button"]}
-              onClick={() => props.setDisplayComponent("sales")}
+              onClick={handleClientSubmit}
             >
               Next
             </button>

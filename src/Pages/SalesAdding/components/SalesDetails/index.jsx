@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./styles.module.scss";
 import checkIcon from "./images/check.png";
 import arrowDown from "./images/arrow-down.png";
 import arrowUp from "./images/arrow-up.png";
 import { toast } from "react-toastify";
+import { saveSalesData } from "../../../../Firebase/addSalesClients";
+import { AuthContext } from "../../../../context/authContext";
 
 export default function SalesDetails(props) {
   const [changeSalesArrowPolicy, setChangeSalesArrowPolicy] = useState(false);
@@ -46,6 +48,7 @@ export default function SalesDetails(props) {
     { text: "End Date", type: "date", name: "end_date" },
     { text: "Commision Earned", type: "text", name: "commision_earned" },
   ];
+  const currentUser = useContext(AuthContext);
 
   const handleChange = (event) => {
     console.log(salesDetailsData);
@@ -53,6 +56,24 @@ export default function SalesDetails(props) {
       ...salesDetailsData,
       [event.target.name]: event.target.value,
     });
+  };
+  const handleSalesSubmit = async () => {
+    try {
+      if (!props.clientId) {
+        console.log("No client added");
+        return;
+      }
+      const salesResponse = await saveSalesData(
+        salesDetailsData,
+        props.clientId,
+        currentUser?.uid
+      );
+      console.log("This is the response after adding sales: ", salesResponse);
+      toast.success("Details Saved");
+      props.setDisplayComponent("client");
+    } catch (err) {
+      console.log(err);
+    }
   };
   const renderSalesInput = inputData.map((input, index) => {
     if (input.type === "dropdown") {
@@ -67,6 +88,7 @@ export default function SalesDetails(props) {
             onClick={input.function}
             style={{ border: input.arrowState && "1px solid #3064D4" }}
           >
+            {salesDetailsData[input.name]}
             <div
               className={styles["salesDetails--input-drodown-option-container"]}
               style={{ display: input.arrowState ? "flex" : "none" }}
@@ -148,10 +170,7 @@ export default function SalesDetails(props) {
           {renderSalesInput}
           <button
             className={styles["salesDetails--save-button"]}
-            onClick={() => {
-              toast.success("Details Saved");
-              props.setDisplayComponent("client");
-            }}
+            onClick={handleSalesSubmit}
           >
             Save Details
           </button>

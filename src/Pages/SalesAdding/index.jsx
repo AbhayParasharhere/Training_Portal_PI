@@ -6,12 +6,19 @@ import SalesDetails from "./components/SalesDetails";
 
 export default function SalesAdding() {
   const [displayComponent, setDisplayComponent] = useState("client");
+  const [clientId, setClientId] = useState("");
   return (
     <div className={styles["salesAdding--main-container"]}>
       {displayComponent === "sales" ? (
-        <SalesDetails setDisplayComponent={setDisplayComponent} />
+        <SalesDetails
+          setDisplayComponent={setDisplayComponent}
+          clientId={clientId}
+        />
       ) : (
-        <ClientDetails setDisplayComponent={setDisplayComponent} />
+        <ClientDetails
+          setDisplayComponent={setDisplayComponent}
+          setClientId={setClientId}
+        />
       )}
     </div>
   );
