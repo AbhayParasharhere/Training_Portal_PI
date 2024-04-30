@@ -8,6 +8,10 @@ import { saveSalesData } from "../../../../Firebase/addSalesClients";
 import { AuthContext } from "../../../../context/authContext";
 
 export default function SalesDetails(props) {
+  console.log(
+    "This is the id received from client adding page: ",
+    props.clientId
+  );
   const [changeSalesArrowPolicy, setChangeSalesArrowPolicy] = useState(false);
   const [changeSalesArrowChannel, setChangeSalesArrowChannel] = useState(false);
   const [salesDetailsData, setSalesDetailsData] = useState({});
