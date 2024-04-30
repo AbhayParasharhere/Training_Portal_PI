@@ -15,18 +15,6 @@ export default function ClientDetails(props) {
     useState(false);
   const currentUser = useContext(AuthContext);
 
-  // const [dropdownValue, setDropdownValue] = useState();
-  // const [clientDetails, setClientDetails] = useState({
-  //   client_gender: dropdownValue || "",
-  //   client_name: "",
-  //   client_address: "",
-  //   client_number: "",
-  //   client_DOB: "",
-  //   client_anniversary: "",
-  //   client_email: "",
-  // });
-  // const [clientDropdownValue, setClientDropdownValue] = useState("");
-
   const sampleClientData = [
     {
       client_gender: "Male",

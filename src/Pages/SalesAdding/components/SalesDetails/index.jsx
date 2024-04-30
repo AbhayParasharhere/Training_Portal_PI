@@ -8,13 +8,10 @@ import { saveSalesData } from "../../../../Firebase/addSalesClients";
 import { AuthContext } from "../../../../context/authContext";
 
 export default function SalesDetails(props) {
-  console.log(
-    "This is the id received from client adding page: ",
-    props.clientId
-  );
+  const [errorState, setErrorState] = useState("");
+
   const [changeSalesArrowPolicy, setChangeSalesArrowPolicy] = useState(false);
   const [changeSalesArrowChannel, setChangeSalesArrowChannel] = useState(false);
-  const [salesDetailsData, setSalesDetailsData] = useState({});
 
   const toggleArrowChangePolicy = () => {
     setChangeSalesArrowPolicy((prev) => !prev);
@@ -24,8 +21,11 @@ export default function SalesDetails(props) {
     setChangeSalesArrowChannel((prev) => !prev);
   };
   const handleDropdownChange = (inputName, value) => {
-    setSalesDetailsData({ ...salesDetailsData, [inputName]: value });
-    console.log(salesDetailsData);
+    props.setSalesDetailsData({
+      ...props.salesDetailsData,
+      [inputName]: value,
+    });
+    console.log(props.salesDetailsData);
   };
   const inputData = [
     { text: "Broker Name", type: "text", name: "broker_name" },
@@ -55,20 +55,33 @@ export default function SalesDetails(props) {
   const currentUser = useContext(AuthContext);
 
   const handleChange = (event) => {
-    console.log(salesDetailsData);
-    setSalesDetailsData({
-      ...salesDetailsData,
+    console.log(props.salesDetailsData);
+    props.setSalesDetailsData({
+      ...props.salesDetailsData,
       [event.target.name]: event.target.value,
     });
   };
   const handleSalesSubmit = async () => {
     try {
+      if (
+        props.salesDetailsData.broker_name === "" ||
+        props.salesDetailsData.broker_ID === "" ||
+        props.salesDetailsData.policy_type === "" ||
+        props.salesDetailsData.sales_channel === "" ||
+        props.salesDetailsData.policy_number === "" ||
+        props.salesDetailsData.effective_date === "" ||
+        props.salesDetailsData.end_date === "" ||
+        props.salesDetailsData.commision_earned === ""
+      ) {
+        toast.error("Fill the requirements");
+        return;
+      }
       if (!props.clientId) {
         console.log("No client added");
         return;
       }
       const salesResponse = await saveSalesData(
-        salesDetailsData,
+        props.salesDetailsData,
         props.clientId,
         currentUser?.uid
       );
@@ -92,7 +105,7 @@ export default function SalesDetails(props) {
             onClick={input.function}
             style={{ border: input.arrowState && "1px solid #3064D4" }}
           >
-            {salesDetailsData[input.name]}
+            {props.salesDetailsData[input.name]}
             <div
               className={styles["salesDetails--input-drodown-option-container"]}
               style={{ display: input.arrowState ? "flex" : "none" }}
@@ -104,13 +117,13 @@ export default function SalesDetails(props) {
                     onClick={() => handleDropdownChange(input.name, option)}
                     style={{
                       backgroundColor:
-                        salesDetailsData[input.name] === option
+                        props.salesDetailsData[input.name] === option
                           ? "#F9FAFB"
                           : "white",
                     }}
                   >
                     {option}
-                    {salesDetailsData[input.name] === option && (
+                    {props.salesDetailsData[input.name] === option && (
                       <img
                         src={checkIcon}
                         className={styles["clientDetails--check-icon"]}
@@ -141,6 +154,7 @@ export default function SalesDetails(props) {
           className={styles["salesDetails--input"]}
           type={input.type}
           onChange={handleChange}
+          value={props.salesDetailsData[input.name]}
         />
       </div>
     );
@@ -172,6 +186,11 @@ export default function SalesDetails(props) {
         <p className={styles["salesDetails--title-text"]}>Sales Details</p>
         <div className={styles["salesDetails--input-main-container"]}>
           {renderSalesInput}
+          {errorState && (
+            <p className={styles["clientDetails--error-text"]}>
+              {errorState.text}
+            </p>
+          )}
           <button
             className={styles["salesDetails--save-button"]}
             onClick={handleSalesSubmit}

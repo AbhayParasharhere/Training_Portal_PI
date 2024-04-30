@@ -18,12 +18,27 @@ export default function SalesAdding() {
     client_email: "",
   });
   const [clientDropdownValue, setClientDropdownValue] = useState("");
+
+  const [salesDetailsData, setSalesDetailsData] = useState({
+    broker_name: "",
+    broker_ID: "",
+    policy_type: "",
+    sales_channel: "",
+    policy_number: "",
+    premium_account: "",
+    effective_date: "",
+    end_date: "",
+    commision_earned: "",
+  });
+
   return (
     <div className={styles["salesAdding--main-container"]}>
       {displayComponent === "sales" ? (
         <SalesDetails
           setDisplayComponent={setDisplayComponent}
           clientId={clientId}
+          salesDetailsData={salesDetailsData}
+          setSalesDetailsData={setSalesDetailsData}
         />
       ) : (
         <ClientDetails
