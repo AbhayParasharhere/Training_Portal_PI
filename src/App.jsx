@@ -32,6 +32,7 @@ import ProductLinks from "./ProductLinks";
 import CourseDetail from "./Pages/Course/components/CourseDetail";
 import NoPagesElement from "./CommonComponents/NoPageError";
 import AdminConsole from "./Pages/AdminConsole";
+import InternalLinks from "./Pages/InternalLinks";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -67,6 +68,7 @@ const router = createBrowserRouter(
         <Route path="/tools" element={<Tools />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />
         <Route path="/admin-course-add" element={<AdminConsole />} />
+        <Route path="/internal-links" element={<InternalLinks />} />
       </Route>
     </>
   )
