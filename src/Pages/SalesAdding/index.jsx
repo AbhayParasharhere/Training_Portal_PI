@@ -37,8 +37,13 @@ export default function SalesAdding() {
         <SalesDetails
           setDisplayComponent={setDisplayComponent}
           clientId={clientId}
+          setClientId={setClientId}
+          clientDetails={clientDetails}
+          setClientDropdownValue={setClientDropdownValue}
+          setDropdownValue={setDropdownValue}
           salesDetailsData={salesDetailsData}
           setSalesDetailsData={setSalesDetailsData}
+          setClientDetails={setClientDetails}
         />
       ) : (
         <ClientDetails

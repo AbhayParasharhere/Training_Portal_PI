@@ -128,12 +128,6 @@ export default function ClientDetails(props) {
       height: 35,
       name: "client_anniversary",
     },
-    {
-      text: "Client Image",
-      type: "file",
-      height: 35,
-      name: "client_image",
-    },
   ];
 
   const validateEmail = (email) => {
@@ -185,21 +179,47 @@ export default function ClientDetails(props) {
         }
       }
       if (props.clientDropdownValue) {
-        console.log("There is a client selected");
         props.setDisplayComponent("sales");
         props.setClientId(props.clientDetails.client_id);
         return;
       }
-      const clientId = await saveClientData(
-        props.clientDetails,
-        currentUser?.uid
-      );
       props.setDisplayComponent("sales");
-      props.setClientId(clientId);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const handleNavigationCheck = () => {
+    //To secure the use of navigation without filling form
+    if (
+      props.clientDetails.client_name === "" ||
+      props.clientDetails.client_gender === "" ||
+      props.clientDetails.client_email === "" ||
+      props.clientDetails.client_number === "" ||
+      props.clientDetails.client_address === ""
+    ) {
+      toast.error("Fill the requirements");
+      return;
+    } else {
+      if (!validateEmail(props.clientDetails.client_email)) {
+        setErrorState({
+          input: "client_email",
+          text: "Invalid email format. Please enter a valid email address.",
+        });
+        toast.error("Invalid email format.");
+        return;
+      } else if (props.clientDetails.client_number.length !== 10) {
+        setErrorState({
+          input: "client_number",
+          text: "Invalid phone number. Please enter a 10 digit number",
+        });
+        toast.error("Invalid phone number format.");
+        return;
+      }
+    }
+    props.setDisplayComponent("sales");
+  };
+
   const renderClientInput = clientInputData.map((input, index) => {
     if (input.type === "dropdown") {
       return (
@@ -433,7 +453,7 @@ export default function ClientDetails(props) {
         <span className={styles["blue"]}>Client details</span> {">"}{" "}
         <span
           className={styles["clientDetails--sales-navigate"]}
-          onClick={() => props.setDisplayComponent("sales")}
+          onClick={() => handleNavigationCheck()}
         >
           Sales Details
         </span>
