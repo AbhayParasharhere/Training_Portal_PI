@@ -7,6 +7,7 @@ import checkIcon from "./images/check.png";
 import { saveClientData } from "../../../../Firebase/addSalesClients";
 import { AuthContext } from "../../../../context/authContext";
 import { toast } from "react-toastify";
+import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
 export default function ClientDetails(props) {
   const [arrowChange, setArrowChange] = useState(false);
@@ -14,42 +15,44 @@ export default function ClientDetails(props) {
   const [arrowChangeClientChoosing, setArrowChangeClientChoosing] =
     useState(false);
   const currentUser = useContext(AuthContext);
+  const primaryData = useContext(PrimaryDataContext);
+  const allClients = primaryData?.clients;
 
-  const sampleClientData = [
-    {
-      client_gender: "Male",
-      client_id: "1234567",
-      client_name: "Abhi Parashar",
-      client_address: "11/27 a-2 Sanjay colony tajganj agra",
-      client_number: "7300748822",
-      client_DOB: "10-12-2006",
-      client_anniversary: "NA",
-      client_email: "abhiparasharr@gmail.com",
-      img: clientImage,
-    },
-    {
-      client_gender: "Female",
-      client_id: "89010",
-      client_name: "Abhay Parashar",
-      client_address: "11/27 a-2 Sanjay colony tajganj agra",
-      client_number: "7300748822",
-      client_DOB: "10-12-2006",
-      client_anniversary: "NA",
-      client_email: "abhayparasharr@gmail.com",
-      img: clientImage,
-    },
-    {
-      client_gender: "Other",
-      client_id: "56789",
-      client_name: "Sample client",
-      client_address: "11/27 a-2 Sanjay colony tajganj agra",
-      client_number: "7300748822",
-      client_DOB: "10-12-2006",
-      client_anniversary: "NA",
-      client_email: "sample@gmail.com",
-      img: clientImage,
-    },
-  ];
+  // const sampleClientData = [
+  //   {
+  //     client_gender: "Male",
+  //     client_id: "1234567",
+  //     client_name: "Abhi Parashar",
+  //     client_address: "11/27 a-2 Sanjay colony tajganj agra",
+  //     client_number: "7300748822",
+  //     client_DOB: "10-12-2006",
+  //     client_anniversary: "NA",
+  //     client_email: "abhiparasharr@gmail.com",
+  //     img: clientImage,
+  //   },
+  //   {
+  //     client_gender: "Female",
+  //     client_id: "89010",
+  //     client_name: "Abhay Parashar",
+  //     client_address: "11/27 a-2 Sanjay colony tajganj agra",
+  //     client_number: "7300748822",
+  //     client_DOB: "10-12-2006",
+  //     client_anniversary: "NA",
+  //     client_email: "abhayparasharr@gmail.com",
+  //     img: clientImage,
+  //   },
+  //   {
+  //     client_gender: "Other",
+  //     client_id: "56789",
+  //     client_name: "Sample client",
+  //     client_address: "11/27 a-2 Sanjay colony tajganj agra",
+  //     client_number: "7300748822",
+  //     client_DOB: "10-12-2006",
+  //     client_anniversary: "NA",
+  //     client_email: "sample@gmail.com",
+  //     img: clientImage,
+  //   },
+  // ];
 
   const toggleArrowChange = () => {
     setArrowChange((prev) => !prev);
@@ -65,19 +68,19 @@ export default function ClientDetails(props) {
   };
   const handleClientDropdownValue = (img, text, id) => {
     props.setClientDropdownValue({ img: img, text: text });
-    const selectedClient = sampleClientData.filter((client) => {
-      return client.client_id === id;
+    const selectedClient = allClients?.filter((client) => {
+      return client.id === id;
     });
     console.log("This is the selected client: ", selectedClient);
     props.setClientDetails({
-      client_name: selectedClient[0].client_name,
-      client_gender: selectedClient[0].client_gender,
-      client_email: selectedClient[0].client_email,
-      client_DOB: selectedClient[0].client_DOB,
-      client_address: selectedClient[0].client_address,
-      client_anniversary: selectedClient[0].client_anniversary,
-      client_id: selectedClient[0].client_id,
-      client_number: selectedClient[0].client_number,
+      client_name: selectedClient[0].name,
+      client_gender: selectedClient[0].gender,
+      client_email: selectedClient[0].email,
+      client_DOB: selectedClient[0].DOB,
+      client_address: selectedClient[0].address,
+      client_anniversary: selectedClient[0].anniversary,
+      client_id: selectedClient[0].id,
+      client_number: selectedClient[0].phone_number,
     });
   };
   const clientInputData = [
@@ -366,20 +369,20 @@ export default function ClientDetails(props) {
                   />
                 )}
               </div>
-              {sampleClientData.map((client) => {
+              {allClients?.map((client) => {
                 return (
                   <div
                     className={styles["clientDetails--input-options"]}
                     onClick={() =>
                       handleClientDropdownValue(
-                        client.img,
-                        client.client_name,
-                        client.client_id
+                        client.img || clientImage,
+                        client.name,
+                        client.id
                       )
                     }
                     style={{
                       backgroundColor:
-                        props.clientDropdownValue.text === client.client_name
+                        props.clientDropdownValue.text === client.name
                           ? "#F9FAFB"
                           : "white",
                     }}
@@ -387,10 +390,10 @@ export default function ClientDetails(props) {
                     <div
                       style={{ display: "flex", alignItems: "center", gap: 10 }}
                     >
-                      <img src={client.img} />
-                      {client.client_name}
+                      <img src={client.img || clientImage} />
+                      {client.name}
                     </div>
-                    {props.clientDropdownValue.text === client.client_name && (
+                    {props.clientDropdownValue.text === client.name && (
                       <img
                         src={checkIcon}
                         className={styles["clientDetails--check-icon"]}
@@ -533,20 +536,20 @@ export default function ClientDetails(props) {
                     />
                   )}
                 </div>
-                {sampleClientData.map((client) => {
+                {allClients?.map((client) => {
                   return (
                     <div
                       className={styles["clientDetails--input-options"]}
                       onClick={() =>
                         handleClientDropdownValue(
-                          client.img,
-                          client.client_name,
-                          client.client_id
+                          client.img || clientImage,
+                          client.name,
+                          client.id
                         )
                       }
                       style={{
                         backgroundColor:
-                          props.clientDropdownValue.text === client.client_name
+                          props.clientDropdownValue.text === client.name
                             ? "#F9FAFB"
                             : "white",
                       }}
@@ -558,11 +561,10 @@ export default function ClientDetails(props) {
                           gap: 10,
                         }}
                       >
-                        <img src={client.img} />
-                        {client.client_name}
+                        <img src={client.img || clientImage} />
+                        {client.name}
                       </div>
-                      {props.clientDropdownValue.text ===
-                        client.client_name && (
+                      {props.clientDropdownValue.text === client.name && (
                         <img
                           src={checkIcon}
                           className={styles["clientDetails--check-icon"]}
