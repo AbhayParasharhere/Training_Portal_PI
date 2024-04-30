@@ -1,55 +1,60 @@
-import React from "react";
+import { useContext } from "react";
 import styles from "./styles.module.scss";
 import searchIcon from "./images/search-icon.png";
 import filterIcon from "./images/filter-icon.png";
 import coursePlaceholder from "./images/course-placeholder.png";
 import { useNavigate } from "react-router-dom";
+import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
 export default function CourseGrid() {
-  const courseData = [
-    {
-      placeholder: coursePlaceholder,
-      catagory: "Finance and ",
-      title: "The basics of finanace and insurance",
-    },
-    {
-      placeholder: coursePlaceholder,
-      catagory: "Finance",
-      title: "The basics of finanace",
-    },
-    {
-      placeholder: coursePlaceholder,
-      catagory: "Finance",
-      title: "The basics of finanace",
-    },
-    {
-      placeholder: coursePlaceholder,
-      catagory: "Finance",
-      title: "The basics of finanace",
-    },
-    {
-      placeholder: coursePlaceholder,
-      catagory: "Finance",
-      title: "The basics of finanace",
-    },
-    {
-      placeholder: coursePlaceholder,
-      catagory: "Finance",
-      title: "The basics of finanace",
-    },
-    {
-      placeholder: coursePlaceholder,
-      catagory: "Finance",
-      title: "The basics of finanace",
-    },
-    {
-      placeholder: coursePlaceholder,
-      catagory: "Finance",
-      title: "The basics of finanace",
-    },
-  ];
+  const primaryData = useContext(PrimaryDataContext);
+  const courseData = primaryData?.courses;
+  console.log("Courses data", courseData);
+  // const courseData = [
+  //   {
+  //     placeholder: coursePlaceholder,
+  //     category: "Finance and ",
+  //     title: "The basics of finanace and insurance",
+  //   },
+  //   {
+  //     placeholder: coursePlaceholder,
+  //     category: "Finance",
+  //     title: "The basics of finanace",
+  //   },
+  //   {
+  //     placeholder: coursePlaceholder,
+  //     category: "Finance",
+  //     title: "The basics of finanace",
+  //   },
+  //   {
+  //     placeholder: coursePlaceholder,
+  //     category: "Finance",
+  //     title: "The basics of finanace",
+  //   },
+  //   {
+  //     placeholder: coursePlaceholder,
+  //     category: "Finance",
+  //     title: "The basics of finanace",
+  //   },
+  //   {
+  //     placeholder: coursePlaceholder,
+  //     category: "Finance",
+  //     title: "The basics of finanace",
+  //   },
+  //   {
+  //     placeholder: coursePlaceholder,
+  //     category: "Finance",
+  //     title: "The basics of finanace",
+  //   },
+  //   {
+  //     placeholder: coursePlaceholder,
+  //     category: "Finance",
+  //     title: "The basics of finanace",
+  //   },
+  // ];
+  const defaultPlaceholder = coursePlaceholder;
   const navigate = useNavigate();
-  const renderCourse = courseData.map((course, index) => {
+  const renderCourse = courseData?.map((course, index) => {
     return (
       <div
         className={styles["courseGrid--course-container"]}
@@ -58,10 +63,14 @@ export default function CourseGrid() {
       >
         <div
           className={styles["courseGrid--course-placeholder"]}
-          style={{ backgroundImage: `url(${course.placeholder})` }}
+          style={{
+            backgroundImage: `url(${
+              course?.thumbnailURL || defaultPlaceholder
+            })`,
+          }}
         ></div>
-        <div className={styles["courseGrid--course-catagory"]}>
-          {course.catagory}
+        <div className={styles["courseGrid--course-category"]}>
+          {course.category}
         </div>
         <p className={styles["courseGrid--course-title"]}>{course.title}</p>
       </div>

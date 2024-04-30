@@ -4,11 +4,14 @@ import {
   where,
   getDocs,
   addDoc,
+  updateDoc,
+  arrayUnion,
   setDoc,
   doc,
   getDoc,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
+import { update } from "firebase/database";
 
 // Functions to get all sales data for a particular user within a particular date range
 // direct query to the sales collection
@@ -97,17 +100,13 @@ const getLoggedInTime = async (userID, startDate, endDate) => {
   }
 };
 
-// Function to create the loginCount document for a particular user
+// Function to upadte the login count array for a user
 // This function should be called whenever a user logs in and during the creation of the user
 const createLoginCount = async (userID) => {
   try {
-    // The doc id should be the date and time of the login
-    await setDoc(
-      doc(db, "userDetail", userID, "loginCount", new Date().toISOString()),
-      {
-        created_at: new Date(),
-      }
-    );
+    await updateDoc(doc(db, "userDetails", userID), {
+      loginCount: arrayUnion(new Date()),
+    });
     return "Success in saving login count";
   } catch (error) {
     console.log("Could not save to login count", error);
