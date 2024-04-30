@@ -70,6 +70,15 @@ p {
   gap: 40px;
   position: relative;
 }
+.clientDetails--error-text {
+  display: block;
+  color: #ff5050;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 14.98px;
+  text-align: left;
+}
 .clientDetails--input-arrow {
   position: absolute;
   right: 5px;
@@ -81,10 +90,12 @@ p {
   font-family: Epilogue;
   font-size: 17px;
   min-width: 100px;
+  max-width: 100px;
   font-weight: 500;
   text-wrap: nowrap;
   line-height: 25.5px;
   letter-spacing: -0.03em;
+  // background-color: #222831;
   text-align: left;
 }
 .clientDetails--input {
