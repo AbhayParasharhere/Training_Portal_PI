@@ -8,6 +8,7 @@ import { AuthContext } from "../../context/authContext";
 import { getUserDetails } from "../../Firebase/authentication";
 import { getAllAnnouncementsSortedByUpdatedAtDescendingRealTime } from "../../Firebase/announcementLogic";
 import { set } from "firebase/database";
+import { PrimaryDataContext } from "../../context/primaryDataContext";
 
 // Backend information to pass to the components
 //-DONE User name. user profile image
@@ -24,66 +25,15 @@ import { set } from "firebase/database";
 
 export default function Dashboard() {
   const [userDetails, setUserDetails] = useState({});
-  const [announcements, setAnnouncements] = useState([]);
-  const currentUser = useContext(AuthContext);
-  const [isListenerSetUp, setIsListenerSetUp] = useState(false); // State to track if the listener is set up
-
   // console.log("Current User", currentUser);
-
-  useEffect(() => {
-    if (!currentUser || isListenerSetUp) return;
-
-    const { uid } = currentUser;
-
-    async function fetchData() {
-      try {
-        // Fetch user details
-        const userDetails = await getUserDetails(uid);
-        setUserDetails(userDetails);
-        // console.log("User Info", uid, userDetails);
-
-        // Start real-time listener for announcements
-        const unsubscribe =
-          getAllAnnouncementsSortedByUpdatedAtDescendingRealTime(
-            setAnnouncements
-          );
-        console.log("Announcements listener startedssss");
-
-        // Set the flag to true, indicating that the listener is set up
-
-        setIsListenerSetUp(true);
-
-        // Return the unsubscribe function to clean up the listener on unmount
-        return unsubscribe;
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    const cleanup = fetchData();
-    // Return the cleanup function from the effect to stop the real-time listener when the component unmounts
-    return () => {
-      if (cleanup) {
-        console.log("Unsubscribing from announcements listener");
-        // Reset the flag since we are cleaning up
-        setIsListenerSetUp(false);
-        return cleanup;
-      }
-    };
-  }, [currentUser]);
-
-  // console.log("Announcements", announcements);
 
   return (
     <div className={styles["dashboard--main-container"]}>
       <div className={styles["dashboard--main-inner-container"]}>
-        <Home userDetails={userDetails} announcements={announcements} />
+        <Home userDetails={userDetails} />
         <StatsSummary userDetails={userDetails} />
       </div>
-      <TabletImportantUpdates
-        userDetails={userDetails}
-        announcements={announcements}
-      />
+      <TabletImportantUpdates userDetails={userDetails} />
     </div>
   );
 }

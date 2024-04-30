@@ -1,8 +1,12 @@
-import React from "react";
 import styles from "./styles.module.scss";
 import { HashLink } from "react-router-hash-link";
+import { useContext } from "react";
+import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
-export default function TabletImportantUpdates({ userDetails, announcements }) {
+export default function TabletImportantUpdates({ userDetails }) {
+  const primaryData = useContext(PrimaryDataContext);
+  const announcements = primaryData?.announcements;
+
   const getTimeDifference = (updatedAt) => {
     // Convert `updatedAt` to a Date object
     const updatedDate = new Date(updatedAt);
@@ -40,7 +44,7 @@ export default function TabletImportantUpdates({ userDetails, announcements }) {
       </p>
       {announcements?.length !== 0 ? (
         <div className={styles["home--annoucement-list-container"]}>
-          {announcements.map((announcement) => {
+          {announcements?.map((announcement) => {
             return (
               <HashLink
                 to="/announcement#announcement"

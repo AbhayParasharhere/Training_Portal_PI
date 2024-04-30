@@ -127,6 +127,7 @@ const getAllAnnouncementsSortedByUpdatedAtDescendingRealTime = (
           announcements.push({ id: doc.id, ...doc.data() });
         });
 
+        console.log("Announcements from real-time listener", announcements);
         // Update the state with the new list of announcements
         setAnnouncements(announcements);
       }
@@ -139,6 +140,48 @@ const getAllAnnouncementsSortedByUpdatedAtDescendingRealTime = (
     return error;
   }
 };
+
+// Promise version of the real-time listener function
+// Function to get all the announcements from the database sorted by the created date of the announcements
+// in descending order and limit the number of announcements to 500
+export const getAllAnnouncementsSortedByUpdatedAtDescendingRealTimePromise =
+  () => {
+    return new Promise((resolve, reject) => {
+      try {
+        const announcementRef = collection(db, "announcements");
+
+        // Create a query with the necessary conditions
+        const announcementQuery = query(
+          announcementRef,
+          where("status", "!=", "deleted"),
+          orderBy("updated_at", "desc"),
+          limit(500)
+        );
+
+        // Set up an onSnapshot listener for real-time updates
+        const unsubscribe = onSnapshot(
+          announcementQuery,
+          (announcementsSnapshot) => {
+            const announcements = [];
+
+            announcementsSnapshot.forEach((doc) => {
+              announcements.push({ id: doc.id, ...doc.data() });
+            });
+
+            console.log("Announcements from real-time listener", announcements);
+            // Resolve the promise with the new list of announcements
+            resolve(announcements);
+          }
+        );
+
+        // Return the unsubscribe function to allow stopping the listener if needed
+        return unsubscribe;
+      } catch (error) {
+        console.log(error);
+        reject(error);
+      }
+    });
+  };
 
 // NOTE : The update function does not check if the announcement id was created by the current user, it just updates the announcement
 // Function to update a specfic announcement from the document id of the announcement and the updated announcement object as the input
