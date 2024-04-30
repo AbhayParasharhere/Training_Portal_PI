@@ -1,7 +1,8 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { AuthContext } from "./authContext";
 import { getAllAnnouncementsSortedByUpdatedAtDescendingRealTimePromise } from "../Firebase/announcementLogic";
-import { set } from "firebase/database";
+import { get, set } from "firebase/database";
+import { getAllCourses } from "../Firebase/courseLogic";
 // We will use this context to fetch the primary data
 // All announcements
 // All the user details
@@ -11,9 +12,10 @@ import { set } from "firebase/database";
 // All the sales
 
 /// Change to be made
-// Video array in the course unordered
 // Login count should be an array of dates in the user details
 // Videos watched array in user details containing the video id unordered
+// Must be done in the coruse-page with link state containing the clicked course inner data when clicking the course
+// announcement feature to be added
 
 export const PrimaryDataContext = createContext();
 export const PrimaryDataContextProvider = ({ children }) => {
@@ -40,6 +42,10 @@ export const PrimaryDataContextProvider = ({ children }) => {
       });
 
     // Fetch all the enrolled courses
+    getAllCourses().then((courses) => {
+      setPrimaryData((primaryData) => ({ ...primaryData, courses }));
+    });
+
     // Fetch all the appointments
     // Fetch all the clients
     // Fetch all the sales
