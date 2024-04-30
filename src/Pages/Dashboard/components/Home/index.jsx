@@ -12,8 +12,13 @@ import secureLocalStorage from "react-secure-storage";
 import { AuthContext } from "../../../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
-export default function Home({ userDetails, announcements }) {
+export default function Home({ userDetails }) {
+  const primaryData = useContext(PrimaryDataContext);
+  const announcements = primaryData?.announcements;
+
+  // console.log("Announcements from primary data", primaryData?.announcements);
   const [latestStats, setLatestStates] = useState("course");
   const navigate = useNavigate();
   const mobileIconsData = [
@@ -397,7 +402,7 @@ export default function Home({ userDetails, announcements }) {
         </p>
         {announcements?.length !== 0 ? (
           <div className={styles["home--annoucement-list-container"]}>
-            {announcements.map((announcement) => {
+            {announcements?.map((announcement) => {
               return (
                 <HashLink
                   to="/announcement#announcement"

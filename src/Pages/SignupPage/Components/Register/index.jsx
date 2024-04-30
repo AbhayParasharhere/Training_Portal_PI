@@ -67,15 +67,24 @@ export default function RegisterComponent(props) {
       setEmailError("");
     }
 
-    // Check if the confirm password matches the password
-    if (
-      !registerCredentials?.password ||
-      !registerCredentials?.confirmPassword ||
-      registerCredentials?.password !== registerCredentials?.confirmPassword
-    ) {
-      setPasswordError("Passwords do not match, please try again");
+    // Check if password and confirm password fields are provided
+    if (registerCredentials?.password && registerCredentials?.confirmPassword) {
+      // Check if the passwords match
+      if (
+        registerCredentials.password !== registerCredentials.confirmPassword
+      ) {
+        setPasswordError("Passwords do not match, please try again");
+      } else if (registerCredentials.password.length < 6) {
+        // Check password length
+        setPasswordError("Password must be at least 6 characters long");
+      } else {
+        setPasswordError("");
+      }
     } else {
-      setPasswordError("");
+      // Handle the case when either password or confirm password is missing
+      setPasswordError(
+        "Both password and confirm password fields are required"
+      );
     }
 
     // If there are any errors, return

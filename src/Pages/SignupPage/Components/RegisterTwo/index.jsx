@@ -64,9 +64,13 @@ export default function Register_2Component() {
         if (!uid) {
           throw new Error("No uid provided by the previous page");
         }
+        const additionalDetailsWithLoginCount = {
+          ...additionalDetails,
+          loginCount: [new Date()],
+        };
         const storeAdditionalDetailsResponse = await storeUserAdditionalDetails(
           uid,
-          additionalDetails
+          additionalDetailsWithLoginCount
         );
 
         // Also store the user details in the local storage
@@ -76,7 +80,13 @@ export default function Register_2Component() {
           "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf";
         setLoading(false);
 
-        secureLocalStorage.setItem("userDetails", [userName, userPhoto, uid]);
+        secureLocalStorage.setItem("userDetails", [
+          userName,
+          userPhoto,
+          uid,
+          additionalDetailsWithLoginCount.loginCount,
+        ]);
+
         console.log(
           "Set Details: User Details JSON",
           secureLocalStorage.getItem("userDetails")
@@ -114,31 +124,6 @@ export default function Register_2Component() {
         <p className={styles["RegisterComponent--main--text-mobile"]}>
           Register
         </p>
-        {/* <div className={styles["RegisterComponent--main--ContinueButton"]}>
-          <button className={styles["RegisterComponent--main--GoogleButton"]}>
-            <img
-              src={google_logo}
-              className={styles["RegisterComponent--main--GoogleButton-img"]}
-            />
-            <div
-              className={styles["RegisterComponent--main--GoogleButton-text"]}
-            >
-              Continue with Google
-            </div>
-          </button>
-
-          <button className={styles["RegisterComponent--main--FBbutton"]}>
-            <img
-              src={facebook_logo}
-              className={styles["RegisterComponent--main--FBbutton-img"]}
-            />
-            <div className={styles["RegisterComponent--main--FBbutton-text"]}>
-              Continue with Facebook
-            </div>
-          </button>
-        </div> */}
-
-        {/* <img src={line} className={styles["RegisterComponent--main--hr"]} /> */}
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Full Name"
