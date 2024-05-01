@@ -3,55 +3,13 @@ import styles from "./styles.module.scss";
 import searchIcon from "./images/search-icon.png";
 import filterIcon from "./images/filter-icon.png";
 import coursePlaceholder from "./images/course-placeholder.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
 export default function CourseGrid() {
   const primaryData = useContext(PrimaryDataContext);
   const courseData = primaryData?.courses;
-  console.log("Courses data", courseData);
-  // const courseData = [
-  //   {
-  //     placeholder: coursePlaceholder,
-  //     category: "Finance and ",
-  //     title: "The basics of finanace and insurance",
-  //   },
-  //   {
-  //     placeholder: coursePlaceholder,
-  //     category: "Finance",
-  //     title: "The basics of finanace",
-  //   },
-  //   {
-  //     placeholder: coursePlaceholder,
-  //     category: "Finance",
-  //     title: "The basics of finanace",
-  //   },
-  //   {
-  //     placeholder: coursePlaceholder,
-  //     category: "Finance",
-  //     title: "The basics of finanace",
-  //   },
-  //   {
-  //     placeholder: coursePlaceholder,
-  //     category: "Finance",
-  //     title: "The basics of finanace",
-  //   },
-  //   {
-  //     placeholder: coursePlaceholder,
-  //     category: "Finance",
-  //     title: "The basics of finanace",
-  //   },
-  //   {
-  //     placeholder: coursePlaceholder,
-  //     category: "Finance",
-  //     title: "The basics of finanace",
-  //   },
-  //   {
-  //     placeholder: coursePlaceholder,
-  //     category: "Finance",
-  //     title: "The basics of finanace",
-  //   },
-  // ];
+
   const defaultPlaceholder = coursePlaceholder;
   const navigate = useNavigate();
   const renderCourse = courseData?.map((course, index) => {
@@ -59,7 +17,11 @@ export default function CourseGrid() {
       <div
         className={styles["courseGrid--course-container"]}
         key={index}
-        onClick={() => navigate(`/courses/${index}`)}
+        onClick={() => {
+          return navigate(`/courses/${index}`, {
+            state: { course },
+          });
+        }}
       >
         <div
           className={styles["courseGrid--course-placeholder"]}

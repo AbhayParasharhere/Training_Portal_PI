@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import arrowUp from "./images/arrow-up.png";
 import arrowDown from "./images/arrow-down.png";
@@ -7,17 +7,37 @@ import playIcon from "./images/play-icon.png";
 import { AuthContext } from "../../../../context/authContext";
 import { storeVideoProgress } from "../../../../Firebase/kpi";
 
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { getSectionsForCourse } from "../../../../Firebase/courseLogic";
+import secureLocalStorage from "react-secure-storage";
 
 export default function CourseDetail() {
+  const selectedCourseData = useLocation().state.course;
+  // console.log("Course data", selectedCourseData);
+
+  const [currentCourse, setCurrentCourse] = useState({});
+
+  // use memo to fetch the course data from the context
+  useMemo(() => {
+    setCurrentCourse(selectedCourseData);
+    if (!sessionStorage.getItem(`${selectedCourseData?.id}`)) {
+      getSectionsForCourse(selectedCourseData?.id).then((sections) => {
+        sessionStorage.setItem(`${selectedCourseData?.id}`, {
+          sections,
+        });
+        setCurrentCourse({ ...selectedCourseData, sections });
+      });
+    } else {
+      const sections = sessionStorage.getItem(
+        `${selectedCourseData?.id}`
+      ).sections;
+      setCurrentCourse({ ...selectedCourseData, sections });
+    }
+  }, [selectedCourseData]);
+  console.log("Current course data", currentCourse);
+
   const currentUser = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  const [currentCourse, setCurrentCourse] = useState({
-    id: "SampleCourseID2",
-    title: "Course Title",
-    description: "Course Description",
-  });
   const [currentVideo, setCurrentVideo] = useState({
     id: "SampleVideoID2",
     src: "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/courseVideos%2FGolden%20rule%20in%20Finance%2Bf7432a38-0ecf-4ef8-b596-ee6601acb0f7%2B3b87f1cf-07ee-4b6b-b6e4-6bed77ffc025%2B1712954519526?alt=media&token=546c8c16-cf46-455b-8731-e7e8781bf45e",
@@ -57,7 +77,7 @@ export default function CourseDetail() {
     );
   };
 
-  const renderSections = courseData.map((section, index) => {
+  const renderSections = currentCourse?.sections_rank?.map((section, index) => {
     return (
       <div
         className={styles["courseDetail--section-dropdown"]}
@@ -65,7 +85,9 @@ export default function CourseDetail() {
         key={index}
       >
         <div className={styles["courseDetail--section-name-container"]}>
-          <p className={styles["courseDetail--section-title"]}>Section Name</p>
+          <p className={styles["courseDetail--section-title"]}>
+            {/* {currentCourse?.sections[section]?.title} */}
+          </p>
           <img
             src={dropdown.includes(index) ? arrowUp : arrowDown}
             className={styles["courseDetail--arrow-icon"]}
@@ -103,7 +125,9 @@ export default function CourseDetail() {
       >
         {"<"}Go Back
       </p>
-      <p className={styles["courseDetail--course-title"]}>Course Title</p>
+      <p className={styles["courseDetail--course-title"]}>
+        {currentCourse?.title}
+      </p>
       <div className={styles["courseDetail--inner-container"]}>
         <div className={styles["courseDetail--video-desc-container"]}>
           <div className={styles["courseDetail--video-container"]}>
@@ -120,13 +144,7 @@ export default function CourseDetail() {
               Course Description
             </p>
             <p className={styles["courseDetail--course-desc-text"]}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              {currentCourse?.description}
             </p>
           </div>
         </div>
