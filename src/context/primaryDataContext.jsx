@@ -3,7 +3,10 @@ import { AuthContext } from "./authContext";
 import { getAllAnnouncementsSortedByUpdatedAtDescendingRealTimePromise } from "../Firebase/announcementLogic";
 import { get, set } from "firebase/database";
 import { getAllCourses } from "../Firebase/courseLogic";
-import { getAllUserClientsData } from "../Firebase/getClientSales";
+import {
+  getAllUserClientsData,
+  getAllUserClientsRealTime,
+} from "../Firebase/getClientSales";
 // We will use this context to fetch the primary data
 // All announcements
 // All the user details
@@ -21,6 +24,7 @@ import { getAllUserClientsData } from "../Firebase/getClientSales";
 export const PrimaryDataContext = createContext();
 export const PrimaryDataContextProvider = ({ children }) => {
   const [primaryData, setPrimaryData] = useState({});
+  const [userClients, setUserClients] = useState();
   const currentUser = useContext(AuthContext);
   const [announcements, setAnnouncements] = useState();
   const [counter, setCounter] = useState(0);
@@ -49,12 +53,12 @@ export const PrimaryDataContextProvider = ({ children }) => {
 
     // Fetch all the appointments
     // Fetch all the clients
-    getAllUserClientsData(currentUser?.uid).then((clients) => {
-      setPrimaryData((primaryData) => ({
-        ...primaryData,
-        clients,
-      }));
-    });
+    getAllUserClientsRealTime(currentUser.uid, setUserClients).then(
+      (clients) => {
+        setPrimaryData((primaryData) => ({ ...primaryData, clients }));
+      }
+    );
+
     // Fetch all the sales
   }, [currentUser]);
 
