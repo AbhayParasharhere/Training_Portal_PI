@@ -16,6 +16,7 @@ export default function ClientDetails(props) {
     useState(false);
   const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
+  console.log("Primary Data", primaryData);
   const allClients = primaryData?.clients;
 
   // const sampleClientData = [

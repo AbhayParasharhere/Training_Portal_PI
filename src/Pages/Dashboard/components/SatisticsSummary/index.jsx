@@ -11,10 +11,12 @@ import {
 import cakeIcon from "./images/cakeIcon.png";
 import clientPhoto from "./images/client-sample-image.png";
 import { useNavigate } from "react-router-dom";
+import secureLocalStorage from "react-secure-storage";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
-export default function StatsSummary({ userDetails }) {
+export default function StatsSummary() {
+  const userDetails = secureLocalStorage.getItem("userDetails");
   const navigate = useNavigate();
   const [graphData, setGraphData] = useState([
     { name: "M", value: "12" },
@@ -31,11 +33,11 @@ export default function StatsSummary({ userDetails }) {
         <p className={styles["statsSummary--title"]}>Statistics</p>
         <div className={styles["statsSummary--profile-inner-container"]}>
           <img
-            src={userDetails?.photoURL || samplePhoto}
+            src={(userDetails && userDetails[1]) || samplePhoto}
             className={styles["statsSummary--profile-image"]}
           />
           <p className={styles["statsSummary--name"]}>
-            {userDetails?.name || "Broker"}
+            {(userDetails && userDetails[0]) || "Broker"}
           </p>
           <p className={styles["statsSummary--desc"]}>
             Check out your weekly sales snapshot

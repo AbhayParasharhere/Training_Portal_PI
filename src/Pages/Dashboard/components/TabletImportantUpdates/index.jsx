@@ -3,7 +3,7 @@ import { HashLink } from "react-router-hash-link";
 import { useContext } from "react";
 import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
-export default function TabletImportantUpdates({ userDetails }) {
+export default function TabletImportantUpdates() {
   const primaryData = useContext(PrimaryDataContext);
   const announcements = primaryData?.announcements;
 
