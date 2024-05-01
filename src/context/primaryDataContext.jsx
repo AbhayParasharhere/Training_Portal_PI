@@ -3,7 +3,10 @@ import { AuthContext } from "./authContext";
 import { getAllAnnouncementsSortedByUpdatedAtDescendingRealTimePromise } from "../Firebase/announcementLogic";
 import { get, set } from "firebase/database";
 import { getAllCourses } from "../Firebase/courseLogic";
-import { getAllUserClientsData } from "../Firebase/getClientSales";
+import {
+  getAllUserClientsData,
+  getUserSalesData,
+} from "../Firebase/getClientSales";
 // We will use this context to fetch the primary data
 // All announcements
 // All the user details
@@ -56,6 +59,12 @@ export const PrimaryDataContextProvider = ({ children }) => {
       }));
     });
     // Fetch all the sales
+    getUserSalesData(currentUser?.uid).then((sales) => {
+      setPrimaryData((primaryData) => ({
+        ...primaryData,
+        sales,
+      }));
+    });
   }, [currentUser]);
 
   return (

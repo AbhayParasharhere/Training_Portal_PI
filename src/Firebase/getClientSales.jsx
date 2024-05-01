@@ -20,4 +20,23 @@ const getAllUserClientsData = async (userID) => {
     return error;
   }
 };
-export { getAllUserClientsData };
+const getUserSalesData = async (userID) => {
+  try {
+    if (!userID) {
+      throw new Error("Invalid Input");
+    }
+
+    const salesData = [];
+    const salesRef = collection(db, "userSales");
+    const snapShot = await getDocs(query(salesRef, where("uid", "==", userID)));
+    snapShot.forEach((doc) => {
+      salesData.push({ ...doc.data(), id: doc.id });
+    });
+    return salesData;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export { getAllUserClientsData, getUserSalesData };
