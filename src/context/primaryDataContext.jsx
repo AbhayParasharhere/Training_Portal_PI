@@ -5,6 +5,7 @@ import { get, set } from "firebase/database";
 import { getAllCourses } from "../Firebase/courseLogic";
 import {
   getAllUserClientsData,
+  getUserSalesData,
   getAllUserClientsRealTime,
 } from "../Firebase/getClientSales";
 // We will use this context to fetch the primary data
@@ -60,6 +61,12 @@ export const PrimaryDataContextProvider = ({ children }) => {
     );
 
     // Fetch all the sales
+    getUserSalesData(currentUser?.uid).then((sales) => {
+      setPrimaryData((primaryData) => ({
+        ...primaryData,
+        sales,
+      }));
+    });
   }, [currentUser]);
   console.log(
     "This is the clients in primar data function: ",
