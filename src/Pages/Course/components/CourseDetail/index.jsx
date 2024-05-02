@@ -20,21 +20,23 @@ export default function CourseDetail() {
   // use memo to fetch the course data from the context
   useMemo(() => {
     setCurrentCourse(selectedCourseData);
+
     if (!sessionStorage.getItem(`${selectedCourseData?.id}`)) {
       getSectionsForCourse(selectedCourseData?.id).then((sections) => {
-        sessionStorage.setItem(`${selectedCourseData?.id}`, {
-          sections,
-        });
+        sessionStorage.setItem(
+          `${selectedCourseData?.id}`,
+          JSON.stringify({ sections })
+        );
         setCurrentCourse({ ...selectedCourseData, sections });
       });
     } else {
-      const sections = sessionStorage.getItem(
-        `${selectedCourseData?.id}`
-      ).sections;
+      const { sections } = JSON.parse(
+        sessionStorage.getItem(`${selectedCourseData?.id}`)
+      );
+      console.log("Sections ", sections);
       setCurrentCourse({ ...selectedCourseData, sections });
     }
   }, [selectedCourseData]);
-  console.log("Current course data", currentCourse);
 
   const currentUser = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
@@ -53,11 +55,6 @@ export default function CourseDetail() {
     setDropdown((prev) => [...prev, index]); // Update using spread syntax to avoid mutating the state directly
     console.log(dropdown);
   };
-
-  const courseData = [
-    { section1: ["S1v1", "S1v2", "S1v3"] },
-    { section2: ["S2V1", "S2V2", "S2V3"] },
-  ];
 
   const handleCurrentVideoWatched = async () => {
     console.log("Video watched");
@@ -86,7 +83,7 @@ export default function CourseDetail() {
       >
         <div className={styles["courseDetail--section-name-container"]}>
           <p className={styles["courseDetail--section-title"]}>
-            {/* {currentCourse?.sections[section]?.title} */}
+            {currentCourse?.sections?.[section]?.title}
           </p>
           <img
             src={dropdown.includes(index) ? arrowUp : arrowDown}
@@ -102,16 +99,24 @@ export default function CourseDetail() {
             overflow: "hidden",
           }}
         >
-          <div className={styles["courseDetail--video-list"]}>
-            <div className={styles["courseDetail--video-icon-name-container"]}>
-              <img
-                src={playIcon}
-                className={styles["courseDetail--play-icon"]}
-              />
-              Video Name
-            </div>
-            <p className={styles["courseDetail--video-time"]}>30 min</p>
-          </div>
+          {currentCourse?.sections?.[section]?.video_rank?.map(
+            (video, index) => (
+              <div className={styles["courseDetail--video-list"]}>
+                <div
+                  key={index}
+                  className={styles["courseDetail--video-icon-name-container"]}
+                >
+                  <img
+                    src={playIcon}
+                    className={styles["courseDetail--play-icon"]}
+                    alt="Play Icon"
+                  />
+                  <div>{video.split("+")[0]}</div>
+                </div>
+                <p className={styles["courseDetail--video-time"]}>30 min</p>
+              </div>
+            )
+          )}
         </div>
       </div>
     );
