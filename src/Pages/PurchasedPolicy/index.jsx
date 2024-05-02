@@ -55,6 +55,27 @@ export default function PurchasedPolicy() {
                 </div>
                 <div
                   className={
+                    styles["PurchasedPolicy-wrapper-main-policy-term-duration"]
+                  }
+                >
+                  Policy Term:{" "}
+                  <span
+                    className={
+                      styles[
+                        "PurchasedPolicy-wrapper-main-policy-effective-span"
+                      ]
+                    }
+                  >
+                    {item.term} years
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className={styles["PurchasedPolicy-wrapper-main-policy-term"]}
+              >
+                <div
+                  className={
                     styles["PurchasedPolicy-wrapper-main-policy-effective"]
                   }
                 >
@@ -69,12 +90,13 @@ export default function PurchasedPolicy() {
                     {item.effective}
                   </span>
                 </div>
+
                 <div
                   className={
-                    styles["PurchasedPolicy-wrapper-main-policy-premium"]
+                    styles["PurchasedPolicy-wrapper-main-policy-expiry"]
                   }
                 >
-                  Premium amount:{" "}
+                  Policy Expiration Date:{" "}
                   <span
                     className={
                       styles[
@@ -82,44 +104,30 @@ export default function PurchasedPolicy() {
                       ]
                     }
                   >
-                    {" "}
-                    ${item.amount} per month{" "}
+                    {item.expiry}
                   </span>
                 </div>
+              </div>
+              <div
+                className={
+                  styles["PurchasedPolicy-wrapper-main-policy-premium"]
+                }
+              >
+                Premium amount:{" "}
+                <span
+                  className={
+                    styles["PurchasedPolicy-wrapper-main-policy-effective-span"]
+                  }
+                >
+                  {" "}
+                  ${item.amount} per month{" "}
+                </span>
               </div>
               <img
                 src={arrow_right}
                 height="24px"
                 className={styles["PurchasedPolicy-wrapper-main-policy-image"]}
               />
-            </div>
-            <div className={styles["PurchasedPolicy-wrapper-main-policy-term"]}>
-              <div
-                className={
-                  styles["PurchasedPolicy-wrapper-main-policy-term-duration"]
-                }
-              >
-                Policy Term:{" "}
-                <span
-                  className={
-                    styles["PurchasedPolicy-wrapper-main-policy-effective-span"]
-                  }
-                >
-                  {item.term} years
-                </span>
-              </div>
-              <div
-                className={styles["PurchasedPolicy-wrapper-main-policy-expiry"]}
-              >
-                Policy Expiration Date:{" "}
-                <span
-                  className={
-                    styles["PurchasedPolicy-wrapper-main-policy-effective-span"]
-                  }
-                >
-                  {item.expiry}
-                </span>
-              </div>
             </div>
           </div>
         ))}

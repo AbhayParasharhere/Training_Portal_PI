@@ -22,7 +22,7 @@ export default function ClientTopbar(props) {
         </div>
       </div>
       <div className={styles["ClientInfo-wrapper-topbar-buttons"]}>
-        {props?.save === true && (
+        {props?.save === "true" && (
           <button
             className={styles["ClientInfo-wrapper-topbar-buttons-save"]}
             onClick={SaveChanges}
