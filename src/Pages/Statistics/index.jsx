@@ -6,6 +6,7 @@ import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
 import Spinner from "../../CommonComponents/Spinner";
 import { PrimaryDataContext } from "../../context/primaryDataContext";
+import { get } from "firebase/database";
 
 export default function Statistics() {
   const currentUser = useContext(AuthContext);
@@ -21,6 +22,66 @@ export default function Statistics() {
   const clientYearGraphRef = useRef();
   const salesYearGraphRef = useRef();
 
+  function getMondayDate() {
+    // Create a new date object for today
+    const today = new Date();
+
+    // Get the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    const currentDayOfWeek = today.getDay();
+
+    // Calculate the difference in days from today to the most recent Monday
+    let daysToMonday = (currentDayOfWeek + 6) % 7;
+
+    // Adjust the date by subtracting the calculated number of days
+    const mondayDate = new Date(today);
+    mondayDate.setDate(today.getDate() - daysToMonday);
+
+    // Return the date object for Monday
+    return mondayDate;
+  }
+
+  const getWeeklyAddedClients = () => {
+    if (!clients) return console.log("No clients");
+    const weeklyClients = [0, 0, 0, 0, 0, 0, 0]; // Initialize with 7 days
+    const mondayDate = getMondayDate();
+    const upcomingSundayDate = new Date(mondayDate);
+    upcomingSundayDate.setDate(mondayDate.getDate() + 7);
+    clients
+      .filter((client) => {
+        if (client?.created_at) {
+          const upcomingSundayDate = new Date(mondayDate);
+          upcomingSundayDate.setDate(mondayDate.getDate() + 7);
+          console.log(
+            "Client",
+            client,
+            "Client name",
+            client?.name,
+            "Client created Date",
+            client?.created_at?.toDate(),
+            "After Monday Date",
+            client?.created_at.toDate() >= mondayDate,
+            "Before Upcoming Sunday Date",
+            client?.created_at.toDate() <= upcomingSundayDate,
+            "Monday Date",
+            mondayDate
+          );
+        }
+        return (
+          client?.created_at?.toDate() >= mondayDate &&
+          client?.created_at?.toDate() <= upcomingSundayDate
+        );
+      })
+      .map((client) => {
+        const clientCreatedDate = client?.created_at?.toDate().getDay();
+        weeklyClients[clientCreatedDate] += 1;
+
+        console.log("Client filtered", client);
+      });
+    console.log("Weekly Clients", weeklyClients, mondayDate);
+    return weeklyClients;
+  };
+  let weekData = [];
+
   // if (clientWeekGraphRef.current !== undefined) {
   //   console.log("This is the clien week ref", clientWeekGraphRef);
   //   if (clientGraphTime === "week") {
@@ -29,6 +90,9 @@ export default function Statistics() {
   //     clientWeekGraphRef.current.style.border = "none";
   //   }
   // }
+  if (clients) {
+    weekData = getWeeklyAddedClients();
+  }
   useMemo(() => {
     async function fetchData() {
       try {
