@@ -10,7 +10,6 @@ import Login from "./Pages/Login";
 import Welcome from "./Pages/Welcome";
 import Dashboard from "./Pages/Dashboard";
 
-
 import SidebarLayout from "./Layouts/Sidebar";
 import FAQSupport from "./Pages/FAQSupport";
 
@@ -24,18 +23,16 @@ import Compliance from "./Pages/Compliance";
 import Statistics from "./Pages/Statistics";
 import Course from "./Pages/Course";
 
-
 import ClientComponent from "./Pages/ClientPage/Components/ClientComponent";
 import Tools from "./Pages/Tools";
-
 
 import SalesAdding from "./Pages/SalesAdding";
 import ProductLinks from "./ProductLinks";
 
 import CourseDetail from "./Pages/Course/components/CourseDetail";
 import NoPagesElement from "./CommonComponents/NoPageError";
-
-
+import Meet from "./CommonComponents/Meet";
+import ClientInfo from "./Pages/Form";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -65,25 +62,24 @@ const router = createBrowserRouter(
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/courses" element={<Course />} />
 
-       <Route path="/productlinks" element={<ProductLinks />} />
+        <Route path="/productlinks" element={<ProductLinks />} />
 
         <Route path="/clients" element={<ClientComponent />} />
         <Route path="/tools" element={<Tools />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />
-
+        <Route path="/meet" element={<Meet />} />
+        <Route path="/form" element={<ClientInfo />} />
       </Route>
     </>
   )
 );
 function App() {
   return (
-
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <RouterProvider router={router} />
       <ToastContainer />
-
     </div>
   );
 }

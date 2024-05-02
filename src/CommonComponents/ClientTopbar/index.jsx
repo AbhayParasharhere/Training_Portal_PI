@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
+import ModalComponent from "../../CommonComponents/Modal";
 
 export default function ClientTopbar() {
   function SaveChanges() {
     console.log("Save Changes");
   }
-  function OrganizeMeet() {
-    console.log("Organize Meet");
-  }
+
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div className={styles["ClientInfo-wrapper-topbar"]}>
       <div className={styles["ClientInfo-wrapper-topbar-div"]}>
@@ -30,11 +30,12 @@ export default function ClientTopbar() {
         </button>
         <button
           className={styles["ClientInfo-wrapper-topbar-buttons-meet"]}
-          onClick={OrganizeMeet}
+          onClick={() => setModalOpen(true)}
         >
           Organize Meet
         </button>
       </div>
+      <ModalComponent modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </div>
   );
 }

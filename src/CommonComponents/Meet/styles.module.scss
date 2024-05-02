@@ -1,0 +1,364 @@
+.meet-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px;
+}
+
+.meet-wrapper-head {
+  font-family: Epilogue;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+.meet-wrapper-form {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+.meet-wrapper-form-topic {
+  display: flex;
+  gap: 85px;
+  align-items: center;
+}
+.meet-wrapper-form-label {
+  font-family: Epilogue;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.meet-wrapper-form-input {
+  width: 500px;
+  height: 31px;
+
+  border-radius: 8px;
+  border: 1px solid #a1a1a1;
+  opacity: 0px;
+}
+.meet-wrapper-form-description {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.meet-wrapper-form-time {
+  display: flex;
+  gap: 45px;
+  align-items: center;
+}
+.meet-wrapper-form-date-div {
+  display: flex;
+  gap: 85px;
+  align-items: center;
+}
+.meet-wrapper-form-date {
+  display: flex;
+  gap: 90px;
+  align-items: center;
+}
+
+.meet-wrapper-form-input-date {
+  width: 162px;
+  height: 31px;
+
+  border-radius: 8px;
+  border: 1px solid #a1a1a1;
+  opacity: 0px;
+}
+
+.meet-wrapper-form-button-meet {
+  width: 165px;
+  height: 53px;
+  cursor: pointer;
+
+  border-radius: 4px;
+  opacity: 94%;
+  background-color: #a80532f0;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.meet-wrapper-form-button {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.meet-wrapper-form-button-meet:hover {
+  scale: 1.1;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.meet-wrapper-form-button-cancel {
+  width: 165px;
+  height: 48px;
+  cursor: pointer;
+
+  gap: 8px;
+  border-radius: 4px;
+  border: 2px solid #616161;
+  opacity: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meet-wrapper-form-button-cancel:hover {
+  scale: 1.1;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.meet-wrapper-line {
+  margin-top: 40px;
+}
+
+.meet-wrapper-google-button {
+  margin-top: 40px;
+  width: 180px;
+  height: 48px;
+
+  gap: 8px;
+  border-radius: 4px;
+  border: 2px solid #a80532f0;
+
+  color: #a80532f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 2560px) {
+  .meet-wrapper {
+    overflow-x: hidden;
+  }
+  .meet-wrapper-line {
+    width: 70%;
+  }
+  .meet-wrapper-form-input {
+    width: 300px;
+  }
+  .meet-wrapper-form-input-date {
+    width: 150px;
+  }
+  .meet-wrapper-form-date-div {
+    gap: 25px;
+  }
+  .meet-wrapper-form-date {
+    gap: 25px;
+  }
+  .meet-wrapper-form-time {
+    gap: 25px;
+  }
+}
+
+@media (max-width: 540px) {
+  // .meet-wrapper {
+  //   padding-left: 20px;
+  //   padding-right: 20px;
+  // }
+  .meet-wrapper-head {
+    font-size: 16px;
+  }
+  .meet-wrapper {
+    justify-content: flex-start;
+  }
+  .meet-wrapper-form {
+    margin-top: 10px;
+  }
+  .meet-wrapper-form-topic {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    // margin-left: 20px;
+  }
+  .meet-wrapper-form-description {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    // margin-left: 20px;
+  }
+  .meet-wrapper-form-date {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    // margin-left: 20px;
+  }
+  .meet-wrapper-form-time {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    margin-left: 20px;
+  }
+  .meet-wrapper-form-input {
+    width: 90%;
+  }
+  .meet-wrapper-form-input-date {
+    width: 120px;
+  }
+  .meet-wrapper-form-label {
+    font-size: 16px;
+  }
+  .meet-wrapper-form-button-meet {
+    width: 120px;
+    height: 48px;
+    font-size: 12px;
+  }
+  .meet-wrapper-form-button-cancel {
+    width: 120px;
+    height: 44px;
+    font-size: 12px;
+  }
+  .meet-wrapper-google-button {
+    height: 44px;
+  }
+  .meet-wrapper-line {
+    width: 100%;
+  }
+}
+
+// @media (max-width: 400px) {
+//   .meet-wrapper {
+//     padding-left: 40px;
+//     padding-right: 40px;
+//   }
+
+//   .meet-wrapper-form-input {
+//     width: 100%;
+//   }
+//   .meet-wrapper-form-input-date {
+//     width: 150px;
+//   }
+//   .meet-wrapper-form-label {
+//     font-size: 14px;
+//   }
+// }
+
+@media (max-width: 365px) {
+  .meet-wrapper-head {
+    font-size: 14px;
+  }
+  .meet-wrapper-form-input-date {
+    width: 100px;
+  }
+  .meet-wrapper-form-label {
+    font-size: 14px;
+  }
+  .meet-wrapper-form-button-meet {
+    width: 100px;
+    height: 48px;
+    font-size: 12px;
+  }
+  .meet-wrapper-form-button-cancel {
+    width: 100px;
+    height: 44px;
+    font-size: 12px;
+  }
+  .meet-wrapper-google-button {
+    height: 44px;
+  }
+  // .meet-wrapper-form-topic {
+  //   margin-left: 0;
+  // }
+  // .meet-wrapper-form-description {
+  //   margin-left: 2%;
+  // }
+  // .meet-wrapper-form-date {
+  //   margin-left: 2%;
+  // }
+
+  .meet-wrapper-form-date-div {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 318px) {
+  .meet-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .meet-wrapper-head {
+    font-size: 12px;
+  }
+  .meet-wrapper-form-input-date {
+    width: 100px;
+  }
+  .meet-wrapper-form-label {
+    font-size: 14px;
+  }
+  .meet-wrapper-form-button-meet {
+    width: 100px;
+    height: 48px;
+    font-size: 12px;
+  }
+  .meet-wrapper-form-button-cancel {
+    width: 100px;
+    height: 44px;
+    font-size: 12px;
+  }
+  .meet-wrapper-google-button {
+    height: 44px;
+  }
+}
+
+@media (max-width: 285px) {
+  // .meet-wrapper {
+  //   padding-left: 20px;
+  //   padding-right: 20px;
+  // }
+
+  .meet-wrapper-head {
+    font-size: 10px;
+  }
+
+  .meet-wrapper-form-input-date {
+    width: 80px;
+  }
+  .meet-wrapper-form-button-meet {
+    width: 80px;
+
+    font-size: 8px;
+  }
+  .meet-wrapper-form-button-cancel {
+    width: 90px;
+
+    font-size: 8px;
+  }
+  .meet-wrapper-google-button {
+    width: 140px;
+
+    font-size: 12px;
+  }
+  .meet-wrapper-form-date-div {
+    gap: 0;
+  }
+  .meet-wrapper-form-button {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 238px) {
+  .meet-wrapper-head {
+    font-size: 9px;
+  }
+  .meet-wrapper-form-input {
+    width: 90%;
+  }
+  .meet-wrapper {
+    padding-left: 15px;
+  }
+}
