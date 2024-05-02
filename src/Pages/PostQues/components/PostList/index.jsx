@@ -6,8 +6,9 @@ import samplePhoto from "./images/sample-profile.png";
 import combinedProfile from "./images/combine-profile.png";
 import optionsIcon from "./images/options-icon.png";
 import reportIcon from "./images/report-icon.png";
+import plusIcon from "./images/plus-icon.png";
 
-export default function PostList() {
+export default function PostList(props) {
   const arrowOptions = [
     { text: "All", value: "" },
     { text: "Technical Support", value: "tech" },
@@ -144,6 +145,13 @@ export default function PostList() {
       className={styles["postList--main-container"]}
       onClick={() => arrowState && setArrowState(false)}
     >
+      <button
+        className={styles["postList--add-post-button"]}
+        onClick={() => props.setDisplayPage("addPost")}
+      >
+        <img src={plusIcon} className={styles["postList--add-post-icon"]} />
+        Ask Doubts
+      </button>
       <div className={styles["postList--search-container"]}>
         <input
           placeholder="Search your doubts"

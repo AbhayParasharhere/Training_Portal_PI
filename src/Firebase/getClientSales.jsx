@@ -6,6 +6,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
+
 const getAllUserClientsData = async (userID) => {
   try {
     if (!userID) {
@@ -26,6 +27,26 @@ const getAllUserClientsData = async (userID) => {
     return error;
   }
 };
+
+const getUserSalesData = async (userID) => {
+  try {
+    if (!userID) {
+      throw new Error("Invalid Input");
+    }
+
+    const salesData = [];
+    const salesRef = collection(db, "userSales");
+    const snapShot = await getDocs(query(salesRef, where("uid", "==", userID)));
+    snapShot.forEach((doc) => {
+      salesData.push({ ...doc.data(), id: doc.id });
+    });
+    return salesData;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 
 const getAllUserClientsRealTime = (userID, setClients) => {
   // returns a promise
@@ -50,4 +71,4 @@ const getAllUserClientsRealTime = (userID, setClients) => {
     }
   });
 };
-export { getAllUserClientsData, getAllUserClientsRealTime };
+export { getAllUserClientsData, getAllUserClientsRealTime, getUserSalesData  };

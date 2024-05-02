@@ -1,25 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./styles.module.scss";
+import { NavLink } from "react-router-dom";
+import { PrimaryDataContext } from "../../context/primaryDataContext";
 
-export default function ClientTopbar() {
+export default function ClientTopbar(props) {
   function SaveChanges() {
     console.log("Save Changes");
   }
   function OrganizeMeet() {
     console.log("Organize Meet");
   }
+  const activeStyles = { color: "#123c97", borderColor: "#123c97" };
+  const inActiveStyles = { color: "green", borderColor: "#123c97" };
+
   return (
     <div className={styles["ClientInfo-wrapper-topbar"]}>
       <div className={styles["ClientInfo-wrapper-topbar-div"]}>
-        <div className={styles["ClientInfo-wrapper-topbar-text"]}>
+        <NavLink
+          exact={true}
+          end
+          to={`.`}
+          style={({ isActive }) => (isActive ? activeStyles : null)}
+          className={styles["ClientInfo-wrapper-topbar-text"]}
+        >
           Client Information
-        </div>
-        <div className={styles["ClientInfo-wrapper-topbar-text"]}>
+        </NavLink>
+        <NavLink
+          exact={true}
+          to={`/client-detail/${props.clientId}/policies`}
+          style={({ isActive }) => (isActive ? activeStyles : null)}
+          className={styles["ClientInfo-wrapper-topbar-text"]}
+        >
           Purchased Policies
-        </div>
-        <div className={styles["ClientInfo-wrapper-topbar-text"]}>
+        </NavLink>
+        <NavLink
+          exact={true}
+          to={`/client-detail/${props.clientId}/goals`}
+          style={({ isActive }) => (isActive ? activeStyles : null)}
+          className={styles["ClientInfo-wrapper-topbar-text"]}
+        >
           Financial Goals
-        </div>
+        </NavLink>
       </div>
       <div className={styles["ClientInfo-wrapper-topbar-buttons"]}>
         <button

@@ -4,11 +4,13 @@ import profile from "./Images/profile.png";
 import ClientTopbar from "../../CommonComponents/ClientTopbar";
 import arrow_down from "./Images/arrow_down.png";
 import arrow_up from "./Images/arrow_up.png";
+import { useOutletContext } from "react-router-dom";
 
 export default function ClientInfo() {
+  const clientData = useOutletContext();
+  console.log("These are the props: ", clientData);
   return (
     <div className={styles["ClientInfo-wrapper"]}>
-      <ClientTopbar />
       <div className={styles["ClientInfo-wrapper-form-main"]}>
         {" "}
         <img
@@ -31,6 +33,7 @@ export default function ClientInfo() {
                 type="text"
                 name="name"
                 className={styles["ClientInfo-wrapper-form-text-input"]}
+                value={clientData?.clientData?.name}
               ></input>
               <div
                 className={
@@ -99,21 +102,25 @@ export default function ClientInfo() {
                 type="text"
                 name="email"
                 className={styles["ClientInfo-wrapper-form-text-input"]}
+                value={clientData?.clientData?.email}
               ></input>
               <input
                 type="text"
                 name="number"
                 className={styles["ClientInfo-wrapper-form-text-input"]}
+                value={clientData?.clientData?.phone_number}
               ></input>
               <input
                 type="text"
                 name="address"
                 className={styles["ClientInfo-wrapper-form-text-input"]}
+                value={clientData?.clientData?.address}
               ></input>
               <input
                 type="date"
                 name="dob"
                 className={styles["ClientInfo-wrapper-form-text-input-date"]}
+                value={clientData?.clientData?.DOB}
               ></input>
             </div>
           </div>
@@ -126,6 +133,7 @@ export default function ClientInfo() {
                 type="date"
                 name="Annv"
                 className={styles["ClientInfo-wrapper-form-text-input"]}
+                value={clientData?.clientData?.anniversary}
               ></input>
             </div>
           </div>

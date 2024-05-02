@@ -33,7 +33,12 @@ import CourseDetail from "./Pages/Course/components/CourseDetail";
 import NoPagesElement from "./CommonComponents/NoPageError";
 import AdminConsole from "./Pages/AdminConsole";
 import InternalLinks from "./Pages/InternalLinks";
+
+import ClientDetail from "./Pages/ClientDetail";
+import ClientData from "./Pages/ClientDetail";
+import ClientInfo from "./Pages/Form";
 import PostQues from "./Pages/PostQues";
+import PurchasedPolicy from "./Pages/PurchasedPolicy";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -62,14 +67,21 @@ const router = createBrowserRouter(
         <Route path="/compliance" element={<Compliance />} />
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/courses" element={<Course />} />
-
         <Route path="/productlinks" element={<ProductLinks />} />
-
         <Route path="/clients" element={<ClientComponent />} />
         <Route path="/tools" element={<Tools />} />
+        <Route path="/policy" element={<PurchasedPolicy />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />
         <Route path="/admin-course-add" element={<AdminConsole />} />
         <Route path="/internal-links" element={<InternalLinks />} />
+        <Route path="/client-detail/:clientId" element={<ClientData />}>
+          <Route index element={<ClientInfo />} />
+          <Route
+            path="/client-detail/:clientId/policies"
+            element={<ClientInfo />}
+          />
+          <Route path="goals" element={<ClientInfo />} />
+        </Route>
         <Route path="/connect" element={<PostQues />} />
       </Route>
     </>
