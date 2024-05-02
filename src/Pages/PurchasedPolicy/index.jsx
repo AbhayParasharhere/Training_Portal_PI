@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./styles.module.scss";
-import profile from "./Images/profile.png";
-import ClientTopbar from "../../CommonComponents/ClientTopbar";
 import arrow_right from "./Images/arrow_right.png";
+import { PrimaryDataContext } from "../../context/primaryDataContext";
+import { useOutletContext } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
 
 export default function PurchasedPolicy() {
+  const primaryData = useContext(PrimaryDataContext);
+  const client = useOutletContext();
+  const currentUser = useContext(AuthContext);
+  const clientId = client?.clientData?.id;
+  const salesData = primaryData?.sales;
+  const filteredSales = salesData?.filter(
+    (sales) => sales?.cid === clientId && sales?.uid === currentUser?.uid
+  );
+  console.log("This is the filtered sales data: ", filteredSales);
   const list = [
     {
       number: "LI-12345678",
@@ -23,7 +33,6 @@ export default function PurchasedPolicy() {
   ];
   return (
     <div className={styles["PurchasedPolicy-wrapper"]}>
-      <ClientTopbar save="false" />
       <div className={styles["PurchasedPolicy-wrapper-main"]}>
         <div className={styles["PurchasedPolicy-wrapper-main-title"]}>
           Total number of policies purchased:{" "}
@@ -31,10 +40,10 @@ export default function PurchasedPolicy() {
             {list.length}
           </span>
         </div>
-        {list.map((item) => (
+        {filteredSales.map((item) => (
           <div className={styles["PurchasedPolicy-wrapper-main-policy"]}>
             <div className={styles["PurchasedPolicy-wrapper-main-policy-type"]}>
-              Term Life Insurance
+              {item?.policy_type}
             </div>
             <div className={styles["PurchasedPolicy-wrapper-main-policy-div"]}>
               <div className={styles["PurchasedPolicy-wrapper-main-policy-id"]}>
@@ -50,7 +59,7 @@ export default function PurchasedPolicy() {
                     }
                   >
                     {" "}
-                    {item.number}{" "}
+                    {item.policy_number}{" "}
                   </span>
                 </div>
                 <div
@@ -66,7 +75,9 @@ export default function PurchasedPolicy() {
                       ]
                     }
                   >
-                    {item.term} years
+                    {new Date(item?.effective_date).getFullYear() -
+                      new Date(item?.end_date).getFullYear()}{" "}
+                    years
                   </span>
                 </div>
               </div>
@@ -87,7 +98,7 @@ export default function PurchasedPolicy() {
                       ]
                     }
                   >
-                    {item.effective}
+                    {item.effective_date}
                   </span>
                 </div>
 
@@ -104,7 +115,7 @@ export default function PurchasedPolicy() {
                       ]
                     }
                   >
-                    {item.expiry}
+                    {item.end_date}
                   </span>
                 </div>
               </div>
@@ -120,7 +131,7 @@ export default function PurchasedPolicy() {
                   }
                 >
                   {" "}
-                  ${item.amount} per month{" "}
+                  ${item.premium_account} per month{" "}
                 </span>
               </div>
               <img

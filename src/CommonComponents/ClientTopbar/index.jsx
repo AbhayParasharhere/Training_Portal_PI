@@ -11,7 +11,6 @@ export default function ClientTopbar(props) {
     console.log("Organize Meet");
   }
   const activeStyles = { color: "#123c97", borderColor: "#123c97" };
-  const inActiveStyles = { color: "green", borderColor: "#123c97" };
 
   return (
     <div className={styles["ClientInfo-wrapper-topbar"]}>
