@@ -4,6 +4,7 @@ import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
 import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
+import secureLocalStorage from "react-secure-storage";
 import Spinner from "../../CommonComponents/Spinner";
 
 export default function Statistics() {
@@ -141,10 +142,15 @@ export default function Statistics() {
           </div>
           <div className={styles["statistics--profile-container"]}>
             <img
-              src={profileImage}
+              src={
+                secureLocalStorage.getItem("userDetails")?.[1] || profileImage
+              }
               className={styles["statistics--profile-image"]}
             />
-            <p className={styles["statistics--user-name"]}>Gurpreet singh</p>
+            <p className={styles["statistics--user-name"]}>
+              {" "}
+              {secureLocalStorage.getItem("userDetails")?.[0] || "Broker"}
+            </p>
           </div>
         </div>
         {renderGraph}
