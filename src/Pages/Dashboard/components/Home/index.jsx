@@ -109,16 +109,14 @@ export default function Home() {
       </div>
     );
   });
-  let userName = "Broker";
-  if (userDetails) {
-    userName = userDetails[0];
-  }
+
   return (
     <div className={styles["home--main-container"]}>
       <div className={styles["home--welcome-container"]}>
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
-            Good Morning {userName}
+            Good Morning{" "}
+            {secureLocalStorage.getItem("userDetails")?.[0] || "Broker"}
           </p>
           <div className={styles["home--greetings-desc-container"]}>
             <p className={styles["home--greetings-desc"]}>

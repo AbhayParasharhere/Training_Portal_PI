@@ -61,6 +61,10 @@ export const PrimaryDataContextProvider = ({ children }) => {
 
     // Fetch all the sales
   }, [currentUser]);
+  console.log(
+    "This is the clients in primar data function: ",
+    primaryData?.clients
+  );
 
   return (
     <PrimaryDataContext.Provider value={primaryData}>
