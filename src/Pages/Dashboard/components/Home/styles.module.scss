@@ -188,6 +188,9 @@ p {
   border-radius: 5px;
   padding: 20px;
   align-items: center;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
   //   justify-content: center;
   flex: 1.3;
   background-color: #f5f6fb;
@@ -209,11 +212,16 @@ p {
   background-color: white;
   width: 100%;
   border-radius: 5px;
+
   display: flex;
+  // scrollbar-gutter: stable;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
 }
+// .home--client-birthday-list::-webkit-scrollbar {
+//   display: none;
+// }
 .home--client-birthday {
   display: flex;
   align-items: center;
