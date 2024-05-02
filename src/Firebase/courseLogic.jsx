@@ -39,11 +39,12 @@ const getCourseFromCourseID = async (courseID) => {
 // sections are a subcollection of the course document
 const getSectionsForCourse = async (courseID) => {
   try {
-    const sections = [];
+    console.log("Im called");
+    const sections = {};
     const sectionsRef = collection(db, `Courses/${courseID}/sections`);
     const sectionsSnapshot = await getDocs(sectionsRef);
     sectionsSnapshot.forEach((doc) => {
-      sections.push({ ...doc.data(), id: doc.id });
+      sections[doc.id] = { ...doc.data() };
     });
     return sections;
   } catch (error) {

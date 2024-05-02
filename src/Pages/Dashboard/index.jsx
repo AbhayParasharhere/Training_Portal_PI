@@ -24,16 +24,13 @@ import { PrimaryDataContext } from "../../context/primaryDataContext";
 // Announcement List -> announcement title, announcement description, announcement modified date,  name of person to create the announcement
 
 export default function Dashboard() {
-  const [userDetails, setUserDetails] = useState({});
-  // console.log("Current User", currentUser);
-
   return (
     <div className={styles["dashboard--main-container"]}>
       <div className={styles["dashboard--main-inner-container"]}>
-        <Home userDetails={userDetails} />
-        <StatsSummary userDetails={userDetails} />
+        <Home />
+        <StatsSummary />
       </div>
-      <TabletImportantUpdates userDetails={userDetails} />
+      <TabletImportantUpdates />
     </div>
   );
 }

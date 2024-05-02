@@ -1,0 +1,70 @@
+.addPost--doubt-title {
+  font-family: Epilogue;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+}
+.addPost--text-area {
+  resize: none;
+  width: 100%;
+  max-width: 900px;
+  border: 1px solid #d6d6d6;
+  height: 120px;
+}
+.addPost--choose-title {
+  font-family: Epilogue;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+  margin-bottom: 20px;
+}
+.addPost--label-text {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+}
+.addPost--button-container {
+  display: flex;
+  margin-top: 30px;
+  gap: 30px;
+}
+.addPost--post-button {
+  width: 125px;
+  height: 45px;
+  background: #3064d4;
+  border: none;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  color: white;
+  border-radius: 5px;
+}
+.addPost--cancel-button {
+  width: 125px;
+  height: 45px;
+  background: white;
+  border: none;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  color: #3064d4;
+  border: 2px solid #3064d4;
+  border-radius: 5px;
+}
+@media (max-width: 1130px) {
+  .addPost--main-container {
+    padding: 15px;
+  }
+}

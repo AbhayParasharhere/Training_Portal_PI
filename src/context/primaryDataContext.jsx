@@ -6,6 +6,7 @@ import { getAllCourses } from "../Firebase/courseLogic";
 import {
   getAllUserClientsData,
   getUserSalesData,
+  getAllUserClientsRealTime,
 } from "../Firebase/getClientSales";
 // We will use this context to fetch the primary data
 // All announcements
@@ -24,6 +25,7 @@ import {
 export const PrimaryDataContext = createContext();
 export const PrimaryDataContextProvider = ({ children }) => {
   const [primaryData, setPrimaryData] = useState({});
+  const [userClients, setUserClients] = useState();
   const currentUser = useContext(AuthContext);
   const [announcements, setAnnouncements] = useState();
   const [counter, setCounter] = useState(0);
@@ -52,12 +54,12 @@ export const PrimaryDataContextProvider = ({ children }) => {
 
     // Fetch all the appointments
     // Fetch all the clients
-    getAllUserClientsData(currentUser?.uid).then((clients) => {
-      setPrimaryData((primaryData) => ({
-        ...primaryData,
-        clients,
-      }));
-    });
+    getAllUserClientsRealTime(currentUser.uid, setUserClients).then(
+      (clients) => {
+        setPrimaryData((primaryData) => ({ ...primaryData, clients }));
+      }
+    );
+
     // Fetch all the sales
     getUserSalesData(currentUser?.uid).then((sales) => {
       setPrimaryData((primaryData) => ({
@@ -66,6 +68,10 @@ export const PrimaryDataContextProvider = ({ children }) => {
       }));
     });
   }, [currentUser]);
+  console.log(
+    "This is the clients in primar data function: ",
+    primaryData?.clients
+  );
 
   return (
     <PrimaryDataContext.Provider value={primaryData}>

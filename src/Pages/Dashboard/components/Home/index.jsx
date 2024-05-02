@@ -14,7 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
-export default function Home({ userDetails }) {
+export default function Home() {
+  const userDetails = secureLocalStorage.getItem("userDetails");
   const primaryData = useContext(PrimaryDataContext);
   const announcements = primaryData?.announcements;
 
@@ -114,7 +115,8 @@ export default function Home({ userDetails }) {
       <div className={styles["home--welcome-container"]}>
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
-            Good Morning {userDetails?.name || "Broker"}
+            Good Morning{" "}
+            {secureLocalStorage.getItem("userDetails")?.[0] || "Broker"}
           </p>
           <div className={styles["home--greetings-desc-container"]}>
             <p className={styles["home--greetings-desc"]}>
