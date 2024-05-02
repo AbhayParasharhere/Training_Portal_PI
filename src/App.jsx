@@ -73,11 +73,12 @@ const router = createBrowserRouter(
         <Route path="/productlinks" element={<ProductLinks />} />
         <Route path="/clients" element={<ClientComponent />} />
         <Route path="/tools" element={<Tools />} />
+        <Route path="/policy" element={<PurchasedPolicy />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />
         <Route path="/admin-course-add" element={<AdminConsole />} />
         <Route path="/internal-links" element={<InternalLinks />} />
         <Route path="/client-detail/:clientId" element={<ClientData />}>
-         <Route path="/policy" element={<PurchasedPolicy />} />
+         
           <Route index element={<ClientInfo />} />
           <Route
             path="/client-detail/:clientId/policies"
