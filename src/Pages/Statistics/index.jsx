@@ -12,7 +12,7 @@ export default function Statistics() {
   const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
   const clients = primaryData?.clients;
-  console.log("This is the client data: ", clients);
+
   const [loading, setLoading] = useState(true);
   const [clientGraphTime, setClientGraphTime] = useState("week");
   const [salesGraphTime, setSalesGraphTime] = useState("week");
@@ -40,7 +40,7 @@ export default function Statistics() {
     return mondayDate;
   }
 
-  const getWeeklyAddedClients = () => {
+  const getWeeklyAddedClientsSales = (clients) => {
     if (!clients) return console.log("No clients");
     const weeklyClients = [0, 0, 0, 0, 0, 0, 0]; // Initialize with 7 days
     const mondayDate = getMondayDate();
@@ -51,20 +51,20 @@ export default function Statistics() {
         if (client?.created_at) {
           const upcomingSundayDate = new Date(mondayDate);
           upcomingSundayDate.setDate(mondayDate.getDate() + 7);
-          console.log(
-            "Client",
-            client,
-            "Client name",
-            client?.name,
-            "Client created Date",
-            client?.created_at?.toDate(),
-            "After Monday Date",
-            client?.created_at.toDate() >= mondayDate,
-            "Before Upcoming Sunday Date",
-            client?.created_at.toDate() <= upcomingSundayDate,
-            "Monday Date",
-            mondayDate
-          );
+          // console.log(
+          //   "Client",
+          //   client,
+          //   "Client name",
+          //   client?.name,
+          //   "Client created Date",
+          //   client?.created_at?.toDate(),
+          //   "After Monday Date",
+          //   client?.created_at.toDate() >= mondayDate,
+          //   "Before Upcoming Sunday Date",
+          //   client?.created_at.toDate() <= upcomingSundayDate,
+          //   "Monday Date",
+          //   mondayDate
+          // );
         }
         return (
           client?.created_at?.toDate() >= mondayDate &&
@@ -73,25 +73,40 @@ export default function Statistics() {
       })
       .map((client) => {
         const clientCreatedDate = client?.created_at?.toDate().getDay();
+        console.log(
+          "Created at date: ",
+          client?.created_at?.toDate(),
+          clientCreatedDate
+        );
         weeklyClients[clientCreatedDate] += 1;
 
-        console.log("Client filtered", client);
+        // console.log("Client filtered", client);
       });
-    console.log("Weekly Clients", weeklyClients, mondayDate);
     return weeklyClients;
   };
-  let weekData = [];
 
-  // if (clientWeekGraphRef.current !== undefined) {
-  //   console.log("This is the clien week ref", clientWeekGraphRef);
-  //   if (clientGraphTime === "week") {
-  //     clientWeekGraphRef.current.style.border = "1px solid #2D355C54";
-  //   } else {
-  //     clientWeekGraphRef.current.style.border = "none";
-  //   }
-  // }
+  const getYearlyClientSalesData = (statData) => {
+    if (!statData) return;
+    const currentDate = new Date();
+    const yearlyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const currentYearStat = statData?.filter(
+      (statDate) =>
+        statDate?.created_at?.toDate().getFullYear() ===
+        currentDate.getFullYear()
+    );
+    console.log("Filtered data: ", currentYearStat);
+    currentYearStat.map((data, index) => {
+      const dataCreatedYear = data?.created_at?.toDate().getMonth();
+      yearlyData[dataCreatedYear] += 1;
+    });
+    return yearlyData;
+  };
+  let weekData = [];
+  let yearData = [];
   if (clients) {
-    weekData = getWeeklyAddedClients();
+    weekData = getWeeklyAddedClientsSales(clients);
+    yearData = getYearlyClientSalesData(clients);
+    console.log("This is the data for the client year: ", yearData);
   }
   useMemo(() => {
     async function fetchData() {
@@ -173,7 +188,7 @@ export default function Statistics() {
       title: "Client Status",
       labels:
         clientGraphTime === "week"
-          ? ["M", "T", "W", "T", "F", "S", "S"]
+          ? ["S", "M", "T", "W", "T", "F", "S"]
           : [
               "Jan",
               "Feb",
@@ -188,7 +203,7 @@ export default function Statistics() {
               "Nov",
               "Dec",
             ],
-      data: [10, 20, 15, 30, 18, 29, 40, 25, 30, 14],
+      data: clientGraphTime === "week" ? weekData : yearData,
     },
     {
       title: "Sales Status",
