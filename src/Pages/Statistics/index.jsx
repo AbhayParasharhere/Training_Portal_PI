@@ -1,16 +1,113 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useMemo, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
 import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
 import Spinner from "../../CommonComponents/Spinner";
+import { PrimaryDataContext } from "../../context/primaryDataContext";
+import { get } from "firebase/database";
 
 export default function Statistics() {
   const currentUser = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
-  const [statData, setStatData] = useState({});
+  const primaryData = useContext(PrimaryDataContext);
+  const clients = primaryData?.clients;
 
+  const [loading, setLoading] = useState(true);
+  const [clientGraphTime, setClientGraphTime] = useState("week");
+  const [salesGraphTime, setSalesGraphTime] = useState("week");
+  const [statData, setStatData] = useState({});
+  const clientWeekGraphRef = useRef();
+  const salesWeekGraphRef = useRef();
+  const clientYearGraphRef = useRef();
+  const salesYearGraphRef = useRef();
+
+  function getMondayDate() {
+    // Create a new date object for today
+    const today = new Date();
+
+    // Get the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    const currentDayOfWeek = today.getDay();
+
+    // Calculate the difference in days from today to the most recent Monday
+    let daysToMonday = (currentDayOfWeek + 6) % 7;
+
+    // Adjust the date by subtracting the calculated number of days
+    const mondayDate = new Date(today);
+    mondayDate.setDate(today.getDate() - daysToMonday);
+
+    // Return the date object for Monday
+    return mondayDate;
+  }
+
+  const getWeeklyAddedClientsSales = (clients) => {
+    if (!clients) return console.log("No clients");
+    const weeklyClients = [0, 0, 0, 0, 0, 0, 0]; // Initialize with 7 days
+    const mondayDate = getMondayDate();
+    const upcomingSundayDate = new Date(mondayDate);
+    upcomingSundayDate.setDate(mondayDate.getDate() + 7);
+    clients
+      .filter((client) => {
+        if (client?.created_at) {
+          const upcomingSundayDate = new Date(mondayDate);
+          upcomingSundayDate.setDate(mondayDate.getDate() + 7);
+          // console.log(
+          //   "Client",
+          //   client,
+          //   "Client name",
+          //   client?.name,
+          //   "Client created Date",
+          //   client?.created_at?.toDate(),
+          //   "After Monday Date",
+          //   client?.created_at.toDate() >= mondayDate,
+          //   "Before Upcoming Sunday Date",
+          //   client?.created_at.toDate() <= upcomingSundayDate,
+          //   "Monday Date",
+          //   mondayDate
+          // );
+        }
+        return (
+          client?.created_at?.toDate() >= mondayDate &&
+          client?.created_at?.toDate() <= upcomingSundayDate
+        );
+      })
+      .map((client) => {
+        const clientCreatedDate = client?.created_at?.toDate().getDay();
+        console.log(
+          "Created at date: ",
+          client?.created_at?.toDate(),
+          clientCreatedDate
+        );
+        weeklyClients[clientCreatedDate] += 1;
+
+        // console.log("Client filtered", client);
+      });
+    return weeklyClients;
+  };
+
+  const getYearlyClientSalesData = (statData) => {
+    if (!statData) return;
+    const currentDate = new Date();
+    const yearlyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const currentYearStat = statData?.filter(
+      (statDate) =>
+        statDate?.created_at?.toDate().getFullYear() ===
+        currentDate.getFullYear()
+    );
+    console.log("Filtered data: ", currentYearStat);
+    currentYearStat.map((data, index) => {
+      const dataCreatedYear = data?.created_at?.toDate().getMonth();
+      yearlyData[dataCreatedYear] += 1;
+    });
+    return yearlyData;
+  };
+  let weekData = [];
+  let yearData = [];
+  if (clients) {
+    weekData = getWeeklyAddedClientsSales(clients);
+    yearData = getYearlyClientSalesData(clients);
+    console.log("This is the data for the client year: ", yearData);
+  }
   useMemo(() => {
     async function fetchData() {
       try {
@@ -89,39 +186,117 @@ export default function Statistics() {
   const graphData = [
     {
       title: "Client Status",
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-      data: [10, 20, 15, 30, 18, 29, 40, 25, 30, 10, 11, 14],
+      labels:
+        clientGraphTime === "week"
+          ? ["S", "M", "T", "W", "T", "F", "S"]
+          : [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
+      data: clientGraphTime === "week" ? weekData : yearData,
     },
     {
       title: "Sales Status",
-      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      labels:
+        salesGraphTime === "week"
+          ? ["M", "T", "W", "T", "F", "S", "S"]
+          : [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
       data: [20, 15, 30, 25, 30, 11, 14],
     },
   ];
+  // graph.title === "Client Status"
+  //                 ? setClientGraphTime("week")
+  //                 : setSalesGraphTime("week")
 
-  const renderGraph = graphData.map((graph) => {
+  const handleWeeklyData = (graph) => {
+    if (graph === "Client") {
+      setClientGraphTime("week");
+      if (clientWeekGraphRef.current && clientYearGraphRef.current) {
+        clientWeekGraphRef.current.style.border = "1px solid #2D355C54";
+        clientYearGraphRef.current.style.border = "none";
+      }
+    } else if (graph === "Sales") {
+      setSalesGraphTime("week");
+      if (salesWeekGraphRef.current && salesYearGraphRef) {
+        salesWeekGraphRef.current.style.border = "1px solid #2D355C54";
+        salesYearGraphRef.current.style.border = "none";
+      }
+    }
+  };
+
+  const handleYearlyData = (graph) => {
+    if (graph === "Client") {
+      setClientGraphTime("year");
+      if (clientWeekGraphRef.current && clientYearGraphRef.current) {
+        clientWeekGraphRef.current.style.border = "none";
+        clientYearGraphRef.current.style.border = "1px solid #2D355C54";
+      }
+    } else if (graph === "Sales") {
+      setSalesGraphTime("year");
+      if (salesWeekGraphRef.current && salesYearGraphRef) {
+        salesWeekGraphRef.current.style.border = "none";
+        salesYearGraphRef.current.style.border = "1px solid #2D355C54";
+      }
+    }
+  };
+  const renderGraph = graphData.map((graph, index) => {
     return (
       <div className={styles["statistics--graph-container"]}>
         <div className={styles["statistics--client-graph-stat-switch"]}>
           <p className={styles["statistics--graph-title"]}>{graph.title}</p>
           <div className={styles["statistics--time-switch-button-container"]}>
-            <button className={styles["statistics--time-switch-button"]}>
+            <button
+              className={styles["statistics--time-switch-button"]}
+              onClick={() =>
+                handleWeeklyData(
+                  graph.title === "Client Status" ? "Client" : "Sales"
+                )
+              }
+              style={{ border: "1px solid #2D355C54" }}
+              ref={
+                graph.title === "Client Status"
+                  ? clientWeekGraphRef
+                  : salesWeekGraphRef
+              }
+            >
               Weekly
             </button>
-            <button className={styles["statistics--time-switch-button"]}>
+            <button
+              className={styles["statistics--time-switch-button"]}
+              onClick={() =>
+                handleYearlyData(
+                  graph.title === "Client Status" ? "Client" : "Sales"
+                )
+              }
+              ref={
+                graph.title === "Client Status"
+                  ? clientYearGraphRef
+                  : salesYearGraphRef
+              }
+            >
               Total
             </button>
           </div>
