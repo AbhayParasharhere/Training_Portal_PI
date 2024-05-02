@@ -1,16 +1,34 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useMemo, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
 import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
 import Spinner from "../../CommonComponents/Spinner";
+import { PrimaryDataContext } from "../../context/primaryDataContext";
 
 export default function Statistics() {
   const currentUser = useContext(AuthContext);
+  const primaryData = useContext(PrimaryDataContext);
+  const clients = primaryData?.clients;
+  console.log("This is the client data: ", clients);
   const [loading, setLoading] = useState(true);
+  const [clientGraphTime, setClientGraphTime] = useState("week");
+  const [salesGraphTime, setSalesGraphTime] = useState("week");
   const [statData, setStatData] = useState({});
+  const clientWeekGraphRef = useRef();
+  const salesWeekGraphRef = useRef();
+  const clientYearGraphRef = useRef();
+  const salesYearGraphRef = useRef();
 
+  // if (clientWeekGraphRef.current !== undefined) {
+  //   console.log("This is the clien week ref", clientWeekGraphRef);
+  //   if (clientGraphTime === "week") {
+  //     clientWeekGraphRef.current.style.border = "1px solid #2D355C54";
+  //   } else {
+  //     clientWeekGraphRef.current.style.border = "none";
+  //   }
+  // }
   useMemo(() => {
     async function fetchData() {
       try {
@@ -89,39 +107,117 @@ export default function Statistics() {
   const graphData = [
     {
       title: "Client Status",
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-      data: [10, 20, 15, 30, 18, 29, 40, 25, 30, 10, 11, 14],
+      labels:
+        clientGraphTime === "week"
+          ? ["M", "T", "W", "T", "F", "S", "S"]
+          : [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
+      data: [10, 20, 15, 30, 18, 29, 40, 25, 30, 14],
     },
     {
       title: "Sales Status",
-      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      labels:
+        salesGraphTime === "week"
+          ? ["M", "T", "W", "T", "F", "S", "S"]
+          : [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
       data: [20, 15, 30, 25, 30, 11, 14],
     },
   ];
+  // graph.title === "Client Status"
+  //                 ? setClientGraphTime("week")
+  //                 : setSalesGraphTime("week")
 
-  const renderGraph = graphData.map((graph) => {
+  const handleWeeklyData = (graph) => {
+    if (graph === "Client") {
+      setClientGraphTime("week");
+      if (clientWeekGraphRef.current && clientYearGraphRef.current) {
+        clientWeekGraphRef.current.style.border = "1px solid #2D355C54";
+        clientYearGraphRef.current.style.border = "none";
+      }
+    } else if (graph === "Sales") {
+      setSalesGraphTime("week");
+      if (salesWeekGraphRef.current && salesYearGraphRef) {
+        salesWeekGraphRef.current.style.border = "1px solid #2D355C54";
+        salesYearGraphRef.current.style.border = "none";
+      }
+    }
+  };
+
+  const handleYearlyData = (graph) => {
+    if (graph === "Client") {
+      setClientGraphTime("year");
+      if (clientWeekGraphRef.current && clientYearGraphRef.current) {
+        clientWeekGraphRef.current.style.border = "none";
+        clientYearGraphRef.current.style.border = "1px solid #2D355C54";
+      }
+    } else if (graph === "Sales") {
+      setSalesGraphTime("year");
+      if (salesWeekGraphRef.current && salesYearGraphRef) {
+        salesWeekGraphRef.current.style.border = "none";
+        salesYearGraphRef.current.style.border = "1px solid #2D355C54";
+      }
+    }
+  };
+  const renderGraph = graphData.map((graph, index) => {
     return (
       <div className={styles["statistics--graph-container"]}>
         <div className={styles["statistics--client-graph-stat-switch"]}>
           <p className={styles["statistics--graph-title"]}>{graph.title}</p>
           <div className={styles["statistics--time-switch-button-container"]}>
-            <button className={styles["statistics--time-switch-button"]}>
+            <button
+              className={styles["statistics--time-switch-button"]}
+              onClick={() =>
+                handleWeeklyData(
+                  graph.title === "Client Status" ? "Client" : "Sales"
+                )
+              }
+              style={{ border: "1px solid #2D355C54" }}
+              ref={
+                graph.title === "Client Status"
+                  ? clientWeekGraphRef
+                  : salesWeekGraphRef
+              }
+            >
               Weekly
             </button>
-            <button className={styles["statistics--time-switch-button"]}>
+            <button
+              className={styles["statistics--time-switch-button"]}
+              onClick={() =>
+                handleYearlyData(
+                  graph.title === "Client Status" ? "Client" : "Sales"
+                )
+              }
+              ref={
+                graph.title === "Client Status"
+                  ? clientYearGraphRef
+                  : salesYearGraphRef
+              }
+            >
               Total
             </button>
           </div>

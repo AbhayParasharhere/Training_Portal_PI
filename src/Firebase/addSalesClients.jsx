@@ -19,6 +19,8 @@ const saveClientData = async (clientDetails, uid) => {
       email: clientDetails.client_email,
       address: clientDetails.client_address,
       phone_number: clientDetails.client_number,
+      created_at: new Date(),
+      updated_at: new Date(),
     });
     return clientId;
   } catch (err) {
@@ -31,7 +33,10 @@ const saveSalesData = async (salesData, clientId, uid) => {
       ...salesData,
       cid: clientId,
       uid: uid,
+      created_at: new Date(),
+      updated_at: new Date(),
     });
+
     return saveSales;
   } catch (err) {
     console.log("This is the error for yhe sales adding function, ", err);
