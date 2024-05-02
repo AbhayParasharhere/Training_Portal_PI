@@ -1,0 +1,805 @@
+p {
+  margin: 0;
+}
+.home--main-container {
+  width: 100%;
+  max-width: 750px;
+  //   background-color: #2d355c;
+  padding: 10px 0px;
+  // margin-right: 20px;
+  box-sizing: border-box;
+  // background-color: #123c97;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.home--welcome-container {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  width: 100%;
+}
+.home--greetings-container {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  //   align-items: center;
+  justify-content: center;
+  height: 140px;
+  gap: 10px;
+  background-color: #2d355c;
+  padding: 0px 30px;
+  border-radius: 5px;
+  color: white;
+}
+.home--greetings-title {
+  font-family: Epilogue;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 45px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--greetings-desc-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.home--greetings-desc {
+  font-family: Open Sans;
+  font-size: 14px;
+  font-weight: 400;
+  //   line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--course-greeting-container {
+  height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #4462a43d;
+  padding: 0px 25px;
+  display: flex;
+  gap: 20px;
+  border-radius: 5px;
+  border: 1px solid #4462a4;
+  align-items: center;
+  justify-content: start;
+}
+.home--congratulations-emoji {
+  height: 20px;
+  margin: 0;
+}
+.home--course-greeting-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.home--course-greeting-title {
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 10.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--course-greeting-desc {
+  font-family: Epilogue;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #123c97;
+}
+
+// Notifications container start
+.home--recent-notifications-main-container {
+  display: flex;
+  margin-top: 55px;
+  max-width: 100%;
+  //   background-color: black;
+  //   align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.home--sales-course-notification-container {
+  flex: 3;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  //   background-color: #2d355c;
+}
+.home--notification-links-container {
+  display: flex;
+  gap: 50px;
+  text-wrap: none;
+}
+.home--notification-links {
+  font-family: Open Sans;
+  font-size: 17px;
+  max-width: 100%;
+  font-weight: 600;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: start;
+  color: #a1a1a1;
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+}
+.home--notification-links:hover {
+  scale: 1.05;
+}
+.home--notification-links-underline {
+  border: 1px solid #a1a1a1;
+  border-radius: 1px;
+  width: 120%;
+}
+.home--list-text {
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--notification-lists-container {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  border-radius: 5px;
+  flex-direction: column;
+}
+.home--notification-lists {
+  max-width: 100%;
+  padding: 20px 20px;
+  display: flex;
+  background-color: #f5f6fb;
+
+  align-items: center;
+  justify-content: space-between;
+}
+.home--list-title-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.home--continue-button {
+  background-color: #a80532f0;
+  border: none;
+  color: white;
+  height: 40px;
+  width: 100px;
+  font-family: Epilogue;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 5px;
+  text-align: center;
+}
+.home--client-birthday-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 20px;
+  align-items: center;
+  //   justify-content: center;
+  flex: 1.3;
+  background-color: #f5f6fb;
+}
+.home--client-birthday-inner-container {
+  display: flex;
+  gap: 10px;
+}
+.home--client-birthday-title {
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: center;
+  color: #1e1e1e;
+}
+.home--client-birthday-list {
+  background-color: white;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+.home--client-birthday {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  justify-content: space-between;
+  transition: all 0.15s ease-in;
+}
+.home--client-birthday:hover {
+  scale: 1.05;
+}
+.home--client-image {
+  height: 40px;
+}
+.home--birthday-name-date-container {
+  display: flex;
+  flex-direction: column;
+}
+.home--client-name {
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #393e46;
+}
+.home--birthday-date {
+  font-family: Open Sans;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  color: #686868;
+}
+.home--cake-icon {
+  max-height: 20px;
+  align-self: flex-start;
+}
+
+//Important updates css start
+.home--important-updates-container {
+  width: 100%;
+  background-color: #f5f6fb;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding: 20px 0px;
+  justify-content: center;
+}
+.home--important-updates-title {
+  font-family: Archivo;
+  font-size: 17px;
+  margin-left: 10px;
+  font-weight: 600;
+  line-height: 25.5x;
+  align-self: flex-start;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.home--annoucement-list-container {
+  max-height: 170px;
+  overflow-y: scroll;
+  width: 95%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.home--annoucement-container {
+  width: 95%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+}
+.home--annoucement-details-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home--annoucement-details-text {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #525252;
+}
+.home--annoucement-text {
+  font-family: Plus Jakarta Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24.5px;
+  color: #1a202c;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+li::marker {
+  color: rgba(168, 5, 50, 0.94);
+}
+
+//For tablet design****
+.home--mobile-appointment-notification-container {
+  box-sizing: border-box;
+  display: none;
+  gap: 20px;
+  margin-top: 60px;
+  width: 100%;
+}
+.statsSummary--appointment-container {
+  background-color: #f5f6fb;
+  flex: 1;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.statsSummary--appointment-inner-container {
+  background-color: white;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.statsSummary--appointment-title {
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statsSummary--meeting-title {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statsSummary--appointment-desc-text {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
+}
+.statsSummary--unordered-list {
+  margin: 0;
+}
+.statsSummary--appointment-marker {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
+}
+.statsSummary--appointment-marker::marker {
+  color: #566173;
+  font-size: 20px;
+}
+.statsSummary--appointment-button {
+  width: 100%;
+  margin-top: 10px;
+  border: 2px solid #4462a4;
+  font-family: Epilogue;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 19.5px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #4462a4;
+  height: 25px;
+  background-color: transparent;
+}
+//Tablet notification***
+.statsSummary--notifications-container {
+  background-color: #f5f6fb;
+  flex: 1;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.statsSummary--notifications-inner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  justify-content: center;
+  background-color: white;
+}
+.statsSummary--notifications-title {
+  align-self: flex-start;
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statsSummary--lists-container {
+  max-height: 155px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+}
+.statsSummary--list {
+  border: 1px solid #dedede;
+  box-sizing: border-box;
+  padding: 5px;
+}
+.statsSummary--list-title {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #393e46;
+}
+.statsSummary--list-desc {
+  font-family: Epilogue;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  color: #686868;
+  margin-top: 5px;
+}
+
+//Mobile responsive icons
+
+.home--mobile-icons-container {
+  width: 100%;
+  display: none;
+
+  margin-top: 20px;
+  box-sizing: border-box;
+  // padding: 10px;
+  align-items: start;
+  // align-items: center;
+  // justify-content: center;
+  justify-items: center;
+}
+.home--mobile-icons-inner-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 100px;
+  align-items: center;
+  justify-content: center;
+}
+.home--mobile-icon-image-container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  width: 60px;
+  background-color: #f5f6fb;
+}
+.home--mobile-icon-image {
+  height: 40%;
+}
+.home--mobile-icon-desc-text {
+  font-family: Epilogue;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+@media (max-width: 1265px) {
+  .home--notification-links-underline {
+    width: 100%;
+  }
+  .home--notification-links {
+    font-size: 15px;
+  }
+}
+@media (max-width: 1230px) {
+  .home--client-birthday-title {
+    font-size: 12px;
+  }
+  .home--list-text {
+    font-size: 15px;
+  }
+  .home--notification-links {
+    font-size: 13px;
+  }
+}
+@media (max-width: 1190px) {
+  .home--client-name {
+    font-size: 10px;
+  }
+}
+@media (max-width: 1190px) {
+  .home--continue-button {
+    font-size: 10px;
+    width: 80px;
+    height: 35px;
+  }
+  .home--birthday-date {
+    font-size: 8px;
+  }
+  .home--list-title-container {
+    gap: 10px;
+  }
+}
+@media (max-width: 1160px) {
+  .home--notification-links-container {
+    gap: 20px;
+  }
+  .home--cake-icon {
+    height: 15px;
+  }
+  .home--client-image {
+    height: 30px;
+  }
+  .home--list-text {
+    font-size: 13px;
+  }
+}
+//Tablet query
+@media (max-width: 1130px) {
+  .home--main-container {
+    width: 100%;
+  }
+  .home--important-updates-container {
+    display: none;
+  }
+  .home--client-birthday-container {
+    display: none;
+  }
+  .home--recent-notifications-main-container {
+    min-width: 100%;
+    // background-color: #123c97;
+  }
+  .home--list-text {
+    font-size: 18px;
+  }
+  .home--notification-links {
+    font-size: 15px;
+  }
+  .home--continue-button {
+    font-size: 12px;
+    width: 100px;
+    height: 40px;
+  }
+  .home--list-title-container {
+    gap: 15px;
+  }
+  .home--notification-links {
+    font-size: 18px;
+  }
+  .home--notification-links-underline {
+    width: 120%;
+  }
+  .home--mobile-appointment-notification-container {
+    display: flex;
+  }
+}
+
+@media (max-width: 770px) {
+  .home--notification-links {
+    font-size: 15px;
+  }
+  .home--notification-links-underline {
+    width: 100%;
+  }
+  .statsSummary--appointment-desc-text {
+    font-size: 10px;
+  }
+}
+@media (max-width: 755px) {
+  .statsSummary--list-title {
+    font-size: 10px;
+  }
+  .statsSummary--list-desc {
+    font-size: 8px;
+  }
+  .home--greetings-container {
+    height: 160px;
+  }
+  .home--greetings-title {
+    font-size: 25px;
+  }
+  .home--greetings-desc {
+    font-size: 12px;
+  }
+  .home--course-greeting-container {
+    height: 120px;
+  }
+  .home--course-greeting-title {
+    font-size: 14px;
+  }
+  .home--greetings-desc {
+    font-size: 12px;
+  }
+}
+@media (max-width: 725px) {
+  .home--list-text {
+    font-size: 14px;
+  }
+  .home--continue-button {
+    width: 80px;
+    font-size: 10px;
+    height: 35px;
+  }
+  .statsSummary--appointment-title {
+    font-size: 12px;
+  }
+  .statsSummary--notifications-title {
+    font-size: 12px;
+  }
+}
+@media (max-width: 710px) {
+  .home--course-greeting-container {
+    padding: 15px;
+  }
+  .home--greetings-container {
+    padding: 15px;
+  }
+}
+@media (max-width: 660px) {
+  .home--notification-links {
+    font-size: 12px;
+  }
+  .statsSummary--list-title {
+    font-size: 8px;
+  }
+}
+@media (max-width: 630px) {
+  .home--mobile-appointment-notification-container {
+    display: none;
+  }
+  .home--welcome-container {
+    gap: 10px;
+  }
+  .home--recent-notifications-main-container {
+    margin-top: 10px;
+  }
+  .home--mobile-icons-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    // align-items: center;
+    grid-row-gap: 20px;
+  }
+}
+@media (max-width: 510px) {
+  .home--mobile-icons-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 420px) {
+  .home--mobile-icons-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 385px) {
+  .home--greetings-container {
+    height: 120px;
+    padding-top: 0;
+    gap: 0px;
+  }
+  .home--greetings-title {
+    font-size: 17px;
+  }
+  .home--greetings-desc {
+    font-size: 10px;
+  }
+  .home--course-greeting-container {
+    height: 100px;
+  }
+  .home--course-greeting-title {
+    font-size: 12px;
+  }
+  .home--course-greeting-desc {
+    font-size: 10px;
+  }
+  .home--congratulations-emoji {
+    height: 15px;
+    justify-self: flex-start;
+  }
+}
+@media (max-width: 360px) {
+  .home--notification-links {
+    font-size: 10px;
+  }
+  .home--list-text {
+    font-size: 12px;
+  }
+  .home--continue-button {
+    width: 60px;
+    height: 30px;
+    font-size: 8px;
+  }
+  .home--play-icon {
+    height: 20px;
+  }
+}
+@media (max-width: 320px) {
+  .home--notification-links-container {
+    gap: 15px;
+  }
+  .home--course-greeting-title {
+    font-size: 11px;
+  }
+}
+@media (max-width: 310px) {
+  .home--list-text {
+    font-size: 10px;
+  }
+}
+@media (max-width: 300px) {
+  .home--course-greeting-container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .home--course-greeting-title {
+    font-size: 9px;
+  }
+  .home--course-greeting-desc {
+    font-size: 8px;
+  }
+  .home--mobile-icon-desc-text {
+    font-size: 8px;
+  }
+}
+@media (max-width: 280px) {
+  .home--notification-lists {
+    padding: 10px;
+  }
+  .home--list-title-container {
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+  .home--play-icon {
+    height: 15px;
+  }
+}
+@media (max-width: 250px) {
+  .home--course-greeting-desc {
+    line-height: 15px;
+  }
+  .home--notification-links {
+    font-size: 8px;
+  }
+  .home--list-text {
+    font-size: 8px;
+  }
+  .home--continue-button {
+    width: 50px;
+    height: 25px;
+    font-size: 7px;
+  }
+}
+@media (max-width: 242px) {
+  .home--greetings-title {
+    font-size: 12px;
+  }
+  .home--greetings-desc {
+    font-size: 9px;
+  }
+  .home--mobile-icon-image-container {
+    width: 50px;
+    height: 50px;
+  }
+  .home--mobile-icon-desc-text {
+    font-size: 7px;
+  }
+}

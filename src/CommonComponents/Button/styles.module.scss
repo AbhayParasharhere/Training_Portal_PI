@@ -12,3 +12,28 @@
   cursor: pointer;
   scale: 1.01;
 }
+@media screen and (max-width: 716px) {
+  .button {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 558px) {
+  .button {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 510px) {
+  .button {
+    // font-size: 9px;
+    height: 32px;
+    width: 40%;
+  }
+}
+@media screen and (max-width: 361px) {
+  .button {
+    font-size: 11px;
+    height: 22px;
+    // width: 55%;
+  }
+}

@@ -9,17 +9,22 @@ import {
   deleteVideo,
 } from "../../Firebase/adminCourseAdd";
 import { getAllCourses } from "../../Firebase/courseLogic";
+import { v4 } from "uuid";
 
 const AdminConsole = () => {
+  const [courseTitle, setCourseTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [video, setVideo] = useState(null);
+  const [videoID, setVideoID] = useState("");
   const [videoName, setVideoName] = useState("");
   const [videoRank, setVideoRank] = useState(0);
   const [sectionName, setSectionName] = useState(null);
+  const [sectionID, setSectionID] = useState(null);
   const [sectionRank, setSectionRank] = useState(0);
   const [allCourses, setAllCourses] = useState([]);
 
   const selectedCourseRef = useRef(null);
+  const selectedUpdateCourseRef = useRef(null);
   useEffect(() => {
     const fetchCourses = async () => {
       const courses = await getAllCourses();
@@ -29,29 +34,46 @@ const AdminConsole = () => {
   }, []);
 
   const handleAddSection = async (event) => {
-    const selectedCourse = selectedCourseRef.current.value;
+    const selectedCourseID = selectedCourseRef.current.value;
     event.preventDefault();
-    console.log(allCourses);
-    console.log(selectedCourse, sectionName);
-    const res = await addSection(selectedCourse, sectionName, sectionRank);
+    const sectionID = v4();
+
+    console.log("ADD SECTION ", selectedCourseID, sectionName);
+    const res = await addSection(
+      selectedCourseID,
+      sectionID,
+      sectionName,
+      sectionRank
+    );
     console.log(res);
   };
 
   const handleUploadVideo = async (event) => {
+    if (!video || !videoName || !sectionID || !videoRank) {
+      alert("Please fill in all the fields");
+      return;
+    }
+
     event.preventDefault();
-    const selectedCourse = selectedCourseRef.current.value;
+    const selectedCourseID = selectedCourseRef.current.value;
+
+    const currentTimestamp = new Date().getTime();
+    const videoID =
+      videoName + `+${selectedCourseID}+${sectionID}+${currentTimestamp}`;
 
     console.log(
       "Uploading Video",
-      selectedCourse,
-      sectionName,
+      selectedCourseID,
+      sectionID,
+      videoID,
       video,
       videoName,
       videoRank
     );
     const res = await addVideo(
-      selectedCourse,
-      sectionName,
+      selectedCourseID,
+      sectionID,
+      videoID,
       video,
       videoName,
       videoRank
@@ -102,10 +124,6 @@ const AdminConsole = () => {
       "Enter the section name in the course: " + selectedCourse
     );
 
-    const videoID =
-      "video_" +
-      videoName.toLowerCase().replace(/ /g, "_") +
-      `+${selectedCourse}+${selectedSection}`;
     const confirmation = window.confirm(
       "Are you sure you want to delete this video?"
     );
@@ -123,6 +141,12 @@ const AdminConsole = () => {
       <hr />
       <form style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
         Add Course
+        <input
+          type="text"
+          placeholder="Course Title"
+          value={courseTitle}
+          onChange={(event) => setCourseTitle(event.target.value)}
+        />
         <label htmlFor="thumbnail_upload">Upload Thumbnail</label>
         <input
           type="file"
@@ -134,8 +158,10 @@ const AdminConsole = () => {
         <button
           onClick={(e) => {
             e.preventDefault();
+            const courseID = v4();
             let res = addCourse(
-              "Test Course 6",
+              courseID,
+              courseTitle,
               "Test Category 3",
               "Test Description 2",
               thumbnail
@@ -155,6 +181,7 @@ const AdminConsole = () => {
             allCourses
               .filter((course) => course.status !== "deleted")
               .map((course) => {
+                // console.log(course.id, course.title);
                 return (
                   <option key={course.id} value={course.id}>
                     {course.title}
@@ -190,6 +217,11 @@ const AdminConsole = () => {
         />
         <input
           type="text"
+          placeholder="Section ID"
+          onChange={(event) => setSectionID(event.target.value)}
+        />
+        <input
+          type="text"
           placeholder="Video Name"
           value={videoName}
           onChange={(event) => setVideoName(event.target.value)}
@@ -206,7 +238,34 @@ const AdminConsole = () => {
         Delete Selected Section
         <button onClick={handleDeleteSection}>Delete Section</button>
         Delete Selected Video
+        <input
+          type="text"
+          placeholder="Video ID"
+          value={videoID}
+          onChange={(event) => setVideoID(event.target.value)}
+        />
         <button onClick={handleDeleteVideo}>Delete Video</button>
+        <hr />
+        <h2>Update Courses</h2>
+        <select ref={selectedUpdateCourseRef}>
+          {
+            // only show courses that does not have status as deleted
+            allCourses
+              .filter((course) => course.status !== "deleted")
+              .map((course) => {
+                return (
+                  <option key={course.id} value={course.id}>
+                    {course.title}
+                  </option>
+                );
+              })
+          }
+        </select>
+        <button>Update Course</button>
+        <input type="text" placeholder="Course Title" />
+        <input type="text" placeholder="Course Category" />
+        <input type="text" placeholder="Course Description" />
+        <input type="file" placeholder="Course Thumbnail" />
       </form>
     </div>
   );

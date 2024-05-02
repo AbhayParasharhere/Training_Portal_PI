@@ -1,0 +1,315 @@
+.statsSummary--main-container {
+  width: 100%;
+  max-width: 250px;
+  //   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+.statsSummary--title {
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+.statsSummary--profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  justify-content: center;
+  background-color: #f5f6fb;
+  //   background-color: #1e1e1e;
+}
+.statsSummary--profile-inner-container {
+  display: flex;
+  flex-direction: column;
+  //   padding: 20px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.statsSummary--profile-image {
+  height: 100px;
+  border-radius: 50%;
+}
+.statsSummary--name {
+  font-family: Epilogue;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+  color: #1e1e1e;
+}
+
+.statsSummary--desc {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  max-width: 170px;
+  text-align: center;
+}
+.statsSummary--sales-graph-container {
+  background-color: white;
+  width: 90%;
+  padding: 10px;
+  margin-top: 50px;
+  font-family: Epilogue;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  line-height: 22.5px;
+  gap: 60px;
+  text-align: left;
+  color: #1a202c;
+  transition: all 0.15s ease-in;
+  cursor: pointer;
+}
+
+.statsSummary--sales-graph-container:hover {
+  scale: 1.05;
+}
+.statsSummary--notifications-container {
+  background-color: #f5f6fb;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.statsSummary--notifications-inner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  justify-content: center;
+  background-color: white;
+}
+.statsSummary--notifications-title {
+  align-self: flex-start;
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statsSummary--lists-container {
+  max-height: 155px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+}
+.statsSummary--list {
+  border: 1px solid #dedede;
+  box-sizing: border-box;
+  padding: 5px;
+}
+.statsSummary--list-title {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #393e46;
+}
+.statsSummary--list-desc {
+  font-family: Epilogue;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  color: #686868;
+  margin-top: 5px;
+}
+
+.statsSummary--appointment-container {
+  background-color: #f5f6fb;
+  margin-top: 25px;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.statsSummary--appointment-inner-container {
+  background-color: white;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.statsSummary--appointment-title {
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statsSummary--meeting-title {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statsSummary--appointment-desc-text {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
+}
+.statsSummary--unordered-list {
+  margin: 0;
+}
+.statsSummary--appointment-marker {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #525252;
+}
+.statsSummary--appointment-marker::marker {
+  color: #566173;
+  font-size: 20px;
+}
+.statsSummary--appointment-button {
+  width: 100%;
+  margin-top: 10px;
+  border: 2px solid #4462a4;
+  font-family: Epilogue;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 19.5px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #4462a4;
+  height: 25px;
+  background-color: transparent;
+}
+//*** For tablet design ***
+.home--client-birthday-inner-container {
+  display: flex;
+  gap: 10px;
+}
+.home--client-birthday-title {
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: center;
+  color: #1e1e1e;
+}
+.home--client-birthday-list {
+  background-color: white;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+.home--client-birthday {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+.home--client-image {
+  height: 40px;
+}
+.home--birthday-name-date-container {
+  display: flex;
+  flex-direction: column;
+}
+.home--client-name {
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #393e46;
+}
+.home--birthday-date {
+  font-family: Open Sans;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  color: #686868;
+}
+.home--cake-icon {
+  max-height: 20px;
+  align-self: flex-start;
+}
+.statsSummary--mobile-birthday-container {
+  width: 100%;
+  display: none;
+  box-sizing: border-box;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 20px;
+  align-items: center;
+  //   justify-content: center;
+  background-color: #f5f6fb;
+}
+//*** For tablet design ***
+
+@media (max-width: 1130px) {
+  .statsSummary--main-container {
+    max-width: 350px;
+  }
+  .statsSummary--notifications-container {
+    display: none;
+  }
+  .statsSummary--appointment-container {
+    display: none;
+  }
+  .statsSummary--mobile-birthday-container {
+    display: flex;
+  }
+}
+@media (max-width: 1070px) {
+  .statsSummary--main-container {
+    max-width: 250px;
+  }
+}
+@media (max-width: 710px) {
+  .statsSummary--main-container {
+    max-width: 200px;
+  }
+  .home--client-birthday-title {
+    font-size: 12px;
+  }
+  .home--client-name {
+    font-size: 8px;
+  }
+  .home--birthday-date {
+    font-size: 8px;
+  }
+}
+@media (max-width: 630px) {
+  .statsSummary--main-container {
+    display: none;
+  }
+}
