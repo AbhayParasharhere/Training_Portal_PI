@@ -39,6 +39,7 @@ import ClientData from "./Pages/ClientDetail";
 import ClientInfo from "./Pages/Form";
 import PostQues from "./Pages/PostQues";
 import PurchasedPolicy from "./Pages/PurchasedPolicy";
+import AllLinks from "./Pages/AllLinks";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -72,6 +73,7 @@ const router = createBrowserRouter(
         <Route path="/tools" element={<Tools />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />
         <Route path="/admin-course-add" element={<AdminConsole />} />
+        <Route path="/all-links" element={<AllLinks />} />
         <Route path="/internal-links" element={<InternalLinks />} />
         <Route path="/client-detail/:clientId" element={<ClientData />}>
           <Route index element={<ClientInfo />} />
