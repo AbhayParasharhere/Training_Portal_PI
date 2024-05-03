@@ -32,7 +32,7 @@
 .ClientComponent-topbar-clients {
   font-family: Open Sans;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 30px;
   letter-spacing: -0.03em;
   text-align: left;
@@ -66,6 +66,10 @@
 
   background-color: #f9f9f9;
   padding-left: 2%;
+}
+
+.ClientComponent-wrapper-topbar-search-div:focus-within {
+  border-color: #3064d4;
 }
 .ClientComponent-wrapper-topbar-search-bar {
   border: none;
@@ -108,7 +112,9 @@
   height: 48px;
   gap: 4px;
   position: relative;
+  color: #525252;
 }
+
 .ClientComponent-wrapper-topbar-search-menu-div-dropdown {
   display: none;
   width: 100%;
@@ -197,7 +203,7 @@ td {
   src: url(../../../../fonts/OpenSans-VariableFont_wdthwght.ttf);
   height: 71px;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 30px;
   letter-spacing: -0.03em;
   color: #616161;
@@ -208,7 +214,7 @@ td {
   display: flex;
   align-items: center;
   padding-top: 10px;
-  gap: 5px;
+  gap: 25px;
 }
 .ClientComponent-td-img {
   width: 48px;
