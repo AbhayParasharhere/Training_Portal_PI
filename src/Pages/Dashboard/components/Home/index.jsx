@@ -16,13 +16,78 @@ import calendarIcon from "./images/calendar.png";
 import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
 export default function Home() {
-  const userDetails = secureLocalStorage.getItem("userDetails");
+  const videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
   const primaryData = useContext(PrimaryDataContext);
+  const allCourses = primaryData?.courses;
+  if (videosWatched) {
+    videosWatched?.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
+  }
+  const sales = primaryData?.sales;
+  let salesWithCreatedAt = [];
+  if (sales) {
+    salesWithCreatedAt = sales?.filter((sales) => sales.created_at);
+    salesWithCreatedAt?.sort(
+      (a, b) => b.created_at.seconds - a.created_at.seconds
+    );
+  }
+
+  const uniqueCourses = new Set();
+  const lastThreeCourses = [];
+  const latestThreeSales = salesWithCreatedAt.slice(0, 3);
+
+  // Iterate over the sorted array and add unique courses to the set
+  if (videosWatched) {
+    for (const video of videosWatched) {
+      if (!uniqueCourses.has(video.courseId)) {
+        uniqueCourses.add(video.courseId);
+        lastThreeCourses.push(video.courseId);
+      }
+
+      // If we have collected the last 3 unique courses, break the loop
+      if (lastThreeCourses.length === 3) {
+        break;
+      }
+    }
+  }
+  const filterLast3CoursesWatched = () => {
+    const lastCourses = [];
+    allCourses?.map((course) => {
+      if (lastThreeCourses?.includes(course.id)) {
+        lastCourses.push({
+          courseData: course,
+          title: course.title,
+          to: `/courses/${course.id}`,
+          button: "Continue",
+        });
+      }
+    });
+    return lastCourses;
+  };
+
   const announcements = primaryData?.announcements;
   const clients = primaryData?.clients;
-  console.log("These are the user clients: ", clients);
+  let clientsWithCreatedAt = [];
+  if (clients) {
+    clientsWithCreatedAt = clients?.filter((client) => client.created_at);
+    clientsWithCreatedAt?.sort(
+      (a, b) => b?.created_at?.seconds - a?.created_at?.seconds
+    );
+  }
 
-  // console.log("Announcements from primary data", primaryData?.announcements);
+  const uniqueClients = new Set();
+  const latestThreeUniqueClients = [];
+
+  for (const client of clientsWithCreatedAt) {
+    if (!uniqueClients.has(client.id)) {
+      uniqueClients.add(client.id);
+      latestThreeUniqueClients.push(client);
+    }
+
+    if (latestThreeUniqueClients.length === 3) {
+      break;
+    }
+  }
+
   const [latestStats, setLatestStates] = useState("course");
   const navigate = useNavigate();
   const mobileIconsData = [
@@ -34,28 +99,30 @@ export default function Home() {
   ];
 
   const latestStatsData = {
-    course: [
-      { title: "Concepts of Insaurance", button: "Continue", to: "/courses" },
-      { title: "Compliance Policies", button: "Continue", to: "/courses" },
-      { title: "Concepts of Sales", button: "Continue", to: "/courses" },
-    ],
-    policies: [
-      { title: "Life Insaurance", button: "View", to: "/addSales" },
-      { title: "Home loan", button: "View", to: "/addSales" },
-      { title: "Investing in funds", button: "View", to: "/addSales" },
-    ],
-    sales: [
-      { title: "Abhay Parashar", button: "View", to: "/clients" },
-      { title: "Mr. Sanjay", button: "View", to: "/clients" },
-      { title: "Mr. Dharmendar", button: "View", to: "/clients" },
-    ],
+    course: filterLast3CoursesWatched(),
+    policies: latestThreeSales?.map((sales) => {
+      return {
+        title: sales.policy_type,
+        button: "view",
+        to: `client-detail/${sales.cid}/policies`,
+      };
+    }),
+    sales: latestThreeUniqueClients?.map((client) => {
+      return {
+        title: client.name,
+        button: "View",
+        to: `/client-detail/${client.id}`,
+      };
+    }),
   };
-
+  const navigateLatestStats = (statType, stat) => {
+    navigate(stat.to, { state: { course: stat.courseData } });
+  };
   const renderLatestStats = latestStatsData[latestStats].map((stat, index) => {
     return (
       <div
         className={styles["home--notification-lists"]}
-        onClick={() => navigate(stat.to)}
+        onClick={() => navigateLatestStats(latestStats, stat)}
         key={index}
       >
         <div className={styles["home--list-title-container"]}>
@@ -63,7 +130,7 @@ export default function Home() {
           <p className={styles["home--list-text"]}>{stat.title}</p>
         </div>
         <button className={styles["home--continue-button"]}>
-          {stat.button}
+          {latestStats === "course" ? "Continue" : "View"}
         </button>
       </div>
     );
@@ -208,10 +275,6 @@ export default function Home() {
       </div>
     );
   });
-  console.log(
-    "This is the storage data: ",
-    secureLocalStorage.getItem("userDetails")
-  );
 
   return (
     <div className={styles["home--main-container"]}>

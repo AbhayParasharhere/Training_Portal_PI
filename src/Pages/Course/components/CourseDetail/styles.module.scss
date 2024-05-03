@@ -51,7 +51,6 @@
   max-height: 400px;
   display: flex;
   align-items: flex-start;
-
 }
 
 .courseDetail--course-video {
@@ -223,12 +222,16 @@
 .courseDetail--video-list-container {
   background-color: #f9fafb;
   padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   // transition: all 1  s ease in;
 }
 .courseDetail--video-list {
   height: 30px;
   width: 100%;
   padding: 24px 20px;
+  gap: 10px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
