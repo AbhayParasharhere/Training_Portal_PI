@@ -19,7 +19,9 @@ export default function Home() {
   const videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
   const primaryData = useContext(PrimaryDataContext);
   const allCourses = primaryData?.courses;
-  videosWatched?.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
+  if (videosWatched) {
+    videosWatched?.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
+  }
   const sales = primaryData?.sales;
   let salesWithCreatedAt = [];
   if (sales) {
@@ -34,15 +36,17 @@ export default function Home() {
   const latestThreeSales = salesWithCreatedAt.slice(0, 3);
 
   // Iterate over the sorted array and add unique courses to the set
-  for (const video of videosWatched) {
-    if (!uniqueCourses.has(video.courseId)) {
-      uniqueCourses.add(video.courseId);
-      lastThreeCourses.push(video.courseId);
-    }
+  if (videosWatched) {
+    for (const video of videosWatched) {
+      if (!uniqueCourses.has(video.courseId)) {
+        uniqueCourses.add(video.courseId);
+        lastThreeCourses.push(video.courseId);
+      }
 
-    // If we have collected the last 3 unique courses, break the loop
-    if (lastThreeCourses.length === 3) {
-      break;
+      // If we have collected the last 3 unique courses, break the loop
+      if (lastThreeCourses.length === 3) {
+        break;
+      }
     }
   }
   const filterLast3CoursesWatched = () => {
