@@ -57,10 +57,13 @@ const AdminConsole = () => {
     event.preventDefault();
     const selectedCourseID = selectedCourseRef.current.value;
 
-    const currentTimestamp = new Date().getTime();
-    const videoID =
-      videoName + `+${selectedCourseID}+${sectionID}+${currentTimestamp}`;
+    // With duplicate videos feature
+    // const currentTimestamp = new Date().getTime();
+    // const videoID =
+    //   videoName + `+${selectedCourseID}+${sectionID}+${currentTimestamp}`;
 
+    // Without duplicate videos feature
+    const videoID = videoName + `+${selectedCourseID}+${sectionID}`;
     console.log(
       "Uploading Video",
       selectedCourseID,

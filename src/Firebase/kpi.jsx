@@ -11,7 +11,6 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
-import { update } from "firebase/database";
 
 // Functions to get all sales data for a particular user within a particular date range
 // direct query to the sales collection
@@ -119,10 +118,9 @@ const createLoginCount = async (userID) => {
 // The document should have the video ID and the timestamp of the video watched
 const storeVideoProgress = async (userID, courseId, videoID) => {
   try {
-    await setDoc(doc(db, "userDetails", userID, "videoProgress", videoID), {
-      videoID,
-      courseId,
-      created_at: new Date(),
+    console.log(userID, courseId, videoID, "Details");
+    await updateDoc(doc(db, "userDetail", userID), {
+      video_progress: arrayUnion({ videoID, courseId, created_at: new Date() }),
     });
     return "Success in storing video progress";
   } catch (error) {
