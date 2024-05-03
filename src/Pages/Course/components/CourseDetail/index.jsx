@@ -24,7 +24,8 @@ export default function CourseDetail() {
     JSON.parse(sessionStorage.getItem("video_progress"))
   );
   useEffect(() => {
-    const lastVideo = JSON.parse(sessionStorage.getItem("video_progress"))
+    // if (JSON.parse(sessionStorage.getItem("video_progress"))) return;
+    const lastVideo = JSON.parse(sessionStorage?.getItem("video_progress"))
       ?.filter((video) => video.courseId === selectedCourseData?.id)
       ?.reduce((prev, current) =>
         prev?.created_at > current?.created_at ? prev : current

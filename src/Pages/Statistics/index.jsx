@@ -12,8 +12,10 @@ import { get } from "firebase/database";
 export default function Statistics() {
   const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
-  const clients = primaryData?.clients;
-
+  const clients = primaryData?.clients?.filter(
+    (client) => client.user === currentUser?.uid
+  );
+  const sales = primaryData?.sales;
   const [loading, setLoading] = useState(true);
   const [clientGraphTime, setClientGraphTime] = useState("week");
   const [salesGraphTime, setSalesGraphTime] = useState("week");
@@ -102,12 +104,19 @@ export default function Statistics() {
     });
     return yearlyData;
   };
-  let weekData = [];
-  let yearData = [];
+  let weekClientData = [];
+  let yearClientData = [];
+  let weekSalesData = [];
+  let yearSalesData = [];
   if (clients) {
-    weekData = getWeeklyAddedClientsSales(clients);
-    yearData = getYearlyClientSalesData(clients);
-    console.log("This is the data for the client year: ", yearData);
+    weekClientData = getWeeklyAddedClientsSales(clients);
+    yearClientData = getYearlyClientSalesData(clients);
+    console.log("This is the data for the client year: ", yearClientData);
+  }
+  if (sales) {
+    weekSalesData = getWeeklyAddedClientsSales(sales);
+    yearSalesData = getYearlyClientSalesData(sales);
+    console.log("This is the week sales data: ", weekSalesData);
   }
   useMemo(() => {
     async function fetchData() {
@@ -204,13 +213,13 @@ export default function Statistics() {
               "Nov",
               "Dec",
             ],
-      data: clientGraphTime === "week" ? weekData : yearData,
+      data: clientGraphTime === "week" ? weekClientData : yearClientData,
     },
     {
       title: "Sales Status",
       labels:
         salesGraphTime === "week"
-          ? ["M", "T", "W", "T", "F", "S", "S"]
+          ? ["S", "M", "T", "W", "T", "F", "S"]
           : [
               "Jan",
               "Feb",
@@ -225,7 +234,7 @@ export default function Statistics() {
               "Nov",
               "Dec",
             ],
-      data: [20, 15, 30, 25, 30, 11, 14],
+      data: salesGraphTime === "week" ? weekSalesData : yearSalesData,
     },
   ];
   // graph.title === "Client Status"
