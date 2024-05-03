@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import arrowUp from "./images/arrow-up.png";
 import arrowDown from "./images/arrow-down.png";
@@ -16,9 +16,33 @@ export default function CourseDetail() {
   // console.log("Course data", selectedCourseData);
 
   const [currentCourse, setCurrentCourse] = useState({});
-
   // use memo to fetch the course data from the context
+  const [currentVideo, setCurrentVideo] = useState({ src: "", id: "" });
+
+  console.log(
+    "Session Storage",
+    JSON.parse(sessionStorage.getItem("video_progress"))
+  );
+  useEffect(() => {
+    const lastVideo = JSON.parse(sessionStorage.getItem("video_progress"))
+      ?.filter((video) => video.courseId === selectedCourseData?.id)
+      ?.reduce((prev, current) =>
+        prev?.created_at > current?.created_at ? prev : current
+      );
+    console.log("Video Progress", lastVideo);
+    const lastVideoSrc = selectedCourseData?.videos_array?.find(
+      (video) => video.videoID === lastVideo?.videoID
+    )?.videoURL;
+    if (lastVideo) {
+      setCurrentVideo({
+        src: lastVideoSrc,
+        id: lastVideo?.videoID,
+      });
+    }
+  }, [selectedCourseData]);
   useMemo(() => {
+    // Set the current video to the last watched video if it exists
+
     setCurrentCourse(selectedCourseData);
 
     if (!sessionStorage.getItem(`${selectedCourseData?.id}`)) {
@@ -40,10 +64,6 @@ export default function CourseDetail() {
 
   const currentUser = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  const [currentVideo, setCurrentVideo] = useState({
-    id: "SampleVideoID2",
-    src: "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/courseVideos%2FGolden%20rule%20in%20Finance%2Bf7432a38-0ecf-4ef8-b596-ee6601acb0f7%2B3b87f1cf-07ee-4b6b-b6e4-6bed77ffc025%2B1712954519526?alt=media&token=546c8c16-cf46-455b-8731-e7e8781bf45e",
-  });
   const [dropdown, setDropdown] = useState([-1]);
   const handleDropdown = (index) => {
     if (dropdown.includes(index)) {
@@ -73,7 +93,14 @@ export default function CourseDetail() {
       videoID
     );
   };
-
+  const handleVideoChange = (videoID) => {
+    const video = currentCourse?.videos_array?.find(
+      (video) => video.videoID === videoID
+    );
+    console.log("Video changed", video, videoID);
+    setCurrentVideo({ id: video?.videoID, src: video?.videoURL });
+  };
+  console.log("Current video", currentVideo);
   const renderSections = currentCourse?.sections_rank?.map((section, index) => {
     return (
       <div
@@ -100,22 +127,31 @@ export default function CourseDetail() {
           }}
         >
           {currentCourse?.sections?.[section]?.video_rank?.map(
-            (video, index) => (
-              <div className={styles["courseDetail--video-list"]}>
+            (video, index) => {
+              const videoName = video.split("+")[0];
+              const videoID = video;
+              return (
                 <div
-                  key={index}
-                  className={styles["courseDetail--video-icon-name-container"]}
+                  className={styles["courseDetail--video-list"]}
+                  onClick={() => handleVideoChange(videoID)}
                 >
-                  <img
-                    src={playIcon}
-                    className={styles["courseDetail--play-icon"]}
-                    alt="Play Icon"
-                  />
-                  <div>{video.split("+")[0]}</div>
+                  <div
+                    key={index}
+                    className={
+                      styles["courseDetail--video-icon-name-container"]
+                    }
+                  >
+                    <img
+                      src={playIcon}
+                      className={styles["courseDetail--play-icon"]}
+                      alt="Play Icon"
+                    />
+                    <div>{videoName}</div>
+                  </div>
+                  <p className={styles["courseDetail--video-time"]}>30 min</p>
                 </div>
-                <p className={styles["courseDetail--video-time"]}>30 min</p>
-              </div>
-            )
+              );
+            }
           )}
         </div>
       </div>
@@ -137,11 +173,12 @@ export default function CourseDetail() {
         <div className={styles["courseDetail--video-desc-container"]}>
           <div className={styles["courseDetail--video-container"]}>
             <video
+              key={currentVideo?.src}
               className={styles["courseDetail--course-video"]}
               controls
               onEnded={handleCurrentVideoWatched}
             >
-              <source src={currentVideo.src} />
+              <source src={currentVideo?.src} />
             </video>
           </div>
           <div className={styles["courseDetail--course-desc-container"]}>

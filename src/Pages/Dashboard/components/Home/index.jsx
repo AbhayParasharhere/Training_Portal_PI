@@ -208,14 +208,17 @@ export default function Home() {
       </div>
     );
   });
+  console.log(
+    "This is the storage data: ",
+    secureLocalStorage.getItem("userDetails")
+  );
 
   return (
     <div className={styles["home--main-container"]}>
       <div className={styles["home--welcome-container"]}>
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
-            Good Morning{" "}
-            {secureLocalStorage.getItem("userDetails")?.[0] || "Broker"}
+            Good Morning {secureLocalStorage.getItem("userDetails")?.[0]}
           </p>
           <div className={styles["home--greetings-desc-container"]}>
             <p className={styles["home--greetings-desc"]}>
