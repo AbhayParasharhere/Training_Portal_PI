@@ -24,20 +24,30 @@ export default function CourseDetail() {
     JSON.parse(sessionStorage.getItem("video_progress"))
   );
   useEffect(() => {
-    const lastVideo = JSON.parse(sessionStorage.getItem("video_progress"))
-      ?.filter((video) => video.courseId === selectedCourseData?.id)
-      ?.reduce((prev, current) =>
-        prev?.created_at > current?.created_at ? prev : current
-      );
-    console.log("Video Progress", lastVideo);
-    const lastVideoSrc = selectedCourseData?.videos_array?.find(
-      (video) => video.videoID === lastVideo?.videoID
-    )?.videoURL;
-    if (lastVideo) {
-      setCurrentVideo({
-        src: lastVideoSrc,
-        id: lastVideo?.videoID,
-      });
+    if (JSON.parse(sessionStorage.getItem("video_progress"))) {
+      const lastVideoData = JSON.parse(
+        sessionStorage?.getItem("video_progress")
+      )?.filter((video) => video.courseId === selectedCourseData?.id);
+      let lastVideo = [];
+      if (lastVideoData) {
+        console.log("Coming here");
+        lastVideo = lastVideoData.reduce(
+          (prev, current) =>
+            prev?.created_at > current?.created_at ? prev : current,
+          {}
+        );
+      }
+      console.log("Video Progress", lastVideo);
+      const lastVideoSrc = selectedCourseData?.videos_array?.find(
+        (video) => video.videoID === lastVideo?.videoID
+      )?.videoURL;
+      if (lastVideo) {
+        setCurrentVideo({
+          src: lastVideoSrc,
+          id: lastVideo?.videoID,
+        });
+        console.log("initial video set done");
+      }
     }
   }, [selectedCourseData]);
   useMemo(() => {
