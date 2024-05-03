@@ -29,13 +29,19 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
 }
-
+.purchasedPolicy--option-container {
+  position: absolute;
+}
 .PurchasedPolicy-wrapper-main-policy-type {
   font-family: Open Sans;
   font-size: 17px;
   font-weight: 600;
   line-height: 25.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   letter-spacing: -0.03em;
   text-align: left;
 }
@@ -71,6 +77,15 @@
 }
 .PurchasedPolicy-wrapper-main-policy-term {
   gap: 11%;
+}
+.purchasedPolicy--edit-button {
+  height: 20px;
+  width: 20px;
+  background: transparent;
+  border: none;
+}
+.purchasedPolicy--edit-icon {
+  height: 100%;
 }
 .PurchasedPolicy-wrapper-main-policy-number-span,
 .PurchasedPolicy-wrapper-main-policy-effective-span {

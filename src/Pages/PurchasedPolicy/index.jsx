@@ -4,6 +4,7 @@ import arrow_right from "./Images/arrow_right.png";
 import { PrimaryDataContext } from "../../context/primaryDataContext";
 import { useOutletContext } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
+import menuIcon from "./Images/menu-icon.png";
 
 export default function PurchasedPolicy() {
   const primaryData = useContext(PrimaryDataContext);
@@ -37,13 +38,22 @@ export default function PurchasedPolicy() {
         <div className={styles["PurchasedPolicy-wrapper-main-title"]}>
           Total number of policies purchased:{" "}
           <span className={styles["PurchasedPolicy-wrapper-main-text"]}>
-            {list.length}
+            {filteredSales?.length}
           </span>
         </div>
         {filteredSales.map((item) => (
           <div className={styles["PurchasedPolicy-wrapper-main-policy"]}>
             <div className={styles["PurchasedPolicy-wrapper-main-policy-type"]}>
               {item?.policy_type}
+              <button className={styles["purchasedPolicy--edit-button"]}>
+                <img
+                  src={menuIcon}
+                  className={styles["purchasedPolicy--edit-icon"]}
+                />
+              </button>
+              <div className={styles["purchasedPolicy--option-container"]}>
+                View details
+              </div>
             </div>
             <div className={styles["PurchasedPolicy-wrapper-main-policy-div"]}>
               <div className={styles["PurchasedPolicy-wrapper-main-policy-id"]}>
