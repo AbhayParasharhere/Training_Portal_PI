@@ -12,9 +12,7 @@ import { get } from "firebase/database";
 export default function Statistics() {
   const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
-  const clients = primaryData?.clients?.filter(
-    (client) => client.user === currentUser?.uid
-  );
+  const clients = primaryData?.clients;
   const sales = primaryData?.sales;
   const [loading, setLoading] = useState(true);
   const [clientGraphTime, setClientGraphTime] = useState("week");
