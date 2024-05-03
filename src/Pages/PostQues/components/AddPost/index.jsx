@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
+import { postDoubts } from "../../../../Firebase/postDoubtsLogic";
+import { AuthContext } from "../../../../context/authContext";
 
 export default function AddPost(props) {
   const [doubt, setDoubt] = React.useState("");
   const [postCategory, setPostCategory] = React.useState("compliance");
+  const currentUser = useContext(AuthContext);
 
   const handleCategoryChange = (event) => {
     setPostCategory(event.target.value);
+  };
+
+  const handlePostAdd = async () => {
+    if (doubt === "") {
+      toast.error("Doubt cannot be empty");
+      return;
+    }
+    if (postCategory === "") {
+      toast.error("Please select a category");
+      return;
+    }
+    const res = await postDoubts(currentUser.uid, postCategory, doubt);
+    console.log("Post added", doubt, postCategory);
+    // props.addPost(doubt, postCategory);
   };
   // console.log(doubt, postCategory);
   return (
@@ -78,7 +95,7 @@ export default function AddPost(props) {
       <div className={styles["addPost--button-container"]}>
         <button
           className={styles["addPost--post-button"]}
-          onClick={() => toast.success("Post added sucessfully")}
+          onClick={handlePostAdd}
         >
           Post
         </button>
