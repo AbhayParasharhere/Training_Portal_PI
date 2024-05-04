@@ -7,10 +7,11 @@ const ModalComponent = ({ modalOpen, setModalOpen }) => {
       <Modal
         centered
         open={modalOpen}
+        footer={null}
         onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
       >
-        <Meet />
+        <Meet setModalOpen={setModalOpen} />
       </Modal>
     </>
   );
