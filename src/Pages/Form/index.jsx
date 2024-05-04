@@ -128,14 +128,19 @@ export default function ClientInfo() {
             <div className={styles["ClientInfo-wrapper-form-text"]}>
               <label for="Annv">Anniversary</label>
             </div>
-            <div className={styles["ClientInfo-wrapper-form-input-date"]}>
-              <input
-                type="date"
-                name="Annv"
-                className={styles["ClientInfo-wrapper-form-text-input"]}
-                value={clientData?.clientData?.anniversary}
-              ></input>
-            </div>
+            {/* <div className={styles["ClientInfo-wrapper-form-input-date"]}> */}
+            <input
+              type="date"
+              name="Annv"
+              className={
+                styles[
+                  ("ClientInfo-wrapper-form-text-input-date",
+                  "ClientInfo-wrapper-form-text-input-date-annv")
+                ]
+              }
+              value={clientData?.clientData?.anniversary}
+            ></input>
+            {/* </div> */}
           </div>
         </div>
       </div>
