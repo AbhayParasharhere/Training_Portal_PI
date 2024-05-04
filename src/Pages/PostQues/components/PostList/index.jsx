@@ -25,6 +25,62 @@ export default function PostList(props) {
       time: "20 mins ago",
       post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
       totalAnswers: "4",
+      comments: [
+        {
+          img: samplePhoto,
+          time: "2 mins ago",
+          name: "Comment 1",
+          comment:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+        },
+        {
+          img: samplePhoto,
+          time: "2 mins ago",
+          name: "Comment 2",
+          comment:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+        },
+        ,
+        {
+          img: samplePhoto,
+          time: "2 mins ago",
+          name: "Comment 2",
+          comment:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+        },
+        ,
+        {
+          img: samplePhoto,
+          time: "2 mins ago",
+          name: "Comment 2",
+          comment:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+        },
+        ,
+        {
+          img: samplePhoto,
+          time: "2 mins ago",
+          name: "Comment 2",
+          comment:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+        },
+        ,
+        {
+          img: samplePhoto,
+          time: "2 mins ago",
+          name: "Comment 2",
+          comment:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+        },
+        ,
+        {
+          img: samplePhoto,
+          time: "2 mins ago",
+          name: "Comment 2",
+          comment:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+        },
+      ],
     },
     {
       userName: "Bessie Cooper",
@@ -60,6 +116,10 @@ export default function PostList(props) {
     },
   ];
   const [reportContainer, setReportContainer] = useState();
+  const handleCommentPage = (post) => {
+    props.setDisplayPage("comments");
+    props.setSelectedPost(post);
+  };
 
   const renderPosts = postsData.map((post, index) => {
     return (
@@ -104,7 +164,10 @@ export default function PostList(props) {
               </p>
             </div>
             <div className={styles["postList--answer-button-container"]}>
-              <button className={styles["postList--answer-button"]}>
+              <button
+                className={styles["postList--answer-button"]}
+                onClick={() => handleCommentPage(post)}
+              >
                 Answer Question
               </button>
               <button
