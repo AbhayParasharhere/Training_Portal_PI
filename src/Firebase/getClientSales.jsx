@@ -54,7 +54,11 @@ const getAllUserSalesRealTime = (userID, setSales) => {
         throw new Error("Invalid Input");
       }
       const salesRef = collection(db, "userSales");
-      const q = query(salesRef, where("uid", "==", userID));
+      const q = query(
+        salesRef,
+        where("uid", "==", userID),
+        where("status", "==", "active")
+      );
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const salesData = [];
         querySnapshot.forEach((doc) => {
@@ -78,7 +82,11 @@ const getAllUserClientsRealTime = (userID, setClients) => {
         throw new Error("Invalid Input");
       }
       const clientsRef = collection(db, "clients");
-      const q = query(clientsRef, where("user", "==", userID));
+      const q = query(
+        clientsRef,
+        where("user", "==", userID),
+        where("status", "==", "active")
+      );
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const clientsData = [];
         querySnapshot.forEach((doc) => {

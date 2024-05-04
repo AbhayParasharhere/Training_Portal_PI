@@ -19,6 +19,7 @@ const saveClientData = async (clientDetails, uid) => {
       email: clientDetails.client_email,
       address: clientDetails.client_address,
       phone_number: clientDetails.client_number,
+      status: "active",
       created_at: new Date(),
       updated_at: new Date(),
     });
@@ -33,6 +34,7 @@ const saveSalesData = async (salesData, clientId, uid) => {
       ...salesData,
       cid: clientId,
       uid: uid,
+      status: "active",
       created_at: new Date(),
       updated_at: new Date(),
     });
