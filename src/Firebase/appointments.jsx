@@ -19,10 +19,10 @@ const addAppointments = async (data) => {
       status: "active",
       type: "appointment",
     });
-    toast.success("Webinar added successfully");
+    toast.success("Appointment added successfully");
   } catch (error) {
-    console.log("Error adding appoitments:", error.message);
-    toast.error("Error adding appoitments");
+    console.log("Error adding appointments:", error.message);
+    toast.error("Error adding appointments");
   }
 };
 // Promise based function to get all webinars in real time
@@ -43,7 +43,7 @@ const getAllAppointmentsRealTime = (setWebinars) => {
       });
       return unsub;
     } catch (error) {
-      console.error("Error getting webinars real time:", error.message);
+      console.error("Error getting appointments real time:", error.message);
       reject(error);
     }
   });

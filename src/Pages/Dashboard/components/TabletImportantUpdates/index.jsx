@@ -33,6 +33,35 @@ const getTimeDifference = (updatedAt) => {
     return `${minutes} minutes ago`;
   }
 };
+const getFutureTimeDifference = (updatedAt) => {
+  const updatedDate = new Date(updatedAt);
+
+  const currentDate = new Date();
+
+  const timeDifference = updatedDate - currentDate;
+
+  const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+
+  const hoursDifference = Math.floor(minutesDifference / 60);
+
+  const days = Math.floor(hoursDifference / 24);
+
+  const hours = hoursDifference % 24;
+
+  const minutes = minutesDifference % 60;
+
+  if (days > 0) {
+    return `${days} days`;
+  }
+  if (hours > 0) {
+    return `${hours} hours`;
+  }
+  if (minutes > 0) {
+    return `${minutes} minutes`;
+  }
+
+  return "0 minutes";
+};
 function TabletImportantUpdates() {
   const announcements = useContext(RealTimeDataContext)?.announcements;
 
@@ -82,4 +111,4 @@ function TabletImportantUpdates() {
   );
 }
 
-export { getTimeDifference, TabletImportantUpdates };
+export { getTimeDifference, getFutureTimeDifference, TabletImportantUpdates };

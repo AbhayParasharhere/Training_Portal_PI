@@ -1,4 +1,4 @@
-import React, { useContext,useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import samplePhoto from "./images/profile-photo.png";
 import calendarIcon from "./images/calendar.png";
@@ -13,11 +13,43 @@ import cakeIcon from "./images/cakeIcon.png";
 import clientPhoto from "./images/client-sample-image.png";
 import { useNavigate } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
-import { PrimaryDataContext } from "../../../../context/primaryDataContext";
+import {
+  PrimaryDataContext,
+  RealTimeDataContext,
+} from "../../../../context/primaryDataContext";
+import { getFutureTimeDifference } from "../TabletImportantUpdates";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
 export default function StatsSummary() {
+  const realTimeData = useContext(RealTimeDataContext);
+  const appointments = realTimeData?.appointments;
+  let latestAppoitment = {};
+  let appoitmentClientName = "";
+  if (appointments) {
+    // Get the one which is closest to the current time and must be in the future
+
+    latestAppoitment = appointments
+      .filter((appointment) => {
+        const currentDate = new Date();
+        const appointmentDate = appointment.date.toDate();
+        console.log(
+          "Current Date",
+          currentDate,
+          "Appointment Date",
+          appointmentDate
+        );
+        return currentDate < appointmentDate;
+      })
+      ?.sort((a, b) => a.date.seconds - b.date.seconds)[0];
+
+    if (latestAppoitment) {
+      appoitmentClientName = realTimeData.clients.find(
+        (client) => client.id === latestAppoitment.clientID
+      )?.name;
+    }
+    console.log("Latest Appoitment", latestAppoitment);
+  }
   const navigate = useNavigate();
   const primaryDataContext = useContext(PrimaryDataContext);
   const clients = primaryDataContext?.clients;
@@ -225,19 +257,20 @@ export default function StatsSummary() {
           </p>
           <div>
             <p className={styles["statsSummary--meeting-title"]}>
-              Meeting Name
+              {latestAppoitment?.topic}
             </p>
             <p className={styles["statsSummary--appointment-desc-text"]}>
-              Client Name: John Williams|Time:120 min
+              Client Name: {appoitmentClientName}|Time:{" "}
+              {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
             </p>
           </div>
           <div>
             <ul className={styles["statsSummary--unordered-list"]}>
               <li className={styles["statsSummary--appointment-marker"]}>
-                Web, Apr 3
+                {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
               </li>
               <li className={styles["statsSummary--appointment-marker"]}>
-                11 AM - 12:45
+                {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
               </li>
             </ul>
             <button className={styles["statsSummary--appointment-button"]}>
