@@ -1,4 +1,4 @@
-import React, { useContext }, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ModalComponent from "../../CommonComponents/Modal";
 import styles from "./styles.module.scss";
 import { NavLink } from "react-router-dom";
