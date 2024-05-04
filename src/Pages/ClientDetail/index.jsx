@@ -11,16 +11,14 @@ import SalesUpdate from "../PurchasedPolicy/components/salesUpdate";
 
 export default function ClientData() {
   const { clientId } = useParams();
-  const primaryContextData = useContext(PrimaryDataContext);
+  // const primaryContextData = useContext(PrimaryDataContext);
   const realTimeData = useContext(RealTimeDataContext);
   const clientData = realTimeData?.clients?.filter(
     (client) => client.id === clientId
   );
   const salesData = realTimeData?.sales;
-  const currentUser = useContext(AuthContext);
-  const filteredSales = salesData?.filter(
-    (sales) => sales?.cid === clientId && sales?.uid === currentUser?.uid
-  );
+  // const currentUser = useContext(AuthContext);
+  const filteredSales = salesData?.filter((sales) => sales?.cid === clientId);
   const [salesUpdate, setSalesUpdate] = useState({ status: false, id: "" });
 
   return (

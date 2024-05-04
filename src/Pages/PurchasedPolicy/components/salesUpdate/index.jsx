@@ -4,12 +4,12 @@ import arrowUp from "../images/arrow-up.png";
 import arrowDown from "../images/arrow-down.png";
 import checkIcon from "../images/check.png";
 import { useNavigate } from "react-router-dom";
+import { updateSales } from "../../../../Firebase/updateSalesClients";
 
 export default function SalesUpdate(props) {
   const selectedSale = props?.filteredSales?.filter(
     (sale) => sale.id === props?.salesUpdate?.id
   )[0];
-  const navigate = useNavigate();
   const [salesUpdateArrow, setSalesUpdateArrow] = useState(false);
   const [salesUpdateData, setSalesUpdateData] = useState({
     policy_type: selectedSale?.policy_type,
@@ -67,6 +67,9 @@ export default function SalesUpdate(props) {
     setSalesUpdateData((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
     });
+  };
+  const handleSalesUpdate = () => {
+    updateSales(salesUpdateData, props?.salesUpdate?.id);
   };
   return (
     <div className={styles["salesUpdate--main-container"]}>
@@ -143,7 +146,7 @@ export default function SalesUpdate(props) {
         </button>
         <button
           className={styles["salesUpdate--update-button"]}
-          onClick={() => props.setSalesUpdate({ status: false, id: "" })}
+          onClick={() => handleSalesUpdate()}
         >
           Update Changes
         </button>
