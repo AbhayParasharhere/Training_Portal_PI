@@ -5,6 +5,7 @@ import arrowDown from "../images/arrow-down.png";
 import checkIcon from "../images/check.png";
 import { useNavigate } from "react-router-dom";
 import { updateSales } from "../../../../Firebase/updateSalesClients";
+import { toast } from "react-toastify";
 
 export default function SalesUpdate(props) {
   const selectedSale = props?.filteredSales?.filter(
@@ -68,8 +69,14 @@ export default function SalesUpdate(props) {
       return { ...prev, [event.target.name]: event.target.value };
     });
   };
-  const handleSalesUpdate = () => {
-    updateSales(salesUpdateData, props?.salesUpdate?.id);
+  const handleSalesUpdate = async () => {
+    try {
+      await updateSales(salesUpdateData, props?.salesUpdate?.id);
+      toast.success("Updated Successfully");
+      props.setSalesUpdate({ status: false, id: "" });
+    } catch (err) {
+      toast.error("Failed to update");
+    }
   };
   return (
     <div className={styles["salesUpdate--main-container"]}>
