@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./styles.module.scss";
 import line from "./Images/line.png";
 import google from "./Images/google.png";
 import { useParams } from "react-router-dom";
 import { addAppointments } from "../../Firebase/appointments";
 import { toast } from "react-toastify";
+import addToCalendar from "../CalendarModal";
+import { RealTimeDataContext } from "../../context/primaryDataContext";
 
 export default function Meet(props) {
   const { clientId } = useParams();
+  const clientEmail = useContext(RealTimeDataContext)?.clients?.find(
+    (client) => client.id === clientId
+  )?.email;
   const [appointmentData, setAppointmentData] = useState({});
   const handleCreateAppointments = async () => {
     const updatedAppoinmentData = {
@@ -19,6 +24,7 @@ export default function Meet(props) {
 
     await addAppointments(updatedAppoinmentData);
     console.log("Create Appointments", updatedAppoinmentData);
+    addToCalendar(updatedAppoinmentData, clientEmail);
     props.setModalOpen(false);
   };
   const handleChange = (e) => {

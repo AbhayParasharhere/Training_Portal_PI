@@ -34,7 +34,6 @@ import NoPagesElement from "./CommonComponents/NoPageError";
 
 import Meet from "./CommonComponents/Meet";
 
-
 import AdminConsole from "./Pages/AdminConsole";
 import InternalLinks from "./Pages/InternalLinks";
 
@@ -47,7 +46,7 @@ import AllLinks from "./Pages/AllLinks";
 import Contact from "./Pages/Contact";
 import ContactDetails from "./Pages/Contact";
 import WebinarForm from "./Pages/WebinarForm";
-
+import CalendarModal from "./CommonComponents/CalendarModal";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -94,6 +93,8 @@ const router = createBrowserRouter(
         </Route>
         <Route path="/connect" element={<PostQues />} />
 
+        {/* TO BE REMOVED */}
+        <Route path="/calendar" element={<CalendarModal />} />
       </Route>
     </>
   )
