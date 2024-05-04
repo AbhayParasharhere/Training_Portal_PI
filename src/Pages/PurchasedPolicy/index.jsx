@@ -7,6 +7,7 @@ import menuIcon from "./Images/menu-icon.png";
 import searchIcon from "./Images/search-icon.png";
 import editIcon from "./Images/edit-icon.png";
 import deleteIcon from "./Images/delete-icon.png";
+import { updateSales } from "../../Firebase/updateSalesClients";
 
 export default function PurchasedPolicy() {
   const primaryData = useContext(PrimaryDataContext);
@@ -99,6 +100,7 @@ export default function PurchasedPolicy() {
                   <img
                     src={deleteIcon}
                     className={styles["purchasedPolicy--option-icon"]}
+                    onClick={() => updateSales({ status: "deleted" }, item?.id)}
                   />
                   Delete
                 </div>

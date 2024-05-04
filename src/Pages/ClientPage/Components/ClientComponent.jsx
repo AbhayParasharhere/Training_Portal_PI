@@ -15,12 +15,15 @@ import {
   PrimaryDataContext,
 } from "../../../context/primaryDataContext";
 import { useNavigate } from "react-router-dom";
+import { updateClient } from "../../../Firebase/updateSalesClients";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
   const primaryContextData = useContext(PrimaryDataContext);
   const salesData = primaryContextData?.sales;
-  const clientData = useContext(RealTimeDataContext)?.clients;
+  const clientData = useContext(RealTimeDataContext)?.clients?.filter(
+    (client) => client.status === "active"
+  );
   const navigate = useNavigate();
   console.log("This is the realtime client data for the user: ", clientData);
   const toggleDialog = (index) => {
@@ -152,7 +155,7 @@ export default function ClientComponent() {
           </div>
           <div
             className={styles["ClientComponent-wrapper-topbar-search-add"]}
-            onClick={addClient}
+            onClick={() => navigate("/addSales")}
           >
             <img src={plus} height="26px" />
           </div>
@@ -236,7 +239,7 @@ export default function ClientComponent() {
           </div>
           <div
             className={styles["ClientComponent-wrapper-topbar-search-add"]}
-            onClick={addClient}
+            onClick={() => navigate("/addSales")}
           >
             <img src={plus} height="26px" />
           </div>
@@ -275,20 +278,25 @@ export default function ClientComponent() {
                     <dialog className={styles["ClientComponent-dialog-show"]}>
                       <div
                         className={styles["ClientComponent-dialog-content"]}
-                        onClick={viewDetails}
+                        onClick={() => navigate(`/client-detail/${item.id}`)}
                       >
                         <img src={search_eye} height="18px" /> View Details
                       </div>
                       <div
                         className={styles["ClientComponent-dialog-content"]}
-                        onClick={edit}
+                        onClick={() => navigate(`/client-detail/${item.id}`)}
                       >
                         <img src={pencil} height="18px" />
                         Edit{" "}
                       </div>
                       <div
                         className={styles["ClientComponent-dialog-content"]}
-                        onClick={dltBtn}
+                        onClick={() => {
+                          console.log("This is the client id: ", item?.id, {
+                            status: "active",
+                          });
+                          updateClient({ status: "deleted" }, item.id);
+                        }}
                       >
                         <img src={delete_bin} height="18px" />
                         <span
