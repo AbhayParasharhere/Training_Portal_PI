@@ -394,9 +394,11 @@
   .ClientInfo-wrapper-form-text-input,
   .ClientInfo-wrapper-form-text-input-date {
     width: 100px;
+    font-size: 15px;
   }
   .ClientInfo-wrapper-form-text-input-date-annv {
     width: 90px;
+    font-size: 15px;
   }
   // .ClientInfo-wrapper-form-container-annv {
   //   width: 230px;
@@ -414,9 +416,11 @@
   .ClientInfo-wrapper-form-text-input,
   .ClientInfo-wrapper-form-text-input-date {
     width: 90px;
+    font-size: 14px;
   }
   .ClientInfo-wrapper-form-text-input-date-annv {
     width: 80px;
+    font-size: 14px;
   }
   .ClientInfo-wrapper-form-container-annv {
     gap: 13%;
@@ -433,9 +437,11 @@
   .ClientInfo-wrapper-form-text-input,
   .ClientInfo-wrapper-form-text-input-date {
     width: 70px;
+    font-size: 11px;
   }
   .ClientInfo-wrapper-form-text-input-date-annv {
     width: 62px;
+    font-size: 11px;
   }
   .ClientInfo-wrapper-form-text {
     font-size: 9px;
@@ -463,6 +469,13 @@
   .ClientInfo-wrapper-form-main,
   .ClientInfo-wrapper-form-notes {
     width: 195px;
+  }
+  .ClientInfo-wrapper-form-text-input,
+  .ClientInfo-wrapper-form-text-input-date {
+    font-size: 10px;
+  }
+  .ClientInfo-wrapper-form-text-input-date-annv {
+    font-size: 10px;
   }
   // .ClientInfo-wrapper-form-text-input-date-annv {
   //   width: 65px;
