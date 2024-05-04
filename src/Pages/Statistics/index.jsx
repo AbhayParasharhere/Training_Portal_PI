@@ -6,13 +6,16 @@ import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
 import secureLocalStorage from "react-secure-storage";
 import Spinner from "../../CommonComponents/Spinner";
-import { PrimaryDataContext } from "../../context/primaryDataContext";
-import { get } from "firebase/database";
+import {
+  PrimaryDataContext,
+  RealTimeDataContext,
+} from "../../context/primaryDataContext";
 
 export default function Statistics() {
   const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
-  const clients = primaryData?.clients;
+  const realTimeData = useContext(RealTimeDataContext);
+  const clients = realTimeData?.clients;
   const sales = primaryData?.sales;
   const courses = primaryData?.courses;
   const [loading, setLoading] = useState(true);

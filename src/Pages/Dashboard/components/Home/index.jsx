@@ -17,15 +17,17 @@ import {
   RealTimeDataContext,
   PrimaryDataContext,
 } from "../../../../context/primaryDataContext";
+import { getTimeDifference } from "../TabletImportantUpdates";
 
 export default function Home() {
+  const realTimeData = useContext(RealTimeDataContext);
   const videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
   const primaryData = useContext(PrimaryDataContext);
   const allCourses = primaryData?.courses;
   if (videosWatched) {
     videosWatched?.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
   }
-  const sales = primaryData?.sales;
+  const sales = realTimeData?.sales;
   let salesWithCreatedAt = [];
   if (sales) {
     salesWithCreatedAt = sales?.filter((sales) => sales.created_at);
@@ -66,9 +68,8 @@ export default function Home() {
     });
     return lastCourses;
   };
-
-  const announcements = primaryData?.announcements;
-  const clients = useContext(RealTimeDataContext)?.clients;
+  const announcements = realTimeData?.announcements;
+  const clients = realTimeData?.clients;
   let clientsWithCreatedAt = [];
   if (clients) {
     clientsWithCreatedAt = clients?.filter((client) => client.created_at);
@@ -138,36 +139,6 @@ export default function Home() {
       </div>
     );
   });
-  const getTimeDifference = (updatedAt) => {
-    // Convert `updatedAt` to a Date object
-    const updatedDate = new Date(updatedAt);
-
-    // Get the current date and time
-    const currentDate = new Date();
-
-    // Calculate the time difference in milliseconds
-    const timeDifference = currentDate - updatedDate;
-
-    // Convert the time difference to total minutes
-    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
-
-    // Calculate total hours
-    const hoursDifference = Math.floor(minutesDifference / 60);
-
-    // Calculate total days, and remaining hours and minutes
-    const days = Math.floor(hoursDifference / 24);
-    const hours = hoursDifference % 24;
-    const minutes = minutesDifference % 60;
-
-    // Determine the appropriate format based on the difference
-    if (days > 0) {
-      return `${days} days ago`;
-    } else if (hours > 0) {
-      return `${hours} hours ago`;
-    } else {
-      return `${minutes} minutes ago`;
-    }
-  };
 
   //Client birthdays and anniversary check
   //Rendering and getting anniversary and birthday data
