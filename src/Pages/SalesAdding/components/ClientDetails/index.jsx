@@ -4,56 +4,15 @@ import arrowDown from "./images/arrow-down.png";
 import arrowUp from "./images/arrow-up.png";
 import clientImage from "./images/sample-client-avatar.png";
 import checkIcon from "./images/check.png";
-import { saveClientData } from "../../../../Firebase/addSalesClients";
-import { AuthContext } from "../../../../context/authContext";
 import { toast } from "react-toastify";
-import { PrimaryDataContext } from "../../../../context/primaryDataContext";
+import { RealTimeDataContext } from "../../../../context/primaryDataContext";
 
 export default function ClientDetails(props) {
   const [arrowChange, setArrowChange] = useState(false);
   const [errorState, setErrorState] = useState("");
   const [arrowChangeClientChoosing, setArrowChangeClientChoosing] =
     useState(false);
-  const currentUser = useContext(AuthContext);
-  const primaryData = useContext(PrimaryDataContext);
-  console.log("Primary Data In addingg sales", primaryData);
-  const allClients = primaryData?.clients;
-
-  // const sampleClientData = [
-  //   {
-  //     client_gender: "Male",
-  //     client_id: "1234567",
-  //     client_name: "Abhi Parashar",
-  //     client_address: "11/27 a-2 Sanjay colony tajganj agra",
-  //     client_number: "7300748822",
-  //     client_DOB: "10-12-2006",
-  //     client_anniversary: "NA",
-  //     client_email: "abhiparasharr@gmail.com",
-  //     img: clientImage,
-  //   },
-  //   {
-  //     client_gender: "Female",
-  //     client_id: "89010",
-  //     client_name: "Abhay Parashar",
-  //     client_address: "11/27 a-2 Sanjay colony tajganj agra",
-  //     client_number: "7300748822",
-  //     client_DOB: "10-12-2006",
-  //     client_anniversary: "NA",
-  //     client_email: "abhayparasharr@gmail.com",
-  //     img: clientImage,
-  //   },
-  //   {
-  //     client_gender: "Other",
-  //     client_id: "56789",
-  //     client_name: "Sample client",
-  //     client_address: "11/27 a-2 Sanjay colony tajganj agra",
-  //     client_number: "7300748822",
-  //     client_DOB: "10-12-2006",
-  //     client_anniversary: "NA",
-  //     client_email: "sample@gmail.com",
-  //     img: clientImage,
-  //   },
-  // ];
+  const allClients = useContext(RealTimeDataContext)?.clients;
 
   const toggleArrowChange = () => {
     setArrowChange((prev) => !prev);

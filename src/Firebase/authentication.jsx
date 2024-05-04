@@ -51,7 +51,7 @@ const getUserDetails = async (uid) => {
   try {
     const docRef = doc(db, "userDetail", uid);
     const docSnap = await getDoc(docRef);
-
+    console.log("USERDETAILS This is the docSnap: ", docSnap.data());
     if (docSnap.exists()) {
       // console.log("Document data:", docSnap.data());
       return docSnap.data();

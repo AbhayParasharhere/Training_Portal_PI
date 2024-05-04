@@ -6,15 +6,20 @@ import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
 import secureLocalStorage from "react-secure-storage";
 import Spinner from "../../CommonComponents/Spinner";
-import { PrimaryDataContext } from "../../context/primaryDataContext";
-import { get } from "firebase/database";
+import {
+  PrimaryDataContext,
+  RealTimeDataContext,
+} from "../../context/primaryDataContext";
 
 export default function Statistics() {
   const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
-  const clients = primaryData?.clients;
-
+  const realTimeData = useContext(RealTimeDataContext);
+  const clients = realTimeData?.clients;
+  const sales = primaryData?.sales;
+  const courses = primaryData?.courses;
   const [loading, setLoading] = useState(true);
+  const videoWatched = JSON.parse(sessionStorage.getItem("video_progress"));
   const [clientGraphTime, setClientGraphTime] = useState("week");
   const [salesGraphTime, setSalesGraphTime] = useState("week");
   const [statData, setStatData] = useState({});
@@ -22,6 +27,74 @@ export default function Statistics() {
   const salesWeekGraphRef = useRef();
   const clientYearGraphRef = useRef();
   const salesYearGraphRef = useRef();
+
+  const uniqueVideos = new Set();
+
+  // Iterate through the videoWatched array and add each video ID to the Set
+  videoWatched.forEach((video) => {
+    uniqueVideos.add(video.videoID);
+  });
+
+  // Get the size of the Set, which represents the number of unique videos watched
+  const numberOfUniqueVideosWatched = uniqueVideos.size;
+
+  console.log(
+    "Number of unique videos watched: ",
+    uniqueVideos,
+    numberOfUniqueVideosWatched
+  );
+
+  // Initialize an object to store unique videos watched for each course
+  const uniqueVideosByCourse = {};
+
+  // Iterate through the videoWatched array
+  videoWatched.forEach((video) => {
+    const courseId = video.courseId;
+    const videoId = video.videoID;
+
+    // Check if the course exists in the object, if not, initialize it with an empty Set
+    if (!uniqueVideosByCourse[courseId]) {
+      uniqueVideosByCourse[courseId] = new Set();
+    }
+
+    // Add the videoID to the Set of unique videos for the course
+    uniqueVideosByCourse[courseId].add(videoId);
+  });
+
+  // Calculate the number of unique videos watched for each course
+  const numberOfUniqueVideosByCourse = {};
+
+  for (const courseId in uniqueVideosByCourse) {
+    numberOfUniqueVideosByCourse[courseId] =
+      uniqueVideosByCourse[courseId].size;
+  }
+  let courseCompleted = 0;
+  if (courses) {
+    console.log("All courses");
+    courses.map((course) => {
+      if (course.videos_array) {
+        console.log(
+          "course: ",
+          course.id,
+          "course name",
+          course.title,
+          "videos: ",
+          course.videos_array.length
+        );
+        if (
+          course?.videos_array?.length ===
+          numberOfUniqueVideosByCourse?.[course.id]
+        ) {
+          courseCompleted++;
+        }
+      }
+    });
+  }
+  console.log(
+    "Number of courses completed: ",
+    courseCompleted,
+    numberOfUniqueVideosByCourse
+  );
 
   function getMondayDate() {
     // Create a new date object for today
@@ -52,20 +125,6 @@ export default function Statistics() {
         if (client?.created_at) {
           const upcomingSundayDate = new Date(mondayDate);
           upcomingSundayDate.setDate(mondayDate.getDate() + 7);
-          // console.log(
-          //   "Client",
-          //   client,
-          //   "Client name",
-          //   client?.name,
-          //   "Client created Date",
-          //   client?.created_at?.toDate(),
-          //   "After Monday Date",
-          //   client?.created_at.toDate() >= mondayDate,
-          //   "Before Upcoming Sunday Date",
-          //   client?.created_at.toDate() <= upcomingSundayDate,
-          //   "Monday Date",
-          //   mondayDate
-          // );
         }
         return (
           client?.created_at?.toDate() >= mondayDate &&
@@ -74,14 +133,8 @@ export default function Statistics() {
       })
       .map((client) => {
         const clientCreatedDate = client?.created_at?.toDate().getDay();
-        console.log(
-          "Created at date: ",
-          client?.created_at?.toDate(),
-          clientCreatedDate
-        );
-        weeklyClients[clientCreatedDate] += 1;
 
-        // console.log("Client filtered", client);
+        weeklyClients[clientCreatedDate] += 1;
       });
     return weeklyClients;
   };
@@ -95,19 +148,23 @@ export default function Statistics() {
         statDate?.created_at?.toDate().getFullYear() ===
         currentDate.getFullYear()
     );
-    console.log("Filtered data: ", currentYearStat);
     currentYearStat.map((data, index) => {
       const dataCreatedYear = data?.created_at?.toDate().getMonth();
       yearlyData[dataCreatedYear] += 1;
     });
     return yearlyData;
   };
-  let weekData = [];
-  let yearData = [];
+  let weekClientData = [];
+  let yearClientData = [];
+  let weekSalesData = [];
+  let yearSalesData = [];
   if (clients) {
-    weekData = getWeeklyAddedClientsSales(clients);
-    yearData = getYearlyClientSalesData(clients);
-    console.log("This is the data for the client year: ", yearData);
+    weekClientData = getWeeklyAddedClientsSales(clients);
+    yearClientData = getYearlyClientSalesData(clients);
+  }
+  if (sales) {
+    weekSalesData = getWeeklyAddedClientsSales(sales);
+    yearSalesData = getYearlyClientSalesData(sales);
   }
   useMemo(() => {
     async function fetchData() {
@@ -135,7 +192,6 @@ export default function Statistics() {
           videoCount: videoData?.count,
         }));
         setLoading(false);
-        console.log(data, count);
       } catch (error) {
         setLoading(false);
         console.error(error);
@@ -143,12 +199,16 @@ export default function Statistics() {
     }
     fetchData();
   }, [currentUser]);
-  console.log("StatData", statData);
 
   const generalStatData = [
-    { stat: 0, title1: "Courses", title2: "Completed", bar: true },
     {
-      stat: statData?.videoCount || "X",
+      stat: courseCompleted,
+      title1: "Courses",
+      title2: "Completed",
+      bar: true,
+    },
+    {
+      stat: numberOfUniqueVideosWatched || "X",
       title1: "Videos",
       title2: "Watched",
       bar: true,
@@ -204,13 +264,13 @@ export default function Statistics() {
               "Nov",
               "Dec",
             ],
-      data: clientGraphTime === "week" ? weekData : yearData,
+      data: clientGraphTime === "week" ? weekClientData : yearClientData,
     },
     {
       title: "Sales Status",
       labels:
         salesGraphTime === "week"
-          ? ["M", "T", "W", "T", "F", "S", "S"]
+          ? ["S", "M", "T", "W", "T", "F", "S"]
           : [
               "Jan",
               "Feb",
@@ -225,7 +285,7 @@ export default function Statistics() {
               "Nov",
               "Dec",
             ],
-      data: [20, 15, 30, 25, 30, 11, 14],
+      data: salesGraphTime === "week" ? weekSalesData : yearSalesData,
     },
   ];
   // graph.title === "Client Status"

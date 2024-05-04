@@ -47,6 +47,28 @@ const getUserSalesData = async (userID) => {
   }
 };
 
+const getAllUserSalesRealTime = (userID, setSales) => {
+  return new Promise((resolve, reject) => {
+    try {
+      if (!userID) {
+        throw new Error("Invalid Input");
+      }
+      const salesRef = collection(db, "userSales");
+      const q = query(salesRef, where("uid", "==", userID));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const salesData = [];
+        querySnapshot.forEach((doc) => {
+          salesData.push({ ...doc.data(), id: doc.id });
+        });
+        setSales(salesData);
+        resolve(salesData);
+      });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
 
 const getAllUserClientsRealTime = (userID, setClients) => {
   // returns a promise
@@ -71,4 +93,9 @@ const getAllUserClientsRealTime = (userID, setClients) => {
     }
   });
 };
-export { getAllUserClientsData, getAllUserClientsRealTime, getUserSalesData  };
+export {
+  getAllUserClientsData,
+  getAllUserClientsRealTime,
+  getAllUserSalesRealTime,
+  getUserSalesData,
+};
