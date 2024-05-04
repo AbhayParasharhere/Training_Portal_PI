@@ -75,7 +75,7 @@ const router = createBrowserRouter(
         <Route path="/tools" element={<Tools />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />
         <Route path="/contact" element={<ContactDetails />} />
-        <Route path="form" element={<ClientInfo />} />
+
         <Route path="/admin-course-add" element={<AdminConsole />} />
         <Route path="/all-links" element={<AllLinks />} />
         <Route path="/internal-links" element={<InternalLinks />} />

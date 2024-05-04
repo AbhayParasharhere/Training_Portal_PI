@@ -266,7 +266,7 @@
 }
 @media screen and (max-width: 1130px) {
   .ClientInfo-wrapper {
-    padding-left: 20px;
+    padding-left: 10px;
   }
 }
 @media screen and (max-width: 930px) {
@@ -366,21 +366,37 @@
 }
 
 @media (max-width: 420px) {
+  .ClientInfo-wrapper-form-container {
+    width: 240px;
+  }
+  .ClientInfo-wrapper-form-container-annv {
+    width: 240px;
+    gap: 11%;
+  }
   .ClientInfo-wrapper-form-text-input,
   .ClientInfo-wrapper-form-text-input-date {
     width: 120px;
   }
   .ClientInfo-wrapper-form-text-input-date-annv {
-    width: 107px;
+    width: 110px;
+  }
+  .ClientInfo-wrapper {
+    padding-right: 10px;
   }
 }
 @media (max-width: 385px) {
+  .ClientInfo-wrapper-form-container {
+    width: 240px;
+  }
+  .ClientInfo-wrapper-form-container-annv {
+    width: 240px;
+  }
   .ClientInfo-wrapper-form-text-input,
   .ClientInfo-wrapper-form-text-input-date {
     width: 100px;
   }
   .ClientInfo-wrapper-form-text-input-date-annv {
-    width: 85px;
+    width: 90px;
   }
   // .ClientInfo-wrapper-form-container-annv {
   //   width: 230px;
@@ -389,36 +405,66 @@
 }
 
 @media (max-width: 336px) {
+  .ClientInfo-wrapper-form-container {
+    width: 210px;
+  }
+  .ClientInfo-wrapper-form-container-annv {
+    width: 210px;
+  }
   .ClientInfo-wrapper-form-text-input,
   .ClientInfo-wrapper-form-text-input-date {
     width: 90px;
   }
   .ClientInfo-wrapper-form-text-input-date-annv {
-    width: 75px;
+    width: 80px;
   }
   .ClientInfo-wrapper-form-container-annv {
-    gap: 8%;
+    gap: 13%;
   }
 }
 
 @media screen and (max-width: 300px) {
+  .ClientInfo-wrapper-form-container {
+    width: 170px;
+  }
+  .ClientInfo-wrapper-form-container-annv {
+    width: 170px;
+  }
   .ClientInfo-wrapper-form-text-input,
   .ClientInfo-wrapper-form-text-input-date {
     width: 70px;
   }
   .ClientInfo-wrapper-form-text-input-date-annv {
-    width: 55px;
+    width: 62px;
   }
   .ClientInfo-wrapper-form-text {
     font-size: 9px;
   }
   .ClientInfo-wrapper-form-container-annv {
-    gap: 7%;
+    gap: 14%;
+  }
+  .ClientInfo-wrapper {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
 @media screen and (max-width: 257px) {
+  // .ClientInfo-wrapper-form-text-input,
+  // .ClientInfo-wrapper-form-text-input-date {
+  //   width: 65px;
+  // }
+  // .ClientInfo-wrapper-form-text-input-date-annv {
+  //   width: 55px;
+  // }
   .ClientInfo-wrapper-form-text {
     font-size: 8px;
   }
+  .ClientInfo-wrapper-form-main,
+  .ClientInfo-wrapper-form-notes {
+    width: 195px;
+  }
+  // .ClientInfo-wrapper-form-text-input-date-annv {
+  //   width: 65px;
+  // }
 }
