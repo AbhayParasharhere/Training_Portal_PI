@@ -42,6 +42,7 @@ import PurchasedPolicy from "./Pages/PurchasedPolicy";
 import AllLinks from "./Pages/AllLinks";
 import Contact from "./Pages/Contact";
 import ContactDetails from "./Pages/Contact";
+import WebinarForm from "./Pages/WebinarForm";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -71,6 +72,7 @@ const router = createBrowserRouter(
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/courses" element={<Course />} />
         <Route path="/productlinks" element={<ProductLinks />} />
+        <Route path="/add-webinar" element={<WebinarForm />} />
         <Route path="/clients" element={<ClientComponent />} />
         <Route path="/tools" element={<Tools />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />

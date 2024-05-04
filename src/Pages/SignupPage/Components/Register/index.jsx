@@ -8,14 +8,12 @@ import Button from "../../../../CommonComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
 import {
   checkIfUserExists,
-  getUserDetails,
   signInwithFacebook,
   signInwithGoogle,
   signUpWithEmailAndPassword,
 } from "../../../../Firebase/authentication";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
-import { createLoginCount } from "../../../../Firebase/kpi";
 import { AuthContext } from "../../../../context/authContext";
 
 export default function RegisterComponent(props) {

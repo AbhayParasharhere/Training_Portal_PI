@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../Images/logo.png";
-import google_logo from "../../Images/google_logo.png";
-import facebook_logo from "../../Images/facebook_logo.png";
-import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { storeUserAdditionalDetails } from "../../../../Firebase/authentication";
 import { ClipLoader } from "react-spinners";
 import secureLocalStorage from "react-secure-storage";
-import { createLoginCount } from "../../../../Firebase/kpi";
 
 export default function Register_2Component() {
   const [loading, setLoading] = useState(false);
@@ -64,13 +60,10 @@ export default function Register_2Component() {
         if (!uid) {
           throw new Error("No uid provided by the previous page");
         }
-        const additionalDetailsWithLoginCount = {
-          ...additionalDetails,
-          loginCount: [new Date()],
-        };
+
         const storeAdditionalDetailsResponse = await storeUserAdditionalDetails(
           uid,
-          additionalDetailsWithLoginCount
+          additionalDetails
         );
 
         // Also store the user details in the local storage
@@ -80,12 +73,7 @@ export default function Register_2Component() {
           "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf";
         setLoading(false);
 
-        secureLocalStorage.setItem("userDetails", [
-          userName,
-          userPhoto,
-          uid,
-          additionalDetailsWithLoginCount.loginCount,
-        ]);
+        secureLocalStorage.setItem("userDetails", [userName, userPhoto, uid]);
 
         console.log(
           "Set Details: User Details JSON",
@@ -99,10 +87,6 @@ export default function Register_2Component() {
         if (
           storeAdditionalDetailsResponse === "User details stored successfully"
         ) {
-          // Save the login count
-          const loginCountSaveStaus = await createLoginCount(uid);
-          console.log("This is login count status ", loginCountSaveStaus, uid);
-
           navigate("/");
         }
       } catch (err) {
