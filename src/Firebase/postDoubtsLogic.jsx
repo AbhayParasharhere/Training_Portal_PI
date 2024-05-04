@@ -1,5 +1,4 @@
-import { update } from "firebase/database";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "./firebaseConfig";
 import { v4 } from "uuid";
