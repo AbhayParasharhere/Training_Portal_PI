@@ -16,9 +16,12 @@ export default function Meet() {
           <input className={styles["meet-wrapper-form-input"]}></input>
         </div>
         <div className={styles["meet-wrapper-form-description"]}>
-          <label className={styles["meet-wrapper-form-label"]}>
+          <label className={styles["meet-wrapper-form-label-desc"]}>
             Description <br />
             (Optional)
+          </label>
+          <label className={styles["meet-wrapper-form-label-desc-mobile"]}>
+            Description (Optional)
           </label>
           <textarea className={styles["meet-wrapper-form-input"]}></textarea>
         </div>

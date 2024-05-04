@@ -27,7 +27,18 @@
   gap: 85px;
   align-items: center;
 }
-.meet-wrapper-form-label {
+.meet-wrapper-form-label,
+.meet-wrapper-form-label-desc {
+  font-family: Epilogue;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  margin-top: 5px;
+}
+.meet-wrapper-form-label-desc-mobile {
+  display: none;
   font-family: Epilogue;
   font-size: 20px;
   font-weight: 600;
@@ -167,10 +178,37 @@
 }
 
 @media (max-width: 540px) {
-  // .meet-wrapper {
-  //   padding-left: 20px;
-  //   padding-right: 20px;
-  // }
+  .meet-wrapper-form-label-desc-mobile {
+    display: block;
+    font-size: 16px;
+  }
+  .meet-wrapper-form-label-desc {
+    display: none;
+  }
+  .meet-wrapper-form {
+    gap: 10px;
+  }
+
+  .meet-wrapper-form-date-div {
+    gap: 10px;
+  }
+  .meet-wrapper-form-button {
+    margin-top: 15px;
+    gap: 20px;
+  }
+  .meet-wrapper-google-button {
+    margin-top: 20px;
+  }
+  .meet-wrapper-form-date-div {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .meet-wrapper-form-time {
+    margin-left: 0;
+  }
+
   .meet-wrapper-head {
     font-size: 16px;
   }
@@ -195,6 +233,7 @@
   .meet-wrapper-form-date {
     flex-direction: column;
     gap: 0;
+
     align-items: flex-start;
     // margin-left: 20px;
   }
@@ -202,16 +241,19 @@
     flex-direction: column;
     gap: 0;
     align-items: flex-start;
-    margin-left: 20px;
   }
   .meet-wrapper-form-input {
-    width: 90%;
+    width: 350px;
   }
   .meet-wrapper-form-input-date {
-    width: 120px;
+    width: 350px;
   }
   .meet-wrapper-form-label {
     font-size: 16px;
+  }
+  .meet-wrapper-form-button {
+    flex-direction: column;
+    align-items: center;
   }
   .meet-wrapper-form-button-meet {
     width: 120px;
@@ -231,134 +273,132 @@
   }
 }
 
-// @media (max-width: 400px) {
-//   .meet-wrapper {
-//     padding-left: 40px;
-//     padding-right: 40px;
-//   }
-
-//   .meet-wrapper-form-input {
-//     width: 100%;
-//   }
-//   .meet-wrapper-form-input-date {
-//     width: 150px;
-//   }
-//   .meet-wrapper-form-label {
-//     font-size: 14px;
-//   }
-// }
-
-@media (max-width: 365px) {
+@media (max-width: 420px) {
   .meet-wrapper-head {
     font-size: 14px;
   }
-  .meet-wrapper-form-input-date {
-    width: 100px;
+  .meet-wrapper-form-input-date,
+  .meet-wrapper-form-input {
+    width: 300px;
   }
-  .meet-wrapper-form-label {
+  .meet-wrapper-form-label,
+  .meet-wrapper-form-label-desc-mobile {
     font-size: 14px;
-  }
-  .meet-wrapper-form-button-meet {
-    width: 100px;
-    height: 48px;
-    font-size: 12px;
-  }
-  .meet-wrapper-form-button-cancel {
-    width: 100px;
-    height: 44px;
-    font-size: 12px;
-  }
-  .meet-wrapper-google-button {
-    height: 44px;
-  }
-  // .meet-wrapper-form-topic {
-  //   margin-left: 0;
-  // }
-  // .meet-wrapper-form-description {
-  //   margin-left: 2%;
-  // }
-  // .meet-wrapper-form-date {
-  //   margin-left: 2%;
-  // }
-
-  .meet-wrapper-form-date-div {
-    gap: 10px;
   }
 }
 
-@media (max-width: 318px) {
+@media (max-width: 370px) {
+  .meet-wrapper-form-input-date,
+  .meet-wrapper-form-input {
+    width: 250px;
+  }
+}
+
+@media (max-width: 319px) {
+  .meet-wrapper-form-input-date,
+  .meet-wrapper-form-input {
+    width: 200px;
+  }
   .meet-wrapper {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0;
+    padding-right: 0;
   }
+
   .meet-wrapper-head {
-    font-size: 12px;
+    font-size: 13px;
   }
-  .meet-wrapper-form-input-date {
-    width: 100px;
-  }
-  .meet-wrapper-form-label {
-    font-size: 14px;
+
+  .meet-wrapper-form-label,
+  .meet-wrapper-form-label-desc-mobile {
+    font-size: 13px;
   }
   .meet-wrapper-form-button-meet {
-    width: 100px;
-    height: 48px;
-    font-size: 12px;
+    height: 44px;
   }
   .meet-wrapper-form-button-cancel {
-    width: 100px;
-    height: 44px;
-    font-size: 12px;
+    height: 40px;
   }
   .meet-wrapper-google-button {
-    height: 44px;
+    height: 42px;
   }
 }
 
 @media (max-width: 285px) {
-  // .meet-wrapper {
-  //   padding-left: 20px;
-  //   padding-right: 20px;
-  // }
-
-  .meet-wrapper-head {
-    font-size: 10px;
+  .meet-wrapper-form-input-date,
+  .meet-wrapper-form-input {
+    width: 180px;
   }
-
-  .meet-wrapper-form-input-date {
-    width: 80px;
+  .meet-wrapper-head,
+  .meet-wrapper-form-label,
+  .meet-wrapper-form-label-desc-mobile {
+    font-size: 12px;
+  }
+  .meet-wrapper-line {
+    width: 300px;
   }
   .meet-wrapper-form-button-meet {
-    width: 80px;
-
-    font-size: 8px;
+    height: 40px;
   }
   .meet-wrapper-form-button-cancel {
-    width: 90px;
+    height: 36px;
+  }
+  .meet-wrapper-google-button {
+    height: 38px;
+  }
+}
 
-    font-size: 8px;
+@media (max-width: 268px) {
+  .meet-wrapper-form-input-date,
+  .meet-wrapper-form-input {
+    width: 150px;
+  }
+  .meet-wrapper-head,
+  .meet-wrapper-form-label,
+  .meet-wrapper-form-label-desc-mobile {
+    font-size: 11px;
+  }
+  .meet-wrapper-form-button-meet {
+    width: 100px;
+
+    font-size: 10px;
+  }
+  .meet-wrapper-form-button-cancel {
+    width: 100px;
+
+    font-size: 10px;
   }
   .meet-wrapper-google-button {
     width: 140px;
 
     font-size: 12px;
   }
-  .meet-wrapper-form-date-div {
-    gap: 0;
-  }
-  .meet-wrapper-form-button {
-    gap: 20px;
-  }
 }
 
-@media (max-width: 238px) {
-  .meet-wrapper-head {
+@media (max-width: 251px) {
+  .meet-wrapper-form-button-meet {
+    width: 90px;
+
     font-size: 9px;
   }
-  .meet-wrapper-form-input {
-    width: 90%;
+  .meet-wrapper-form-button-cancel {
+    width: 90px;
+
+    font-size: 9px;
   }
-  .meet-wrapper {
-    padding-left: 15px;
+  .meet-wrapper-head,
+  .meet-wrapper-form-label,
+  .meet-wrapper-form-label-desc-mobile {
+    font-size: 10px;
+  }
+
+  .meet-wrapper-line {
+    width: 300px;
+  }
+}
+@media (max-width: 235px) {
+  .meet-wrapper-head,
+  .meet-wrapper-form-label,
+  .meet-wrapper-form-label-desc-mobile {
+    font-size: 9px;
   }
 }
