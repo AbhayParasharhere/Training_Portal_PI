@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
-import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
+import { getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
 import secureLocalStorage from "react-secure-storage";
 import Spinner from "../../CommonComponents/Spinner";
@@ -12,6 +12,7 @@ import {
 } from "../../context/primaryDataContext";
 
 export default function Statistics() {
+  console.log("Login Count", secureLocalStorage.getItem("loginCount"));
   const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
   const realTimeData = useContext(RealTimeDataContext);
@@ -214,7 +215,7 @@ export default function Statistics() {
       bar: true,
     },
     {
-      stat: statData?.loginCount || "X",
+      stat: secureLocalStorage?.getItem("loginCount")?.length || "X",
       title1: "Login in",
       title2: "this week",
       bar: false,

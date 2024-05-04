@@ -6,7 +6,7 @@ import {
   checkIfUserExists,
 } from "../../Firebase/authentication";
 
-import { redirect, useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import logo from "./Images/logo.png";
@@ -15,12 +15,7 @@ import facebook_logo from "./Images/facebook_logo.png";
 import line from "./Images/line.png";
 import Button from "../../CommonComponents/Button";
 import { Link } from "react-router-dom";
-import { set } from "firebase/database";
 import { createLoginCount } from "../../Firebase/kpi";
-import secureLocalStorage from "react-secure-storage";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../Firebase/firebaseConfig";
-import firebase from "firebase/compat/app";
 import { AuthContext } from "../../context/authContext";
 
 function LoginComponent(props) {
@@ -150,11 +145,18 @@ export default function Login() {
 
   useEffect(() => {
     console.log("This is the use effect current user: ", currentUser);
+
+    const createLoginCount = async (uid) => {
+      await createLoginCount(currentUser?.uid);
+    };
+
     if (currentUser?.uid) {
+      console.log("Login count should be created here");
+      createLoginCount(currentUser?.uid);
       setLoadingRedirect(true);
       navigate("/");
     }
-  }, [currentUser]);
+  }, [currentUser?.uid]);
 
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (email, password) => {
@@ -169,8 +171,8 @@ export default function Login() {
 
     if (status === "Success" && uid) {
       // Save the login count
-      const loginCountSaveStaus = await createLoginCount(uid);
-      console.log("This is login count status ", loginCountSaveStaus);
+      // const loginCountSaveStaus = await createLoginCount(uid);
+      // console.log("This is login count status ", loginCountSaveStaus);
       setLoading(false);
       navigate("/");
     } else {

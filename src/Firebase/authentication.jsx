@@ -8,9 +8,8 @@ import {
 } from "firebase/auth";
 import { db } from "./firebaseConfig";
 import { setDoc, doc, getDoc } from "firebase/firestore";
-import { logEvent } from "firebase/analytics";
 import { toast } from "react-toastify";
-// import { FacebookAuthProvider } from "firebase/auth/cordova";
+import { createLoginCount } from "./kpi";
 
 const signInEmailAndPassword = async (email, password, setLoading) => {
   try {
@@ -19,8 +18,12 @@ const signInEmailAndPassword = async (email, password, setLoading) => {
       email,
       password
     );
+    if (userCredential.user.uid) {
+      await createLoginCount(userCredential.user.uid);
+    }
     return { status: "Success", uid: userCredential.user.uid };
   } catch (error) {
+    console.log("Login This is the error: ", error);
     setLoading(false);
     toast.error("Invalid Credentials");
 

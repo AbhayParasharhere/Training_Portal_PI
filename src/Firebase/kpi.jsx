@@ -70,40 +70,12 @@ const getClientsData = async (userID, startDate, endDate) => {
   }
 };
 
-// Function to get the progress for a specified course for a particular user
-// In order to do this, we need to store a document in videoProgress collection whenever a user watches a video
-
-// Function to get the total logged in time for a particular user within a particular date range
-// In order to do this, we need to store a document in the userDetails document for that user in a subcollection called as loginCount whenever a user logs in
-const getLoggedInTime = async (userID, startDate, endDate) => {
-  try {
-    const loggedInTime = [];
-    const loggedInRef = collection(db, "userDetail", userID, "loginCount");
-
-    // Get all the documents with doc id between startDate and endDate
-    const snapShot = await getDocs(
-      query(
-        loggedInRef,
-        where("created_at", ">=", startDate),
-        where("created_at", "<=", endDate)
-      )
-    );
-
-    snapShot.forEach((doc) => {
-      loggedInTime.push({ ...doc.data(), id: doc.id });
-    });
-    return { data: loggedInTime, count: loggedInTime.length };
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-};
-
 // Function to upadte the login count array for a user
 // This function should be called whenever a user logs in and during the creation of the user
 const createLoginCount = async (userID) => {
   try {
-    await updateDoc(doc(db, "userDetails", userID), {
+    console.log("Creating login count");
+    await updateDoc(doc(db, "userDetail", userID), {
       loginCount: arrayUnion(new Date()),
     });
     return "Success in saving login count";
@@ -155,7 +127,6 @@ const getVideosWatched = async (userID, startDate, endDate) => {
 export {
   getSalesData,
   getClientsData,
-  getLoggedInTime,
   createLoginCount,
   storeVideoProgress,
   getVideosWatched,

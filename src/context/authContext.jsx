@@ -16,7 +16,9 @@ export const AuthContextProvider = ({ children }) => {
   const getAndSaveUserDetails = async (uid) => {
     if (!uid) return;
 
-    const { name, photoURL, video_progress } = await getUserDetails(uid);
+    const { name, photoURL, video_progress, loginCount } = await getUserDetails(
+      uid
+    );
     console.log("User Details auth context", name, photoURL, uid);
     const userName = name || "Broker";
 
@@ -24,6 +26,7 @@ export const AuthContextProvider = ({ children }) => {
       photoURL ||
       "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf";
     secureLocalStorage.setItem("userDetails", [userName, userPhoto, uid]);
+    secureLocalStorage.setItem("loginCount", JSON.stringify(loginCount));
     sessionStorage.setItem("video_progress", JSON.stringify(video_progress));
     console.log(
       "Auth context: User Details JSON",
