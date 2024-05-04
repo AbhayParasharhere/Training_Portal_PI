@@ -16,7 +16,6 @@ import line from "./Images/line.png";
 import Button from "../../CommonComponents/Button";
 import { Link } from "react-router-dom";
 import { set } from "firebase/database";
-import { createLoginCount } from "../../Firebase/kpi";
 import secureLocalStorage from "react-secure-storage";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../Firebase/firebaseConfig";
@@ -169,8 +168,6 @@ export default function Login() {
 
     if (status === "Success" && uid) {
       // Save the login count
-      const loginCountSaveStaus = await createLoginCount(uid);
-      console.log("This is login count status ", loginCountSaveStaus);
       setLoading(false);
       navigate("/");
     } else {
@@ -192,9 +189,6 @@ export default function Login() {
           });
           return;
         } else {
-          // Save the login count
-          const loginCountSaveStaus = await createLoginCount(uid);
-          console.log("This is login count status ", loginCountSaveStaus);
           navigate("/");
         }
       } else {
@@ -219,9 +213,6 @@ export default function Login() {
           });
           return;
         } else {
-          // Save the login count
-          const loginCountSaveStaus = await createLoginCount(uid);
-          console.log("This is login count status ", loginCountSaveStaus);
           navigate("/");
         }
       } else {

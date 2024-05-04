@@ -70,49 +70,6 @@ const getClientsData = async (userID, startDate, endDate) => {
   }
 };
 
-// Function to get the progress for a specified course for a particular user
-// In order to do this, we need to store a document in videoProgress collection whenever a user watches a video
-
-// Function to get the total logged in time for a particular user within a particular date range
-// In order to do this, we need to store a document in the userDetails document for that user in a subcollection called as loginCount whenever a user logs in
-const getLoggedInTime = async (userID, startDate, endDate) => {
-  try {
-    const loggedInTime = [];
-    const loggedInRef = collection(db, "userDetail", userID, "loginCount");
-
-    // Get all the documents with doc id between startDate and endDate
-    const snapShot = await getDocs(
-      query(
-        loggedInRef,
-        where("created_at", ">=", startDate),
-        where("created_at", "<=", endDate)
-      )
-    );
-
-    snapShot.forEach((doc) => {
-      loggedInTime.push({ ...doc.data(), id: doc.id });
-    });
-    return { data: loggedInTime, count: loggedInTime.length };
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-};
-
-// Function to upadte the login count array for a user
-// This function should be called whenever a user logs in and during the creation of the user
-const createLoginCount = async (userID) => {
-  try {
-    await updateDoc(doc(db, "userDetails", userID), {
-      loginCount: arrayUnion(new Date()),
-    });
-    return "Success in saving login count";
-  } catch (error) {
-    console.log("Could not save to login count", error);
-    return error;
-  }
-};
-
 // For a given courseId, video ID and user ID, we need to store the video progress
 // Store a document qith video id in videProgress subcollection in teh userDEtails collections for the current userDocument
 // The document should have the video ID and the timestamp of the video watched
@@ -152,11 +109,4 @@ const getVideosWatched = async (userID, startDate, endDate) => {
 };
 // Function to the get the total videos by a user within a particular date range
 
-export {
-  getSalesData,
-  getClientsData,
-  getLoggedInTime,
-  createLoginCount,
-  storeVideoProgress,
-  getVideosWatched,
-};
+export { getSalesData, getClientsData, storeVideoProgress, getVideosWatched };

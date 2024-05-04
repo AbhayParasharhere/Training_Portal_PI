@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
-import { getLoggedInTime, getVideosWatched } from "../../Firebase/kpi";
+import { getVideosWatched } from "../../Firebase/kpi";
 import { AuthContext } from "../../context/authContext";
 import secureLocalStorage from "react-secure-storage";
 import Spinner from "../../CommonComponents/Spinner";
@@ -188,7 +188,6 @@ export default function Statistics() {
 
         setStatData((prev) => ({
           ...prev,
-          loginCount: count,
           videoCount: videoData?.count,
         }));
         setLoading(false);
@@ -214,8 +213,8 @@ export default function Statistics() {
       bar: true,
     },
     {
-      stat: statData?.loginCount || "X",
-      title1: "Login in",
+      stat: "0",
+      title1: "Posts",
       title2: "this week",
       bar: false,
     },
