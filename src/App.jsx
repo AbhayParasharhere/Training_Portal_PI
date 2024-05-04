@@ -33,7 +33,7 @@ import CourseDetail from "./Pages/Course/components/CourseDetail";
 import NoPagesElement from "./CommonComponents/NoPageError";
 
 import Meet from "./CommonComponents/Meet";
-import ClientInfo from "./Pages/Form";
+
 
 import AdminConsole from "./Pages/AdminConsole";
 import InternalLinks from "./Pages/InternalLinks";
