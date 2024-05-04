@@ -4,9 +4,9 @@ import { getAllAnnouncementsSortedByUpdatedAtDescendingRealTimePromise } from ".
 import { get, set } from "firebase/database";
 import { getAllCourses } from "../Firebase/courseLogic";
 import {
-  getAllUserClientsData,
   getUserSalesData,
   getAllUserClientsRealTime,
+  getAllUserSalesRealTime,
 } from "../Firebase/getClientSales";
 // We will use this context to fetch the primary data
 // All announcements
@@ -23,9 +23,11 @@ import {
 // announcement feature to be added
 
 export const PrimaryDataContext = createContext();
+export const RealTimeDataContext = createContext();
 export const PrimaryDataContextProvider = ({ children }) => {
   const [primaryData, setPrimaryData] = useState({});
   const [userClients, setUserClients] = useState();
+  const [userSales, setUserSales] = useState();
   const currentUser = useContext(AuthContext);
   const [announcements, setAnnouncements] = useState();
   const [counter, setCounter] = useState(0);
@@ -61,11 +63,8 @@ export const PrimaryDataContextProvider = ({ children }) => {
     );
 
     // Fetch all the sales
-    getUserSalesData(currentUser?.uid).then((sales) => {
-      setPrimaryData((primaryData) => ({
-        ...primaryData,
-        sales,
-      }));
+    getAllUserSalesRealTime(currentUser.uid, setUserSales).then((sales) => {
+      setPrimaryData((primaryData) => ({ ...primaryData, sales }));
     });
   }, [currentUser]);
   console.log(
@@ -75,7 +74,15 @@ export const PrimaryDataContextProvider = ({ children }) => {
 
   return (
     <PrimaryDataContext.Provider value={primaryData}>
-      {children}
+      <RealTimeDataContext.Provider
+        value={{
+          clients: userClients,
+          sales: userSales,
+          announcements: announcements,
+        }}
+      >
+        {children}
+      </RealTimeDataContext.Provider>
     </PrimaryDataContext.Provider>
   );
 };
