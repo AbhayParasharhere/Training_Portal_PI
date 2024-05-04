@@ -29,13 +29,36 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  position: relative;
 }
 .purchasedPolicy--option-container {
   position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: white;
+  box-shadow: 2px 1px 18.7px 0px #00000040;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+.purchasedPolicy--option-inner-container {
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+}
+.purchasedPolicy--option-icon {
+  height: 20px;
+  z-index: 2;
 }
 .PurchasedPolicy-wrapper-main-policy-type {
   font-family: Open Sans;
+  position: relative;
   font-size: 17px;
   font-weight: 600;
   line-height: 25.5px;
@@ -72,6 +95,8 @@
 .PurchasedPolicy-wrapper-main-policy-div {
   display: flex;
   gap: 5%;
+
+  box-sizing: border-box;
   // justify-content: space-between;
   // align-items: center;
 }
@@ -98,7 +123,7 @@
 }
 .PurchasedPolicy-wrapper-main-policy-image {
   position: absolute;
-  right: 40px;
+  right: 60px;
 }
 @media screen and (min-width: 2000px) {
   .PurchasedPolicy-wrapper-main-policy-term {

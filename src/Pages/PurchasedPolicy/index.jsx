@@ -1,58 +1,107 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./styles.module.scss";
 import arrow_right from "./Images/arrow_right.png";
 import { PrimaryDataContext } from "../../context/primaryDataContext";
 import { useOutletContext } from "react-router-dom";
-import { AuthContext } from "../../context/authContext";
 import menuIcon from "./Images/menu-icon.png";
+import searchIcon from "./Images/search-icon.png";
+import editIcon from "./Images/edit-icon.png";
+import deleteIcon from "./Images/delete-icon.png";
 
 export default function PurchasedPolicy() {
   const primaryData = useContext(PrimaryDataContext);
-  const client = useOutletContext();
-  const currentUser = useContext(AuthContext);
-  const clientId = client?.clientData?.id;
-  const salesData = primaryData?.sales;
-  const filteredSales = salesData?.filter(
-    (sales) => sales?.cid === clientId && sales?.uid === currentUser?.uid
-  );
+  const clientSales = useOutletContext();
+  const clientId = clientSales?.clientData?.id;
+
+  const filteredSales = clientSales?.filteredSales;
   console.log("This is the filtered sales data: ", filteredSales);
-  const list = [
-    {
-      number: "LI-12345678",
-      effective: "January 1, 2024",
-      expiry: "January 1, 2054",
-      amount: "50",
-      term: "30",
-    },
-    {
-      number: "LI-12345679",
-      effective: "January 2, 2024",
-      expiry: "January 2, 2054",
-      amount: "50",
-      term: "30",
-    },
-  ];
+
+  const [displaySalesOption, setDisplayOptionContainer] = useState();
+
+  const handleSalesOption = (salesId) => {
+    if (displaySalesOption === salesId) {
+      // const newOptions = displaySalesOption.filter(
+      //   (option) => option !== salesId
+      // );
+      setDisplayOptionContainer("");
+      console.log("removed: ", salesId);
+      return;
+    } else {
+      setDisplayOptionContainer(salesId);
+    }
+  };
+
   return (
     <div className={styles["PurchasedPolicy-wrapper"]}>
-      <div className={styles["PurchasedPolicy-wrapper-main"]}>
+      <div
+        className={styles["PurchasedPolicy-wrapper-main"]}
+        onClick={() => {
+          console.log("This ran: ");
+          if (displaySalesOption) setDisplayOptionContainer("");
+        }}
+      >
         <div className={styles["PurchasedPolicy-wrapper-main-title"]}>
           Total number of policies purchased:{" "}
           <span className={styles["PurchasedPolicy-wrapper-main-text"]}>
             {filteredSales?.length}
           </span>
         </div>
-        {filteredSales.map((item) => (
-          <div className={styles["PurchasedPolicy-wrapper-main-policy"]}>
+        {filteredSales?.map((item) => (
+          <div
+            className={styles["PurchasedPolicy-wrapper-main-policy"]}
+            key={item.id}
+          >
             <div className={styles["PurchasedPolicy-wrapper-main-policy-type"]}>
               {item?.policy_type}
-              <button className={styles["purchasedPolicy--edit-button"]}>
+              <button
+                className={styles["purchasedPolicy--edit-button"]}
+                onClick={() => handleSalesOption(item.id)}
+              >
                 <img
                   src={menuIcon}
                   className={styles["purchasedPolicy--edit-icon"]}
                 />
               </button>
-              <div className={styles["purchasedPolicy--option-container"]}>
-                View details
+              <div
+                style={{
+                  display: displaySalesOption === item.id ? "flex" : "none",
+                }}
+                className={styles["purchasedPolicy--option-container"]}
+              >
+                <div
+                  className={styles["purchasedPolicy--option-inner-container"]}
+                  onClick={() =>
+                    clientSales?.setSalesUpdate({ status: true, id: item.id })
+                  }
+                >
+                  <img
+                    src={searchIcon}
+                    className={styles["purchasedPolicy--option-icon"]}
+                  />
+                  View details
+                </div>
+                <div
+                  className={styles["purchasedPolicy--option-inner-container"]}
+                  onClick={() =>
+                    clientSales?.setSalesUpdate({ status: true, id: item.id })
+                  }
+                >
+                  <img
+                    src={editIcon}
+                    className={styles["purchasedPolicy--option-icon"]}
+                  />
+                  Edit
+                </div>
+                <div
+                  className={styles["purchasedPolicy--option-inner-container"]}
+                  style={{ color: "#DA1212" }}
+                >
+                  <img
+                    src={deleteIcon}
+                    className={styles["purchasedPolicy--option-icon"]}
+                  />
+                  Delete
+                </div>
               </div>
             </div>
             <div className={styles["PurchasedPolicy-wrapper-main-policy-div"]}>
