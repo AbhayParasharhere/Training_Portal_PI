@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import line from "./Images/line.png";
 import google from "./Images/google.png";
 
-export default function Meet() {
+export default function Meet(props) {
   return (
     <div className={styles["meet-wrapper"]}>
       <div className={styles["meet-wrapper-head"]}>
@@ -45,7 +45,10 @@ export default function Meet() {
           <div className={styles["meet-wrapper-form-button-meet"]}>
             Create Meeting
           </div>
-          <div className={styles["meet-wrapper-form-button-cancel"]}>
+          <div
+            className={styles["meet-wrapper-form-button-cancel"]}
+            onClick={() => props.setModalOpen(false)}
+          >
             Cancel
           </div>
         </div>
