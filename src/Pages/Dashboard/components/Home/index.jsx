@@ -12,8 +12,86 @@ import secureLocalStorage from "react-secure-storage";
 import { AuthContext } from "../../../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import calendarIcon from "./images/calendar.png";
+import {
+  RealTimeDataContext,
+  PrimaryDataContext,
+} from "../../../../context/primaryDataContext";
+import { getTimeDifference } from "../TabletImportantUpdates";
 
-export default function Home({ userDetails, announcements }) {
+export default function Home() {
+  const realTimeData = useContext(RealTimeDataContext);
+  const videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
+  const primaryData = useContext(PrimaryDataContext);
+  const allCourses = primaryData?.courses;
+  if (videosWatched) {
+    videosWatched?.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
+  }
+  const sales = realTimeData?.sales;
+  let salesWithCreatedAt = [];
+  if (sales) {
+    salesWithCreatedAt = sales?.filter((sales) => sales.created_at);
+    salesWithCreatedAt?.sort(
+      (a, b) => b.created_at.seconds - a.created_at.seconds
+    );
+  }
+
+  const uniqueCourses = new Set();
+  const lastThreeCourses = [];
+  const latestThreeSales = salesWithCreatedAt.slice(0, 3);
+
+  // Iterate over the sorted array and add unique courses to the set
+  if (videosWatched) {
+    for (const video of videosWatched) {
+      if (!uniqueCourses.has(video.courseId)) {
+        uniqueCourses.add(video.courseId);
+        lastThreeCourses.push(video.courseId);
+      }
+
+      // If we have collected the last 3 unique courses, break the loop
+      if (lastThreeCourses.length === 3) {
+        break;
+      }
+    }
+  }
+  const filterLast3CoursesWatched = () => {
+    const lastCourses = [];
+    allCourses?.map((course) => {
+      if (lastThreeCourses?.includes(course.id)) {
+        lastCourses.push({
+          courseData: course,
+          title: course.title,
+          to: `/courses/${course.id}`,
+          button: "Continue",
+        });
+      }
+    });
+    return lastCourses;
+  };
+  const announcements = realTimeData?.announcements;
+  const clients = realTimeData?.clients;
+  let clientsWithCreatedAt = [];
+  if (clients) {
+    clientsWithCreatedAt = clients?.filter((client) => client.created_at);
+    clientsWithCreatedAt?.sort(
+      (a, b) => b?.created_at?.seconds - a?.created_at?.seconds
+    );
+  }
+
+  const uniqueClients = new Set();
+  const latestThreeUniqueClients = [];
+
+  for (const client of clientsWithCreatedAt) {
+    if (!uniqueClients.has(client.id)) {
+      uniqueClients.add(client.id);
+      latestThreeUniqueClients.push(client);
+    }
+
+    if (latestThreeUniqueClients.length === 3) {
+      break;
+    }
+  }
+
   const [latestStats, setLatestStates] = useState("course");
   const navigate = useNavigate();
   const mobileIconsData = [
@@ -25,28 +103,30 @@ export default function Home({ userDetails, announcements }) {
   ];
 
   const latestStatsData = {
-    course: [
-      { title: "Concepts of Insaurance", button: "Continue", to: "/courses" },
-      { title: "Compliance Policies", button: "Continue", to: "/courses" },
-      { title: "Concepts of Sales", button: "Continue", to: "/courses" },
-    ],
-    policies: [
-      { title: "Life Insaurance", button: "View", to: "/addSales" },
-      { title: "Home loan", button: "View", to: "/addSales" },
-      { title: "Investing in funds", button: "View", to: "/addSales" },
-    ],
-    sales: [
-      { title: "Abhay Parashar", button: "View", to: "/clients" },
-      { title: "Mr. Sanjay", button: "View", to: "/clients" },
-      { title: "Mr. Dharmendar", button: "View", to: "/clients" },
-    ],
+    course: filterLast3CoursesWatched(),
+    policies: latestThreeSales?.map((sales) => {
+      return {
+        title: sales.policy_type,
+        button: "view",
+        to: `client-detail/${sales.cid}/policies`,
+      };
+    }),
+    sales: latestThreeUniqueClients?.map((client) => {
+      return {
+        title: client.name,
+        button: "View",
+        to: `/client-detail/${client.id}`,
+      };
+    }),
   };
-
+  const navigateLatestStats = (statType, stat) => {
+    navigate(stat.to, { state: { course: stat.courseData } });
+  };
   const renderLatestStats = latestStatsData[latestStats].map((stat, index) => {
     return (
       <div
         className={styles["home--notification-lists"]}
-        onClick={() => navigate(stat.to)}
+        onClick={() => navigateLatestStats(latestStats, stat)}
         key={index}
       >
         <div className={styles["home--list-title-container"]}>
@@ -54,41 +134,107 @@ export default function Home({ userDetails, announcements }) {
           <p className={styles["home--list-text"]}>{stat.title}</p>
         </div>
         <button className={styles["home--continue-button"]}>
-          {stat.button}
+          {latestStats === "course" ? "Continue" : "View"}
         </button>
       </div>
     );
   });
-  const getTimeDifference = (updatedAt) => {
-    // Convert `updatedAt` to a Date object
-    const updatedDate = new Date(updatedAt);
 
-    // Get the current date and time
+  //Client birthdays and anniversary check
+  //Rendering and getting anniversary and birthday data
+  function getUpcomingEvents(clientData) {
     const currentDate = new Date();
+    const currentDay = currentDate.getDate();
+    const currentMonth = currentDate.getMonth() + 1; // Month starts from 0
 
-    // Calculate the time difference in milliseconds
-    const timeDifference = currentDate - updatedDate;
+    // Combine all events into a single array
+    const allEvents = [];
 
-    // Convert the time difference to total minutes
-    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+    clientData?.forEach((client) => {
+      const dobParts = client.DOB.split("-");
+      const anniversaryParts = client.anniversary.split("-");
+      const dobMonth = parseInt(dobParts[1], 10);
+      const dobDay = parseInt(dobParts[2], 10);
+      const anniversaryMonth = parseInt(anniversaryParts[1], 10);
+      const anniversaryDay = parseInt(anniversaryParts[2], 10);
 
-    // Calculate total hours
-    const hoursDifference = Math.floor(minutesDifference / 60);
+      // Check if DOB is today or within a week (7 days)
+      if (
+        (dobMonth === currentMonth &&
+          dobDay >= currentDay &&
+          dobDay - currentDay <= 7) ||
+        (dobMonth === currentMonth &&
+          dobDay < currentDay &&
+          currentDay - dobDay <= 7)
+      ) {
+        allEvents.push({ ...client, eventType: "Birthday" });
+      }
 
-    // Calculate total days, and remaining hours and minutes
-    const days = Math.floor(hoursDifference / 24);
-    const hours = hoursDifference % 24;
-    const minutes = minutesDifference % 60;
+      // Check if anniversary is today or within a week (7 days)
+      if (
+        (anniversaryMonth === currentMonth &&
+          anniversaryDay >= currentDay &&
+          anniversaryDay - currentDay <= 7) ||
+        (anniversaryMonth === currentMonth &&
+          anniversaryDay < currentDay &&
+          currentDay - anniversaryDay <= 7)
+      ) {
+        allEvents.push({ ...client, eventType: "Anniversary" });
+      }
+    });
 
-    // Determine the appropriate format based on the difference
-    if (days > 0) {
-      return `${days} days ago`;
-    } else if (hours > 0) {
-      return `${hours} hours ago`;
-    } else {
-      return `${minutes} minutes ago`;
-    }
-  };
+    // Sort events by the latest event first
+    allEvents.sort((a, b) => {
+      const dateA = new Date(
+        2000,
+        a.eventType === "Birthday"
+          ? a.DOB.split("-")[2]
+          : a.anniversary.split("-")[2]
+      );
+      const dateB = new Date(
+        2000,
+        b.eventType === "Birthday"
+          ? b.DOB.split("-")[2]
+          : b.anniversary.split("-")[2]
+      );
+
+      return dateA - dateB;
+    });
+
+    return allEvents;
+  }
+
+  let upcomingEvents = [];
+  if (clients) {
+    upcomingEvents = getUpcomingEvents(clients);
+  }
+  const renderClientEvent = upcomingEvents?.map((client) => {
+    return (
+      <div
+        className={styles["home--client-birthday"]}
+        onClick={() => navigate(`/client-detail/${client.id}`)}
+        style={{ cursor: "pointer" }}
+      >
+        <div className={styles["home--client-birthday-inner-container"]}>
+          <img src={clientPhoto} className={styles["home--client-image"]} />
+          <div className={styles["home--birthday-name-date-container"]}>
+            <p className={styles["home--client-name"]}>{client.name}</p>
+            <p className={styles["home--birthday-date"]}>
+              {client.eventType === "Anniversary"
+                ? client.anniversary
+                : client.DOB}{" "}
+            </p>{" "}
+          </div>
+        </div>
+        <img
+          src={client.eventType === "Birthday" ? cakeIcon : calendarIcon}
+          className={styles["home--cake-icon"]}
+        />
+      </div>
+    );
+  });
+
+  //Rendering and getting anniversary and birthday data Finish
 
   const mobileIcons = mobileIconsData.map((data) => {
     return (
@@ -109,7 +255,7 @@ export default function Home({ userDetails, announcements }) {
       <div className={styles["home--welcome-container"]}>
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
-            Good Morning {userDetails?.name || "Broker"}
+            Good Morning {secureLocalStorage.getItem("userDetails")?.[0]}
           </p>
           <div className={styles["home--greetings-desc-container"]}>
             <p className={styles["home--greetings-desc"]}>
@@ -199,101 +345,9 @@ export default function Home({ userDetails, announcements }) {
             Upcoming Clients Bithdays And Anniversary
           </p>
           <div className={styles["home--client-birthday-list"]}>
-            <div
-              className={styles["home--client-birthday"]}
-              onClick={() => navigate("/clients")}
-              style={{ cursor: "pointer" }}
-            >
-              <div className={styles["home--client-birthday-inner-container"]}>
-                <img
-                  src={clientPhoto}
-                  className={styles["home--client-image"]}
-                />
-                <div className={styles["home--birthday-name-date-container"]}>
-                  <p className={styles["home--client-name"]}>Client Name</p>
-                  <p className={styles["home--birthday-date"]}>
-                    April 24, 2024
-                  </p>{" "}
-                </div>
-              </div>
-              <img src={cakeIcon} className={styles["home--cake-icon"]} />
-            </div>
-            <div
-              className={styles["home--client-birthday"]}
-              onClick={() => navigate("/clients")}
-              style={{ cursor: "pointer" }}
-            >
-              <div className={styles["home--client-birthday-inner-container"]}>
-                <img
-                  src={clientPhoto}
-                  className={styles["home--client-image"]}
-                />
-                <div className={styles["home--birthday-name-date-container"]}>
-                  <p className={styles["home--client-name"]}>Client Name</p>
-                  <p className={styles["home--birthday-date"]}>
-                    April 24, 2024
-                  </p>{" "}
-                </div>
-              </div>
-              <img src={cakeIcon} className={styles["home--cake-icon"]} />
-            </div>{" "}
-            <div
-              className={styles["home--client-birthday"]}
-              onClick={() => navigate("/clients")}
-              style={{ cursor: "pointer" }}
-            >
-              <div className={styles["home--client-birthday-inner-container"]}>
-                <img
-                  src={clientPhoto}
-                  className={styles["home--client-image"]}
-                />
-                <div className={styles["home--birthday-name-date-container"]}>
-                  <p className={styles["home--client-name"]}>Client Name</p>
-                  <p className={styles["home--birthday-date"]}>
-                    April 24, 2024
-                  </p>{" "}
-                </div>
-              </div>
-              <img src={cakeIcon} className={styles["home--cake-icon"]} />
-            </div>{" "}
-            <div
-              className={styles["home--client-birthday"]}
-              onClick={() => navigate("/clients")}
-              style={{ cursor: "pointer" }}
-            >
-              <div className={styles["home--client-birthday-inner-container"]}>
-                <img
-                  src={clientPhoto}
-                  className={styles["home--client-image"]}
-                />
-                <div className={styles["home--birthday-name-date-container"]}>
-                  <p className={styles["home--client-name"]}>Client Name</p>
-                  <p className={styles["home--birthday-date"]}>
-                    April 24, 2024
-                  </p>{" "}
-                </div>
-              </div>
-              <img src={cakeIcon} className={styles["home--cake-icon"]} />
-            </div>{" "}
-            <div
-              className={styles["home--client-birthday"]}
-              onClick={() => navigate("/clients")}
-              style={{ cursor: "pointer" }}
-            >
-              <div className={styles["home--client-birthday-inner-container"]}>
-                <img
-                  src={clientPhoto}
-                  className={styles["home--client-image"]}
-                />
-                <div className={styles["home--birthday-name-date-container"]}>
-                  <p className={styles["home--client-name"]}>Client Name</p>
-                  <p className={styles["home--birthday-date"]}>
-                    April 24, 2024
-                  </p>{" "}
-                </div>
-              </div>
-              <img src={cakeIcon} className={styles["home--cake-icon"]} />
-            </div>
+            {/* {renderBithday}
+            {renderAnniversaries} */}
+            {renderClientEvent}
           </div>
         </div>
       </div>
@@ -397,7 +451,7 @@ export default function Home({ userDetails, announcements }) {
         </p>
         {announcements?.length !== 0 ? (
           <div className={styles["home--annoucement-list-container"]}>
-            {announcements.map((announcement) => {
+            {announcements?.map((announcement) => {
               return (
                 <HashLink
                   to="/announcement#announcement"

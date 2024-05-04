@@ -1,5 +1,12 @@
 import { db, storage } from "./firebaseConfig";
-import { collection, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  updateDoc,
+  getDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import {
   deleteObject,
   ref,
@@ -271,11 +278,15 @@ const addVideo = async (
 
     // Then upload the video to the storage and show the progress
     const videoRef = ref(storage, `courseVideos/${videoID}`);
-    const uploadTask = uploadBytesResumable(videoRef, videoFile);
-    uploadTask.on("state_changed", (snapshot) => {
-      let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log(progress);
+    await uploadBytesResumable(videoRef, videoFile);
+
+    const videoURL = await getDownloadURL(videoRef);
+
+    // Also add the video id to the videos_array in the course document
+    await updateDoc(doc(db, "Courses", courseID), {
+      videos_array: arrayUnion({ videoID, videoURL }),
     });
+
     return "Video Uploaded Successfully";
   } catch (error) {
     console.log(error);

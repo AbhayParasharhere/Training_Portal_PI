@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import styles from "./styles.module.scss";
 import line from "../Images/vertical-line.png";
 import delete_bin from "../Images/delete_bin.png";
@@ -10,56 +10,19 @@ import plus from "../Images/plus.png";
 import arrow_down from "../Images/arrow_down.png";
 import arrow_up from "../Images/arrow_up.png";
 import client_img from "../Images/client_img.png";
+import {
+  RealTimeDataContext,
+  PrimaryDataContext,
+} from "../../../context/primaryDataContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
-
-  const list = [
-    {
-      id: "0",
-      name: "Devon Lane",
-      email: "devon@gmail.com",
-      number: "899999999",
-    },
-    {
-      id: "1",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "2",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "3",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "4",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "5",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "6",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-  ];
-  // const list = [0, 1, 2, 3];
-
+  const primaryContextData = useContext(PrimaryDataContext);
+  const salesData = primaryContextData?.sales;
+  const clientData = useContext(RealTimeDataContext)?.clients;
+  const navigate = useNavigate();
+  console.log("This is the realtime client data for the user: ", clientData);
   const toggleDialog = (index) => {
     if (prevIndex === index) {
       setPrevIndex(null);
@@ -112,7 +75,7 @@ export default function ClientComponent() {
         <div className={styles["ClientComponent-wrapper-topbar-head"]}>
           <p className={styles["ClientComponent-topbar-clients"]}>Clients</p>
           <p className={styles["ClientComponent-topbar-count"]}>
-            ({list.length})
+            ({clientData?.length})
           </p>
         </div>
         <div className={styles["ClientComponent-wrapper-topbar-search"]}>
@@ -195,6 +158,7 @@ export default function ClientComponent() {
           </div>
         </div>
       </div>
+
       <div className={styles["ClientComponent-wrapper-topbar-mobile"]}>
         <div
           className={styles["ClientComponent-wrapper-topbar-search-div"]}
@@ -285,9 +249,13 @@ export default function ClientComponent() {
             <th className={styles["ClientComponent-th-email"]}>Email id</th>
             <th className={styles["ClientComponent-th-phone"]}>Phone number</th>
           </tr>
-          {list.map((item) => (
+          {clientData?.map((item) => (
             <tr key={item.id} className={styles["ClientComponent-tr"]}>
-              <td className={styles["ClientComponent-td-name"]}>
+              <td
+                className={styles["ClientComponent-td-name"]}
+                onClick={() => navigate(`/client-detail/${item.id}`)}
+                style={{ cursor: "pointer" }}
+              >
                 <img
                   src={client_img}
                   className={styles["ClientComponent-td-img"]}
@@ -298,7 +266,7 @@ export default function ClientComponent() {
                 {item.email}
               </td>
               <td className={styles["ClientComponent-td-phone"]}>
-                {item.number}
+                {item.phone_number}
               </td>
               <td>
                 <div className={styles["ClientComponent-dialog-div"]}>

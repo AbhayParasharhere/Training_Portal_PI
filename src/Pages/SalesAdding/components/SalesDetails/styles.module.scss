@@ -96,6 +96,11 @@
   width: 100%;
   border: 1px solid #a1a1a1;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+  // justify-content: center;
   height: 35px;
   max-width: 300px;
   cursor: pointer;

@@ -31,8 +31,23 @@ import ProductLinks from "./ProductLinks";
 
 import CourseDetail from "./Pages/Course/components/CourseDetail";
 import NoPagesElement from "./CommonComponents/NoPageError";
+
 import Meet from "./CommonComponents/Meet";
 import ClientInfo from "./Pages/Form";
+
+import AdminConsole from "./Pages/AdminConsole";
+import InternalLinks from "./Pages/InternalLinks";
+
+import ClientDetail from "./Pages/ClientDetail";
+import ClientData from "./Pages/ClientDetail";
+import ClientInfo from "./Pages/Form";
+import PostQues from "./Pages/PostQues";
+import PurchasedPolicy from "./Pages/PurchasedPolicy";
+import AllLinks from "./Pages/AllLinks";
+import Contact from "./Pages/Contact";
+import ContactDetails from "./Pages/Contact";
+import WebinarForm from "./Pages/WebinarForm";
+
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -63,12 +78,22 @@ const router = createBrowserRouter(
         <Route path="/courses" element={<Course />} />
 
         <Route path="/productlinks" element={<ProductLinks />} />
-
+        <Route path="/add-webinar" element={<WebinarForm />} />
         <Route path="/clients" element={<ClientComponent />} />
         <Route path="/tools" element={<Tools />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />
-        <Route path="/meet" element={<Meet />} />
-        <Route path="/form" element={<ClientInfo />} />
+        <Route path="/contact" element={<ContactDetails />} />
+
+        <Route path="/admin-course-add" element={<AdminConsole />} />
+        <Route path="/all-links" element={<AllLinks />} />
+        <Route path="/internal-links" element={<InternalLinks />} />
+        <Route path="/client-detail/:clientId" element={<ClientData />}>
+          <Route index element={<ClientInfo />} />
+          <Route path="policies" element={<PurchasedPolicy />} />
+          <Route path="goals" element={<ClientInfo />} />
+        </Route>
+        <Route path="/connect" element={<PostQues />} />
+
       </Route>
     </>
   )

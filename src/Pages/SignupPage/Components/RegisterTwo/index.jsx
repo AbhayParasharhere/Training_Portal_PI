@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../Images/logo.png";
-import google_logo from "../../Images/google_logo.png";
-import facebook_logo from "../../Images/facebook_logo.png";
-import line from "../../Images/line.png";
 import Button from "../../../../CommonComponents/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { storeUserAdditionalDetails } from "../../../../Firebase/authentication";
 import { ClipLoader } from "react-spinners";
 import secureLocalStorage from "react-secure-storage";
-import { createLoginCount } from "../../../../Firebase/kpi";
 
 export default function Register_2Component() {
   const [loading, setLoading] = useState(false);
@@ -64,6 +60,7 @@ export default function Register_2Component() {
         if (!uid) {
           throw new Error("No uid provided by the previous page");
         }
+
         const storeAdditionalDetailsResponse = await storeUserAdditionalDetails(
           uid,
           additionalDetails
@@ -77,6 +74,7 @@ export default function Register_2Component() {
         setLoading(false);
 
         secureLocalStorage.setItem("userDetails", [userName, userPhoto, uid]);
+
         console.log(
           "Set Details: User Details JSON",
           secureLocalStorage.getItem("userDetails")
@@ -89,10 +87,6 @@ export default function Register_2Component() {
         if (
           storeAdditionalDetailsResponse === "User details stored successfully"
         ) {
-          // Save the login count
-          const loginCountSaveStaus = await createLoginCount(uid);
-          console.log("This is login count status ", loginCountSaveStaus, uid);
-
           navigate("/");
         }
       } catch (err) {
@@ -114,31 +108,6 @@ export default function Register_2Component() {
         <p className={styles["RegisterComponent--main--text-mobile"]}>
           Register
         </p>
-        {/* <div className={styles["RegisterComponent--main--ContinueButton"]}>
-          <button className={styles["RegisterComponent--main--GoogleButton"]}>
-            <img
-              src={google_logo}
-              className={styles["RegisterComponent--main--GoogleButton-img"]}
-            />
-            <div
-              className={styles["RegisterComponent--main--GoogleButton-text"]}
-            >
-              Continue with Google
-            </div>
-          </button>
-
-          <button className={styles["RegisterComponent--main--FBbutton"]}>
-            <img
-              src={facebook_logo}
-              className={styles["RegisterComponent--main--FBbutton-img"]}
-            />
-            <div className={styles["RegisterComponent--main--FBbutton-text"]}>
-              Continue with Facebook
-            </div>
-          </button>
-        </div> */}
-
-        {/* <img src={line} className={styles["RegisterComponent--main--hr"]} /> */}
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Full Name"

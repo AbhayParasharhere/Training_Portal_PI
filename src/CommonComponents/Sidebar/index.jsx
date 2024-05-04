@@ -18,6 +18,8 @@ import webinarRedIcon from "./images/webinar-red-icon.png";
 import complianceIcon from "./images/compliance-icon.png";
 import complianceRedIcon from "./images/compliance-red-icon.png";
 import communicationIcon from "./images/communication-icon.png";
+import communicationRedIcon from "./images/communication-red-icon.png";
+import allLinksRedIcon from "./images/all-links-red-icon.png";
 import PIlogo from "./images/PI-logo.png";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
@@ -96,9 +98,16 @@ export default function Sidebar(props) {
     },
     {
       icon: communicationIcon,
-      title: "Communication",
-      link: "/communication",
-      clickedIcon: communicationIcon,
+      title: "Connect with Others",
+      link: "/connect",
+      clickedIcon: communicationRedIcon,
+    },
+    ,
+    {
+      icon: communicationIcon,
+      title: "All links",
+      link: "/all-links",
+      clickedIcon: allLinksRedIcon,
     },
   ];
   const linkStyles = {
@@ -110,7 +119,6 @@ export default function Sidebar(props) {
     color: "#a80532f0",
   };
   const renderMenu = menuData.map((menu, index) => {
-    let image = menu.icon;
     return (
       <NavLink
         to={menu.link}
@@ -119,6 +127,8 @@ export default function Sidebar(props) {
           return isActive ? clickStyles : linkStyles;
         }}
         key={index}
+        end
+        exact={true}
       >
         <div className={styles["sidebar--menu-title-container"]} key={index}>
           <img
@@ -150,13 +160,13 @@ export default function Sidebar(props) {
             <NavLink
               to="/support"
               style={({ isActive }) => {
-                isActive && setMenuActive(11);
+                isActive && setMenuActive(12);
                 return isActive ? clickStyles : linkStyles;
               }}
             >
               <div className={styles["sidebar--menu-title-container"]}>
                 <img
-                  src={menuActive === 11 ? FAQRedIcon : FAQIcon}
+                  src={menuActive === 12 ? FAQRedIcon : FAQIcon}
                   className={styles["sidebar--menu-icon"]}
                 />
                 <p className={styles["sidebar--menu-text"]}>FAQs and Support</p>
