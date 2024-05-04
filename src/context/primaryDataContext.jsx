@@ -23,6 +23,7 @@ import {
 // announcement feature to be added
 
 export const PrimaryDataContext = createContext();
+export const RealTimeDataContext = createContext();
 export const PrimaryDataContextProvider = ({ children }) => {
   const [primaryData, setPrimaryData] = useState({});
   const [userClients, setUserClients] = useState();
@@ -75,7 +76,11 @@ export const PrimaryDataContextProvider = ({ children }) => {
 
   return (
     <PrimaryDataContext.Provider value={primaryData}>
-      {children}
+      <RealTimeDataContext.Provider
+        value={{ clients: userClients, announcements: announcements }}
+      >
+        {children}
+      </RealTimeDataContext.Provider>
     </PrimaryDataContext.Provider>
   );
 };

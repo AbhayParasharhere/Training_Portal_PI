@@ -13,7 +13,10 @@ import { AuthContext } from "../../../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import calendarIcon from "./images/calendar.png";
-import { PrimaryDataContext } from "../../../../context/primaryDataContext";
+import {
+  RealTimeDataContext,
+  PrimaryDataContext,
+} from "../../../../context/primaryDataContext";
 
 export default function Home() {
   const videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
@@ -65,7 +68,7 @@ export default function Home() {
   };
 
   const announcements = primaryData?.announcements;
-  const clients = primaryData?.clients;
+  const clients = useContext(RealTimeDataContext)?.clients;
   let clientsWithCreatedAt = [];
   if (clients) {
     clientsWithCreatedAt = clients?.filter((client) => client.created_at);

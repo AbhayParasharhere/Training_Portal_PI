@@ -10,17 +10,19 @@ import plus from "../Images/plus.png";
 import arrow_down from "../Images/arrow_down.png";
 import arrow_up from "../Images/arrow_up.png";
 import client_img from "../Images/client_img.png";
-import { PrimaryDataContext } from "../../../context/primaryDataContext";
+import {
+  RealTimeDataContext,
+  PrimaryDataContext,
+} from "../../../context/primaryDataContext";
 import { useNavigate } from "react-router-dom";
 
 export default function ClientComponent() {
   const [prevIndex, setPrevIndex] = useState(null);
   const primaryContextData = useContext(PrimaryDataContext);
   const salesData = primaryContextData?.sales;
-  const clientData = primaryContextData?.clients;
+  const clientData = useContext(RealTimeDataContext)?.clients;
   const navigate = useNavigate();
-  console.log("This is the client data for the user: ", clientData);
-
+  console.log("This is the realtime client data for the user: ", clientData);
   const toggleDialog = (index) => {
     if (prevIndex === index) {
       setPrevIndex(null);
