@@ -146,13 +146,13 @@ export default function Login() {
   useEffect(() => {
     console.log("This is the use effect current user: ", currentUser);
 
-    const createLoginCount = async (uid) => {
-      await createLoginCount(currentUser?.uid);
+    const asyncCreateLoginCount = async (uid) => {
+      await createLoginCount(uid);
     };
 
     if (currentUser?.uid) {
       console.log("Login count should be created here");
-      createLoginCount(currentUser?.uid);
+      asyncCreateLoginCount(currentUser?.uid);
       setLoadingRedirect(true);
       navigate("/");
     }

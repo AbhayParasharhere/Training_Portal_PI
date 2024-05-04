@@ -12,7 +12,8 @@ import {
 } from "../../context/primaryDataContext";
 
 export default function Statistics() {
-  console.log("Login Count", secureLocalStorage.getItem("loginCount"));
+  const loginCount = secureLocalStorage.getItem("loginCount");
+  console.log("Login Count", loginCount, loginCount?.length);
   const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
   const realTimeData = useContext(RealTimeDataContext);
@@ -215,7 +216,7 @@ export default function Statistics() {
       bar: true,
     },
     {
-      stat: secureLocalStorage?.getItem("loginCount")?.length || "X",
+      stat: loginCount?.length || "X",
       title1: "Login in",
       title2: "this week",
       bar: false,
