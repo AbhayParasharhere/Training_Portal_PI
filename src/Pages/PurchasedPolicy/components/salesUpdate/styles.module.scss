@@ -110,3 +110,44 @@
   line-height: 25.5px;
   letter-spacing: -0.03em;
 }
+@media (max-width: 1130px) {
+  .salesUpdate--main-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 790px) {
+  .salesUpdate--main-container {
+    flex-direction: column;
+    gap: 50px;
+  }
+  .salesUpdate--button-container {
+    align-self: center;
+  }
+}
+@media (max-width: 390px) {
+  .salesUpdate--input-inner-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .salesUpdate--input-text {
+    text-wrap: nowrap;
+  }
+}
+@media (max-width: 340px) {
+  .salesUpdate--button-container {
+    flex-direction: column;
+    align-items: start;
+    align-self: flex-start;
+  }
+  .salesUpdate--cancel-button,
+  .salesUpdate--update-button {
+    width: 120px;
+    font-size: 14px;
+  }
+  .salesUpdate--input,
+  .salesUpdate--input-dropdown {
+    min-width: 0;
+    max-width: 200px;
+  }
+}
