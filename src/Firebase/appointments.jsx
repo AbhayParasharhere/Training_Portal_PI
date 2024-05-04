@@ -10,43 +10,43 @@ import { toast } from "react-toastify";
 import { v4 } from "uuid";
 import { db } from "./firebaseConfig";
 
-const addWebinar = async (data) => {
+const addAppointments = async (data) => {
   try {
     await setDoc(doc(db, "webinars", v4()), {
       ...data,
       created_at: new Date(),
       updated_at: new Date(),
       status: "active",
-      type: "webinar",
+      type: "appointment",
     });
-    toast.success("Webinar added successfully");
+    toast.success("Appointment added successfully");
   } catch (error) {
-    console.log("Error adding webinar:", error.message);
-    toast.error("Error adding webinar");
+    console.log("Error adding appointments:", error.message);
+    toast.error("Error adding appointments");
   }
 };
 // Promise based function to get all webinars in real time
-const getAllWebinarsRealTime = (setWebinars) => {
+const getAllAppointmentsRealTime = (setWebinars) => {
   return new Promise((resolve, reject) => {
     try {
       const q = query(
         collection(db, "webinars"),
         where("status", "==", "active"),
-        where("type", "==", "webinar")
+        where("type", "==", "appointment")
       );
       const unsub = onSnapshot(q, (snapshot) => {
-        const webinars = [];
+        const appointments = [];
         snapshot.forEach((doc) => {
-          webinars.push({ ...doc.data(), id: doc.id });
+          appointments.push({ ...doc.data(), id: doc.id });
         });
-        setWebinars(webinars);
+        setWebinars(appointments);
       });
       return unsub;
     } catch (error) {
-      console.error("Error getting webinars real time:", error.message);
+      console.error("Error getting appointments real time:", error.message);
       reject(error);
     }
   });
 };
 
-export { addWebinar, getAllWebinarsRealTime };
+export { addAppointments, getAllAppointmentsRealTime };

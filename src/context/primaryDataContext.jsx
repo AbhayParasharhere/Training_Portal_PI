@@ -7,6 +7,7 @@ import {
   getAllUserSalesRealTime,
 } from "../Firebase/getClientSales";
 import { getAllWebinarsRealTime } from "../Firebase/webinar";
+import { getAllAppointmentsRealTime } from "../Firebase/appointments";
 // We will use this context to fetch the primary data
 // All announcements
 // All the user details
@@ -31,6 +32,7 @@ export const PrimaryDataContextProvider = ({ children }) => {
   const [announcements, setAnnouncements] = useState();
   const [counter, setCounter] = useState(0);
   const [webinars, setWebinars] = useState();
+  const [appointments, setAppointments] = useState();
 
   useEffect(() => {
     setCounter((counter) => counter + 1);
@@ -71,6 +73,11 @@ export const PrimaryDataContextProvider = ({ children }) => {
     getAllWebinarsRealTime(setWebinars).then((webinars) => {
       setPrimaryData((primaryData) => ({ ...primaryData, webinars }));
     });
+
+    // Fetch all the appointments
+    getAllAppointmentsRealTime(setAppointments).then((appointments) => {
+      setPrimaryData((primaryData) => ({ ...primaryData, appointments }));
+    });
   }, [currentUser]);
   console.log(
     "This is the clients in primar data function: ",
@@ -85,6 +92,7 @@ export const PrimaryDataContextProvider = ({ children }) => {
           sales: userSales,
           announcements: announcements,
           webinars: webinars,
+          appointments: appointments,
         }}
       >
         {children}

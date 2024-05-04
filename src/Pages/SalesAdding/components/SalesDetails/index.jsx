@@ -89,6 +89,7 @@ export default function SalesDetails(props) {
         console.log("Client added sucessfully");
         await saveSalesData(props.salesDetailsData, clientId, currentUser?.uid);
         console.log("Sales added sucessfully");
+        toast.success("Details Saved");
         props.setClientId("");
         props.setSalesDetailsData({
           broker_name: "",

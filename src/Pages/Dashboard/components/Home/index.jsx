@@ -17,10 +17,42 @@ import {
   RealTimeDataContext,
   PrimaryDataContext,
 } from "../../../../context/primaryDataContext";
-import { getTimeDifference } from "../TabletImportantUpdates";
+import {
+  getFutureTimeDifference,
+  getTimeDifference,
+} from "../TabletImportantUpdates";
 
 export default function Home() {
   const realTimeData = useContext(RealTimeDataContext);
+  const appointments = realTimeData?.appointments;
+  let latestAppoitment = {};
+  let appoitmentClientName = "";
+
+  if (appointments) {
+    // Get the one which is closest to the current time and must be in the future
+
+    latestAppoitment = appointments
+      .filter((appointment) => {
+        const currentDate = new Date();
+        const appointmentDate = appointment.date.toDate();
+        console.log(
+          "Current Date",
+          currentDate,
+          "Appointment Date",
+          appointmentDate
+        );
+        return currentDate < appointmentDate;
+      })
+      ?.sort((a, b) => a.date.seconds - b.date.seconds)[0];
+    if (latestAppoitment) {
+      appoitmentClientName = realTimeData.clients.find(
+        (client) => client.id === latestAppoitment.clientID
+      )?.name;
+    }
+    console.log("Latest Appoitment", latestAppoitment);
+  }
+  console.log("Appointments", appointments);
+
   let videosWatched = [];
   if (JSON?.parse(sessionStorage?.getItem("video_progress"))) {
     videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
@@ -421,19 +453,20 @@ export default function Home() {
             </p>
             <div>
               <p className={styles["statsSummary--meeting-title"]}>
-                Meeting Name
+                {latestAppoitment?.topic}
               </p>
               <p className={styles["statsSummary--appointment-desc-text"]}>
-                Client Name: John Williams|Time:120 min
+                Client Name: {appoitmentClientName}|Time:{" "}
+                {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
               </p>
             </div>
             <div>
               <ul className={styles["statsSummary--unordered-list"]}>
                 <li className={styles["statsSummary--appointment-marker"]}>
-                  Web, Apr 3
+                  {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
                 </li>
                 <li className={styles["statsSummary--appointment-marker"]}>
-                  11 AM - 12:45
+                  {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
                 </li>
               </ul>
               <button className={styles["statsSummary--appointment-button"]}>
