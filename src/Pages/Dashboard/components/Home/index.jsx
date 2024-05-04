@@ -21,6 +21,9 @@ import { getTimeDifference } from "../TabletImportantUpdates";
 
 export default function Home() {
   const realTimeData = useContext(RealTimeDataContext);
+  const appointments = realTimeData?.appointments;
+  console.log("Appointments", appointments);
+
   let videosWatched = [];
   if (JSON?.parse(sessionStorage?.getItem("video_progress"))) {
     videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
