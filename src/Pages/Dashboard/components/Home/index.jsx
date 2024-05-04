@@ -21,7 +21,10 @@ import { getTimeDifference } from "../TabletImportantUpdates";
 
 export default function Home() {
   const realTimeData = useContext(RealTimeDataContext);
-  const videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
+  let videosWatched = [];
+  if (JSON?.parse(sessionStorage?.getItem("video_progress"))) {
+    videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
+  }
   const primaryData = useContext(PrimaryDataContext);
   const allCourses = primaryData?.courses;
   if (videosWatched) {
