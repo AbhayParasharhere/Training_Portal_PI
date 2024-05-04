@@ -1,16 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import ModalComponent from "../../CommonComponents/Modal";
 import styles from "./styles.module.scss";
 import { NavLink } from "react-router-dom";
 import { PrimaryDataContext } from "../../context/primaryDataContext";
+
 
 export default function ClientTopbar(props) {
   function SaveChanges() {
     console.log("Save Changes");
   }
-  function OrganizeMeet() {
-    console.log("Organize Meet");
-  }
+
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+ 
   const activeStyles = { color: "#123c97", borderColor: "#123c97" };
+
 
   return (
     <div className={styles["ClientInfo-wrapper-topbar"]}>
@@ -50,11 +55,12 @@ export default function ClientTopbar(props) {
         </button>
         <button
           className={styles["ClientInfo-wrapper-topbar-buttons-meet"]}
-          onClick={OrganizeMeet}
+          onClick={() => setModalOpen(true)}
         >
           Organize Meet
         </button>
       </div>
+      <ModalComponent modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </div>
   );
 }

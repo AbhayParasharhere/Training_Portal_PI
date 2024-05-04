@@ -31,6 +31,10 @@ import ProductLinks from "./ProductLinks";
 
 import CourseDetail from "./Pages/Course/components/CourseDetail";
 import NoPagesElement from "./CommonComponents/NoPageError";
+
+import Meet from "./CommonComponents/Meet";
+
+
 import AdminConsole from "./Pages/AdminConsole";
 import InternalLinks from "./Pages/InternalLinks";
 
@@ -43,6 +47,7 @@ import AllLinks from "./Pages/AllLinks";
 import Contact from "./Pages/Contact";
 import ContactDetails from "./Pages/Contact";
 import WebinarForm from "./Pages/WebinarForm";
+
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -71,6 +76,7 @@ const router = createBrowserRouter(
         <Route path="/compliance" element={<Compliance />} />
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/courses" element={<Course />} />
+
         <Route path="/productlinks" element={<ProductLinks />} />
         <Route path="/add-webinar" element={<WebinarForm />} />
         <Route path="/clients" element={<ClientComponent />} />
@@ -87,6 +93,7 @@ const router = createBrowserRouter(
           <Route path="goals" element={<ClientInfo />} />
         </Route>
         <Route path="/connect" element={<PostQues />} />
+
       </Route>
     </>
   )
