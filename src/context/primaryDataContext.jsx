@@ -9,6 +9,7 @@ import {
 import { getAllWebinarsRealTime } from "../Firebase/webinar";
 import { getAllAppointmentsRealTime } from "../Firebase/appointments";
 import { getPostedDoubtsRealtime } from "../Firebase/postDoubtsLogic";
+import { getAllDocuments } from "../Firebase/addGetDocuments";
 // We will use this context to fetch the primary data
 // All announcements
 // All the user details
@@ -89,6 +90,11 @@ export const PrimaryDataContextProvider = ({ children }) => {
     getAllAppointmentsRealTime(setAppointments).then((appointments) => {
       setPrimaryData((primaryData) => ({ ...primaryData, appointments }));
     });
+    getAllDocuments().then((documents) => {
+      setPrimaryData((primaryData) => ({ ...primaryData, documents }));
+    });
+
+    //fetch all the document data
   }, [currentUser]);
   console.log(
     "This is the clients in primar data function: ",
