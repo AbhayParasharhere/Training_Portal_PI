@@ -70,12 +70,21 @@
   opacity: 0px;
 }
 .AdminPanel-wrapper-course-upload {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
   width: 320px;
   height: 38px;
-  top: 511px;
-  left: 488px;
-  gap: 0px;
+
   border-radius: 8px;
-  border: 1px;
+
   border: 1px solid #a1a1a1;
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #686868;
 }
