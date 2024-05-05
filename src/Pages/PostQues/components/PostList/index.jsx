@@ -11,12 +11,7 @@ import { getPostedDoubtsRealtime } from "../../../../Firebase/postDoubtsLogic";
 import { getTimeDifference } from "../../../Dashboard/components/TabletImportantUpdates";
 
 export default function PostList(props) {
-  const [posts, setPosts] = useState([]);
-
-  useMemo(() => {
-    getPostedDoubtsRealtime(setPosts);
-  }, []);
-  console.log("Posts", posts);
+  const posts = props?.posts;
 
   const handleCategoryChange = (event) => {
     setPostCategory(event.target.value);
@@ -38,7 +33,7 @@ export default function PostList(props) {
   //     catagory2: "Technical",
   //     time: "20 mins ago",
   //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     totalAnswers: "4",
+  //     comments?.length: "4",
   //     comments: [
   //       {
   //         img: samplePhoto,
@@ -102,7 +97,7 @@ export default function PostList(props) {
   //     catagory2: "Technical",
   //     time: "20 mins ago",
   //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     totalAnswers: "4",
+  //     comments?.length: "4",
   //   },
   //   {
   //     userName: "Bessie Cooper",
@@ -110,7 +105,7 @@ export default function PostList(props) {
   //     catagory2: "Technical",
   //     time: "20 mins ago",
   //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     totalAnswers: "4",
+  //     comments?.length: "4",
   //   },
   //   {
   //     userName: "Bessie Cooper",
@@ -118,7 +113,7 @@ export default function PostList(props) {
   //     catagory2: "Technical",
   //     time: "20 mins ago",
   //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     totalAnswers: "4",
+  //     comments?.length: "4",
   //   },
   //   {
   //     userName: "Bessie Cooper",
@@ -126,7 +121,7 @@ export default function PostList(props) {
   //     catagory2: "Technical",
   //     time: "20 mins ago",
   //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     totalAnswers: "4",
+  //     comments?.length: "4",
   //   },
   // ];
   const [reportContainer, setReportContainer] = useState();
@@ -169,7 +164,7 @@ export default function PostList(props) {
           <hr className={styles["postList--divider"]} />
           <div className={styles["postList--answer-container"]}>
             <div className={styles["postList--total-answers-container"]}>
-              {post?.totalAnswers && (
+              {post?.comments?.length && (
                 <img
                   src={combinedProfile}
                   className={styles["postList--combined-profile"]}
@@ -177,8 +172,8 @@ export default function PostList(props) {
               )}
 
               <p className={styles["postList--total-answers"]}>
-                {post?.totalAnswers
-                  ? `+${post?.totalAnswers} Answered`
+                {post?.comments?.length
+                  ? `+${post?.comments?.length} Answered`
                   : "No answers yet"}
               </p>
             </div>

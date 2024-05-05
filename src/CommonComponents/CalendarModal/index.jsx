@@ -51,7 +51,7 @@ const addToCalendar = (appointmentData, clientEmail) => {
           // recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
           attendees: [
             { email: clientEmail },
-            //   { email: "sbrin@example.com" },
+            // { email: "sbrin@example.com" },
           ],
           reminders: {
             useDefault: false,

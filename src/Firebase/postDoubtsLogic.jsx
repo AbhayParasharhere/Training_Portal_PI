@@ -1,4 +1,11 @@
-import { doc, setDoc, onSnapshot, collection } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  onSnapshot,
+  collection,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "./firebaseConfig";
 import { v4 } from "uuid";
@@ -17,6 +24,26 @@ const postDoubts = async (postData) => {
   } catch (error) {
     console.log("Error posting doubt", error);
     toast.error("Could not post the doubt. Please try again later.");
+  }
+};
+
+// Add a comment to a post
+const addComment = async (commentData, postId) => {
+  try {
+    if (!commentData) throw new Error("Invalid parameters");
+    await updateDoc(doc(db, "postedDoubts", postId), {
+      comments: arrayUnion({
+        commentId: v4(),
+        ...commentData,
+        status: "active",
+        created_at: new Date(),
+        updated_at: new Date(),
+      }),
+    });
+    toast.success("Comment added successfully");
+  } catch (error) {
+    console.log("Error adding comment", error);
+    toast.error("Could not add the comment. Please try again later.");
   }
 };
 
@@ -44,4 +71,4 @@ const getPostedDoubtsRealtime = async (setPosts) => {
     }
   });
 };
-export { postDoubts, getPostedDoubtsRealtime };
+export { postDoubts, getPostedDoubtsRealtime, addComment };
