@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./styles.module.scss";
 import searchIcon from "./images/search-icon.png";
 import Dropdown from "../../../../CommonComponents/Dropdown";
@@ -7,8 +7,16 @@ import combinedProfile from "./images/combine-profile.png";
 import optionsIcon from "./images/options-icon.png";
 import reportIcon from "./images/report-icon.png";
 import plusIcon from "./images/plus-icon.png";
+import { getPostedDoubtsRealtime } from "../../../../Firebase/postDoubtsLogic";
+import { getTimeDifference } from "../../../Dashboard/components/TabletImportantUpdates";
 
 export default function PostList(props) {
+  const posts = props?.posts;
+
+  const handleCategoryChange = (event) => {
+    setPostCategory(event.target.value);
+  };
+
   const arrowOptions = [
     { text: "All", value: "" },
     { text: "Technical Support", value: "tech" },
@@ -17,111 +25,112 @@ export default function PostList(props) {
     { text: "Annoucements/Updates", value: "updates" },
     { text: "General Inquiries", value: "general" },
   ];
-  const postsData = [
-    {
-      userName: "Bessie Cooper",
-      catagory1: "General",
-      catagory2: "Technical",
-      time: "20 mins ago",
-      post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-      totalAnswers: "4",
-      comments: [
-        {
-          img: samplePhoto,
-          time: "2 mins ago",
-          name: "Comment 1",
-          comment:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-        },
-        {
-          img: samplePhoto,
-          time: "2 mins ago",
-          name: "Comment 2",
-          comment:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-        },
-        ,
-        {
-          img: samplePhoto,
-          time: "2 mins ago",
-          name: "Comment 2",
-          comment:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-        },
-        ,
-        {
-          img: samplePhoto,
-          time: "2 mins ago",
-          name: "Comment 2",
-          comment:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-        },
-        ,
-        {
-          img: samplePhoto,
-          time: "2 mins ago",
-          name: "Comment 2",
-          comment:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-        },
-        ,
-        {
-          img: samplePhoto,
-          time: "2 mins ago",
-          name: "Comment 2",
-          comment:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-        },
-        ,
-        {
-          img: samplePhoto,
-          time: "2 mins ago",
-          name: "Comment 2",
-          comment:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-        },
-      ],
-    },
-    {
-      userName: "Bessie Cooper",
-      catagory1: "General",
-      catagory2: "Technical",
-      time: "20 mins ago",
-      post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-      totalAnswers: "4",
-    },
-    {
-      userName: "Bessie Cooper",
-      catagory1: "General",
-      catagory2: "Technical",
-      time: "20 mins ago",
-      post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-      totalAnswers: "4",
-    },
-    {
-      userName: "Bessie Cooper",
-      catagory1: "General",
-      catagory2: "Technical",
-      time: "20 mins ago",
-      post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-      totalAnswers: "4",
-    },
-    {
-      userName: "Bessie Cooper",
-      catagory1: "General",
-      catagory2: "Technical",
-      time: "20 mins ago",
-      post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-      totalAnswers: "4",
-    },
-  ];
+
+  // const postsData = [
+  //   {
+  //     userName: "Bessie Cooper",
+  //     catagory1: "General",
+  //     catagory2: "Technical",
+  //     time: "20 mins ago",
+  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
+  //     comments?.length: "4",
+  //     comments: [
+  //       {
+  //         img: samplePhoto,
+  //         time: "2 mins ago",
+  //         name: "Comment 1",
+  //         comment:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+  //       },
+  //       {
+  //         img: samplePhoto,
+  //         time: "2 mins ago",
+  //         name: "Comment 2",
+  //         comment:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+  //       },
+  //       ,
+  //       {
+  //         img: samplePhoto,
+  //         time: "2 mins ago",
+  //         name: "Comment 2",
+  //         comment:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+  //       },
+  //       ,
+  //       {
+  //         img: samplePhoto,
+  //         time: "2 mins ago",
+  //         name: "Comment 2",
+  //         comment:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+  //       },
+  //       ,
+  //       {
+  //         img: samplePhoto,
+  //         time: "2 mins ago",
+  //         name: "Comment 2",
+  //         comment:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+  //       },
+  //       ,
+  //       {
+  //         img: samplePhoto,
+  //         time: "2 mins ago",
+  //         name: "Comment 2",
+  //         comment:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+  //       },
+  //       ,
+  //       {
+  //         img: samplePhoto,
+  //         time: "2 mins ago",
+  //         name: "Comment 2",
+  //         comment:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     userName: "Bessie Cooper",
+  //     catagory1: "General",
+  //     catagory2: "Technical",
+  //     time: "20 mins ago",
+  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
+  //     comments?.length: "4",
+  //   },
+  //   {
+  //     userName: "Bessie Cooper",
+  //     catagory1: "General",
+  //     catagory2: "Technical",
+  //     time: "20 mins ago",
+  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
+  //     comments?.length: "4",
+  //   },
+  //   {
+  //     userName: "Bessie Cooper",
+  //     catagory1: "General",
+  //     catagory2: "Technical",
+  //     time: "20 mins ago",
+  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
+  //     comments?.length: "4",
+  //   },
+  //   {
+  //     userName: "Bessie Cooper",
+  //     catagory1: "General",
+  //     catagory2: "Technical",
+  //     time: "20 mins ago",
+  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
+  //     comments?.length: "4",
+  //   },
+  // ];
   const [reportContainer, setReportContainer] = useState();
   const handleCommentPage = (post) => {
     props.setDisplayPage("comments");
     props.setSelectedPost(post);
   };
 
-  const renderPosts = postsData.map((post, index) => {
+  const renderPosts = posts?.map((post, index) => {
     return (
       <div
         className={styles["postList--post-container"]}
@@ -133,34 +142,39 @@ export default function PostList(props) {
         <div className={styles["postList--profile-details-container"]}>
           <div className={styles["postList--profile-image-name-container"]}>
             <img
-              src={samplePhoto}
+              src={post?.photo || samplePhoto}
               className={styles["postList--profile-image"]}
+              style={post?.photo ? { borderRadius: "50%" } : {}}
             />
             <div>
               <p className={styles["postList--profile-name"]}>
-                {post.userName}
+                {post?.userName}
               </p>
               <p className={styles["postList--post-time"]}>
-                Posted {post.time}
+                Posted {getTimeDifference(post?.created_at.toDate())}
               </p>
             </div>
           </div>
           <div className={styles["postList--catagory-container"]}>
-            <div className={styles["postList--catagory"]}>{post.catagory1}</div>
-            <div className={styles["postList--catagory"]}>{post.catagory2}</div>
+            <div className={styles["postList--catagory"]}>{post?.category}</div>
           </div>
         </div>
         <div className={styles["postList--post-details-container"]}>
-          <p className={styles["postList--post-text"]}>{post.post}</p>
+          <p className={styles["postList--post-text"]}>{post?.post}</p>
           <hr className={styles["postList--divider"]} />
           <div className={styles["postList--answer-container"]}>
             <div className={styles["postList--total-answers-container"]}>
-              <img
-                src={combinedProfile}
-                className={styles["postList--combined-profile"]}
-              />
+              {post?.comments?.length && (
+                <img
+                  src={combinedProfile}
+                  className={styles["postList--combined-profile"]}
+                />
+              )}
+
               <p className={styles["postList--total-answers"]}>
-                +{post.totalAnswers} Answered
+                {post?.comments?.length
+                  ? `+${post?.comments?.length} Answered`
+                  : "No answers yet"}
               </p>
             </div>
             <div className={styles["postList--answer-button-container"]}>
@@ -202,7 +216,7 @@ export default function PostList(props) {
 
   const [arrowState, setArrowState] = useState(false);
   const [filter, setFilter] = useState("");
-  console.log(filter);
+  console.log("Filter in posts active", filter);
   return (
     <div
       className={styles["postList--main-container"]}
