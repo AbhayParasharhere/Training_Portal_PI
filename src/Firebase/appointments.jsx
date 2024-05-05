@@ -12,17 +12,17 @@ import { db } from "./firebaseConfig";
 
 const addAppointments = async (data) => {
   try {
-    await setDoc(doc(db, "webinars", v4()), {
+    const appointmentId = v4();
+    console.log("This is the appoitment id: ", appointmentId);
+    await setDoc(doc(db, "webinars", appointmentId), {
       ...data,
       created_at: new Date(),
       updated_at: new Date(),
       status: "active",
       type: "appointment",
     });
-    toast.success("Appointment added successfully");
   } catch (error) {
     console.log("Error adding appointments:", error.message);
-    toast.error("Error adding appointments");
   }
 };
 // Promise based function to get all webinars in real time
