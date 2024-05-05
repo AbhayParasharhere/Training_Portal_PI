@@ -35,6 +35,15 @@ export const PrimaryDataContextProvider = ({ children }) => {
   const [webinars, setWebinars] = useState();
   const [appointments, setAppointments] = useState();
   const [posts, setPosts] = useState([]);
+  const [postsFetched, setPostsFetched] = useState(false);
+
+  const fetchPosts = () => {
+    if (!postsFetched) {
+      getPostedDoubtsRealtime(setPosts)
+        .then(() => setPostsFetched(true))
+        .catch((error) => console.error("Error fetching posts:", error));
+    }
+  };
 
   useEffect(() => {
     setCounter((counter) => counter + 1);
@@ -80,10 +89,6 @@ export const PrimaryDataContextProvider = ({ children }) => {
     getAllAppointmentsRealTime(setAppointments).then((appointments) => {
       setPrimaryData((primaryData) => ({ ...primaryData, appointments }));
     });
-
-    getPostedDoubtsRealtime(setPosts).then((posts) => {
-      setPrimaryData((primaryData) => ({ ...primaryData, posts }));
-    });
   }, [currentUser]);
   console.log(
     "This is the clients in primar data function: ",
@@ -100,6 +105,7 @@ export const PrimaryDataContextProvider = ({ children }) => {
           webinars: webinars,
           appointments: appointments,
           posts: posts,
+          fetchPosts,
         }}
       >
         {children}

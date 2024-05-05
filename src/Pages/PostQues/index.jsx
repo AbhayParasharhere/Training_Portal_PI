@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import PostList from "./components/PostList";
 import AddPost from "./components/AddPost";
@@ -8,7 +8,14 @@ import { RealTimeDataContext } from "../../context/primaryDataContext";
 export default function PostQues() {
   const [displayPage, setDisplayPage] = useState("list");
   const [selectedPost, setSelectedPost] = useState({});
-  const posts = useContext(RealTimeDataContext)?.posts;
+  const { posts, fetchPosts } = useContext(RealTimeDataContext);
+
+  useEffect(() => {
+    if (!posts.length) {
+      fetchPosts();
+    }
+  }, [fetchPosts, posts]);
+
   console.log("Posts", posts);
   if (displayPage === "comments") {
     return (
