@@ -41,6 +41,8 @@ const getAllAppointmentsRealTime = (setWebinars, uid) => {
           appointments.push({ ...doc.data(), id: doc.id });
         });
         setWebinars(appointments);
+        console.log("This is workinghere 2w");
+        resolve(appointments);
       });
       return unsub;
     } catch (error) {
