@@ -131,26 +131,17 @@ export default function MainCover() {
         <div className={styles["wcover--image-desc-container"]}>
           <div className={styles["wcover--cover-image"]}>
             <div
-              className={styles["wcover--rectangles"]}
-              style={{
-                top: 20,
-                left: 40,
-                height: "100px",
-                width: "150px",
-                borderRadius: "15px",
-              }}
+              className={styles["wcover--bottom-rectangles-vertical-4"]}
             ></div>
             <div
-              className={styles["wcover--rectangles"]}
-              style={{
-                top: 300,
-                left: 40,
-                height: "30px",
-                width: "50px",
-                borderRadius: "15px",
-              }}
+              className={styles["wcover--bottom-rectangles-vertical-3"]}
             ></div>
-
+            <div
+              className={styles["wcover--bottom-rectangles-vertical-1"]}
+            ></div>
+            <div
+              className={styles["wcover--bottom-rectangles-vertical-2"]}
+            ></div>
             <div className={styles["wcover--cover-image-inner"]}></div>
           </div>
           <p className={styles["wcover--desc-text"]}>

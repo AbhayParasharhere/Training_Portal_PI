@@ -110,7 +110,11 @@
   left: -100px;
   // background-position: 10%;
 }
-.wcover--rectangles {
+.wcover--rectangles,
+.wcover--bottom-rectangles-vertical-1,
+.wcover--bottom-rectangles-vertical-2,
+.wcover--bottom-rectangles-vertical-3,
+.wcover--bottom-rectangles-vertical-4 {
   position: absolute;
   background: linear-gradient(
     270.99deg,
@@ -135,6 +139,59 @@
   //   letter-spacing: -0.03em;
   color: #1e1e1e;
 }
+.wcover--bottom-rectangles-vertical-1 {
+  top: 450px;
+  left: 100px;
+  height: 40px;
+  width: 30px;
+  border-radius: 15px;
+}
+.wcover--bottom-rectangles-vertical-2 {
+  top: 450px;
+  right: 50px;
+  height: 100px;
+  width: 100px;
+  border-radius: 15px;
+}
+.wcover--bottom-rectangles-vertical-3 {
+  top: 300px;
+  left: 20px;
+  height: 30px;
+  width: 50px;
+  border-radius: 15px;
+}
+.wcover--bottom-rectangles-vertical-4 {
+  top: 20px;
+  left: 40px;
+  height: 100px;
+  width: 150px;
+  border-radius: 15px;
+}
+@media (max-width: 1180px) {
+  .wcover--cover-image-inner {
+    height: 100%;
+    top: 50px;
+  }
+}
+@media (max-width: 1100px) {
+  .wcover--cover-image-inner {
+    height: 100%;
+    min-width: 130%;
+    top: 50px;
+  }
+}
+@media (max-width: 1050px) {
+  .wcover--cover-image-inner {
+    height: 90%;
+    min-width: 130%;
+    top: 50px;
+  }
+  .wcover--bottom-rectangles-vertical-2 {
+    top: 420px;
+    right: 30px;
+  }
+}
+
 @media (max-width: 1000px) {
   .wcover--graph-heading-container {
     min-height: 0;
@@ -143,18 +200,31 @@
   .wcover--graph-heading-inner-container {
     padding: 0;
   }
+  .wcover--image-desc-container {
+    gap: 30px;
+  }
   .wcover--heading-text {
     font-size: 35px;
     line-height: 50px;
   }
+  .wcover--cover-image-inner {
+    height: 100%;
+    min-width: 140%;
+    top: 40px;
+  }
+  .wcover--bottom-rectangles-vertical-2 {
+    top: 300px;
+    right: 30px;
+  }
+  .wcover--bottom-rectangles-vertical-1 {
+    top: 200px;
+  }
 }
 @media (max-width: 950px) {
-  .wcover--desc-text {
-    font-size: 14px;
+  .wcover--bottom-rectangles-vertical-2 {
+    top: 270px;
+    right: 10px;
   }
-  // .wcover--graph-container {
-  //   display: none;
-  // }
 }
 @media (max-width: 930px) {
   .wcover--heading-text {
@@ -173,7 +243,7 @@
     align-items: center;
   }
   .wcover--image-desc-container {
-    gap: 10px;
+    gap: 50px;
   }
   .wcover--main-container {
     margin-bottom: 100px;
@@ -194,6 +264,23 @@
     height: 300px;
     width: 90%;
   }
+  .wcover--cover-image-inner {
+    height: 110%;
+    top: 0px;
+    left: -40px;
+    min-width: 0;
+    max-width: 100%;
+    // display: none;
+  }
+  .wcover--bottom-rectangles-vertical-1 {
+    top: 250px;
+  }
+  .wcover--bottom-rectangles-vertical-2 {
+    top: 230px;
+  }
+  .wcover--bottom-rectangles-vertical-3 {
+    top: 200px;
+  }
 }
 @media (max-width: 650px) {
   .wcover--heading-text {
@@ -208,22 +295,32 @@
     width: 100%;
   }
 }
-@media (max-width: 540px) {
+@media (max-width: 570px) {
   .wcover--main-container {
-    margin-bottom: 100px;
+    margin-bottom: 200px;
+  }
+}
+@media (max-width: 500px) {
+  .wcover--main-container {
+    margin-bottom: 300px;
   }
 }
 @media (max-width: 475px) {
   .wcover--heading-text {
     font-size: 35px;
   }
-  .wcover--main-container {
-    margin-bottom: 130px;
-  }
 }
 @media (max-width: 440px) {
   .wcover--heading-text {
     font-size: 30px;
+  }
+  .wcover--cover-image-inner {
+    height: 110%;
+    top: 0px;
+    left: -40px;
+    min-width: 0;
+    max-width: 110%;
+    // display: none;
   }
 }
 @media (max-width: 385px) {
@@ -249,10 +346,21 @@
   .wcover--main-container {
     padding-top: 10px;
   }
+  .wcover--cover-image-inner {
+    height: 100%;
+    top: 30px;
+    left: -50px;
+    min-width: 0;
+    max-width: 130%;
+    // display: none;
+  }
 }
 @media (max-width: 330px) {
   .wcover--heading-text {
     font-size: 22px;
+  }
+  .wcover--main-container {
+    margin-bottom: 100px;
   }
 }
 @media (max-width: 310px) {
@@ -266,6 +374,26 @@
   }
   .wcover--main-container {
     margin-bottom: -20px;
+  }
+  .wcover--bottom-rectangles-vertical-1 {
+    top: 150px;
+  }
+  .wcover--bottom-rectangles-vertical-2 {
+    height: 50px;
+    top: 170px;
+    width: 50px;
+  }
+  .wcover--bottom-rectangles-vertical-3 {
+    top: 150px;
+  }
+  .wcover--cover-image-inner {
+    top: 20px;
+  }
+  .wcover--bottom-rectangles-vertical-4 {
+    height: 60px;
+    width: 60px;
+    top: 5px;
+    left: 10px;
   }
 }
 
@@ -310,5 +438,8 @@
   }
   .wcover--main-container {
     margin-bottom: -60px;
+  }
+  .wcover--cover-image-inner {
+    width: 140%;
   }
 }
