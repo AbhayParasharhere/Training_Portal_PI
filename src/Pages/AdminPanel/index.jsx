@@ -62,22 +62,18 @@ const AdminPanel = () => {
               className={styles["AdminPanel-wrapper-course-title-input"]}
             ></input>
           </div>
-          <div className={styles["AdminPanel-wrapper-course-title"]}>
+          <div className={styles["AdminPanel-wrapper-course-upload-div"]}>
             <div className={styles["AdminPanel-wrapper-course-upload"]}>
               Upload Video <img src={upload} height="24px"></img>
             </div>
-          </div>
-          <div className={styles["AdminPanel-wrapper-course-title"]}>
-            <input
-              name="course-title"
-              className={styles["AdminPanel-wrapper-course-title-input"]}
-            ></input>
-          </div>
-          <div className={styles["AdminPanel-wrapper-course-title"]}>
-            <input
-              name="course-title"
-              className={styles["AdminPanel-wrapper-course-title-input"]}
-            ></input>
+
+            <div className={styles["AdminPanel-wrapper-course-upload"]}>
+              Upload Video <img src={upload} height="24px"></img>
+            </div>
+
+            <div className={styles["AdminPanel-wrapper-course-upload"]}>
+              Upload Video <img src={upload} height="24px"></img>
+            </div>
           </div>
           <div className={styles["AdminPanel-wrapper-course-title"]}>
             <label

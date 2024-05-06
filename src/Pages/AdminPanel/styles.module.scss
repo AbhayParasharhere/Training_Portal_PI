@@ -15,6 +15,7 @@
 .AdminPanel-wrapper-course-cover {
   display: flex;
   flex-direction: column;
+
   gap: 20px;
   padding-top: 40px;
   padding-left: 5%;
@@ -87,4 +88,25 @@
   letter-spacing: -0.03em;
   text-align: left;
   color: #686868;
+}
+
+.AdminPanel-wrapper-course-upload-div {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // flex-direction: column;
+  // padding: 0 5px;
+  // width: 320px;
+  // height: 38px;
+
+  // border-radius: 8px;
+
+  // border: 1px solid #a1a1a1;
+  // font-family: Epilogue;
+  // font-size: 15px;
+  // font-weight: 500;
+  // line-height: 22.5px;
+  // letter-spacing: -0.03em;
+  // text-align: left;
+  // color: #686868;
 }
