@@ -2,6 +2,7 @@
 
 .wcover--main-container {
   padding: 25px;
+  margin-bottom: 50px;
 }
 .wcover--graph-heading-container {
   min-height: 800px;
@@ -142,6 +143,12 @@
     justify-content: center;
     align-items: center;
   }
+  .wcover--image-desc-container {
+    gap: 10px;
+  }
+  .wcover--main-container {
+    margin-bottom: 100px;
+  }
   .wcover--graph-container {
     display: none;
   }
@@ -172,9 +179,17 @@
     width: 100%;
   }
 }
+@media (max-width: 540px) {
+  .wcover--main-container {
+    margin-bottom: 100px;
+  }
+}
 @media (max-width: 475px) {
   .wcover--heading-text {
     font-size: 35px;
+  }
+  .wcover--main-container {
+    margin-bottom: 130px;
   }
 }
 @media (max-width: 440px) {
@@ -189,6 +204,9 @@
   .wcover--desc-text {
     font-size: 12px;
     line-height: 20px;
+  }
+  .wcover--main-container {
+    margin-bottom: 60px;
   }
   .wcover--logo {
     height: 80px;
@@ -217,6 +235,9 @@
     font-size: 10px;
     line-height: 15px;
   }
+  .wcover--main-container {
+    margin-bottom: -20px;
+  }
 }
 
 @media (max-width: 275px) {
@@ -226,6 +247,10 @@
     height: 30px;
     font-size: 12px;
   }
+  .wcover--main-container {
+    margin-top: 0px;
+    margin-bottom: -100px;
+  }
   .wcover--heading-text {
     font-size: 18px;
     line-height: 40px;
@@ -233,10 +258,28 @@
   .wcover--logo {
     height: 70px;
   }
+  .wcover--logo-graph-container {
+    margin-top: 0px;
+    max-height: 250px;
+    padding-top: 0px;
+  }
+  .wcover--graph-heading-container {
+    margin-bottom: 0;
+    padding: 0;
+    max-height: 100%;
+  }
+  .wcover--image-desc-container {
+    flex: 0;
+    gap: 30px;
+    margin-bottom: 0;
+  }
 }
 @media (max-width: 250px) {
   .wcover--heading-text {
     font-size: 15px;
     line-height: 30px;
+  }
+  .wcover--main-container {
+    margin-bottom: -60px;
   }
 }
