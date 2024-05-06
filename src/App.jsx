@@ -27,7 +27,7 @@ import ClientComponent from "./Pages/ClientPage/Components/ClientComponent";
 import Tools from "./Pages/Tools";
 
 import SalesAdding from "./Pages/SalesAdding";
-import ProductLinks from "./ProductLinks";
+import ProductLinks from "./Pages/ProductLinks";
 
 import CourseDetail from "./Pages/Course/components/CourseDetail";
 import NoPagesElement from "./CommonComponents/NoPageError";

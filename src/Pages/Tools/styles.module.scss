@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
-
 .Tools-wrapper {
   padding-top: 15px;
   padding-left: 15px;
@@ -9,7 +8,6 @@
 }
 
 .Tools-wrapper-main-content-image {
-
   background-color: #a805322e;
   border: 2px solid #a80532f0;
   width: 41px;
@@ -51,7 +49,7 @@
 
 @media screen and (min-width: 2000px) {
   .Tools-wrapper-main-content-file {
-    font-size: 32px;
+    font-size: 20px;
   }
   .Tools-wrapper-main-content {
     padding: 20px;
@@ -63,11 +61,7 @@
     width: 80%;
   }
 }
-@media (max-width: 1130px) {
-  // .Tools-wrapper-main-content {
-  //   width: 70%;
-  // }
-}
+
 @media (max-width: 770px) {
   .Tools-wrapper-main-content {
     width: 90%;
@@ -89,10 +83,3 @@
     height: 18px;
   }
 }
-// @media (max-width: 320px) {
-//   .Tools-wrapper-main-content {
-//     width: 100%;
-//   }
-// }
-
-
