@@ -9,7 +9,7 @@ import { PrimaryDataContext } from "../../context/primaryDataContext";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../Firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import ProductLinks from "../../ProductLinks";
+import ProductLinks from "../ProductLinks";
 
 export default function Tools() {
   const navigate = useNavigate();
