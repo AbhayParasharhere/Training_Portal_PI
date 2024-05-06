@@ -97,6 +97,12 @@ export default function Register_2Component() {
   };
   return (
     <div className={styles["RegisterComponent--Container"]}>
+      <head>
+        <title>
+          <img src={logo} height="24px" />
+          Register
+        </title>
+      </head>
       <div className={styles["RegisterComponent--main"]}>
         <img
           src={logo}
