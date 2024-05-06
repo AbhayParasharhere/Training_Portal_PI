@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { postDoubts } from "../../../../Firebase/postDoubtsLogic";
 import { AuthContext } from "../../../../context/authContext";
+import secureLocalStorage from "react-secure-storage";
 
 export default function AddPost(props) {
-  const [doubt, setDoubt] = React.useState("");
+  const [doubt, setDoubt] = useState("");
   const [postCategory, setPostCategory] = React.useState("compliance");
   const currentUser = useContext(AuthContext);
 
@@ -22,7 +23,17 @@ export default function AddPost(props) {
       toast.error("Please select a category");
       return;
     }
-    const res = await postDoubts(currentUser.uid, postCategory, doubt);
+
+    const currentUserName = secureLocalStorage.getItem("userDetails")?.[0];
+    const currentUserPhoto = secureLocalStorage.getItem("userDetails")?.[1];
+    await postDoubts({
+      userName: currentUserName,
+      photo: currentUserPhoto,
+      uid: currentUser.uid,
+      category: postCategory,
+      post: doubt,
+    });
+    props.setDisplayPage("list");
     console.log("Post added", doubt, postCategory);
     // props.addPost(doubt, postCategory);
   };

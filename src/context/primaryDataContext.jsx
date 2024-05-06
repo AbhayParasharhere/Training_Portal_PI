@@ -8,6 +8,7 @@ import {
 } from "../Firebase/getClientSales";
 import { getAllWebinarsRealTime } from "../Firebase/webinar";
 import { getAllAppointmentsRealTime } from "../Firebase/appointments";
+import { getPostedDoubtsRealtime } from "../Firebase/postDoubtsLogic";
 // We will use this context to fetch the primary data
 // All announcements
 // All the user details
@@ -33,6 +34,16 @@ export const PrimaryDataContextProvider = ({ children }) => {
   const [counter, setCounter] = useState(0);
   const [webinars, setWebinars] = useState();
   const [appointments, setAppointments] = useState();
+  const [posts, setPosts] = useState([]);
+  const [postsFetched, setPostsFetched] = useState(false);
+
+  const fetchPosts = () => {
+    if (!postsFetched) {
+      getPostedDoubtsRealtime(setPosts)
+        .then(() => setPostsFetched(true))
+        .catch((error) => console.error("Error fetching posts:", error));
+    }
+  };
 
   useEffect(() => {
     setCounter((counter) => counter + 1);
@@ -93,6 +104,8 @@ export const PrimaryDataContextProvider = ({ children }) => {
           announcements: announcements,
           webinars: webinars,
           appointments: appointments,
+          posts: posts,
+          fetchPosts,
         }}
       >
         {children}
