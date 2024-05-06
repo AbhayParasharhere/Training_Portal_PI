@@ -25,6 +25,7 @@ import {
 export default function Home() {
   const realTimeData = useContext(RealTimeDataContext);
   const appointments = realTimeData?.appointments;
+  console.log("Realtime Appointments", appointments);
   let latestAppoitment = {};
   let appoitmentClientName = "";
 

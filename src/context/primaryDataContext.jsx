@@ -86,15 +86,17 @@ export const PrimaryDataContextProvider = ({ children }) => {
       setPrimaryData((primaryData) => ({ ...primaryData, webinars }));
     });
 
-    // Fetch all the appointments
-    getAllAppointmentsRealTime(setAppointments).then((appointments) => {
-      setPrimaryData((primaryData) => ({ ...primaryData, appointments }));
-    });
+    // Fetch documents
     getAllDocuments().then((documents) => {
       setPrimaryData((primaryData) => ({ ...primaryData, documents }));
     });
 
-    //fetch all the document data
+    //fetch appointments
+    getAllAppointmentsRealTime(setAppointments, currentUser?.uid).then(
+      (appointments) => {
+        setPrimaryData((primaryData) => ({ ...primaryData, appointments }));
+      }
+    );
   }, [currentUser]);
   console.log(
     "This is the clients in primar data function: ",

@@ -66,15 +66,15 @@ export default function AddComment(props) {
           <hr className={styles["postList--divider"]} />
           <div className={styles["postList--answer-container"]}>
             <div className={styles["postList--total-answers-container"]}>
-              {post?.comments.length && (
+              {post?.comments?.length && (
                 <img
                   src={combinedProfile}
                   className={styles["postList--combined-profile"]}
                 />
               )}
               <p className={styles["postList--total-answers"]}>
-                {post?.comments.length
-                  ? `+${post?.comments.length} Answered`
+                {post?.comments?.length
+                  ? `+${post?.comments?.length} Answered`
                   : "No answers yet"}
               </p>
             </div>

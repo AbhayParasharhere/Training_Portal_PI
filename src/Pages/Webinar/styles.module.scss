@@ -9,6 +9,33 @@
   flex-direction: column;
   gap: 20px;
 }
+.webinar--appointment-navigation-container {
+  display: flex;
+  gap: 60px;
+}
+.webinar--navigation,
+.webinar--appointment-navigation {
+  font-family: Epilogue;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  cursor: pointer;
+  color: #a1a1a1;
+}
+.webinar--navigation:hover,
+.webinar--appointment-navigation:hover {
+  color: #123c97;
+  .webinar--navigation-line {
+    border: 1px solid #123c97;
+  }
+}
+.webinar--navigation-line {
+  width: 130%;
+  border: 1px solid #a1a1a1;
+}
+
 .webinar--container {
   background-color: #f5f6fb;
   box-sizing: border-box;
@@ -104,6 +131,10 @@ ol {
   .webinar--desc-text {
     font-size: 10px;
   }
+  .webinar--navigation,
+  .webinar--appointment-navigation {
+    font-size: 14px;
+  }
 }
 @media (max-width: 270px) {
   .webinar--title {
@@ -118,5 +149,12 @@ ol {
   .webinar--desc-text {
     font-size: 8px;
     line-height: 12px;
+  }
+  .webinar--navigation,
+  .webinar--appointment-navigation {
+    font-size: 12px;
+  }
+  .webinar--appointment-navigation-container {
+    gap: 40px;
   }
 }
