@@ -24,6 +24,7 @@ export default function Meet(props) {
         date: new Date(appointmentData?.date + " " + appointmentData?.time),
         link: appointmentData?.link || "No Link",
         clientID: clientId,
+        uid: currentUser?.uid,
       };
 
       await addAppointments(updatedAppoinmentData);
@@ -50,8 +51,9 @@ export default function Meet(props) {
         topic: appointmentData?.topic || "No Topic",
         description: appointmentData?.description || "No Description",
         date: new Date(appointmentData?.date + " " + appointmentData?.time),
-        link: appointmentData?.link || "",
+        link: appointmentData?.link || "No Link",
         clientID: clientId,
+        uid: currentUser?.uid,
       };
 
       await addAppointments(updatedAppoinmentData);
