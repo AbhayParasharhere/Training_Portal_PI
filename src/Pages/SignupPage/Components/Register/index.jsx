@@ -4,7 +4,6 @@ import logo from "../../Images/logo.png";
 import google_logo from "../../Images/google_logo.png";
 import facebook_logo from "../../Images/facebook_logo.png";
 import line from "../../Images/line.png";
-import Button from "../../../../CommonComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
 import {
   checkIfUserExists,
@@ -15,6 +14,7 @@ import {
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import { AuthContext } from "../../../../context/authContext";
+import ButtonLogin from "../../../../CommonComponents/ButtonLogin";
 
 export default function RegisterComponent(props) {
   const navigate = useNavigate();
@@ -170,6 +170,12 @@ export default function RegisterComponent(props) {
   };
   return (
     <div className={styles["RegisterComponent--Container"]}>
+      <head>
+        <title>
+          <img src={logo} height="24px" />
+          Register
+        </title>
+      </head>
       <div className={styles["RegisterComponent--main"]}>
         <img src={logo} className={styles["RegisterComponent--main--logo"]} />
         <p className={styles["RegisterComponent--main--text"]}>
@@ -238,7 +244,7 @@ export default function RegisterComponent(props) {
           <div className={styles["password-error"]}>{passwordError}</div>
         )}
 
-        {!loading && <Button value="Next" onClick={handleSignUpClick} />}
+        {!loading && <ButtonLogin value="Next" onClick={handleSignUpClick} />}
         <div style={{ margin: "20px 0 10px 0" }}>
           <ClipLoader color="#" loading={loading} size={30} />
         </div>
