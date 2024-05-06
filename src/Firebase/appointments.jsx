@@ -26,13 +26,14 @@ const addAppointments = async (data) => {
   }
 };
 // Promise based function to get all webinars in real time
-const getAllAppointmentsRealTime = (setWebinars) => {
+const getAllAppointmentsRealTime = (setWebinars, uid) => {
   return new Promise((resolve, reject) => {
     try {
       const q = query(
         collection(db, "webinars"),
         where("status", "==", "active"),
-        where("type", "==", "appointment")
+        where("type", "==", "appointment"),
+        where("uid", "==", uid)
       );
       const unsub = onSnapshot(q, (snapshot) => {
         const appointments = [];

@@ -86,9 +86,11 @@ export const PrimaryDataContextProvider = ({ children }) => {
     });
 
     // Fetch all the appointments
-    getAllAppointmentsRealTime(setAppointments).then((appointments) => {
-      setPrimaryData((primaryData) => ({ ...primaryData, appointments }));
-    });
+    getAllAppointmentsRealTime(setAppointments, currentUser?.uid).then(
+      (appointments) => {
+        setPrimaryData((primaryData) => ({ ...primaryData, appointments }));
+      }
+    );
   }, [currentUser]);
   console.log(
     "This is the clients in primar data function: ",

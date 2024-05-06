@@ -86,7 +86,7 @@ export default function Sidebar(props) {
     },
     {
       icon: webinarIcon,
-      title: "Webinar",
+      title: "Webinars and Appointments",
       link: "/webinar",
       clickedIcon: webinarRedIcon,
     },
