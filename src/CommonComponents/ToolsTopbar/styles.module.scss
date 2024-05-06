@@ -22,7 +22,6 @@
   overflow-x: hidden;
 }
 .Tools-wrapper-topbar-text {
-
   font-family: Open Sans;
   //   min-width: 30%;
   font-size: 18px;
@@ -44,32 +43,25 @@
 }
 
 @media screen and (min-width: 2000px) {
-
   .Tools-wrapper-topbar-text {
-
-    font-size: 25px;
+    font-size: 22px;
     // width: 200%;
   }
 }
 
 @media screen and (max-width: 1024px) {
-
   .Tools-wrapper-topbar-text {
     font-size: 17px;
-
   }
 }
 
 @media screen and (max-width: 950px) {
-
   .Tools-wrapper-topbar-text {
     font-size: 15px;
-
   }
 }
 
 @media screen and (max-width: 710px) {
-
   .Tools-wrapper-topbar-div {
     display: none;
   }
@@ -78,7 +70,6 @@
   }
   .Tools-wrapper-topbar-text {
     font-size: 18px;
-
   }
 }
 
