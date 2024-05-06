@@ -47,6 +47,7 @@ import Contact from "./Pages/Contact";
 import ContactDetails from "./Pages/Contact";
 import WebinarForm from "./Pages/WebinarForm";
 import CalendarModal from "./CommonComponents/CalendarModal";
+import UploadForm from "./CommonComponents/UploadDocument";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -95,6 +96,7 @@ const router = createBrowserRouter(
 
         {/* TO BE REMOVED */}
         <Route path="/calendar" element={<CalendarModal />} />
+        <Route path="/add-document" element={<UploadForm />} />
       </Route>
     </>
   )
