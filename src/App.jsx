@@ -93,9 +93,6 @@ const router = createBrowserRouter(
           <Route path="goals" element={<ClientInfo />} />
         </Route>
         <Route path="/connect" element={<PostQues />} />
-
-        {/* TO BE REMOVED */}
-        <Route path="/calendar" element={<CalendarModal />} />
         <Route path="/add-document" element={<UploadForm />} />
       </Route>
     </>
