@@ -83,6 +83,7 @@ function LoginComponent(props) {
         </div>
 
         <img src={line} className={styles["RegisterComponent--main--hr"]} />
+
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Email Address"

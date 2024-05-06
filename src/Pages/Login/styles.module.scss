@@ -156,10 +156,10 @@
 }
 @media (min-width: 2000px) {
   .RegisterComponent--main--GoogleButton {
-    width: 25%;
+    width: 30%;
   }
   .RegisterComponent--main--FBbutton {
-    width: 25%;
+    width: 30%;
   }
 }
 
@@ -315,8 +315,8 @@
 }
 @media (max-width: 434px) {
   .RegisterComponent--main--input {
-    height: 25px;
-    font-size: 8px;
+    // height: 25px;
+    // font-size: 8px;
   }
   .RegisterComponent--main--GoogleButton {
     width: 48%;
@@ -347,7 +347,7 @@
     font-size: 9px;
   }
   .RegisterComponent--main--input {
-    font-size: 11px;
+    // font-size: 11px;
   }
 }
 @media (max-width: 317px) {
@@ -373,6 +373,12 @@
   }
   .RegisterComponent--main--text-mobile {
     font-size: 20px;
+  }
+  .RegisterComponent--main--GoogleButton {
+    width: 55%;
+  }
+  .RegisterComponent--main--FBbutton {
+    width: 55%;
   }
 }
 @media (max-width: 257px) {
