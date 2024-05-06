@@ -3,6 +3,7 @@
 .wcover--main-container {
   padding: 25px;
   margin-bottom: 50px;
+  overflow-x: hidden;
 }
 .wcover--graph-heading-container {
   min-height: 800px;
@@ -92,9 +93,37 @@
 }
 .wcover--cover-image {
   width: 100%;
+  position: relative;
   background-color: #2d355c;
   border-radius: 20px;
   height: 500px;
+}
+.wcover--cover-image-inner {
+  position: absolute;
+
+  background-image: url("./images/welcome-cover-image.png");
+  // background-size: cover;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 120%;
+  height: 110%;
+  left: -100px;
+  // background-position: 10%;
+}
+.wcover--rectangles {
+  position: absolute;
+  background: linear-gradient(
+    270.99deg,
+    rgba(8, 42, 164, 0.5) -33.44%,
+    rgba(255, 255, 255, 0.2) 61.93%
+  );
+  box-shadow: 0px 20px 40px 0px #0000001a;
+  border: 1px solid
+    linear-gradient(
+      115.39deg,
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(255, 255, 255, 0) 106.35%
+    );
 }
 .wcover--desc-text {
   max-width: 550px;

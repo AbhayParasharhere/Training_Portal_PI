@@ -8,6 +8,9 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
+import rectangleVertical from "../DashboardAnimation/images/reactangle-vertical.png";
+import rectangleHorizontal from "../DashboardAnimation/images/rectangle-horizontal.png";
+
 import { useNavigate } from "react-router-dom";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
@@ -126,7 +129,30 @@ export default function MainCover() {
           </div>
         </div>
         <div className={styles["wcover--image-desc-container"]}>
-          <div className={styles["wcover--cover-image"]}></div>
+          <div className={styles["wcover--cover-image"]}>
+            <div
+              className={styles["wcover--rectangles"]}
+              style={{
+                top: 20,
+                left: 40,
+                height: "100px",
+                width: "150px",
+                borderRadius: "15px",
+              }}
+            ></div>
+            <div
+              className={styles["wcover--rectangles"]}
+              style={{
+                top: 300,
+                left: 40,
+                height: "30px",
+                width: "50px",
+                borderRadius: "15px",
+              }}
+            ></div>
+
+            <div className={styles["wcover--cover-image-inner"]}></div>
+          </div>
           <p className={styles["wcover--desc-text"]}>
             Our platform streamlines access to training modules,tracks progress
             with precision, and ensures compliance effortlessly. By
