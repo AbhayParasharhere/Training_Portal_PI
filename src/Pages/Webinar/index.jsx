@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { RealTimeDataContext } from "../../context/primaryDataContext";
 import { AuthContext } from "../../context/authContext";

@@ -21,6 +21,7 @@ import {
   getFutureTimeDifference,
   getTimeDifference,
 } from "../TabletImportantUpdates";
+import MobileBirthdays from "../MobileBirthdays";
 
 export default function Home() {
   const realTimeData = useContext(RealTimeDataContext);
@@ -28,6 +29,7 @@ export default function Home() {
   console.log("Realtime Appointments", appointments);
   let latestAppoitment = {};
   let appoitmentClientName = "";
+  const [mobileState, setMobileState] = useState("");
 
   if (appointments) {
     // Get the one which is closest to the current time and must be in the future
@@ -130,13 +132,6 @@ export default function Home() {
 
   const [latestStats, setLatestStates] = useState("course");
   const navigate = useNavigate();
-  const mobileIconsData = [
-    { icon: cakeIcon, text: "Client Birthday’s & anniversay", to: "/clients" },
-    { icon: profilePhoto, text: "Statistics", to: "/statistics" },
-    { icon: bellIcon, text: "Notifications", to: "/statistics" },
-    { icon: appointmentIcon, text: "Client Appointments", to: "/clients" },
-    { icon: clipboardIcon, text: "Important Updates", to: "/announcement" },
-  ];
 
   const latestStatsData = {
     course: filterLast3CoursesWatched(),
@@ -271,12 +266,42 @@ export default function Home() {
   });
 
   //Rendering and getting anniversary and birthday data Finish
+  const mobileIconsData = [
+    {
+      icon: cakeIcon,
+      text: "Client Birthday’s & anniversay",
+      to: "/birthdays",
+      state: upcomingEvents,
+    },
+    {
+      icon: profilePhoto,
+      text: "Statistics",
+      to: "/statistics",
+    },
+    {
+      icon: bellIcon,
+      text: "Notifications",
+      name: "notifications",
+      to: "/notifications",
+      state: [],
+    },
+    {
+      icon: appointmentIcon,
+      text: "Client Appointments",
+      to: "/webinar",
+    },
+    {
+      icon: clipboardIcon,
+      text: "Important Updates",
+      to: "/announcement",
+    },
+  ];
 
   const mobileIcons = mobileIconsData.map((data) => {
     return (
       <div
         className={styles["home--mobile-icons-inner-container"]}
-        onClick={() => navigate(data.to)}
+        onClick={() => navigate(data.to, { state: data?.state })}
       >
         <div className={styles["home--mobile-icon-image-container"]}>
           <img src={data.icon} className={styles["home--mobile-icon-image"]} />
