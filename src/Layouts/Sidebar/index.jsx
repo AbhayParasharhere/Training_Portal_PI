@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import Sidebar from "../../CommonComponents/Sidebar";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Spinner from "../../CommonComponents/Spinner";
 import { RealTimeDataContext } from "../../context/primaryDataContext";
 
@@ -39,11 +39,14 @@ export default function SidebarLayout() {
       });
   };
   useEffect(() => {
-    if (!currentUser?.uid) {
-      navigate("/login");
-    } else {
-      setLoggedIn(true);
-    }
+    onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+        navigate("/login");
+      }
+    });
   }, [currentUser]);
   document.documentElement.scrollTo({
     top: 0,
