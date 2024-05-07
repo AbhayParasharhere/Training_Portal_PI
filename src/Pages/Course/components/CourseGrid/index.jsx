@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "./styles.module.scss";
 import searchIcon from "./images/search-icon.png";
 import filterIcon from "./images/filter-icon.png";
@@ -8,10 +8,19 @@ import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
 export default function CourseGrid() {
   const primaryData = useContext(PrimaryDataContext);
-  const courseData = primaryData?.courses;
-
+  const initialCourseData = primaryData?.courses;
+  const [courseData, setCourseData] = useState(initialCourseData);
+  const [search, setSearch] = useState("");
   const defaultPlaceholder = coursePlaceholder;
   const navigate = useNavigate();
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (value === "") return setCourseData(initialCourseData);
+    const filteredCourses = initialCourseData?.filter((course) => {
+      return course.title.toLowerCase().includes(value.toLowerCase());
+    });
+    setCourseData(filteredCourses);
+  };
   const renderCourse = courseData?.map((course, index) => {
     return (
       <div
@@ -30,7 +39,7 @@ export default function CourseGrid() {
               course?.thumbnailURL || defaultPlaceholder
             })`,
           }}
-        ></div>
+        />
         <div className={styles["courseGrid--course-category"]}>
           {course.category}
         </div>
@@ -48,6 +57,8 @@ export default function CourseGrid() {
         <input
           className={styles["courseGrid--search-input"]}
           placeholder="Search courses here"
+          value={search}
+          onChange={(e) => handleSearch(e.target.value)}
         />
         <img className={styles["courseGrid--search-icon"]} src={searchIcon} />
         <button className={styles["courseGrid--filter-button"]}>

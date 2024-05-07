@@ -94,6 +94,7 @@ export default function Home() {
   }
   const filterLast3CoursesWatched = () => {
     const lastCourses = [];
+    if (!allCourses) return;
     allCourses?.map((course) => {
       if (lastThreeCourses?.includes(course.id)) {
         lastCourses.push({
