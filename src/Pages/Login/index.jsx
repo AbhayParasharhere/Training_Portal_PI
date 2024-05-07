@@ -13,7 +13,7 @@ import logo from "./Images/logo.png";
 import google_logo from "./Images/google_logo.png";
 import facebook_logo from "./Images/facebook_logo.png";
 import line from "./Images/line.png";
-import Button from "../../CommonComponents/Button";
+
 import { Link } from "react-router-dom";
 import { set } from "firebase/database";
 import secureLocalStorage from "react-secure-storage";
@@ -21,6 +21,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../Firebase/firebaseConfig";
 import firebase from "firebase/compat/app";
 import { AuthContext } from "../../context/authContext";
+import ButtonLogin from "../../CommonComponents/ButtonLogin";
 
 function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
@@ -49,6 +50,12 @@ function LoginComponent(props) {
   }
   return (
     <div className={styles["RegisterComponent--Container"]}>
+      <head>
+        <title>
+          <img src={logo} height="24px" />
+          Training Portal
+        </title>
+      </head>
       <div className={styles["RegisterComponent--main"]}>
         <img src={logo} className={styles["RegisterComponent--main--logo"]} />
         <p className={styles["RegisterComponent--main--text"]}>
@@ -83,6 +90,7 @@ function LoginComponent(props) {
         </div>
 
         <img src={line} className={styles["RegisterComponent--main--hr"]} />
+
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Email Address"
@@ -102,7 +110,7 @@ function LoginComponent(props) {
           onChange={handleChange}
         />
 
-        <Button
+        <ButtonLogin
           value={props.loading ? "Loading..." : "Log In"}
           onClick={() => {
             console.log("Credentials: ", loginCredentials);
