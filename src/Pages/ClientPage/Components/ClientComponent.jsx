@@ -18,11 +18,15 @@ import { useNavigate } from "react-router-dom";
 import { updateClient } from "../../../Firebase/updateSalesClients";
 
 export default function ClientComponent() {
+  const [search, setSearch] = useState("");
   const [prevIndex, setPrevIndex] = useState(null);
   const primaryContextData = useContext(PrimaryDataContext);
   const salesData = primaryContextData?.sales;
-  const clientData = useContext(RealTimeDataContext)?.clients?.filter(
+  const initialClientData = useContext(RealTimeDataContext)?.clients?.filter(
     (client) => client.status === "active"
+  );
+  const [clientData, setClientData] = useState(
+    initialClientData ? initialClientData : []
   );
   const navigate = useNavigate();
   console.log("This is the realtime client data for the user: ", clientData);
@@ -72,6 +76,19 @@ export default function ClientComponent() {
     console.log("delete client");
   };
 
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (value === "") {
+      setClientData(initialClientData ? initialClientData : clientData);
+      return;
+    }
+    setClientData(
+      clientData.filter((client) =>
+        client.name.toLowerCase().includes(value.toLowerCase())
+      )
+    );
+  };
+
   return (
     <div className={styles["ClientComponent-wrapper"]} onClick={offDialog}>
       <div className={styles["ClientComponent-wrapper-topbar"]}>
@@ -92,6 +109,8 @@ export default function ClientComponent() {
               type="text"
               className={styles["ClientComponent-wrapper-topbar-search-bar"]}
               placeholder="Search client"
+              value={search}
+              onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
           <div
