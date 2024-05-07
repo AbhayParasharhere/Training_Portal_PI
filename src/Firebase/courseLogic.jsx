@@ -7,7 +7,10 @@ import {
   getDoc,
   where,
   query,
+  updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const allCoursesRef = collection(db, "Courses");
 
@@ -95,11 +98,27 @@ const getVideoURLSFromVideoNames = async (videoNames) => {
     return error;
   }
 };
-
+const addFeedback = async (feedback, currentId, courseId) => {
+  try {
+    const courseRef = doc(db, "Courses", courseId); // Assuming db is your Firestore instance
+    await updateDoc(courseRef, {
+      feedback: arrayUnion({
+        uid: currentId,
+        feedback: feedback,
+        date: new Date(),
+      }),
+      updated_at: new Date(),
+    });
+    toast.success("Thank you for your feedback");
+  } catch (error) {
+    console.error("Error giving feedback", error);
+  }
+};
 export {
   getAllCourses,
   getSectionsForCourse,
   getVideoURLSFromVideoNames,
   getVideosForCourseBySectionID,
   getCourseFromCourseID,
+  addFeedback,
 };
