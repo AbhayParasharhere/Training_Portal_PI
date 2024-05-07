@@ -101,6 +101,7 @@ export default function Meet(props) {
           <input
             className={styles["meet-wrapper-form-input"]}
             name="link"
+            type="url"
             onChange={(e) => handleChange(e)}
           />
         </div>
