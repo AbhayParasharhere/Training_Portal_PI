@@ -35,62 +35,7 @@ export default function ClientInfo() {
                 className={styles["ClientInfo-wrapper-form-text-input"]}
                 value={clientData?.clientData?.name}
               ></input>
-              <div
-                className={
-                  styles["ClientComponent-wrapper-topbar-search-menu-div"]
-                }
-              >
-                <div
-                  className={
-                    styles["ClientComponent-wrapper-topbar-search-menu"]
-                  }
-                ></div>
-                <img
-                  src={arrow_down}
-                  height="24px"
-                  className={
-                    styles[
-                      "ClientComponent-wrapper-topbar-search-menu-arrow-down"
-                    ]
-                  }
-                />
-                <img
-                  src={arrow_up}
-                  height="24px"
-                  className={
-                    styles[
-                      "ClientComponent-wrapper-topbar-search-menu-arrow-up"
-                    ]
-                  }
-                />
-                <div
-                  className={
-                    styles[
-                      "ClientComponent-wrapper-topbar-search-menu-div-dropdown"
-                    ]
-                  }
-                >
-                  {" "}
-                  <div
-                    className={
-                      styles[
-                        "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                      ]
-                    }
-                  >
-                    Male
-                  </div>
-                  <div
-                    className={
-                      styles[
-                        "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                      ]
-                    }
-                  >
-                    Female
-                  </div>
-                </div>
-              </div>
+              <div name="gender"></div>
               {/* <select
                 name="gender"
                 className={styles["ClientInfo-wrapper-form-text-input-select"]}
