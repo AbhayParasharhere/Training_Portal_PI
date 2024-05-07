@@ -16,7 +16,8 @@ export default function Statistics() {
   const primaryData = useContext(PrimaryDataContext);
   const realTimeData = useContext(RealTimeDataContext);
   const clients = realTimeData?.clients;
-  const sales = primaryData?.sales;
+  const sales = realTimeData?.sales;
+  console.log("This is the sales data: ", sales);
   const courses = primaryData?.courses;
   const [loading, setLoading] = useState(true);
   const videoWatched = JSON.parse(sessionStorage.getItem("video_progress"));
@@ -118,21 +119,32 @@ export default function Statistics() {
     if (!clients) return console.log("No clients");
     const weeklyClients = [0, 0, 0, 0, 0, 0, 0]; // Initialize with 7 days
     const mondayDate = getMondayDate();
+    // console.log("Monday date: ", mondayDate);
     const upcomingSundayDate = new Date(mondayDate);
-    upcomingSundayDate.setDate(mondayDate.getDate() + 7);
+    upcomingSundayDate.setDate(mondayDate.getDate() + 6);
+    // console.log("Upcoming sunday date: ", upcomingSundayDate);
     clients
       .filter((client) => {
-        if (client?.created_at) {
-          const upcomingSundayDate = new Date(mondayDate);
-          upcomingSundayDate.setDate(mondayDate.getDate() + 7);
-        }
+        console.log("sales Dates: ", new Date(client?.created_at.toDate()));
+        console.log(
+          "Comparison: Monday date comparison",
+          "Sales Date: ",
+          new Date(client?.created_at.toDate()),
+          "Monday Date: ",
+          mondayDate,
+          new Date(client?.created_at.toDate()).getDate() >=
+            mondayDate.getDate()
+        );
         return (
-          client?.created_at?.toDate() >= mondayDate &&
-          client?.created_at?.toDate() <= upcomingSundayDate
+          new Date(client?.created_at.toDate()).getDate() >=
+            mondayDate.getDate() &&
+          new Date(client?.created_at.toDate()).getDate() <=
+            upcomingSundayDate.getDate()
         );
       })
       .map((client) => {
         const clientCreatedDate = client?.created_at?.toDate().getDay();
+        console.log("Sales created date: ", clientCreatedDate);
 
         weeklyClients[clientCreatedDate] += 1;
       });
@@ -165,39 +177,35 @@ export default function Statistics() {
   if (sales) {
     weekSalesData = getWeeklyAddedClientsSales(sales);
     yearSalesData = getYearlyClientSalesData(sales);
+    console.log("Weekly: ", weekSalesData);
   }
-  useMemo(() => {
-    async function fetchData() {
-      try {
-        setLoading(true);
-        const currentDate = new Date();
-        const previousDate = new Date();
-        previousDate.setDate(currentDate.getDate() - 7);
-        const { data, count } = await getLoggedInTime(
-          currentUser?.uid,
-          previousDate,
-          currentDate
-        );
+  // useMemo(() => {
+  //   async function fetchData() {
+  //     try {
+  //       setLoading(true);
+  //       const currentDate = new Date();
+  //       const previousDate = new Date();
+  //       previousDate.setDate(currentDate.getDate() - 7);
 
-        // Get total videos watched by the user
-        const videoData = await getVideosWatched(
-          currentUser?.uid,
-          previousDate,
-          currentDate
-        );
+  //       // Get total videos watched by the user
+  //       const videoData = await getVideosWatched(
+  //         currentUser?.uid,
+  //         previousDate,
+  //         currentDate
+  //       );
 
-        setStatData((prev) => ({
-          ...prev,
-          videoCount: videoData?.count,
-        }));
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        console.error(error);
-      }
-    }
-    fetchData();
-  }, [currentUser]);
+  //       setStatData((prev) => ({
+  //         ...prev,
+  //         videoCount: videoData?.count,
+  //       }));
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setLoading(false);
+  //       console.error(error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [currentUser]);
 
   const generalStatData = [
     {
