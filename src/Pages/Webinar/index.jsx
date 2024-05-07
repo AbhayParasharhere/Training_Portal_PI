@@ -7,7 +7,6 @@ export default function Webinar() {
   const [readMore, setReadMore] = useState([-1]);
   const [webinarNavigation, setWebinarNavigation] = useState("webinar");
   const clientData = useContext(RealTimeDataContext)?.clients;
-  console.log("These are the clients: ", clientData);
   const webinarData = useContext(RealTimeDataContext)?.webinars;
   const appointmentData = useContext(RealTimeDataContext)?.appointments;
   console.log("This is the appointment data, ", appointmentData);
@@ -62,7 +61,28 @@ export default function Webinar() {
             {webinar.description}
           </p>
         </div>
-        <button className={styles["webinar--join-button"]}>Join Link</button>
+        <a
+          className={styles["webinar--join-button"]}
+          href={webinar?.link}
+          target="_blank"
+          style={{
+            marginTop: 20,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textDecoration: "none",
+            backgroundColor:
+              new Date(webinar?.time).getDate() < new Date().getDate()
+                ? "#686868"
+                : "#A80532F0",
+            pointerEvents:
+              new Date(webinar?.time).getDate() < new Date().getDate()
+                ? "none"
+                : "all",
+          }}
+        >
+          Join Link
+        </a>{" "}
       </div>
     );
   });
@@ -98,12 +118,21 @@ export default function Webinar() {
             {appointment?.description}
           </p>
         </div>
-        <button
+        <a
           className={styles["webinar--join-button"]}
-          style={{ marginTop: 20 }}
+          href={appointment?.link}
+          target="_blank"
+          style={{
+            marginTop: 20,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textDecoration: "none",
+            backgroundColor: appointment?.link ? "#A80532F0" : "#686868",
+          }}
         >
           Join Link
-        </button>
+        </a>
       </div>
     );
   });
