@@ -6,6 +6,8 @@ import { AuthContext } from "../../context/authContext";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Spinner from "../../CommonComponents/Spinner";
 import { RealTimeDataContext } from "../../context/primaryDataContext";
+import { checkIfUserExists } from "../../Firebase/authentication";
+import secureLocalStorage from "react-secure-storage";
 
 export default function SidebarLayout() {
   const [logOut, setLogout] = useState(false);
@@ -41,7 +43,21 @@ export default function SidebarLayout() {
   useEffect(() => {
     onAuthStateChanged(getAuth(), (user) => {
       if (user) {
-        setLoggedIn(true);
+        // Check if user details are present
+        const noDetails =
+          secureLocalStorage.getItem("userDetails")?.[1] ===
+            "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf" &&
+          secureLocalStorage.getItem("userDetails")?.[0] === "Broker";
+
+        console.log("This is the check user exists: ", noDetails);
+        if (noDetails || noDetails === "undefined") {
+          navigate("/addDetails", {
+            state: { uid: user.uid },
+          });
+          return;
+        } else {
+          setLoggedIn(true);
+        }
       } else {
         setLoggedIn(false);
         navigate("/login");

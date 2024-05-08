@@ -13,11 +13,12 @@ export default function Register_2Component() {
   const location = useLocation();
   const navigate = useNavigate();
   const [phoneError, setPhoneError] = useState();
+  const [nameError, setNameError] = useState();
   useEffect(() => {
     if (!location?.state?.uid) {
       navigate("/signup");
     }
-  }, location);
+  }, [location?.state?.uid]);
 
   const handleChange = (event) => {
     console.log("Details: ", additionalDetails);
@@ -37,7 +38,18 @@ export default function Register_2Component() {
     return String(number).match(/^[0-9]{10}$/);
   };
 
+  const validateName = (name) => {
+    return name !== "";
+  };
+
   const handleSignUpClick = async () => {
+    if (!additionalDetails?.name || !validateName(additionalDetails?.name)) {
+      setNameError("Please enter a value for name");
+      return;
+    } else {
+      setNameError("");
+    }
+
     // First check if the phone number is valid
     if (
       !additionalDetails?.number ||
@@ -50,7 +62,7 @@ export default function Register_2Component() {
     }
 
     // If there are any errors, return
-    if (phoneError) {
+    if (phoneError || nameError) {
       return;
     } else {
       try {
@@ -118,9 +130,10 @@ export default function Register_2Component() {
           className={styles["RegisterComponent--main--input"]}
           placeholder="Full Name"
           name="name"
+          style={nameError ? errorStyle : {}}
           onChange={handleChange}
         />
-
+        <div className={styles["phone-error"]}>{nameError}</div>
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Date of Birth"

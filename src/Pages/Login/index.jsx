@@ -15,13 +15,9 @@ import facebook_logo from "./Images/facebook_logo.png";
 import line from "./Images/line.png";
 
 import { Link } from "react-router-dom";
-import { set } from "firebase/database";
-import secureLocalStorage from "react-secure-storage";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../Firebase/firebaseConfig";
-import firebase from "firebase/compat/app";
 import { AuthContext } from "../../context/authContext";
 import ButtonLogin from "../../CommonComponents/ButtonLogin";
+import secureLocalStorage from "react-secure-storage";
 
 function LoginComponent(props) {
   const [loginCredentials, setLoginCredentials] = useState();
@@ -157,7 +153,12 @@ export default function Login() {
 
   useEffect(() => {
     console.log("This is the use effect current user: ", currentUser);
-    if (currentUser?.uid) {
+    const noDetails =
+      secureLocalStorage.getItem("userDetails")?.[1] ===
+        "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf" &&
+      secureLocalStorage.getItem("userDetails")?.[0] === "Broker";
+
+    if (currentUser?.uid && !noDetails) {
       setLoadingRedirect(true);
       navigate("/");
     }
@@ -176,8 +177,16 @@ export default function Login() {
 
     if (status === "Success" && uid) {
       // Save the login count
-      setLoading(false);
-      navigate("/");
+      const checkExists = await checkIfUserExists(uid);
+      if (checkExists === "Failed") {
+        navigate("/addDetails", {
+          state: { uid: uid },
+        });
+        return;
+      } else {
+        setLoading(false);
+        navigate("/");
+      }
     } else {
       console.log("This is status ", status);
     }

@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import { AuthContext } from "../../../../context/authContext";
 import ButtonLogin from "../../../../CommonComponents/ButtonLogin";
+import secureLocalStorage from "react-secure-storage";
 
 export default function RegisterComponent(props) {
   const navigate = useNavigate();
@@ -34,7 +35,11 @@ export default function RegisterComponent(props) {
 
   useEffect(() => {
     console.log("This is the use effect current user: ", currentUser);
-    if (currentUser?.uid) {
+    const noUser =
+      secureLocalStorage.getItem("userDetails")?.[0] === "Broker" &&
+      secureLocalStorage.getItem("userDetails")?.[1] ===
+        "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf";
+    if (currentUser?.uid && !noUser) {
       setLoadingRedirect(true);
       navigate("/");
     }
@@ -65,55 +70,56 @@ export default function RegisterComponent(props) {
       setEmailError("");
     }
 
-    // Check if password and confirm password fields are provided
-    if (registerCredentials?.password && registerCredentials?.confirmPassword) {
-      // Check if the passwords match
-      if (
-        registerCredentials.password !== registerCredentials.confirmPassword
-      ) {
-        setPasswordError("Passwords do not match, please try again");
-      } else if (registerCredentials.password.length < 6) {
-        // Check password length
-        setPasswordError("Password must be at least 6 characters long");
-      } else {
-        setPasswordError("");
-      }
-    } else {
+    if (
+      !registerCredentials?.password ||
+      !registerCredentials?.confirmPassword
+    ) {
       // Handle the case when either password or confirm password is missing
       setPasswordError(
         "Both password and confirm password fields are required"
       );
-    }
-
-    // If there are any errors, return
-    if (emailError || passwordError) {
-      return;
     } else {
-      try {
-        // Check if the user email already exists in the userDetail collection
-        setLoading(true);
-        const signUpUidResponse = await signUpWithEmailAndPassword(
-          registerCredentials.email,
-          registerCredentials.password
-        );
-        setLoading(false);
-        console.log("This is the response ", signUpUidResponse);
+      // Check if password and confirm password fields are provided
+      // Check if the passwords match
+      if (registerCredentials.password.length < 6) {
+        setPasswordError("Password must be at least 6 characters long");
+      }
+      if (
+        registerCredentials.password !== registerCredentials.confirmPassword
+      ) {
+        setPasswordError("Passwords do not match, please try again");
+      }
+      // If there are any errors, return
+      if (emailError || passwordError) {
+        console.log("There are errors");
+        return;
+      } else {
+        try {
+          // Check if the user email already exists in the userDetail collection
+          setLoading(true);
+          const signUpUidResponse = await signUpWithEmailAndPassword(
+            registerCredentials.email,
+            registerCredentials.password
+          );
+          setLoading(false);
+          console.log("This is the response ", signUpUidResponse);
 
-        if (signUpUidResponse === "User exists") {
-          navigate("/login");
-          return;
-        }
+          if (signUpUidResponse === "User exists") {
+            navigate("/login");
+            return;
+          }
 
-        if (signUpUidResponse === "Failed") {
-          throw new Error("Failed to sign up");
+          if (signUpUidResponse === "Failed") {
+            throw new Error("Failed to sign up");
+          }
+          navigate("/addDetails", {
+            state: { uid: signUpUidResponse },
+          });
+        } catch (error) {
+          setLoading(false);
+          console.log(error);
+          return error;
         }
-        navigate("/addDetails", {
-          state: { uid: signUpUidResponse },
-        });
-      } catch (error) {
-        setLoading(false);
-        console.log(error);
-        return error;
       }
     }
   };
@@ -196,7 +202,7 @@ export default function RegisterComponent(props) {
             <div
               className={styles["RegisterComponent--main--GoogleButton-text"]}
             >
-              SignUp with Google
+              Signup with Google
             </div>
           </button>
 
@@ -209,7 +215,7 @@ export default function RegisterComponent(props) {
               className={styles["RegisterComponent--main--FBbutton-img"]}
             />
             <div className={styles["RegisterComponent--main--FBbutton-text"]}>
-              SignUp with Facebook
+              Signup with Facebook
             </div>
           </button>
         </div>
@@ -254,6 +260,7 @@ export default function RegisterComponent(props) {
             to="/login"
             className={styles["RegisterComponent--main--LoginLink"]}
           >
+            {" "}
             Log In
           </Link>
         </p>
