@@ -263,24 +263,18 @@ export default function Home() {
 
       // Check if DOB is today or within a week (7 days)
       if (
-        (dobMonth === currentMonth &&
-          dobDay >= currentDay &&
-          dobDay - currentDay <= 7) ||
-        (dobMonth === currentMonth &&
-          dobDay < currentDay &&
-          currentDay - dobDay <= 7)
+        dobMonth === currentMonth &&
+        dobDay >= currentDay &&
+        dobDay - currentDay <= 7
       ) {
         allEvents.push({ ...client, eventType: "Birthday" });
       }
 
       // Check if anniversary is today or within a week (7 days)
       if (
-        (anniversaryMonth === currentMonth &&
-          anniversaryDay >= currentDay &&
-          anniversaryDay - currentDay <= 7) ||
-        (anniversaryMonth === currentMonth &&
-          anniversaryDay < currentDay &&
-          currentDay - anniversaryDay <= 7)
+        anniversaryMonth === currentMonth &&
+        anniversaryDay >= currentDay &&
+        anniversaryDay - currentDay <= 7
       ) {
         allEvents.push({ ...client, eventType: "Anniversary" });
       }
