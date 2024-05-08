@@ -59,7 +59,11 @@ export default function Home() {
   console.log("Appointments", appointments);
 
   let videosWatched = [];
-  if (JSON?.parse(sessionStorage?.getItem("video_progress"))) {
+  console.log("JSON: ", sessionStorage.getItem("video_progress"));
+  if (
+    sessionStorage.getItem("video_progress") !== "undefined" &&
+    sessionStorage.getItem("video_progress")
+  ) {
     videosWatched = JSON.parse(sessionStorage.getItem("video_progress"));
   }
   const primaryData = useContext(PrimaryDataContext);
@@ -299,6 +303,7 @@ export default function Home() {
   let upcomingEvents = [];
   if (clients) {
     upcomingEvents = getUpcomingEvents(clients);
+    console.log("These are upcoming event", upcomingEvents);
   }
   const renderClientEvent = upcomingEvents?.map((client) => {
     return (
@@ -459,7 +464,13 @@ export default function Home() {
             </p>
           </div>
           <div className={styles["home--notification-lists-container"]}>
-            {renderLatestStats}
+            {latestStatsData[latestStats].length ? (
+              renderLatestStats
+            ) : (
+              <div className={styles["home--no-data"]}>
+                No Statistics to show
+              </div>
+            )}
           </div>
         </div>
         <div className={styles["home--client-birthday-container"]}>
@@ -467,9 +478,13 @@ export default function Home() {
             Upcoming Clients Bithdays And Anniversary
           </p>
           <div className={styles["home--client-birthday-list"]}>
-            {/* {renderBithday}
-            {renderAnniversaries} */}
-            {renderClientEvent}
+            {upcomingEvents.length ? (
+              renderClientEvent
+            ) : (
+              <div className={styles["home--no-data"]}>
+                No upcoming Birthdays and Anniversaries this week
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -538,28 +553,45 @@ export default function Home() {
             <p className={styles["statsSummary--appointment-title"]}>
               Clients Appointment
             </p>
-            <div>
-              <p className={styles["statsSummary--meeting-title"]}>
-                {latestAppoitment?.topic}
-              </p>
-              <p className={styles["statsSummary--appointment-desc-text"]}>
-                Client Name: {appoitmentClientName}|Time:{" "}
-                {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
-              </p>
-            </div>
-            <div>
-              <ul className={styles["statsSummary--unordered-list"]}>
-                <li className={styles["statsSummary--appointment-marker"]}>
-                  {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
-                </li>
-                <li className={styles["statsSummary--appointment-marker"]}>
-                  {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
-                </li>
-              </ul>
-              <button className={styles["statsSummary--appointment-button"]}>
-                Join Link
-              </button>
-            </div>
+            {latestAppoitment ? (
+              <>
+                <div>
+                  <p className={styles["statsSummary--meeting-title"]}>
+                    {latestAppoitment?.topic}
+                  </p>
+                  <p className={styles["statsSummary--appointment-desc-text"]}>
+                    Client Name: {appoitmentClientName}|Time:{" "}
+                    {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
+                  </p>
+                </div>
+                <div>
+                  <ul className={styles["statsSummary--unordered-list"]}>
+                    <li className={styles["statsSummary--appointment-marker"]}>
+                      {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
+                    </li>
+                    <li className={styles["statsSummary--appointment-marker"]}>
+                      {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
+                    </li>
+                  </ul>
+                  <button
+                    className={styles["statsSummary--appointment-button"]}
+                  >
+                    Join Link
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div
+                className={styles["home--no-data"]}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                You have no recent appointments
+              </div>
+            )}
           </div>
         </div>
         {/*Tablet appointment container ends */}
@@ -607,7 +639,7 @@ export default function Home() {
             })}
           </div>
         ) : (
-          <p>No Announcement</p>
+          <div className={styles["home--no-data"]}>No Recent Announcements</div>
         )}
       </div>
       {/*Annoucement part Completed*/}
