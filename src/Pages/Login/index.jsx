@@ -78,7 +78,10 @@ function LoginComponent(props) {
             </div>
           </button>
 
-          <button className={styles["RegisterComponent--main--FBbutton"]}>
+          <button
+            className={styles["RegisterComponent--main--FBbutton"]}
+            disabled
+          >
             <img
               src={facebook_logo}
               className={styles["RegisterComponent--main--FBbutton-img"]}
