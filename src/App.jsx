@@ -7,6 +7,7 @@ import {
   Route,
 } from "react-router-dom";
 import Login from "./Pages/Login";
+
 import AdminConsole from "./Pages/AdminConsole";
 import AdminPanel from "./Pages/AdminPanel";
 import ClientInfo from "./Pages/Form";
@@ -17,6 +18,9 @@ import Home from "./Pages/Dashboard/components/Home";
 import MarqueeText from "./Pages/Welcome/components/MarqueeText";
 import Footer from "./Pages/Welcome/components/Footer";
 import VideoTutorial from "./Pages/Welcome/components/VideoTutorial";
+
+
+
 import Welcome from "./Pages/Welcome";
 import Dashboard from "./Pages/Dashboard";
 
@@ -76,9 +80,17 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<RegisterComponent />} />
       <Route path="/addDetails" element={<Register_2Component />} />
+
       {/* <Route path="/admin" element={<AdminConsole />} /> */}
       <Route path="/admin" element={<AdminPanel />} />
       <Route element={<SidebarLayout />} path="/">
+
+      <Route
+        element={<SidebarLayout />}
+        path="/"
+        errorElement={<NoPagesElement />}
+      >
+
         <Route index element={<Dashboard />} />
         <Route path="/addSales" element={<SalesAdding />} />
         <Route path="/support" element={<FAQSupport />} />

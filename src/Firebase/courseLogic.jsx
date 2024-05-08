@@ -1,6 +1,16 @@
 import { getDownloadURL, ref } from "firebase/storage";
 import { auth, db, storage } from "./firebaseConfig";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  where,
+  query,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const allCoursesRef = collection(db, "Courses");
 
@@ -8,8 +18,11 @@ const allCoursesRef = collection(db, "Courses");
 const getAllCourses = async () => {
   try {
     const courses = [];
-    const allCoursesSnapshot = await getDocs(allCoursesRef);
-    allCoursesSnapshot.forEach((doc) => {
+    const snapshot = await getDocs(
+      query(allCoursesRef, where("status", "!=", "deleted"))
+    );
+
+    snapshot?.forEach((doc) => {
       courses.push({ ...doc.data(), id: doc.id });
     });
     return courses;
@@ -39,11 +52,12 @@ const getCourseFromCourseID = async (courseID) => {
 // sections are a subcollection of the course document
 const getSectionsForCourse = async (courseID) => {
   try {
-    const sections = [];
+    console.log("Im called");
+    const sections = {};
     const sectionsRef = collection(db, `Courses/${courseID}/sections`);
     const sectionsSnapshot = await getDocs(sectionsRef);
     sectionsSnapshot.forEach((doc) => {
-      sections.push({ ...doc.data(), id: doc.id });
+      sections[doc.id] = { ...doc.data() };
     });
     return sections;
   } catch (error) {
@@ -84,11 +98,27 @@ const getVideoURLSFromVideoNames = async (videoNames) => {
     return error;
   }
 };
-
+const addFeedback = async (feedback, currentId, courseId) => {
+  try {
+    const courseRef = doc(db, "Courses", courseId); // Assuming db is your Firestore instance
+    await updateDoc(courseRef, {
+      feedback: arrayUnion({
+        uid: currentId,
+        feedback: feedback,
+        date: new Date(),
+      }),
+      updated_at: new Date(),
+    });
+    toast.success("Thank you for your feedback");
+  } catch (error) {
+    console.error("Error giving feedback", error);
+  }
+};
 export {
   getAllCourses,
   getSectionsForCourse,
   getVideoURLSFromVideoNames,
   getVideosForCourseBySectionID,
   getCourseFromCourseID,
+  addFeedback,
 };

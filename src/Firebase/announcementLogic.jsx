@@ -8,16 +8,25 @@ import {
   orderBy,
   limit,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { v4 } from "uuid";
+import secureLocalStorage from "react-secure-storage";
 // Function to create an annoucement from the announcement object as the input
 // which contains the announcement title, announcement description, uid of the user who created the announcement
 const createAnnouncement = async (announcementData) => {
-  const createdTimestamp = new Date().toISOString();
-  const updatedTimestamp = new Date().toISOString();
+  const createdTimestamp = new Date();
+  const updatedTimestamp = new Date();
   try {
-    if (!announcementData || announcementData?.user_id === undefined) {
+    const currentUserName = secureLocalStorage.getItem("userDetails");
+    console.log(
+      "currentUserName",
+      currentUserName,
+      secureLocalStorage.getItem("userDetails")
+    );
+    // announcementData.created_by =
+    if (!announcementData || announcementData?.created_by === undefined) {
       throw new Error("Invalid announcement data");
     }
     // there is a collection named announcements in the database
@@ -89,6 +98,93 @@ const getAllAnnouncementsSortedByUpdatedAtDescending = async () => {
     console.log(error);
     return error;
   }
+};
+
+// Function to get all the announcements from the database sorted by the created date of the announcements
+// in descending order and limit the number of announcements to 500
+// Make sure the status of the announcement is not deleted
+const getAllAnnouncementsSortedByUpdatedAtDescendingRealTime = (
+  setAnnouncements
+) => {
+  try {
+    const announcementRef = collection(db, "announcements");
+
+    // Create a query with the necessary conditions
+    const announcementQuery = query(
+      announcementRef,
+      where("status", "!=", "deleted"),
+      orderBy("updated_at", "desc"),
+      limit(500)
+    );
+
+    // Set up an onSnapshot listener for real-time updates
+    const unsubscribe = onSnapshot(
+      announcementQuery,
+      (announcementsSnapshot) => {
+        const announcements = [];
+
+        announcementsSnapshot.forEach((doc) => {
+          announcements.push({ id: doc.id, ...doc.data() });
+        });
+
+        console.log("Announcements from real-time listener", announcements);
+        // Update the state with the new list of announcements
+        setAnnouncements(announcements);
+      }
+    );
+
+    // Return the unsubscribe function to allow stopping the listener if needed
+    return unsubscribe;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+// Promise version of the real-time listener function
+// Function to get all the announcements from the database sorted by the created date of the announcements
+// in descending order and limit the number of announcements to 500
+export const getAllAnnouncementsSortedByUpdatedAtDescendingRealTimePromise = (
+  setAnnouncements
+) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const announcementRef = collection(db, "announcements");
+
+      // Create a query with the necessary conditions
+      const announcementQuery = query(
+        announcementRef,
+        where("status", "!=", "deleted"),
+        orderBy("updated_at", "desc"),
+        limit(500)
+      );
+
+      // Set up an onSnapshot listener for real-time updates
+      const unsubscribe = onSnapshot(
+        announcementQuery,
+        (announcementsSnapshot) => {
+          const announcements = [];
+
+          announcementsSnapshot.forEach((doc) => {
+            announcements.push({ id: doc.id, ...doc.data() });
+          });
+
+          console.log("Announcements from real-time listener", announcements);
+
+          setAnnouncements(announcements);
+
+          // Resolve the promise with the new list of announcements
+          resolve(announcements);
+        }
+      );
+
+      // Return the unsubscribe function to allow stopping the listener if needed
+      return unsubscribe;
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
 };
 
 // NOTE : The update function does not check if the announcement id was created by the current user, it just updates the announcement
@@ -182,6 +278,7 @@ export {
   createAnnouncement,
   getAllUserAnnouncements,
   getAllAnnouncementsSortedByUpdatedAtDescending,
+  getAllAnnouncementsSortedByUpdatedAtDescendingRealTime,
   updateAnnouncement,
   deleteAnnouncement,
 };

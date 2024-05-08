@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import Sidebar from "../../CommonComponents/Sidebar";
 import Home from "./components/Home";
 import StatsSummary from "./components/SatisticsSummary";
-import TabletImportantUpdates from "./components/TabletImportantUpdates";
+import { TabletImportantUpdates } from "./components/TabletImportantUpdates";
 
 export default function Dashboard() {
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import styles from "./styles.module.scss";
 import line from "../Images/vertical-line.png";
 import delete_bin from "../Images/delete_bin.png";
@@ -9,56 +9,29 @@ import red_button from "../Images/red_button.png";
 import plus from "../Images/plus.png";
 import arrow_down from "../Images/arrow_down.png";
 import arrow_up from "../Images/arrow_up.png";
+import client_img from "../Images/client_img.png";
+import {
+  RealTimeDataContext,
+  PrimaryDataContext,
+} from "../../../context/primaryDataContext";
+import { useNavigate } from "react-router-dom";
+import { updateClient } from "../../../Firebase/updateSalesClients";
 
 export default function ClientComponent() {
+  const [search, setSearch] = useState("");
   const [prevIndex, setPrevIndex] = useState(null);
-
-  const list = [
-    {
-      id: "0",
-      name: "Devon Lane",
-      email: "devon@gmail.com",
-      number: "899999999",
-    },
-    {
-      id: "1",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "2",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "3",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "4",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "5",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-    {
-      id: "6",
-      name: "Devon smith",
-      email: "devons@gmail.com",
-      number: "899999998",
-    },
-  ];
-  // const list = [0, 1, 2, 3];
-
+  const [filterOption, setFilterOption] = useState("All clients");
+  const primaryContextData = useContext(PrimaryDataContext);
+  const salesData = primaryContextData?.sales;
+  const [arrowDropdown, setArrowDropdown] = useState(false);
+  const initialClientData = useContext(RealTimeDataContext)?.clients?.filter(
+    (client) => client.status === "active"
+  );
+  const [clientData, setClientData] = useState(
+    initialClientData ? initialClientData : []
+  );
+  const navigate = useNavigate();
+  console.log("This is the realtime client data for the user: ", clientData);
   const toggleDialog = (index) => {
     if (prevIndex === index) {
       setPrevIndex(null);
@@ -89,20 +62,17 @@ export default function ClientComponent() {
     }
   };
 
-  const addClient = () => {
-    console.log("add client");
-  };
-
-  const viewDetails = () => {
-    console.log("view details");
-  };
-
-  const edit = () => {
-    console.log("edit client");
-  };
-
-  const dltBtn = () => {
-    console.log("delete client");
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (value === "") {
+      setClientData(initialClientData ? initialClientData : clientData);
+      return;
+    }
+    setClientData(
+      clientData.filter((client) =>
+        client.name.toLowerCase().includes(value.toLowerCase())
+      )
+    );
   };
 
   return (
@@ -111,7 +81,7 @@ export default function ClientComponent() {
         <div className={styles["ClientComponent-wrapper-topbar-head"]}>
           <p className={styles["ClientComponent-topbar-clients"]}>Clients</p>
           <p className={styles["ClientComponent-topbar-count"]}>
-            ({list.length})
+            ({clientData?.length})
           </p>
         </div>
         <div className={styles["ClientComponent-wrapper-topbar-search"]}>
@@ -120,67 +90,43 @@ export default function ClientComponent() {
             ref={parentDivRef}
             onChange={handleInputChange}
           >
-            <img src={search_icon} height="24px" />
+            <img src={search_icon} height="18px" />
             <input
               type="text"
               className={styles["ClientComponent-wrapper-topbar-search-bar"]}
-              placeholder="Search Clients"
+              placeholder="Search client"
+              value={search}
+              onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
           <div
-            className={styles["ClientComponent-wrapper-topbar-search-menu-div"]}
+            className={styles["clientList--dropdown"]}
+            onClick={() => setArrowDropdown((prev) => !prev)}
           >
-            <div
-              className={styles["ClientComponent-wrapper-topbar-search-menu"]}
-            >
-              All Clients
-            </div>
+            {filterOption}
             <img
-              src={arrow_down}
-              height="24px"
-              className={
-                styles["ClientComponent-wrapper-topbar-search-menu-arrow-down"]
-              }
-            />
-            <img
-              src={arrow_up}
-              height="24px"
-              className={
-                styles["ClientComponent-wrapper-topbar-search-menu-arrow-up"]
-              }
+              className={styles["clientList--arrow-icon"]}
+              src={arrowDropdown ? arrow_up : arrow_down}
             />
             <div
-              className={
-                styles[
-                  "ClientComponent-wrapper-topbar-search-menu-div-dropdown"
-                ]
-              }
+              className={styles["clientList--dropdown-option-container"]}
+              style={{ display: arrowDropdown ? "flex" : "none" }}
             >
-              {" "}
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("All clients")}
               >
-                All Clients
+                All clients
               </div>
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("Newest")}
               >
                 Newest
               </div>
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("Oldest")}
               >
                 Oldest
               </div>
@@ -188,7 +134,65 @@ export default function ClientComponent() {
           </div>
           <div
             className={styles["ClientComponent-wrapper-topbar-search-add"]}
-            onClick={addClient}
+            onClick={() => navigate("/addSales")}
+          >
+            <img src={plus} height="26px" />
+          </div>
+        </div>
+      </div>
+
+      <div className={styles["ClientComponent-wrapper-topbar-mobile"]}>
+        <div
+          className={styles["ClientComponent-wrapper-topbar-search-div"]}
+          ref={parentDivRef}
+          onChange={handleInputChange}
+        >
+          <img src={search_icon} height="18px" />
+          <input
+            type="text"
+            className={styles["ClientComponent-wrapper-topbar-search-bar"]}
+            placeholder="Search client"
+          />
+        </div>
+        <div
+          className={styles["ClientComponent-wrapper-topbar-mobile-clients"]}
+        >
+          <div
+            className={styles["clientList--dropdown"]}
+            onClick={() => setArrowDropdown((prev) => !prev)}
+          >
+            {filterOption}
+            <img
+              className={styles["clientList--arrow-icon"]}
+              src={arrowDropdown ? arrow_up : arrow_down}
+            />
+            <div
+              className={styles["clientList--dropdown-option-container"]}
+              style={{ display: arrowDropdown ? "flex" : "none" }}
+            >
+              <div
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("All clients")}
+              >
+                All clients
+              </div>
+              <div
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("Newest")}
+              >
+                Newest
+              </div>
+              <div
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("Oldest")}
+              >
+                Oldest
+              </div>
+            </div>
+          </div>
+          <div
+            className={styles["ClientComponent-wrapper-topbar-search-add"]}
+            onClick={() => navigate("/addSales")}
           >
             <img src={plus} height="26px" />
           </div>
@@ -197,15 +201,29 @@ export default function ClientComponent() {
       <div className={styles["ClientComponent-wrapper-table"]}>
         <table className={styles["ClientComponent-table"]}>
           <tr className={styles["ClientComponent-th"]}>
-            <th>Client name</th>
-            <th>Email id</th>
-            <th>Phone number</th>
+            <th className={styles["ClientComponent-th-name"]}>Client name</th>
+            <th className={styles["ClientComponent-th-email"]}>Email id</th>
+            <th className={styles["ClientComponent-th-phone"]}>Phone number</th>
           </tr>
-          {list.map((item) => (
+          {clientData?.map((item) => (
             <tr key={item.id} className={styles["ClientComponent-tr"]}>
-              <td>{item.name}</td>
-              <td>{item.email}</td>
-              <td>{item.number}</td>
+              <td
+                className={styles["ClientComponent-td-name"]}
+                onClick={() => navigate(`/client-detail/${item.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <img
+                  src={client_img}
+                  className={styles["ClientComponent-td-img"]}
+                />{" "}
+                {item.name}
+              </td>
+              <td className={styles["ClientComponent-td-email"]}>
+                {item.email}
+              </td>
+              <td className={styles["ClientComponent-td-phone"]}>
+                {item.phone_number}
+              </td>
               <td>
                 <div className={styles["ClientComponent-dialog-div"]}>
                   {/* {!dialogActive && ( */}
@@ -213,20 +231,25 @@ export default function ClientComponent() {
                     <dialog className={styles["ClientComponent-dialog-show"]}>
                       <div
                         className={styles["ClientComponent-dialog-content"]}
-                        onClick={viewDetails}
+                        onClick={() => navigate(`/client-detail/${item.id}`)}
                       >
                         <img src={search_eye} height="18px" /> View Details
                       </div>
                       <div
                         className={styles["ClientComponent-dialog-content"]}
-                        onClick={edit}
+                        onClick={() => navigate(`/client-detail/${item.id}`)}
                       >
                         <img src={pencil} height="18px" />
                         Edit{" "}
                       </div>
                       <div
                         className={styles["ClientComponent-dialog-content"]}
-                        onClick={dltBtn}
+                        onClick={() => {
+                          console.log("This is the client id: ", item?.id, {
+                            status: "active",
+                          });
+                          updateClient({ status: "deleted" }, item.id);
+                        }}
                       >
                         <img src={delete_bin} height="18px" />
                         <span

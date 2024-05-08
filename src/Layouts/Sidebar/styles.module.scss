@@ -1,6 +1,9 @@
 .sidebarLayout--main-container {
   display: flex;
+  position: relative;
   gap: 25px;
+  width: 100%;
+  max-width: 1400px;
 }
 // @media (max-width: 1130px) {
 //   .sidebarLayout--main-container {

@@ -1,0 +1,11 @@
+.clientData--main-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px 0;
+  padding-right: 20px;
+}
+@media (max-width: 1130px) {
+  .clientData--main-container {
+    padding: 15px;
+  }
+}
