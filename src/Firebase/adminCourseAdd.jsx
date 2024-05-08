@@ -15,6 +15,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { getCourseFromCourseID } from "./courseLogic";
+import { toast } from "react-toastify";
 
 const generateThumbnailName = (courseID, file) => {
   if (!file) {
@@ -43,7 +44,8 @@ const addCourse = async (
   title,
   category,
   description,
-  thumbnailImage
+  thumbnailImage,
+  courseType
 ) => {
   try {
     if (!title) {
@@ -58,7 +60,8 @@ const addCourse = async (
       title,
       category,
       description,
-      thumbnailImage
+      thumbnailImage,
+      courseType
     );
     return "Course Added";
   } catch (error) {
@@ -74,10 +77,20 @@ const addModifyCourse = async (
   title,
   category,
   description,
-  thumbnailImage
+  thumbnailImage,
+  courseType
 ) => {
   try {
     let downloadURL = "";
+    console.log(
+      "This is all the data for the course: ",
+      title,
+      category,
+      description,
+      thumbnailImage,
+      "coourse type: ",
+      courseType
+    );
 
     // Store the image in the firebase storage and get the download URL
     if (thumbnailImage) {
@@ -89,7 +102,10 @@ const addModifyCourse = async (
       );
       console.log(thumbnailImage, thumbnailName, downloadURL);
     }
-
+    if (!courseType) {
+      toast.error("No course type");
+      return;
+    }
     // Add the course to the database with doc id as the formatted title
     const docRef = doc(collection(db, "Courses"), courseID);
 
@@ -98,12 +114,15 @@ const addModifyCourse = async (
       category: category,
       description: description,
       thumbnailURL: downloadURL,
+      products: courseType === "product",
       Created_at: new Date().toISOString(),
+      status: "active",
       Updated_at: new Date().toISOString(),
     });
-
+    toast.success("Course Added sucessfully");
     return "Course Added";
   } catch (error) {
+    toast.error("Error adding course");
     return error;
   }
 };
@@ -182,10 +201,11 @@ const addSection = async (courseID, sectionID, sectionTitle, sectionRank) => {
 
     // Now update the course document with the updated section rank array
     updateSectionRankArray(courseID, sectionID, sectionRank);
-
+    toast.success("Section added sucessfully");
     return "Section Added";
   } catch (error) {
-    console.log(error);
+    toast.error("Failed to add section");
+
     return error;
   }
 };

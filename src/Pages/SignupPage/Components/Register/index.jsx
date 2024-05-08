@@ -55,66 +55,65 @@ export default function RegisterComponent(props) {
   };
 
   const handleSignUpClick = async () => {
-    if (!registerCredentials?.email || !registerCredentials?.password) {
+    setEmailError("");
+    setPasswordError("");
+    if (
+      !registerCredentials?.email ||
+      !registerCredentials?.password ||
+      !registerCredentials?.confirmPassword
+    ) {
       toast.error("Please enter all the details");
+      return;
     }
-    // First check if the email adress is valid
+
+    // First check if the email address is valid
     if (!validateEmail(registerCredentials?.email)) {
       setEmailError("Invalid email format. Please enter a valid email address");
+      return;
     } else {
       setEmailError("");
     }
 
     // Check if password and confirm password fields are provided
-    if (registerCredentials?.password && registerCredentials?.confirmPassword) {
-      // Check if the passwords match
-      if (
-        registerCredentials.password !== registerCredentials.confirmPassword
-      ) {
-        setPasswordError("Passwords do not match, please try again");
-      } else if (registerCredentials.password.length < 6) {
-        // Check password length
-        setPasswordError("Password must be at least 6 characters long");
-      } else {
-        setPasswordError("");
-      }
-    } else {
-      // Handle the case when either password or confirm password is missing
-      setPasswordError(
-        "Both password and confirm password fields are required"
-      );
+
+    // Check if the passwords match
+    if (registerCredentials.password !== registerCredentials.confirmPassword) {
+      setPasswordError("Passwords do not match, please try again");
+      return;
+    }
+
+    // Check password length
+    if (registerCredentials.password.length < 6) {
+      setPasswordError("Password must be at least 6 characters long");
+      return;
     }
 
     // If there are any errors, return
-    if (emailError || passwordError) {
-      return;
-    } else {
-      try {
-        // Check if the user email already exists in the userDetail collection
-        setLoading(true);
-        const signUpUidResponse = await signUpWithEmailAndPassword(
-          registerCredentials.email,
-          registerCredentials.password
-        );
-        setLoading(false);
-        console.log("This is the response ", signUpUidResponse);
+    try {
+      // Check if the user email already exists in the userDetail collection
+      setLoading(true);
+      const signUpUidResponse = await signUpWithEmailAndPassword(
+        registerCredentials.email,
+        registerCredentials.password
+      );
+      setLoading(false);
+      console.log("This is the response ", signUpUidResponse);
 
-        if (signUpUidResponse === "User exists") {
-          navigate("/login");
-          return;
-        }
-
-        if (signUpUidResponse === "Failed") {
-          throw new Error("Failed to sign up");
-        }
-        navigate("/addDetails", {
-          state: { uid: signUpUidResponse },
-        });
-      } catch (error) {
-        setLoading(false);
-        console.log(error);
-        return error;
+      if (signUpUidResponse === "User exists") {
+        navigate("/login");
+        return;
       }
+
+      if (signUpUidResponse === "Failed") {
+        throw new Error("Failed to sign up");
+      }
+      navigate("/addDetails", {
+        state: { uid: signUpUidResponse },
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      return error;
     }
   };
 
@@ -203,6 +202,7 @@ export default function RegisterComponent(props) {
           <button
             className={styles["RegisterComponent--main--FBbutton"]}
             onClick={handleFacebookSignUp}
+            disabled
           >
             <img
               src={facebook_logo}
