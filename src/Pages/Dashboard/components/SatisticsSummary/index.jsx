@@ -253,28 +253,44 @@ export default function StatsSummary() {
           <p className={styles["statsSummary--appointment-title"]}>
             Clients Appointment
           </p>
-          <div>
-            <p className={styles["statsSummary--meeting-title"]}>
-              {latestAppoitment?.topic}
-            </p>
-            <p className={styles["statsSummary--appointment-desc-text"]}>
-              Client Name: {appoitmentClientName}|Time:{" "}
-              {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
-            </p>
-          </div>
-          <div>
-            <ul className={styles["statsSummary--unordered-list"]}>
-              <li className={styles["statsSummary--appointment-marker"]}>
-                {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
-              </li>
-              <li className={styles["statsSummary--appointment-marker"]}>
-                {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
-              </li>
-            </ul>
-            <button className={styles["statsSummary--appointment-button"]}>
-              Join Link
-            </button>
-          </div>
+          {latestAppoitment ? (
+            <>
+              <div>
+                <p className={styles["statsSummary--meeting-title"]}>
+                  {latestAppoitment?.topic}
+                </p>
+                <p className={styles["statsSummary--appointment-desc-text"]}>
+                  Client Name: {appoitmentClientName}|Time:{" "}
+                  {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
+                </p>
+              </div>
+              <div>
+                <ul className={styles["statsSummary--unordered-list"]}>
+                  <li className={styles["statsSummary--appointment-marker"]}>
+                    {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
+                  </li>
+                  <li className={styles["statsSummary--appointment-marker"]}>
+                    {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
+                  </li>
+                </ul>
+                <button className={styles["statsSummary--appointment-button"]}>
+                  Join Link
+                </button>
+              </div>
+            </>
+          ) : (
+            <div
+              className={styles["home--no-data"]}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                // minHeight: "100%",
+              }}
+            >
+              You have no recent appointments
+            </div>
+          )}
         </div>
       </div>
       {/*Birthday container for tablet responsive starts */}
