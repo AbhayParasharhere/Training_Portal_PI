@@ -20,8 +20,10 @@ import { updateClient } from "../../../Firebase/updateSalesClients";
 export default function ClientComponent() {
   const [search, setSearch] = useState("");
   const [prevIndex, setPrevIndex] = useState(null);
+  const [filterOption, setFilterOption] = useState("All clients");
   const primaryContextData = useContext(PrimaryDataContext);
   const salesData = primaryContextData?.sales;
+  const [arrowDropdown, setArrowDropdown] = useState(false);
   const initialClientData = useContext(RealTimeDataContext)?.clients?.filter(
     (client) => client.status === "active"
   );
@@ -58,22 +60,6 @@ export default function ClientComponent() {
     if (prevIndex) {
       setPrevIndex(null);
     }
-  };
-
-  const addClient = () => {
-    console.log("add client");
-  };
-
-  const viewDetails = () => {
-    console.log("view details");
-  };
-
-  const edit = () => {
-    console.log("edit client");
-  };
-
-  const dltBtn = () => {
-    console.log("delete client");
   };
 
   const handleSearch = (value) => {
@@ -114,59 +100,33 @@ export default function ClientComponent() {
             />
           </div>
           <div
-            className={styles["ClientComponent-wrapper-topbar-search-menu-div"]}
+            className={styles["clientList--dropdown"]}
+            onClick={() => setArrowDropdown((prev) => !prev)}
           >
-            <div
-              className={styles["ClientComponent-wrapper-topbar-search-menu"]}
-            >
-              All clients
-            </div>
+            {filterOption}
             <img
-              src={arrow_down}
-              height="24px"
-              className={
-                styles["ClientComponent-wrapper-topbar-search-menu-arrow-down"]
-              }
-            />
-            <img
-              src={arrow_up}
-              height="24px"
-              className={
-                styles["ClientComponent-wrapper-topbar-search-menu-arrow-up"]
-              }
+              className={styles["clientList--arrow-icon"]}
+              src={arrowDropdown ? arrow_up : arrow_down}
             />
             <div
-              className={
-                styles[
-                  "ClientComponent-wrapper-topbar-search-menu-div-dropdown"
-                ]
-              }
+              className={styles["clientList--dropdown-option-container"]}
+              style={{ display: arrowDropdown ? "flex" : "none" }}
             >
-              {" "}
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("All clients")}
               >
                 All clients
               </div>
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("Newest")}
               >
                 Newest
               </div>
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("Oldest")}
               >
                 Oldest
               </div>
@@ -198,59 +158,33 @@ export default function ClientComponent() {
           className={styles["ClientComponent-wrapper-topbar-mobile-clients"]}
         >
           <div
-            className={styles["ClientComponent-wrapper-topbar-search-menu-div"]}
+            className={styles["clientList--dropdown"]}
+            onClick={() => setArrowDropdown((prev) => !prev)}
           >
-            <div
-              className={styles["ClientComponent-wrapper-topbar-search-menu"]}
-            >
-              All clients
-            </div>
+            {filterOption}
             <img
-              src={arrow_down}
-              height="24px"
-              className={
-                styles["ClientComponent-wrapper-topbar-search-menu-arrow-down"]
-              }
-            />
-            <img
-              src={arrow_up}
-              height="24px"
-              className={
-                styles["ClientComponent-wrapper-topbar-search-menu-arrow-up"]
-              }
+              className={styles["clientList--arrow-icon"]}
+              src={arrowDropdown ? arrow_up : arrow_down}
             />
             <div
-              className={
-                styles[
-                  "ClientComponent-wrapper-topbar-search-menu-div-dropdown"
-                ]
-              }
+              className={styles["clientList--dropdown-option-container"]}
+              style={{ display: arrowDropdown ? "flex" : "none" }}
             >
-              {" "}
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("All clients")}
               >
                 All clients
               </div>
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("Newest")}
               >
                 Newest
               </div>
               <div
-                className={
-                  styles[
-                    "ClientComponent-wrapper-topbar-search-menu-div-dropdown-content"
-                  ]
-                }
+                className={styles["clientList--dropdown-option"]}
+                onClick={() => setFilterOption("Oldest")}
               >
                 Oldest
               </div>

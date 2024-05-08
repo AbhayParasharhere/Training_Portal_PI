@@ -15,7 +15,10 @@ export default function ClientData() {
   const realTimeData = useContext(RealTimeDataContext);
   const clientData = realTimeData?.clients?.filter(
     (client) => client.id === clientId
-  );
+  )?.[0];
+  const [updatedClientData, setUpdatedClientData] = useState({
+    ...clientData,
+  });
   const salesData = realTimeData?.sales;
   // const currentUser = useContext(AuthContext);
   const filteredSales = salesData?.filter((sales) => sales?.cid === clientId);
@@ -31,12 +34,17 @@ export default function ClientData() {
         />
       ) : (
         <>
-          <ClientTopbar clientId={clientId} />
+          <ClientTopbar
+            clientId={clientId}
+            updatedClientData={updatedClientData}
+          />
           <Outlet
             context={{
-              clientData: clientData?.[0],
+              clientData: clientData,
               filteredSales: filteredSales,
               setSalesUpdate: setSalesUpdate,
+              setUpdatedClientData: setUpdatedClientData,
+              updatedClientData: updatedClientData,
             }}
           />
         </>
