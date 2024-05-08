@@ -1,5 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
+import { toast } from "react-toastify";
 
 const updateSales = async (updatedSales, salesId) => {
   try {
@@ -12,11 +13,16 @@ const updateSales = async (updatedSales, salesId) => {
 };
 const updateClient = async (updatedClient, clientId) => {
   try {
+    console.log(
+      "Hello this is running with this data: ",
+      updatedClient,
+      clientId
+    );
     const clientRef = doc(db, "clients", clientId); // Assuming db is your Firestore instance
     await updateDoc(clientRef, updatedClient);
-    console.log("Document successfully updated!");
+    toast.success("Document successfully updated!");
   } catch (error) {
-    console.error("Error updating document: ", error);
+    toast.error("Error updating document: ", error);
   }
 };
 
