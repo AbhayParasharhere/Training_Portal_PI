@@ -51,6 +51,7 @@ import CalendarModal from "./CommonComponents/CalendarModal";
 import UploadForm from "./CommonComponents/UploadDocument";
 import MobileBirthdays from "./Pages/Dashboard/components/MobileBirthdays";
 import MobileNotifications from "./Pages/Dashboard/components/MobileNotifications";
+import ClientGoals from "./Pages/FinanceGoals";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -96,7 +97,7 @@ const router = createBrowserRouter(
         <Route path="/client-detail/:clientId" element={<ClientData />}>
           <Route index element={<ClientInfo />} />
           <Route path="policies" element={<PurchasedPolicy />} />
-          <Route path="goals" element={<ClientInfo />} />
+          <Route path="goals" element={<ClientGoals />} />
         </Route>
         <Route path="/connect" element={<PostQues />} />
         <Route path="/add-document" element={<UploadForm />} />
