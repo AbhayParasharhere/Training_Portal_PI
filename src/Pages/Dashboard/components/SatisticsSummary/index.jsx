@@ -18,14 +18,30 @@ import {
   RealTimeDataContext,
 } from "../../../../context/primaryDataContext";
 import { getFutureTimeDifference } from "../TabletImportantUpdates";
+import { pushRecentNotifications } from "../Home";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
 export default function StatsSummary() {
   const realTimeData = useContext(RealTimeDataContext);
   const appointments = realTimeData?.appointments;
+  const webinars = realTimeData?.webinars;
+  const announcements = realTimeData?.announcements;
+  const [notifications, setNotifications] = useState([]);
   let latestAppoitment = {};
   let appoitmentClientName = "";
+
+  useEffect(() => {
+    // if (announcements || webinars || appointments) return;
+    pushRecentNotifications(
+      announcements,
+      webinars,
+      appointments,
+      setNotifications
+    );
+    console.log("These are the notifications: ", notifications);
+  }, [announcements, appointments, webinars]);
+
   if (appointments) {
     // Get the one which is closest to the current time and must be in the future
 
@@ -50,9 +66,10 @@ export default function StatsSummary() {
     }
     console.log("Latest Appoitment", latestAppoitment);
   }
+
   const navigate = useNavigate();
-  const primaryDataContext = useContext(PrimaryDataContext);
-  const clients = primaryDataContext?.clients;
+  // const primaryDataContext = useContext(PrimaryDataContext);
+  const clients = realTimeData?.clients;
   const [graphData, setGraphData] = useState([
     { name: "M", value: "12" },
     { name: "T", value: "5" },
@@ -210,42 +227,23 @@ export default function StatsSummary() {
             Notifications
           </p>
           <div className={styles["statsSummary--lists-container"]}>
-            <div className={styles["statsSummary--list"]}>
-              <p className={styles["statsSummary--list-title"]}>
-                Upcoming event/meeting
-              </p>
-              <p className={styles["statsSummary--list-desc"]}>
-                Your webinar is about to get started very soon. Join the link
-                from Webinar page
-              </p>
-            </div>
-            <div className={styles["statsSummary--list"]}>
-              <p className={styles["statsSummary--list-title"]}>
-                Upcoming event/meeting
-              </p>
-              <p className={styles["statsSummary--list-desc"]}>
-                Your webinar is about to get started very soon. Join the link
-                from Webinar page
-              </p>
-            </div>{" "}
-            <div className={styles["statsSummary--list"]}>
-              <p className={styles["statsSummary--list-title"]}>
-                Upcoming event/meeting
-              </p>
-              <p className={styles["statsSummary--list-desc"]}>
-                Your webinar is about to get started very soon. Join the link
-                from Webinar page
-              </p>
-            </div>{" "}
-            <div className={styles["statsSummary--list"]}>
-              <p className={styles["statsSummary--list-title"]}>
-                Upcoming event/meeting
-              </p>
-              <p className={styles["statsSummary--list-desc"]}>
-                Your webinar is about to get started very soon. Join the link
-                from Webinar page
-              </p>
-            </div>
+            {notifications?.map((notification) => {
+              return (
+                <div className={styles["statsSummary--list"]}>
+                  <p className={styles["statsSummary--list-title"]}>
+                    Upcoming {notification?.type}
+                  </p>
+                  <p className={styles["statsSummary--list-desc"]}>
+                    {notification?.type === "appointment" &&
+                      `You have an appointment on ${notification.sortDate}`}
+                    {notification?.type === "webinar" &&
+                      `You have a webinar on ${notification.sortDate}`}
+                    {notification?.type === "announcement" &&
+                      `A latest annoucement was made on ${notification.sortDate}`}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -255,28 +253,44 @@ export default function StatsSummary() {
           <p className={styles["statsSummary--appointment-title"]}>
             Clients Appointment
           </p>
-          <div>
-            <p className={styles["statsSummary--meeting-title"]}>
-              {latestAppoitment?.topic}
-            </p>
-            <p className={styles["statsSummary--appointment-desc-text"]}>
-              Client Name: {appoitmentClientName}|Time:{" "}
-              {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
-            </p>
-          </div>
-          <div>
-            <ul className={styles["statsSummary--unordered-list"]}>
-              <li className={styles["statsSummary--appointment-marker"]}>
-                {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
-              </li>
-              <li className={styles["statsSummary--appointment-marker"]}>
-                {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
-              </li>
-            </ul>
-            <button className={styles["statsSummary--appointment-button"]}>
-              Join Link
-            </button>
-          </div>
+          {latestAppoitment ? (
+            <>
+              <div>
+                <p className={styles["statsSummary--meeting-title"]}>
+                  {latestAppoitment?.topic}
+                </p>
+                <p className={styles["statsSummary--appointment-desc-text"]}>
+                  Client Name: {appoitmentClientName}|Time:{" "}
+                  {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
+                </p>
+              </div>
+              <div>
+                <ul className={styles["statsSummary--unordered-list"]}>
+                  <li className={styles["statsSummary--appointment-marker"]}>
+                    {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
+                  </li>
+                  <li className={styles["statsSummary--appointment-marker"]}>
+                    {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
+                  </li>
+                </ul>
+                <button className={styles["statsSummary--appointment-button"]}>
+                  Join Link
+                </button>
+              </div>
+            </>
+          ) : (
+            <div
+              className={styles["home--no-data"]}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                // minHeight: "100%",
+              }}
+            >
+              You have no recent appointments
+            </div>
+          )}
         </div>
       </div>
       {/*Birthday container for tablet responsive starts */}

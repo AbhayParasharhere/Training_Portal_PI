@@ -23,12 +23,15 @@ export default function CourseDetail() {
   // use memo to fetch the course data from the context
   const [currentVideo, setCurrentVideo] = useState({ src: "", id: "" });
 
-  console.log(
-    "Session Storage",
-    JSON.parse(sessionStorage.getItem("video_progress"))
-  );
+  // console.log(
+  //   "Session Storage",
+  //   JSON.parse(sessionStorage.getItem("video_progress"))
+  // );
   useEffect(() => {
-    if (JSON.parse(sessionStorage.getItem("video_progress"))) {
+    if (
+      sessionStorage.getItem("video_progress") &&
+      sessionStorage.getItem("video_progress") !== "undefined"
+    ) {
       const lastVideoData = JSON.parse(
         sessionStorage?.getItem("video_progress")
       )?.filter((video) => video.courseId === selectedCourseData?.id);
@@ -59,7 +62,10 @@ export default function CourseDetail() {
 
     setCurrentCourse(selectedCourseData);
 
-    if (!sessionStorage.getItem(`${selectedCourseData?.id}`)) {
+    if (
+      !sessionStorage.getItem(`${selectedCourseData?.id}`) ||
+      sessionStorage.getItem(`${selectedCourseData?.id}`) === "undefined"
+    ) {
       getSectionsForCourse(selectedCourseData?.id).then((sections) => {
         sessionStorage.setItem(
           `${selectedCourseData?.id}`,
