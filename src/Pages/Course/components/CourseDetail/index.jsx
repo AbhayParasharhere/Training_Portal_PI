@@ -8,23 +8,30 @@ import { AuthContext } from "../../../../context/authContext";
 import { storeVideoProgress } from "../../../../Firebase/kpi";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { getSectionsForCourse } from "../../../../Firebase/courseLogic";
+import {
+  addFeedback,
+  getSectionsForCourse,
+} from "../../../../Firebase/courseLogic";
 import secureLocalStorage from "react-secure-storage";
 
 export default function CourseDetail() {
+  const [feedback, setFeedback] = useState("");
+  console.log("This is the feedback: ", feedback);
   const selectedCourseData = useLocation().state.course;
-  // console.log("Course data", selectedCourseData);
 
   const [currentCourse, setCurrentCourse] = useState({});
   // use memo to fetch the course data from the context
   const [currentVideo, setCurrentVideo] = useState({ src: "", id: "" });
 
-  console.log(
-    "Session Storage",
-    JSON.parse(sessionStorage.getItem("video_progress"))
-  );
+  // console.log(
+  //   "Session Storage",
+  //   JSON.parse(sessionStorage.getItem("video_progress"))
+  // );
   useEffect(() => {
-    if (JSON.parse(sessionStorage.getItem("video_progress"))) {
+    if (
+      sessionStorage.getItem("video_progress") &&
+      sessionStorage.getItem("video_progress") !== "undefined"
+    ) {
       const lastVideoData = JSON.parse(
         sessionStorage?.getItem("video_progress")
       )?.filter((video) => video.courseId === selectedCourseData?.id);
@@ -55,7 +62,10 @@ export default function CourseDetail() {
 
     setCurrentCourse(selectedCourseData);
 
-    if (!sessionStorage.getItem(`${selectedCourseData?.id}`)) {
+    if (
+      !sessionStorage.getItem(`${selectedCourseData?.id}`) ||
+      sessionStorage.getItem(`${selectedCourseData?.id}`) === "undefined"
+    ) {
       getSectionsForCourse(selectedCourseData?.id).then((sections) => {
         sessionStorage.setItem(
           `${selectedCourseData?.id}`,
@@ -75,6 +85,10 @@ export default function CourseDetail() {
   const currentUser = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [dropdown, setDropdown] = useState([-1]);
+
+  const submitFeedback = () => {
+    addFeedback(feedback, currentUser?.uid, selectedCourseData?.id);
+  };
   const handleDropdown = (index) => {
     if (dropdown.includes(index)) {
       const newDropdown = dropdown.filter((item) => item !== index);
@@ -172,7 +186,7 @@ export default function CourseDetail() {
     <div className={styles["courseDetail--main-container"]}>
       <p
         className={styles["courseDetail--go-back"]}
-        onClick={() => navigate("/courses")}
+        onClick={() => navigate(-1)}
       >
         {"<"}Go Back
       </p>
@@ -214,8 +228,12 @@ export default function CourseDetail() {
             <textarea
               className={styles["courseDetail--feedback-input"]}
               placeholder="Describe what you liked or disliked?.."
+              onChange={(event) => setFeedback(event.target.value)}
             />
-            <button className={styles["courseDetail--submit-button"]}>
+            <button
+              className={styles["courseDetail--submit-button"]}
+              onClick={submitFeedback}
+            >
               Submit Feedback
             </button>
           </div>

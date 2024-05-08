@@ -6,9 +6,9 @@ import coursePlaceholder from "./images/course-placeholder.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PrimaryDataContext } from "../../../../context/primaryDataContext";
 
-export default function CourseGrid() {
+export default function CourseGrid(props) {
   const primaryData = useContext(PrimaryDataContext);
-  const initialCourseData = primaryData?.courses;
+  const initialCourseData = props.courses;
   const [courseData, setCourseData] = useState(initialCourseData);
   const [search, setSearch] = useState("");
   const defaultPlaceholder = coursePlaceholder;
@@ -27,7 +27,7 @@ export default function CourseGrid() {
         className={styles["courseGrid--course-container"]}
         key={index}
         onClick={() => {
-          return navigate(`/courses/${index}`, {
+          return navigate(`/courses/${course.title}`, {
             state: { course },
           });
         }}

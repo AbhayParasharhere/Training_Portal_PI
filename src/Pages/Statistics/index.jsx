@@ -20,7 +20,13 @@ export default function Statistics() {
   console.log("This is the sales data: ", sales);
   const courses = primaryData?.courses;
   const [loading, setLoading] = useState(true);
-  const videoWatched = JSON.parse(sessionStorage.getItem("video_progress"));
+  let videoWatched = [];
+  if (
+    sessionStorage.getItem("video_progress") &&
+    sessionStorage.getItem("video_progress") !== "undefined"
+  ) {
+    videoWatched = JSON.parse(sessionStorage.getItem("video_progress"));
+  }
   const [clientGraphTime, setClientGraphTime] = useState("week");
   const [salesGraphTime, setSalesGraphTime] = useState("week");
   const [statData, setStatData] = useState({});

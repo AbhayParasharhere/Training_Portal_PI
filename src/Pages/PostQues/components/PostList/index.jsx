@@ -19,111 +19,13 @@ export default function PostList(props) {
 
   const arrowOptions = [
     { text: "All", value: "" },
-    { text: "Technical Support", value: "tech" },
-    { text: "Platform Navigation", value: "platform" },
-    { text: "Training and Courses", value: "training" },
-    { text: "Annoucements/Updates", value: "updates" },
-    { text: "General Inquiries", value: "general" },
+    { text: "Technical Support", value: "Technical Support" },
+    { text: "Platform Navigation", value: "Platform Navigation" },
+    { text: "Training and Courses", value: "Training and Courses" },
+    { text: "Annoucements/Updates", value: "Annoucements/Updates" },
+    { text: "General Inquiries", value: "General Inquiries" },
   ];
 
-  // const postsData = [
-  //   {
-  //     userName: "Bessie Cooper",
-  //     catagory1: "General",
-  //     catagory2: "Technical",
-  //     time: "20 mins ago",
-  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     comments?.length: "4",
-  //     comments: [
-  //       {
-  //         img: samplePhoto,
-  //         time: "2 mins ago",
-  //         name: "Comment 1",
-  //         comment:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-  //       },
-  //       {
-  //         img: samplePhoto,
-  //         time: "2 mins ago",
-  //         name: "Comment 2",
-  //         comment:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-  //       },
-  //       ,
-  //       {
-  //         img: samplePhoto,
-  //         time: "2 mins ago",
-  //         name: "Comment 2",
-  //         comment:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-  //       },
-  //       ,
-  //       {
-  //         img: samplePhoto,
-  //         time: "2 mins ago",
-  //         name: "Comment 2",
-  //         comment:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-  //       },
-  //       ,
-  //       {
-  //         img: samplePhoto,
-  //         time: "2 mins ago",
-  //         name: "Comment 2",
-  //         comment:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-  //       },
-  //       ,
-  //       {
-  //         img: samplePhoto,
-  //         time: "2 mins ago",
-  //         name: "Comment 2",
-  //         comment:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-  //       },
-  //       ,
-  //       {
-  //         img: samplePhoto,
-  //         time: "2 mins ago",
-  //         name: "Comment 2",
-  //         comment:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     userName: "Bessie Cooper",
-  //     catagory1: "General",
-  //     catagory2: "Technical",
-  //     time: "20 mins ago",
-  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     comments?.length: "4",
-  //   },
-  //   {
-  //     userName: "Bessie Cooper",
-  //     catagory1: "General",
-  //     catagory2: "Technical",
-  //     time: "20 mins ago",
-  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     comments?.length: "4",
-  //   },
-  //   {
-  //     userName: "Bessie Cooper",
-  //     catagory1: "General",
-  //     catagory2: "Technical",
-  //     time: "20 mins ago",
-  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     comments?.length: "4",
-  //   },
-  //   {
-  //     userName: "Bessie Cooper",
-  //     catagory1: "General",
-  //     catagory2: "Technical",
-  //     time: "20 mins ago",
-  //     post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cftyb6u vnrighn4vghutbuiyhs 8 huihfiu gvhbnuingrv?",
-  //     comments?.length: "4",
-  //   },
-  // ];
   const [reportContainer, setReportContainer] = useState();
   const handleCommentPage = (post) => {
     props.setDisplayPage("comments");

@@ -52,12 +52,12 @@ export default function AddPost(props) {
             type="radio"
             id="compliance"
             name="compliance"
-            value="compliance"
-            checked={postCategory === "compliance"}
+            value="Compliance and Policies"
+            checked={postCategory === "Compliance and Policies"}
             onChange={handleCategoryChange}
           />
           <label for="compliance" className={styles["addPost--label-text"]}>
-            Compliance
+            Compliance and Policies
           </label>
         </div>
         <div style={{ marginBottom: 20 }}>
@@ -65,8 +65,8 @@ export default function AddPost(props) {
             type="radio"
             id="technical_issue"
             name="technical_issue"
-            value="technical_issue"
-            checked={postCategory === "technical_issue"}
+            value="Technical Support"
+            checked={postCategory === "Technical Support"}
             onChange={handleCategoryChange}
           />
           <label
@@ -81,12 +81,12 @@ export default function AddPost(props) {
             type="radio"
             id="general"
             name="general"
-            value="general"
-            checked={postCategory === "general"}
+            value="General Inquiries"
+            checked={postCategory === "General Inquiries"}
             onChange={handleCategoryChange}
           />
           <label for="general" className={styles["addPost--label-text"]}>
-            General
+            General Inquiries
           </label>
         </div>
         <div style={{ marginBottom: 20 }}>
@@ -94,12 +94,38 @@ export default function AddPost(props) {
             type="radio"
             id="insurance"
             name="insurance"
-            value="insurance"
-            checked={postCategory === "insurance"}
+            value="Platform Navigation"
+            checked={postCategory === "Platform Navigation"}
             onChange={handleCategoryChange}
           />
           <label for="insurance" className={styles["addPost--label-text"]}>
-            Insurance
+            Platform Navigation
+          </label>
+        </div>
+        <div style={{ marginBottom: 20 }}>
+          <input
+            type="radio"
+            id="traning"
+            name="insurance"
+            value="Training and Courses"
+            checked={postCategory === "Training and Courses"}
+            onChange={handleCategoryChange}
+          />
+          <label for="traning" className={styles["addPost--label-text"]}>
+            Training and Courses
+          </label>
+        </div>
+        <div style={{ marginBottom: 20 }}>
+          <input
+            type="radio"
+            id="insurance"
+            name="insurance"
+            value="Announcement/Updates"
+            checked={postCategory === "Announcement/Updates"}
+            onChange={handleCategoryChange}
+          />
+          <label for="insurance" className={styles["addPost--label-text"]}>
+            Announcement/Updates
           </label>
         </div>
       </div>

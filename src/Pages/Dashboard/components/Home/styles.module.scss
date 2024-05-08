@@ -6,6 +6,7 @@ p {
   max-width: 750px;
   //   background-color: #2d355c;
   padding: 10px 0px;
+  padding-bottom: 0px;
   // margin-right: 20px;
   box-sizing: border-box;
   // background-color: #123c97;
@@ -353,8 +354,10 @@ li::marker {
   box-sizing: border-box;
   padding: 10px;
   display: flex;
+  height: 100%;
   flex-direction: column;
   gap: 15px;
+  justify-content: space-between;
 }
 .statsSummary--appointment-title {
   font-family: Epilogue;
@@ -508,6 +511,15 @@ li::marker {
   line-height: 18px;
   letter-spacing: -0.03em;
   text-align: center;
+}
+.home--no-data {
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: #1a202c;
+  height: 100%;
 }
 @media (max-width: 1265px) {
   .home--notification-links-underline {
