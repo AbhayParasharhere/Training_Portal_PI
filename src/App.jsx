@@ -51,6 +51,8 @@ import CalendarModal from "./CommonComponents/CalendarModal";
 import UploadForm from "./CommonComponents/UploadDocument";
 import MobileBirthdays from "./Pages/Dashboard/components/MobileBirthdays";
 import MobileNotifications from "./Pages/Dashboard/components/MobileNotifications";
+import AdminLayout from "./Layouts/AdminConsole";
+import AddCourse from "./Pages/AdminConsole";
 import ProductCourses from "./Pages/CourseProducts";
 
 // Sign Up steps
@@ -67,6 +69,9 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<RegisterComponent />} />
       <Route path="/addDetails" element={<Register_2Component />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route path="add-course" element={<AddCourse />} />
+      </Route>
       <Route
         element={<SidebarLayout />}
         path="/"
@@ -92,7 +97,6 @@ const router = createBrowserRouter(
         <Route path="/contact" element={<ContactDetails />} />
         <Route path="/productCourses" element={<ProductCourses />} />
 
-        <Route path="/admin-course-add" element={<AdminConsole />} />
         <Route path="/all-links" element={<AllLinks />} />
         <Route path="/internal-links" element={<InternalLinks />} />
         <Route path="/client-detail/:clientId" element={<ClientData />}>
