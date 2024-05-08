@@ -8,7 +8,10 @@ import {
 } from "../Firebase/getClientSales";
 import { getAllWebinarsRealTime } from "../Firebase/webinar";
 import { getAllAppointmentsRealTime } from "../Firebase/appointments";
-import { getPostedDoubtsRealtime } from "../Firebase/postDoubtsLogic";
+import {
+  getLastWeekPostRealTime,
+  getPostedDoubtsRealtime,
+} from "../Firebase/postDoubtsLogic";
 import { getAllDocuments } from "../Firebase/addGetDocuments";
 // We will use this context to fetch the primary data
 // All announcements
@@ -37,12 +40,21 @@ export const PrimaryDataContextProvider = ({ children }) => {
   const [appointments, setAppointments] = useState();
   const [posts, setPosts] = useState([]);
   const [postsFetched, setPostsFetched] = useState(false);
+  const [lastWeekUserPost, setLastWeekUserPost] = useState();
+  const [lastWeekPostFetched, setLastWeekPostFetched] = useState(false);
 
   const fetchPosts = () => {
     if (!postsFetched) {
       getPostedDoubtsRealtime(setPosts)
         .then(() => setPostsFetched(true))
         .catch((error) => console.error("Error fetching posts:", error));
+    }
+  };
+  const fetchLastWeekUserPost = (mondayDate) => {
+    if (!lastWeekPostFetched) {
+      getLastWeekPostRealTime(setLastWeekUserPost, currentUser?.uid, mondayDate)
+        .then(() => setLastWeekPostFetched(true))
+        .catch((err) => console.error("Error last week post: ", err));
     }
   };
 
@@ -114,6 +126,8 @@ export const PrimaryDataContextProvider = ({ children }) => {
           appointments: appointments,
           posts: posts,
           fetchPosts,
+          lastWeekUserPost: lastWeekUserPost,
+          fetchLastWeekUserPost,
         }}
       >
         {children}

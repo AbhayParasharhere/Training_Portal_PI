@@ -1,6 +1,7 @@
 .statsSummary--notifications-container {
   box-sizing: border-box;
   padding: 15px;
+  width: 100%;
   padding-top: 30px;
 }
 .statsSummary--notifications-inner-container {
@@ -29,6 +30,17 @@
 }
 .statsSummary--list {
   border: 1px solid #dedede;
+}
+.home--no-data {
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: #1a202c;
+  height: 100%;
+  width: 100%;
+  align-items: center;
 }
 @media (max-width: 285px) {
   .statsSummary--notifications-container {

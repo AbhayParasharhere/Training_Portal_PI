@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useContext } from "react";
 import styles from "./styles.module.scss";
 import searchIcon from "./images/search-icon.png";
 import Dropdown from "../../../../CommonComponents/Dropdown";
@@ -9,14 +9,37 @@ import reportIcon from "./images/report-icon.png";
 import plusIcon from "./images/plus-icon.png";
 import { getPostedDoubtsRealtime } from "../../../../Firebase/postDoubtsLogic";
 import { getTimeDifference } from "../../../Dashboard/components/TabletImportantUpdates";
+import { RealTimeDataContext } from "../../../../context/primaryDataContext";
 
 export default function PostList(props) {
-  const posts = props?.posts;
+  const { allPosts } = useContext(RealTimeDataContext);
+  const [posts, setPosts] = useState(props?.posts);
+  console.log("Initial posts: ", posts, "props posts: ", props?.posts);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState({ value: "", text: "" });
 
-  const handleCategoryChange = (event) => {
-    setPostCategory(event.target.value);
+  console.log(search);
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (value === "") return setPosts(props?.posts);
+    const filteredPosts = props?.posts?.filter((post) => {
+      return post.post.toLowerCase().includes(value.toLowerCase());
+    });
+    setPosts(filteredPosts);
   };
-
+  useEffect(() => {
+    if (props?.posts) {
+      setPosts(props.posts);
+    }
+  }, [props.posts]);
+  useEffect(() => {
+    console.log("initial filter", filter);
+    if (filter.value === "" || !filter) return setPosts(props?.posts);
+    const filterCategoryPost = props?.posts?.filter((post) => {
+      return post.category === filter?.value;
+    });
+    setPosts(filterCategoryPost);
+  }, [filter]);
   const arrowOptions = [
     { text: "All", value: "" },
     { text: "Technical Support", value: "Technical Support" },
@@ -24,6 +47,7 @@ export default function PostList(props) {
     { text: "Training and Courses", value: "Training and Courses" },
     { text: "Annoucements/Updates", value: "Annoucements/Updates" },
     { text: "General Inquiries", value: "General Inquiries" },
+    { text: "Compliance and Policies", value: "Compliance and Policies" },
   ];
 
   const [reportContainer, setReportContainer] = useState();
@@ -117,7 +141,7 @@ export default function PostList(props) {
   });
 
   const [arrowState, setArrowState] = useState(false);
-  const [filter, setFilter] = useState("");
+  console.log("filter: ", filter);
   console.log("Filter in posts active", filter);
   return (
     <div
@@ -135,6 +159,7 @@ export default function PostList(props) {
         <input
           placeholder="Search your doubts"
           className={styles["postList--search-input"]}
+          onChange={(event) => handleSearch(event.target.value)}
         />
         <img src={searchIcon} className={styles["postList--search-icon"]} />
         <Dropdown
