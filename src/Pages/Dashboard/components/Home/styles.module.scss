@@ -404,6 +404,10 @@ li::marker {
   width: 100%;
   margin-top: 10px;
   border: 2px solid #4462a4;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: Epilogue;
   font-size: 13px;
   font-weight: 500;

@@ -295,9 +295,16 @@ export default function StatsSummary() {
                     {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
                   </li>
                 </ul>
-                <button className={styles["statsSummary--appointment-button"]}>
+                <a
+                  target="_blank"
+                  href={latestAppoitment?.link}
+                  className={styles["statsSummary--appointment-button"]}
+                  style={{
+                    pointerEvents: latestAppoitment?.link ? "all" : "none",
+                  }}
+                >
                   Join Link
-                </button>
+                </a>
               </div>
             </>
           ) : (
