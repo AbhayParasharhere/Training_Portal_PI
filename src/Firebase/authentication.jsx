@@ -10,6 +10,8 @@ import { db } from "./firebaseConfig";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { logEvent } from "firebase/analytics";
 import { toast } from "react-toastify";
+import { acceptInvite } from "./inviteLogic";
+import firebase from "firebase/compat/app";
 // import { FacebookAuthProvider } from "firebase/auth/cordova";
 
 const signInEmailAndPassword = async (email, password, setLoading) => {
@@ -69,15 +71,21 @@ const getUserDetails = async (uid) => {
 // Return the uid of the user
 const signUpWithEmailAndPassword = async (email, password) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const userIsInvited = await acceptInvite(email);
+    console.log("This is the userIsInvited: ", userIsInvited);
+    if (userIsInvited !== "Invite checked successfully") {
+      throw new Error("Invitation error.");
+    } else {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    const uid = userCredential.user.uid;
-    console.log("This is the uid: ", uid);
-    return uid;
+      const uid = userCredential.user.uid;
+      console.log("This is the uid: ", uid);
+      return uid;
+    }
   } catch (error) {
     if (error.code === "auth/email-already-in-use") {
       toast.error("User with this email, already exists, please login", {
@@ -96,6 +104,29 @@ const signInwithGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
     const res = await signInWithPopup(auth, provider);
+
+    // Check if the user is created for the first time
+    // If yes then check if the user is invited
+    // If not delete the user
+    console.log(
+      "Check first time creation",
+      auth.currentUser.metadata.creationTime ===
+        auth.currentUser.metadata.lastSignInTime
+    );
+    if (
+      auth.currentUser.metadata.creationTime ===
+      auth.currentUser.metadata.lastSignInTime
+    ) {
+      console.log("User is created for the first time");
+      const userIsInvited = await acceptInvite(auth.currentUser.email);
+      console.log("This is the userIsInvited: ", userIsInvited);
+      if (userIsInvited !== "Invite checked successfully") {
+        console.log("User is not invited");
+        await auth.currentUser.delete();
+        return "Failed";
+      }
+    }
+
     return { status: "Success", uid: res.user.uid };
   } catch (error) {
     console.log(error);
