@@ -48,12 +48,12 @@ import NoPagesElement from "./CommonComponents/NoPageError";
 
 import Meet from "./CommonComponents/Meet";
 
-import AdminConsole from "./Pages/AdminConsole";
+
 import InternalLinks from "./Pages/InternalLinks";
 
 import ClientDetail from "./Pages/ClientDetail";
 import ClientData from "./Pages/ClientDetail";
-import ClientInfo from "./Pages/Form";
+
 import PostQues from "./Pages/PostQues";
 import PurchasedPolicy from "./Pages/PurchasedPolicy";
 import AllLinks from "./Pages/AllLinks";
