@@ -1,4 +1,5 @@
 import "./App.scss";
+import { useEffect } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -48,6 +49,8 @@ import ContactDetails from "./Pages/Contact";
 import WebinarForm from "./Pages/WebinarForm";
 import CalendarModal from "./CommonComponents/CalendarModal";
 import UploadForm from "./CommonComponents/UploadDocument";
+import MobileBirthdays from "./Pages/Dashboard/components/MobileBirthdays";
+import MobileNotifications from "./Pages/Dashboard/components/MobileNotifications";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -75,6 +78,9 @@ const router = createBrowserRouter(
         <Route path="/webinar" element={<Webinar />} />
         <Route path="/compliance" element={<Compliance />} />
         <Route path="/statistics" element={<Statistics />} />
+        <Route path="/birthdays" element={<MobileBirthdays />} />
+        <Route path="/notifications" element={<MobileNotifications />} />
+
         <Route path="/courses" element={<Course />} />
 
         <Route path="/productlinks" element={<ProductLinks />} />

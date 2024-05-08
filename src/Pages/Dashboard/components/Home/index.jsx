@@ -21,6 +21,8 @@ import {
   getFutureTimeDifference,
   getTimeDifference,
 } from "../TabletImportantUpdates";
+import MobileBirthdays from "../MobileBirthdays";
+import { app } from "../../../../Firebase/firebaseConfig";
 
 export default function Home() {
   const realTimeData = useContext(RealTimeDataContext);
@@ -28,6 +30,8 @@ export default function Home() {
   console.log("Realtime Appointments", appointments);
   let latestAppoitment = {};
   let appoitmentClientName = "";
+  const [mobileState, setMobileState] = useState("");
+  const webinars = realTimeData?.webinars;
 
   if (appointments) {
     // Get the one which is closest to the current time and must be in the future
@@ -92,6 +96,7 @@ export default function Home() {
   }
   const filterLast3CoursesWatched = () => {
     const lastCourses = [];
+    if (!allCourses) return;
     allCourses?.map((course) => {
       if (lastThreeCourses?.includes(course.id)) {
         lastCourses.push({
@@ -130,13 +135,6 @@ export default function Home() {
 
   const [latestStats, setLatestStates] = useState("course");
   const navigate = useNavigate();
-  const mobileIconsData = [
-    { icon: cakeIcon, text: "Client Birthday’s & anniversay", to: "/clients" },
-    { icon: profilePhoto, text: "Statistics", to: "/statistics" },
-    { icon: bellIcon, text: "Notifications", to: "/statistics" },
-    { icon: appointmentIcon, text: "Client Appointments", to: "/clients" },
-    { icon: clipboardIcon, text: "Important Updates", to: "/announcement" },
-  ];
 
   const latestStatsData = {
     course: filterLast3CoursesWatched(),
@@ -175,6 +173,64 @@ export default function Home() {
       </div>
     );
   });
+
+  // push the recent 2 announcents created in last 2 days, 2 webinar, 2 appointments
+  const pushRecentNotifications = () => {
+    const recentNotifications = [];
+    const currentDate = new Date().getDate();
+    const last2announcements = announcements.filter((announcement) => {
+      const announcementDate = announcement.updated_at.toDate().getDate();
+      announcement.type = "announcement";
+      announcement.sortDate = announcement.updated_at.toDate();
+      console.log("Announcement Date", announcement.sortDate);
+      return announcementDate - currentDate <= 2;
+    });
+
+    const last2webinars = webinars.filter((webinar) => {
+      const webinarDate = webinar.updated_at.toDate().getDate();
+      webinar.type = "webinar";
+      webinar.sortDate = new Date(new Date(webinar?.time).getDate());
+      console.log(
+        "Webinar Date",
+        new Date(new Date(webinar?.time).getDate()),
+        currentDate,
+        webinar.id
+      );
+      return webinarDate - currentDate <= 2;
+    });
+
+    const last2Appointments = appointments.filter((appointment) => {
+      const appointmentDate = appointment.date.toDate().getDate();
+      appointment.type = "appointment";
+      appointment.sortDate = appointment.date.toDate();
+      return appointmentDate - currentDate <= 2;
+    });
+
+    recentNotifications.push(
+      ...last2announcements,
+      ...last2webinars,
+      ...last2Appointments
+    );
+
+    recentNotifications.forEach((notification) => {
+      console.log("BEFORE Notification Date", notification.sortDate);
+    });
+    console.log("Recent notification before sorting", recentNotifications);
+    // Sort the notifications by the latest first
+    recentNotifications.sort((a, b) => {
+      // Convert sortDate to milliseconds for accurate comparison
+      const dateA = a.sortDate.getTime();
+      const dateB = b.sortDate.getTime();
+      return dateB - dateA;
+    });
+    recentNotifications.forEach((notification) => {
+      console.log("AFTER Notification Date", notification.sortDate);
+    });
+    console.log("Recent notification after sorting", recentNotifications);
+  };
+  useEffect(() => {
+    pushRecentNotifications();
+  }, [announcements, appointments, clients]);
 
   //Client birthdays and anniversary check
   //Rendering and getting anniversary and birthday data
@@ -271,12 +327,42 @@ export default function Home() {
   });
 
   //Rendering and getting anniversary and birthday data Finish
+  const mobileIconsData = [
+    {
+      icon: cakeIcon,
+      text: "Client Birthday’s & anniversay",
+      to: "/birthdays",
+      state: upcomingEvents,
+    },
+    {
+      icon: profilePhoto,
+      text: "Statistics",
+      to: "/statistics",
+    },
+    {
+      icon: bellIcon,
+      text: "Notifications",
+      name: "notifications",
+      to: "/notifications",
+      state: [],
+    },
+    {
+      icon: appointmentIcon,
+      text: "Client Appointments",
+      to: "/webinar",
+    },
+    {
+      icon: clipboardIcon,
+      text: "Important Updates",
+      to: "/announcement",
+    },
+  ];
 
   const mobileIcons = mobileIconsData.map((data) => {
     return (
       <div
         className={styles["home--mobile-icons-inner-container"]}
-        onClick={() => navigate(data.to)}
+        onClick={() => navigate(data.to, { state: data?.state })}
       >
         <div className={styles["home--mobile-icon-image-container"]}>
           <img src={data.icon} className={styles["home--mobile-icon-image"]} />

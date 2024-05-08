@@ -1,0 +1,43 @@
+.statsSummary--notifications-container {
+  box-sizing: border-box;
+  padding: 15px;
+  padding-top: 30px;
+}
+.statsSummary--notifications-inner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  justify-content: center;
+  background-color: white;
+}
+.statsSummary--notifications-title {
+  align-self: flex-start;
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statsSummary--lists-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.statsSummary--list {
+  border: 1px solid #dedede;
+}
+@media (max-width: 285px) {
+  .statsSummary--notifications-container {
+    padding: 10px;
+  }
+  .statsSummary--list-desc {
+    font-size: 10px;
+  }
+  .statsSummary--list-title {
+    font-size: 13px;
+  }
+}

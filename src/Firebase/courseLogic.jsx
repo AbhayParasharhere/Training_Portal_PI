@@ -1,6 +1,13 @@
 import { getDownloadURL, ref } from "firebase/storage";
 import { auth, db, storage } from "./firebaseConfig";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  where,
+  query,
+} from "firebase/firestore";
 
 const allCoursesRef = collection(db, "Courses");
 
@@ -8,8 +15,11 @@ const allCoursesRef = collection(db, "Courses");
 const getAllCourses = async () => {
   try {
     const courses = [];
-    const allCoursesSnapshot = await getDocs(allCoursesRef);
-    allCoursesSnapshot.forEach((doc) => {
+    const snapshot = await getDocs(
+      query(allCoursesRef, where("status", "!=", "deleted"))
+    );
+
+    snapshot?.forEach((doc) => {
       courses.push({ ...doc.data(), id: doc.id });
     });
     return courses;

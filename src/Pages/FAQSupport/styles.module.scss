@@ -68,18 +68,16 @@
 .FAQ--question-container {
   width: 100%;
   display: flex;
-  max-height: fit-content;
   flex-direction: column;
-  //   background-color: #1e1e1e;
   gap: 15px;
-  align-items: center;
   background-color: #fafafc;
   box-sizing: border-box;
   padding: 10px;
-  //   justify-content: center;
 }
 .FAQ--question-icon {
   height: 50px;
+  width: 50px;
+  align-self: center;
 }
 .FAQ--question-text {
   font-family: Epilogue;
