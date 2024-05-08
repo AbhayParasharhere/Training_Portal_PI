@@ -316,6 +316,10 @@
   .courseDetail--video-desc-container {
     flex-direction: column;
   }
+  .courseDetail--course-desc-container {
+    width: 100%;
+    height: fit-content;
+  }
   .courseDetail--section-feedback-container {
     flex-direction: column;
     margin-top: 150px;

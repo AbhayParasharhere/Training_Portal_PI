@@ -20,6 +20,7 @@ import complianceRedIcon from "./images/compliance-red-icon.png";
 import communicationIcon from "./images/communication-icon.png";
 import communicationRedIcon from "./images/communication-red-icon.png";
 import allLinksRedIcon from "./images/all-links-red-icon.png";
+import allLinksIcon from "./images/all-link-icon.png";
 import PIlogo from "./images/PI-logo.png";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
@@ -104,7 +105,7 @@ export default function Sidebar(props) {
     },
     ,
     {
-      icon: communicationIcon,
+      icon: allLinksIcon,
       title: "All links",
       link: "/all-links",
       clickedIcon: allLinksRedIcon,
