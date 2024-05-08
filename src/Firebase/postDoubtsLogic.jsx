@@ -5,6 +5,8 @@ import {
   collection,
   updateDoc,
   arrayUnion,
+  query,
+  where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "./firebaseConfig";
@@ -71,4 +73,46 @@ const getPostedDoubtsRealtime = async (setPosts) => {
     }
   });
 };
-export { postDoubts, getPostedDoubtsRealtime, addComment };
+const getLastWeekPostRealTime = async (
+  setLastWeekUserPost,
+  uid,
+  mondayDate
+) => {
+  return new Promise((resolve, reject) => {
+    try {
+      console.log("Getting doubts real time: ", uid, "date: ", mondayDate);
+      const currentDate = new Date();
+      mondayDate.setHours(0, 0, 0, 0);
+      // Set hours, minutes, seconds, and milliseconds to 0 to compare dates only
+      currentDate.setHours(0, 0, 0, 0);
+      const queryPost = query(
+        collection(db, "postedDoubts"),
+        where("uid", "==", uid),
+        where("created_at", "<=", currentDate),
+        where("created_at", ">=", mondayDate)
+      );
+      const unsub = onSnapshot(queryPost, (snapshot) => {
+        const doubts = [];
+        snapshot.forEach((doc) => {
+          doubts.push({ ...doc.data(), id: doc.id });
+        });
+        console.log("last week posts: ", doubts);
+        // Set the posts in the state
+        setLastWeekUserPost(doubts);
+
+        resolve(doubts);
+      });
+
+      return unsub;
+    } catch (error) {
+      console.error("Error getting doubts real time:", error.message);
+      reject(error);
+    }
+  });
+};
+export {
+  postDoubts,
+  getPostedDoubtsRealtime,
+  addComment,
+  getLastWeekPostRealTime,
+};

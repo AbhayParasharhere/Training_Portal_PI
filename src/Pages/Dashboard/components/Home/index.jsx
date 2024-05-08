@@ -586,7 +586,7 @@ export default function Home() {
                   <a
                     target="_blank"
                     href={latestAppoitment?.link}
-                    className={styles["statsSummary--appointment-button"]}
+                    className={styles["statsSummarys--appointment-button"]}
                     style={{
                       pointerEvents: latestAppoitment?.link ? "all" : "none",
                     }}
