@@ -51,6 +51,8 @@ import CalendarModal from "./CommonComponents/CalendarModal";
 import UploadForm from "./CommonComponents/UploadDocument";
 import MobileBirthdays from "./Pages/Dashboard/components/MobileBirthdays";
 import MobileNotifications from "./Pages/Dashboard/components/MobileNotifications";
+import AdminLayout from "./Layouts/AdminConsole";
+import AddCourses from "./Pages/AdminConsole/AddCourse";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -66,6 +68,9 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<RegisterComponent />} />
       <Route path="/addDetails" element={<Register_2Component />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route path="add-course" element={<AddCourses />} />
+      </Route>
       <Route
         element={<SidebarLayout />}
         path="/"
