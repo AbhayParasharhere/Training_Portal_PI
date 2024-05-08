@@ -13,9 +13,9 @@ import { NavLink } from "react-router-dom";
 
 export default function AdminSidebar() {
   const adminMenuData = [
-    { icon: brokerStatIcon, title: "Broker Statistics", to: "add-course" },
+    { icon: brokerStatIcon, title: "Broker Statistics", to: "/admin" },
     { icon: inviteIcon, title: "Invite", to: "/admin" },
-    { icon: addCourseIcon, title: "Add courses", to: "/admin" },
+    { icon: addCourseIcon, title: "Add courses", to: "add-course" },
     { icon: addResourcesIcon, title: "Add Resources", to: "/admin" },
     { icon: makeAnnouncementIcon, title: "Make Announcements", to: "/admin" },
     { icon: addWebinarIcon, title: "Host Webinar", to: "/admin" },
@@ -24,7 +24,7 @@ export default function AdminSidebar() {
   const activeMenuStyle = {
     backgroundColor: "#3064D454",
     textDecoration: "none",
-    padding: "20px",
+    padding: "10px",
   };
   const renderAdminMenu = adminMenuData.map((menu) => {
     return (

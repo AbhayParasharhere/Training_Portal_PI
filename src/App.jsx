@@ -52,7 +52,7 @@ import UploadForm from "./CommonComponents/UploadDocument";
 import MobileBirthdays from "./Pages/Dashboard/components/MobileBirthdays";
 import MobileNotifications from "./Pages/Dashboard/components/MobileNotifications";
 import AdminLayout from "./Layouts/AdminConsole";
-import AddCourses from "./Pages/AdminConsole/AddCourse";
+import AddCourse from "./Pages/AdminConsole";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -69,7 +69,7 @@ const router = createBrowserRouter(
       <Route path="/signup" element={<RegisterComponent />} />
       <Route path="/addDetails" element={<Register_2Component />} />
       <Route path="/admin" element={<AdminLayout />}>
-        <Route path="add-course" element={<AddCourses />} />
+        <Route path="add-course" element={<AddCourse />} />
       </Route>
       <Route
         element={<SidebarLayout />}
@@ -95,7 +95,6 @@ const router = createBrowserRouter(
         <Route path="/courses/:courseId" element={<CourseDetail />} />
         <Route path="/contact" element={<ContactDetails />} />
 
-        <Route path="/admin-course-add" element={<AdminConsole />} />
         <Route path="/all-links" element={<AllLinks />} />
         <Route path="/internal-links" element={<InternalLinks />} />
         <Route path="/client-detail/:clientId" element={<ClientData />}>
