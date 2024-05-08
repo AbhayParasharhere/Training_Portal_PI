@@ -6,6 +6,7 @@ import {
   updateDoc,
   getDoc,
   arrayUnion,
+  getDocs,
 } from "firebase/firestore";
 import {
   deleteObject,
@@ -376,6 +377,24 @@ const deleteVideo = async (courseID, sectionID, videoID) => {
   }
 };
 
+// Function to get all sections from a given course id
+const getSectionsFromCourseID = async (courseID) => {
+  try {
+    console.log("Course ID: ", courseID);
+    const sections = [];
+    const sectionsRef = collection(db, `Courses/${courseID}/sections`);
+    const snapshot = await getDocs(sectionsRef);
+    snapshot.forEach((doc) => {
+      sections.push({ id: doc.id, ...doc.data() });
+    });
+    console.log("Sections: ", sections);
+    return sections;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 // Function to update the course
 // Function to update the section from a given course id
 // Function to update the video from a given section id
@@ -387,4 +406,5 @@ export {
   deleteCourse,
   deleteSection,
   deleteVideo,
+  getSectionsFromCourseID,
 };

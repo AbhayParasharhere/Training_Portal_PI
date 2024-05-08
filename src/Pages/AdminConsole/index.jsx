@@ -7,6 +7,7 @@ import {
   deleteCourse,
   deleteSection,
   deleteVideo,
+  getSectionsFromCourseID,
 } from "../../Firebase/adminCourseAdd";
 import { getAllCourses } from "../../Firebase/courseLogic";
 import { v4 } from "uuid";
@@ -26,6 +27,7 @@ const AddCourse = () => {
   const [sectionID, setSectionID] = useState(null);
   const [sectionRank, setSectionRank] = useState(0);
   const [allCourses, setAllCourses] = useState([]);
+  const [selectedSectionCourse, setSelectedSectionCourse] = useState("");
 
   const selectedCourseRef = useRef(null);
   const selectedUpdateCourseRef = useRef(null);
@@ -177,6 +179,13 @@ const AddCourse = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  // print the sections for the selected course
+  const getSections = async (courseID) => {
+    console.log("Get sections Course ID: ", courseID);
+    const sections = await getSectionsFromCourseID(courseID);
+    console.log(sections);
   };
   return (
     <div className={styles["adminCourse--main-container"]}>
@@ -480,6 +489,37 @@ const AddCourse = () => {
           </button>
         </div>
         <hr />
+        <div className={styles["adminCourse--section-add-container"]}>
+          <h2>Get Sections</h2>
+          <select
+            onChange={(event) => getSections(event.target.value)}
+            ref={selectedCourseRef}
+            value={selectedSectionCourse}
+            onClick={(event) => setSelectedSectionCourse(event.target.value)}
+          >
+            {
+              // only show courses that does not have status as deleted
+              allCourses
+                .filter((course) => course.status !== "deleted")
+                .map((course) => {
+                  console.log(course.id, course.title);
+                  return (
+                    <option key={course.id} value={course.id}>
+                      {course.title}
+                    </option>
+                  );
+                })
+            }
+          </select>
+          <button
+            className={styles["adminCourse--add-course-button"]}
+            onClick={() => getSections(selectedSectionCourse)}
+          >
+            Get Sections
+          </button>
+        </div>
+        <hr />
+
         {/* <h2>Update Courses</h2>
         <select ref={selectedUpdateCourseRef}>
           {
