@@ -424,6 +424,7 @@ li::marker {
 .statsSummary--notifications-inner-container {
   display: flex;
   flex-direction: column;
+
   align-items: center;
   gap: 10px;
   box-sizing: border-box;
@@ -442,9 +443,12 @@ li::marker {
 }
 .statsSummary--lists-container {
   max-height: 155px;
+  min-height: 155px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
+  // justify-content: center;
   overflow-y: scroll;
 }
 .statsSummary--list {

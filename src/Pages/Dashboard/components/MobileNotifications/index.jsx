@@ -40,44 +40,50 @@ export default function MobileNotifications() {
           Notifications
         </p>
         <div className={styles["statsSummary--lists-container"]}>
-          {notifications?.map((notification) => {
-            return (
-              <div
-                className={styles["statsSummary--list"]}
-                style={{
-                  border: "1px solid #dedede",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxSizing: "border-box",
-                  gap: "15px",
-                  padding: "10px",
-                  borderRadius: 5,
-                }}
-              >
-                <p
-                  className={styles["statsSummary--list-title"]}
+          {notifications?.length === 0 ? (
+            notifications?.map((notification) => {
+              return (
+                <div
+                  className={styles["statsSummary--list"]}
                   style={{
-                    fontFamily: "Epilogue",
-                    color: "#393E46",
-                    fontWeight: "600",
+                    border: "1px solid #dedede",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxSizing: "border-box",
+                    gap: "15px",
+                    padding: "10px",
+                    borderRadius: 5,
                   }}
                 >
-                  Upcoming {notification?.type}
-                </p>
-                <p
-                  className={styles["statsSummary--list-desc"]}
-                  style={{ fontFamily: "Epilogue", color: "#686868" }}
-                >
-                  {notification?.type === "appointment" &&
-                    `You have an appointment on ${notification.sortDate}`}
-                  {notification?.type === "webinar" &&
-                    `You have a webinar on ${notification.sortDate}`}
-                  {notification?.type === "announcement" &&
-                    `A latest annoucement was made on ${notification.sortDate}`}
-                </p>
-              </div>
-            );
-          })}
+                  <p
+                    className={styles["statsSummary--list-title"]}
+                    style={{
+                      fontFamily: "Epilogue",
+                      color: "#393E46",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Upcoming {notification?.type}
+                  </p>
+                  <p
+                    className={styles["statsSummary--list-desc"]}
+                    style={{ fontFamily: "Epilogue", color: "#686868" }}
+                  >
+                    {notification?.type === "appointment" &&
+                      `You have an appointment on ${notification.sortDate}`}
+                    {notification?.type === "webinar" &&
+                      `You have a webinar on ${notification.sortDate}`}
+                    {notification?.type === "announcement" &&
+                      `A latest annoucement was made on ${notification.sortDate}`}
+                  </p>
+                </div>
+              );
+            })
+          ) : (
+            <div className={styles["home--no-data"]}>
+              You have no new notificaions
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -512,24 +512,46 @@ export default function Home() {
             <p className={styles["statsSummary--notifications-title"]}>
               Notifications
             </p>
-            <div className={styles["statsSummary--lists-container"]}>
-              {notifications?.map((notification) => {
-                return (
-                  <div className={styles["statsSummary--list"]}>
-                    <p className={styles["statsSummary--list-title"]}>
-                      Upcoming {notification?.type}
-                    </p>
-                    <p className={styles["statsSummary--list-desc"]}>
-                      {notification?.type === "appointment" &&
-                        `You have an appointment on ${notification.sortDate}`}
-                      {notification?.type === "webinar" &&
-                        `You have a webinar on ${notification.sortDate}`}
-                      {notification?.type === "announcement" &&
-                        `A latest annoucement was made on ${notification.sortDate}`}
-                    </p>
-                  </div>
-                );
-              })}
+            <div
+              className={styles["statsSummary--lists-container"]}
+              style={{
+                justifyContent:
+                  notifications?.length === 0 ? "center" : "flex-start",
+              }}
+            >
+              {notifications?.length !== 0 ? (
+                notifications?.map((notification) => {
+                  return (
+                    <div className={styles["statsSummary--list"]}>
+                      <p className={styles["statsSummary--list-title"]}>
+                        Upcoming {notification?.type}
+                      </p>
+                      <p className={styles["statsSummary--list-desc"]}>
+                        {notification?.type === "appointment" &&
+                          `You have an appointment on ${notification.sortDate}`}
+                        {notification?.type === "webinar" &&
+                          `You have a webinar on ${notification.sortDate}`}
+                        {notification?.type === "announcement" &&
+                          `A latest annoucement was made on ${notification.sortDate}`}
+                      </p>
+                    </div>
+                  );
+                })
+              ) : (
+                <div
+                  className={styles["home--no-data"]}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    justifySelf: "center",
+                    alignSelf: "center",
+                    minHeight: "100%",
+                  }}
+                >
+                  You have no recent notifications
+                </div>
+              )}
             </div>
           </div>
         </div>
