@@ -1,0 +1,53 @@
+.adminSidebar--main-container {
+  min-height: 900px;
+  padding: 30px 0px;
+  max-width: 300px;
+  min-width: 300px;
+  //   padding-right: 50px;
+  background-color: #f5f6fb;
+}
+.adminSidebar--menu-container {
+  display: flex;
+  flex-direction: column;
+  //   background-color: green;
+  min-width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.adminSidebar--menu-inner-container {
+  width: 100%;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.adminSidebar--logo-link {
+  align-self: center;
+  margin-bottom: 40px;
+}
+.adminSidebar--PI-logo {
+  height: 100px;
+}
+.adminSidebar--menu-link-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: start;
+}
+.adminSidebar--menu-icon {
+  height: 25px;
+}
+.adminSidebar--menu-title {
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #000000;
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  .adminSidebar--main-container {
+    display: none;
+  }
+}

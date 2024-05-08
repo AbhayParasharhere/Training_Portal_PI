@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useRef, useState } from "react";
+import React, { useContext, useMemo, useRef, useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
@@ -37,6 +37,24 @@ export default function Statistics() {
 
   const uniqueVideos = new Set();
 
+  const { lastWeekUserPost, fetchLastWeekUserPost } =
+    useContext(RealTimeDataContext);
+  console.log("post fetched: ", lastWeekUserPost);
+  if (lastWeekUserPost) {
+    lastWeekUserPost.map((post) =>
+      console.log(
+        "created at: ",
+        post.created_at.toDate(),
+        "monday date: ",
+        getMondayDate()
+      )
+    );
+  }
+  useEffect(() => {
+    if (!lastWeekUserPost) {
+      fetchLastWeekUserPost(getMondayDate());
+    }
+  }, [fetchLastWeekUserPost, lastWeekUserPost]);
   // Iterate through the videoWatched array and add each video ID to the Set
   videoWatched.forEach((video) => {
     uniqueVideos.add(video.videoID);

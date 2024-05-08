@@ -120,12 +120,12 @@ export default function AddPost(props) {
             type="radio"
             id="insurance"
             name="insurance"
-            value="Announcement/Updates"
-            checked={postCategory === "Announcement/Updates"}
+            value="Announcements/Updates"
+            checked={postCategory === "Announcements/Updates"}
             onChange={handleCategoryChange}
           />
           <label for="insurance" className={styles["addPost--label-text"]}>
-            Announcement/Updates
+            Announcements/Updates
           </label>
         </div>
       </div>
