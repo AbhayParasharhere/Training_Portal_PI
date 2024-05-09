@@ -22,8 +22,8 @@ export default function AdminSidebar() {
       title: "Make Announcements",
       to: "add-announcement",
     },
-    { icon: addWebinarIcon, title: "Host Webinar", to: "/admin" },
-    { icon: logoutIcon, title: "Log out", to: "/admin" },
+    { icon: addWebinarIcon, title: "Host Webinar", to: "host-webinar" },
+    { icon: logoutIcon, title: "Log out", to: "/" },
   ];
   const activeMenuStyle = {
     backgroundColor: "#3064D454",

@@ -1,0 +1,68 @@
+.hostWebinar--main-container {
+  padding: 30px 0px;
+  padding-right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.hostWebinar--input-container {
+  display: flex;
+  align-items: center;
+  //   justify-content: center;
+}
+.hostWebinar--input-label {
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #313131;
+  width: 220px;
+  display: inline-block;
+}
+.hostWebinar--input {
+  border: 1px solid #a1a1a1;
+  width: 100%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  resize: none;
+  padding: 5px;
+}
+.hostWebinar--add-agenda-button {
+  background-color: transparent;
+  border: 2px solid #3064d4;
+  height: 45px;
+  width: 120px;
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  color: #3064d4;
+}
+.hostWebinar--submit-button {
+  width: 180px;
+  height: 45px;
+  background-color: #3064d4;
+  border: none;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  color: white;
+  border-radius: 5px;
+}
+@media (max-width: 900px) {
+  .hostWebinar--main-container {
+    padding: 15px;
+  }
+}
+@media (max-width: 500px) {
+  .hostWebinar--input-container {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+}

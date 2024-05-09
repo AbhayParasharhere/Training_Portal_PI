@@ -32,6 +32,7 @@ export default function MakeAnnouncements() {
       const confirmation = window.confirm(
         "Are you sure you want make this announcement?"
       );
+      if (!confirmation) return;
       const submitAnnouncementData = {
         ...announcementDetails,
         created_by: currentUserName,
