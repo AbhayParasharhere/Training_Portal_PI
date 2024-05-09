@@ -9,12 +9,7 @@ const uploadDocument = async (formData) => {
     if (!formData?.file) {
       throw new Error("file");
     }
-    if (
-      !formData?.documentName ||
-      !formData?.type ||
-      !formData?.category ||
-      !formData?.file
-    ) {
+    if (!formData?.documentName || !formData?.category || !formData?.file) {
       throw new Error(
         "Unable to upload document: Please provide all the details"
       );
@@ -32,7 +27,7 @@ const uploadDocument = async (formData) => {
     await setDoc(doc(db, "documents", docId), {
       documentName: formData?.documentName,
       category: formData?.category,
-      type: formData?.type,
+      type: "downloadable",
       download_URL: documentURL,
     });
     toast.success("Document saved in databse");
