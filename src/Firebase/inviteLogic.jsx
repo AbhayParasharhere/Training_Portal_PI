@@ -11,19 +11,23 @@ import { toast } from "react-toastify";
 const inviteUser = async (email) => {
   try {
     const docRef = doc(db, "invitedMembers", email);
-    const createdAt = new Date().toISOString();
+    const createdAt = new Date();
 
     if (
       (await getDoc(docRef)).exists() &&
       (await getDoc(docRef)).data().status === "registered"
     ) {
+      toast.error("Email Already Invited");
       return "User already invited";
     }
 
     await setDoc(docRef, { status: "invited", CreatedAt: createdAt });
+    toast.success("User Invited");
     return "User invited successfully";
   } catch (error) {
     console.log(error);
+    toast.error("Error Sending Invite");
+
     return error;
   }
 };
