@@ -239,13 +239,13 @@ export default function Statistics() {
       bar: true,
     },
     {
-      stat: numberOfUniqueVideosWatched || "X",
+      stat: numberOfUniqueVideosWatched || "0",
       title1: "Videos",
       title2: "Watched",
       bar: true,
     },
     {
-      stat: "0",
+      stat: lastWeekUserPost?.length || "0",
       title1: "Posts",
       title2: "this week",
       bar: false,
