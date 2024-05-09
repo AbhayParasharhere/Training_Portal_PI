@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { inviteUser } from "../../../Firebase/inviteLogic";
+import {
+  getTotalClientData,
+  getTotalSales,
+  getTotalVideosWatched,
+} from "../../../Firebase/getOtherStats";
 
 export default function InvitePeople() {
   const [userEmail, setUserEmail] = useState("");
@@ -30,6 +35,14 @@ export default function InvitePeople() {
     await inviteUser(userEmail);
     setUserEmail("");
   };
+  // TO BE REMOVED
+  useEffect(() => {
+    const userToCheck = "tID94lmt2Kh19hUp5SFbjqyVZ172";
+    const res = getTotalClientData(userToCheck);
+    getTotalSales(userToCheck);
+    getTotalVideosWatched(userToCheck);
+    console.log("Promise ", res);
+  }, []);
   return (
     <div className={styles["adminInvite--main-container"]}>
       <div className={styles["adminInvite--title-container"]}>
