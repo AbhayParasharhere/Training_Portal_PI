@@ -1,6 +1,7 @@
 import { update } from "firebase/database";
 import { db } from "./firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 // Function to invite members to the platform
 // It will be called by the admin to invite a user to the platform using their email
@@ -36,6 +37,12 @@ const acceptInvite = async (email) => {
   try {
     const invitedDoc = await getDoc(doc(db, "invitedMembers", email));
     if (!invitedDoc.exists()) {
+      toast.error(
+        "Your email is not invited, please ask the admin to invite you.",
+        {
+          autoClose: 5000,
+        }
+      );
       return "User not invited";
     }
     const createdAt = new Date(invitedDoc.data()?.CreatedAt);
@@ -49,9 +56,13 @@ const acceptInvite = async (email) => {
     // Calculate a week's worth of milliseconds
     const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
 
-    if (invitedDoc.data()?.status === "registered") {
-      return "User already registered";
-    } else if (differenceInMilliseconds > oneWeekInMilliseconds) {
+    if (differenceInMilliseconds > oneWeekInMilliseconds) {
+      toast.error(
+        "The invitation has expired, please ask the admin to re-invite you.",
+        {
+          autoClose: 5000,
+        }
+      );
       return "Invitation expired";
     }
 
