@@ -45,7 +45,7 @@ export default function PostList(props) {
     { text: "Technical Support", value: "Technical Support" },
     { text: "Platform Navigation", value: "Platform Navigation" },
     { text: "Training and Courses", value: "Training and Courses" },
-    { text: "Annoucements/Updates", value: "Annoucements/Updates" },
+    { text: "Announcements/Updates", value: "Announcements/Updates" },
     { text: "General Inquiries", value: "General Inquiries" },
     { text: "Compliance and Policies", value: "Compliance and Policies" },
   ];

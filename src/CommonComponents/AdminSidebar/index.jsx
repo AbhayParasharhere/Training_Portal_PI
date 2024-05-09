@@ -14,12 +14,16 @@ import { NavLink } from "react-router-dom";
 export default function AdminSidebar() {
   const adminMenuData = [
     { icon: brokerStatIcon, title: "Broker Statistics", to: "/admin" },
-    { icon: inviteIcon, title: "Invite", to: "/admin" },
+    { icon: inviteIcon, title: "Invite", to: "invite" },
     { icon: addCourseIcon, title: "Add courses", to: "add-course" },
-    { icon: addResourcesIcon, title: "Add Resources", to: "/admin" },
-    { icon: makeAnnouncementIcon, title: "Make Announcements", to: "/admin" },
-    { icon: addWebinarIcon, title: "Host Webinar", to: "/admin" },
-    { icon: logoutIcon, title: "Log out", to: "/admin" },
+    { icon: addResourcesIcon, title: "Add Resources", to: "add-documents" },
+    {
+      icon: makeAnnouncementIcon,
+      title: "Make Announcements",
+      to: "add-announcement",
+    },
+    { icon: addWebinarIcon, title: "Host Webinar", to: "host-webinar" },
+    { icon: logoutIcon, title: "Log out", to: "/" },
   ];
   const activeMenuStyle = {
     backgroundColor: "#3064D454",
@@ -33,7 +37,7 @@ export default function AdminSidebar() {
         style={({ isActive }) =>
           isActive
             ? activeMenuStyle
-            : { textDecoration: "none", padding: "20px" }
+            : { textDecoration: "none", padding: "10px" }
         }
         end
         // exact={true}
