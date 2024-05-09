@@ -52,6 +52,7 @@ const addCourse = async (
     if (!title) {
       return "Title is required";
     }
+    toast.info("Adding course", { autoClose: 3000 });
     // const formattedTitle = "course_" + title.toLowerCase().replace(/ /g, "_");
     if (await getCourseFromCourseID(courseID)) {
       throw new Error("Course already exists");
@@ -66,6 +67,7 @@ const addCourse = async (
     );
     return "Course Added";
   } catch (error) {
+    toast.error("Error adding course");
     console.error(error);
     return error;
   }
@@ -308,8 +310,10 @@ const addVideo = async (
       videos_array: arrayUnion({ videoID, videoURL }),
     });
 
+    toast.success("Video uploaded sucessfully");
     return "Video Uploaded Successfully";
   } catch (error) {
+    toast.error("Failed to upload video");
     console.log(error);
     return error;
   }
@@ -318,12 +322,16 @@ const addVideo = async (
 // Function to make the status of the course as deleted
 const deleteCourse = async (courseID) => {
   try {
+    toast.info("Deleting course");
+    console.log("deleete Course ID: ", courseID);
     const courseRef = doc(db, "Courses", courseID);
     await updateDoc(courseRef, {
       status: "deleted",
     });
+    toast.success("Course deleted sucessfully");
     return "Course Deleted";
   } catch (error) {
+    toast.error("Failed to delete course");
     console.log(error);
     return error;
   }
@@ -332,6 +340,7 @@ const deleteCourse = async (courseID) => {
 // Function to make the status of the section from a given course id as deleted
 const deleteSection = async (courseID, sectionID) => {
   try {
+    toast.info("Deleting section");
     const sectionRef = doc(db, `Courses/${courseID}/sections`, sectionID);
     await updateDoc(sectionRef, {
       status: "deleted",
@@ -346,8 +355,10 @@ const deleteSection = async (courseID, sectionID) => {
     );
     await updateDoc(courseRef, { sections_rank: updatedSectionRankArray });
 
+    toast.success("Section deleted sucessfully");
     return "Section Deleted";
   } catch (error) {
+    toast.error("Failed to delete section");
     console.log(error);
     return error;
   }
@@ -357,6 +368,7 @@ const deleteSection = async (courseID, sectionID) => {
 // Function to delete the video from a given section id
 const deleteVideo = async (courseID, sectionID, videoID) => {
   try {
+    toast.info("Deleting video");
     // Remove the video from the video_rank array in the section document
     const sectionRef = doc(db, `Courses/${courseID}/sections`, sectionID);
     const sectionDoc = await getDoc(sectionRef);
@@ -369,10 +381,11 @@ const deleteVideo = async (courseID, sectionID, videoID) => {
     // Delete the video file from the storage
     const videoRef = ref(storage, `courseVideos/${videoID}`);
     await deleteObject(videoRef);
-
+    toast.success("Video deleted sucessfully");
     return "Video Deleted";
   } catch (error) {
     console.log(error);
+    toast.error("Failed to delete video");
     return error;
   }
 };
