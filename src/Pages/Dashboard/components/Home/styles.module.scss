@@ -28,7 +28,7 @@ p {
   //   align-items: center;
   justify-content: center;
   height: 140px;
-  gap: 10px;
+  gap: 20px;
   background-color: #2d355c;
   padding: 0px 30px;
   border-radius: 5px;
@@ -38,7 +38,7 @@ p {
   font-family: Epilogue;
   font-size: 30px;
   font-weight: 500;
-  line-height: 45px;
+  line-height: 15px;
   letter-spacing: -0.03em;
   text-align: left;
 }
@@ -622,7 +622,11 @@ li::marker {
     display: flex;
   }
 }
-
+@media (max-width: 840px) {
+  .home--greetings-title {
+    font-size: 25px;
+  }
+}
 @media (max-width: 770px) {
   .home--notification-links {
     font-size: 15px;
@@ -632,6 +636,9 @@ li::marker {
   }
   .statsSummary--appointment-desc-text {
     font-size: 10px;
+  }
+  .home--greetings-title {
+    font-size: 22px;
   }
 }
 @media (max-width: 755px) {
@@ -645,7 +652,7 @@ li::marker {
     height: 160px;
   }
   .home--greetings-title {
-    font-size: 25px;
+    font-size: 22px;
   }
   .home--greetings-desc {
     font-size: 12px;
@@ -675,12 +682,12 @@ li::marker {
   .statsSummary--notifications-title {
     font-size: 12px;
   }
+  .home--greetings-container {
+    padding: 15px;
+  }
 }
 @media (max-width: 710px) {
   .home--course-greeting-container {
-    padding: 15px;
-  }
-  .home--greetings-container {
     padding: 15px;
   }
 }
@@ -690,6 +697,11 @@ li::marker {
   }
   .statsSummary--list-title {
     font-size: 8px;
+  }
+}
+@media (max-width: 636px) {
+  .home--greetings-title {
+    font-size: 20px;
   }
 }
 @media (max-width: 630px) {
@@ -724,7 +736,7 @@ li::marker {
   .home--greetings-container {
     height: 120px;
     padding-top: 0;
-    gap: 0px;
+    gap: 10px;
   }
   .home--greetings-title {
     font-size: 17px;
@@ -768,6 +780,9 @@ li::marker {
   }
   .home--course-greeting-title {
     font-size: 11px;
+  }
+  .home--greetings-title {
+    font-size: 12px;
   }
 }
 @media (max-width: 310px) {

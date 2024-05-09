@@ -9,26 +9,30 @@ export default function AnnouncementPage() {
     <div id="announcement" className={styles["announcement--main-container"]}>
       Important Updates{" "}
       <div className={styles["announcement--list-container"]}>
-        {announcements?.map((announcement, index) => {
-          return (
-            <div key={index} className={styles["announcement--container"]}>
-              <div className={styles["announcement--name-time-container"]}>
-                <p className={styles["announcement--name-time-text"]}>
-                  {announcement?.created_by}
+        {announcements?.length ? (
+          announcements?.map((announcement, index) => {
+            return (
+              <div key={index} className={styles["announcement--container"]}>
+                <div className={styles["announcement--name-time-container"]}>
+                  <p className={styles["announcement--name-time-text"]}>
+                    {announcement?.created_by}
+                  </p>
+                  <p className={styles["announcement--name-time-text"]}>
+                    {getTimeDifference(announcement?.updated_at.toDate())}
+                  </p>
+                </div>
+                <p className={styles["announcement--title"]}>
+                  {announcement?.title}
                 </p>
-                <p className={styles["announcement--name-time-text"]}>
-                  {getTimeDifference(announcement?.updated_at.toDate())}
+                <p className={styles["announcement--desc"]}>
+                  {announcement?.description}
                 </p>
               </div>
-              <p className={styles["announcement--title"]}>
-                {announcement?.title}
-              </p>
-              <p className={styles["announcement--desc"]}>
-                {announcement?.description}
-              </p>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <div className={styles["home--no-data"]}>No Announcements Yet</div>
+        )}
       </div>
     </div>
   );
