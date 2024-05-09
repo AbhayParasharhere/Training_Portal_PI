@@ -1,6 +1,7 @@
 .postList--main-container {
   width: 100%;
   position: relative;
+  box-sizing: border-box;
 }
 .postList--search-container {
   display: flex;
@@ -226,9 +227,31 @@
 @media (max-width: 1130px) {
   .postList--main-container {
     padding: 15px;
+    padding-right: 0px;
   }
   .postList--post-list-container {
     max-height: max-content;
+  }
+}
+@media (max-width: 730px) {
+  .postList--add-post-button {
+    font-size: 13px;
+    width: 130px;
+    right: 0px;
+  }
+  .postList--add-post-icon {
+    height: 20px;
+  }
+}
+@media (max-width: 630px) {
+  .ask-doubt-text {
+    display: none;
+  }
+  .postList--add-post-button {
+    width: 50px;
+    align-items: center;
+    justify-content: center;
+    right: 0px;
   }
 }
 @media (max-width: 575px) {

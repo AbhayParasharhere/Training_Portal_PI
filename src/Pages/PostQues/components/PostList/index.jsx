@@ -153,7 +153,7 @@ export default function PostList(props) {
         onClick={() => props.setDisplayPage("addPost")}
       >
         <img src={plusIcon} className={styles["postList--add-post-icon"]} />
-        Ask Doubts
+        <span className={styles["ask-doubt-text"]}>Ask Doubts</span>
       </button>
       <div className={styles["postList--search-container"]}>
         <input

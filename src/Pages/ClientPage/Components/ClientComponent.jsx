@@ -205,73 +205,80 @@ export default function ClientComponent() {
             <th className={styles["ClientComponent-th-email"]}>Email id</th>
             <th className={styles["ClientComponent-th-phone"]}>Phone number</th>
           </tr>
-          {clientData?.map((item) => (
-            <tr key={item.id} className={styles["ClientComponent-tr"]}>
-              <td
-                className={styles["ClientComponent-td-name"]}
-                onClick={() => navigate(`/client-detail/${item.id}`)}
-                style={{ cursor: "pointer" }}
-              >
-                <img
-                  src={client_img}
-                  className={styles["ClientComponent-td-img"]}
-                />{" "}
-                {item.name}
-              </td>
-              <td className={styles["ClientComponent-td-email"]}>
-                {item.email}
-              </td>
-              <td className={styles["ClientComponent-td-phone"]}>
-                {item.phone_number}
-              </td>
-              <td>
-                <div className={styles["ClientComponent-dialog-div"]}>
-                  {/* {!dialogActive && ( */}
-                  {prevIndex === item.id && (
-                    <dialog className={styles["ClientComponent-dialog-show"]}>
-                      <div
-                        className={styles["ClientComponent-dialog-content"]}
-                        onClick={() => navigate(`/client-detail/${item.id}`)}
-                      >
-                        <img src={search_eye} height="18px" /> View Details
-                      </div>
-                      <div
-                        className={styles["ClientComponent-dialog-content"]}
-                        onClick={() => navigate(`/client-detail/${item.id}`)}
-                      >
-                        <img src={pencil} height="18px" />
-                        Edit{" "}
-                      </div>
-                      <div
-                        className={styles["ClientComponent-dialog-content"]}
-                        onClick={() => {
-                          console.log("This is the client id: ", item?.id, {
-                            status: "active",
-                          });
-                          updateClient({ status: "deleted" }, item.id);
-                        }}
-                      >
-                        <img src={delete_bin} height="18px" />
-                        <span
-                          className={
-                            styles["ClientComponent-dialog-content-delete"]
-                          }
-                        >
-                          Delete
-                        </span>
-                      </div>
-                    </dialog>
-                  )}
-
+          {clientData?.length ? (
+            clientData?.map((item) => (
+              <tr key={item.id} className={styles["ClientComponent-tr"]}>
+                <td
+                  className={styles["ClientComponent-td-name"]}
+                  onClick={() => navigate(`/client-detail/${item.id}`)}
+                  style={{ cursor: "pointer" }}
+                >
                   <img
-                    className={styles["ClientComponent-tr-line"]}
-                    onClick={() => toggleDialog(item.id)}
-                    src={line}
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
+                    src={client_img}
+                    className={styles["ClientComponent-td-img"]}
+                  />{" "}
+                  {item.name}
+                </td>
+                <td className={styles["ClientComponent-td-email"]}>
+                  {item.email}
+                </td>
+                <td className={styles["ClientComponent-td-phone"]}>
+                  {item.phone_number}
+                </td>
+                <td>
+                  <div className={styles["ClientComponent-dialog-div"]}>
+                    {/* {!dialogActive && ( */}
+                    {prevIndex === item.id && (
+                      <dialog className={styles["ClientComponent-dialog-show"]}>
+                        <div
+                          className={styles["ClientComponent-dialog-content"]}
+                          onClick={() => navigate(`/client-detail/${item.id}`)}
+                        >
+                          <img src={search_eye} height="18px" /> View Details
+                        </div>
+                        <div
+                          className={styles["ClientComponent-dialog-content"]}
+                          onClick={() => navigate(`/client-detail/${item.id}`)}
+                        >
+                          <img src={pencil} height="18px" />
+                          Edit{" "}
+                        </div>
+                        <div
+                          className={styles["ClientComponent-dialog-content"]}
+                          onClick={() => {
+                            console.log("This is the client id: ", item?.id, {
+                              status: "active",
+                            });
+                            updateClient({ status: "deleted" }, item.id);
+                          }}
+                        >
+                          <img src={delete_bin} height="18px" />
+                          <span
+                            className={
+                              styles["ClientComponent-dialog-content-delete"]
+                            }
+                          >
+                            Delete
+                          </span>
+                        </div>
+                      </dialog>
+                    )}
+
+                    <img
+                      className={styles["ClientComponent-tr-line"]}
+                      onClick={() => toggleDialog(item.id)}
+                      src={line}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <div className={styles["home--no-data"]}>
+              You don't have any clients. Add some through the sales adding
+              page!
+            </div>
+          )}
         </table>
         {/*  */}
       </div>

@@ -172,7 +172,17 @@ export default function Webinar() {
         </div>
       </div>
 
-      {webinarNavigation === "webinar" ? renderWebinar : renderAppointment}
+      {webinarNavigation === "webinar" ? (
+        webinarData?.length ? (
+          renderWebinar
+        ) : (
+          <div className={styles["home--no-data"]}>No Webinars Yet</div>
+        )
+      ) : appointmentData?.length ? (
+        renderAppointment
+      ) : (
+        <div className={styles["home--no-data"]}>No Appointments Yet</div>
+      )}
     </div>
   );
 }

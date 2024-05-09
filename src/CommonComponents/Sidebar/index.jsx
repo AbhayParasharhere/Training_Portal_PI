@@ -118,6 +118,7 @@ export default function Sidebar(props) {
   const clickStyles = {
     textDecoration: "none",
     color: "#a80532f0",
+    fontWeight: "700",
   };
   const renderMenu = menuData.map((menu, index) => {
     return (
@@ -229,6 +230,37 @@ export default function Sidebar(props) {
               </NavLink>
             );
           })}
+
+          <NavLink
+            to="/support"
+            onClick={() => props.setMobileSidebar(false)}
+            style={({ isActive }) => {
+              isActive && setMenuActive(12);
+              return isActive ? clickStyles : linkStyles;
+            }}
+          >
+            <div className={styles["sidebar--mobile-menu-container"]}>
+              <img
+                src={menuActive === 12 ? FAQRedIcon : FAQIcon}
+                className={styles["sidebar--mobile-menu-icon"]}
+              />
+              <p className={styles["sidebar--mobile-menu-title"]}>
+                FAQs and Support
+              </p>
+            </div>
+          </NavLink>
+
+          <div
+            className={styles["sidebar--mobile-menu-container"]}
+            style={{ cursor: "pointer" }}
+            onClick={props.logout}
+          >
+            <img
+              src={logoutIcon}
+              className={styles["sidebar--mobile-menu-icon"]}
+            />
+            <p className={styles["sidebar--mobile-menu-title"]}>Log Out</p>
+          </div>
         </div>
       </div>
     </>
