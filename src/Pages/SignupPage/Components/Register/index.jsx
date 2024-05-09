@@ -195,7 +195,7 @@ export default function RegisterComponent(props) {
             <div
               className={styles["RegisterComponent--main--GoogleButton-text"]}
             >
-              SignUp with Google
+              Signup with Google
             </div>
           </button>
 
@@ -209,7 +209,7 @@ export default function RegisterComponent(props) {
               className={styles["RegisterComponent--main--FBbutton-img"]}
             />
             <div className={styles["RegisterComponent--main--FBbutton-text"]}>
-              SignUp with Facebook
+              Signup with Facebook
             </div>
           </button>
         </div>
