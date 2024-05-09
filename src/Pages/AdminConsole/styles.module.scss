@@ -1,5 +1,7 @@
 .adminCourse--main-container {
   padding: 30px 0px;
+  padding-right: 30px;
+  box-sizing: border-box;
   padding-bottom: 30px;
 }
 .adminCourse--add-course-form-container,
@@ -55,7 +57,7 @@
   letter-spacing: -0.03em;
   color: white;
 }
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .adminCourse--main-container {
     padding: 15px;
   }
