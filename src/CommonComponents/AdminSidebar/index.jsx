@@ -16,7 +16,7 @@ export default function AdminSidebar() {
     { icon: brokerStatIcon, title: "Broker Statistics", to: "/admin" },
     { icon: inviteIcon, title: "Invite", to: "invite" },
     { icon: addCourseIcon, title: "Add courses", to: "add-course" },
-    { icon: addResourcesIcon, title: "Add Resources", to: "/admin" },
+    { icon: addResourcesIcon, title: "Add Resources", to: "add-documents" },
     {
       icon: makeAnnouncementIcon,
       title: "Make Announcements",

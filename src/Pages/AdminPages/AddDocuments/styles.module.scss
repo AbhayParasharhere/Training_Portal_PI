@@ -1,0 +1,40 @@
+.addDocuments--main-container {
+  padding: 30px 0px;
+  padding-right: 30px;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.addDocuments--upload-button {
+  height: 40px;
+  width: 130px;
+  background-color: #3064d4;
+  border: none;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  color: white;
+  border-radius: 5px;
+}
+.addDocument--upload-progress-container {
+  padding: 20px;
+  border: 1px solid #e7e4e4;
+  border-radius: 5px;
+}
+.addDocument--document-info-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: start;
+}
+.addDocument-icon {
+  height: 25px;
+}
