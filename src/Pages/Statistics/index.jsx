@@ -1,25 +1,20 @@
-import React, { useContext, useMemo, useRef, useState, useEffect } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import profileImage from "./images/sample-image.png";
 import StatisticsChart from "./component/chart";
-import { getVideosWatched } from "../../Firebase/kpi";
-import { AuthContext } from "../../context/authContext";
 import secureLocalStorage from "react-secure-storage";
-import Spinner from "../../CommonComponents/Spinner";
 import {
   PrimaryDataContext,
   RealTimeDataContext,
 } from "../../context/primaryDataContext";
 
 export default function Statistics() {
-  const currentUser = useContext(AuthContext);
   const primaryData = useContext(PrimaryDataContext);
   const realTimeData = useContext(RealTimeDataContext);
   const clients = realTimeData?.clients;
   const sales = realTimeData?.sales;
   console.log("This is the sales data: ", sales);
   const courses = primaryData?.courses;
-  const [loading, setLoading] = useState(true);
   let videoWatched = [];
   if (
     sessionStorage.getItem("video_progress") &&
@@ -29,7 +24,6 @@ export default function Statistics() {
   }
   const [clientGraphTime, setClientGraphTime] = useState("week");
   const [salesGraphTime, setSalesGraphTime] = useState("week");
-  const [statData, setStatData] = useState({});
   const clientWeekGraphRef = useRef();
   const salesWeekGraphRef = useRef();
   const clientYearGraphRef = useRef();
