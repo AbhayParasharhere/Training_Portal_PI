@@ -85,10 +85,14 @@ const getLastWeekPostRealTime = async (
       mondayDate.setHours(0, 0, 0, 0);
       // Set hours, minutes, seconds, and milliseconds to 0 to compare dates only
       currentDate.setHours(0, 0, 0, 0);
+      const upcomingSundayDate = new Date(mondayDate);
+      upcomingSundayDate.setDate(mondayDate.getDate() + 6);
+      upcomingSundayDate.setHours(23, 59, 59, 999);
+      console.log("Monday date add: ", upcomingSundayDate);
       const queryPost = query(
         collection(db, "postedDoubts"),
         where("uid", "==", uid),
-        where("created_at", "<=", currentDate),
+        where("created_at", "<=", upcomingSundayDate),
         where("created_at", ">=", mondayDate)
       );
       const unsub = onSnapshot(queryPost, (snapshot) => {
