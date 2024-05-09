@@ -7,10 +7,12 @@ import {
   deleteCourse,
   deleteSection,
   deleteVideo,
+  getSectionsFromCourseID,
 } from "../../Firebase/adminCourseAdd";
 import { getAllCourses } from "../../Firebase/courseLogic";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
+import { set } from "firebase/database";
 
 const AddCourse = () => {
   const [courseTitle, setCourseTitle] = useState("");
@@ -19,16 +21,48 @@ const AddCourse = () => {
   const [courseDescription, setCourseDescription] = useState();
   const [courseType, setCourseType] = useState();
   const [video, setVideo] = useState(null);
-  const [videoID, setVideoID] = useState("");
   const [videoName, setVideoName] = useState("");
   const [videoRank, setVideoRank] = useState(0);
   const [sectionName, setSectionName] = useState(null);
-  const [sectionID, setSectionID] = useState(null);
   const [sectionRank, setSectionRank] = useState(0);
   const [allCourses, setAllCourses] = useState([]);
 
+  // State for deleting a course
+  const [selectedCourseCourseDelete, setSelectedCourseCourseDelete] =
+    useState("");
+
+  // State for deleting a section
+  const [selectedCourseSectionDelete, setSelectedCourseSectionDelete] =
+    useState("");
+  const [selectedSectionSectionDelete, setSelectedSectionSectionDelete] =
+    useState(null);
+  const [allSectionsSectionDelete, setAllSectionsSectionDelete] = useState([]);
+
+  // State for selected course for the upload video feature
+  const [selectedCourseVideoAdd, setSelectedCourseVideoAdd] = useState(null);
+  const [allSectionsVideoAdd, setAllSectionsVideoAdd] = useState([]);
+  const [selectedSectionVideoAdd, setSelectedSectionVideoAdd] = useState(null);
+
+  // State for deleting a video
+  const [selectedCourseVideoDelete, setSelectedCourseVideoDelete] =
+    useState("");
+  const [selectedSectionVideoDelete, setSelectedSectionVideoDelete] =
+    useState("");
+  const [selectedVideoVideoDelete, setSelectedVideoVideoDelete] = useState("");
+  const [allSectionsVideoDelete, setAllSectionsVideoDelete] = useState([]);
+  const [allVideosVideoDelete, setAllVideosVideoDelete] = useState([]);
+
+  console.log("All videos: ", allVideosVideoDelete);
+  const handleCourseDropdownChangeVideoDelete = async (event) => {
+    setSelectedCourseVideoDelete(event.target.value);
+    const selectedCourseID = event.target.value;
+    const sections = await getSectionsFromCourseID(selectedCourseID);
+    setAllSectionsVideoDelete(sections);
+
+    console.log("Selected Course: ", event.target.value);
+  };
+
   const selectedCourseRef = useRef(null);
-  const selectedUpdateCourseRef = useRef(null);
   useEffect(() => {
     const fetchCourses = async () => {
       const courses = await getAllCourses();
@@ -49,98 +83,135 @@ const AddCourse = () => {
       sectionName,
       sectionRank
     );
+    // Reset the states
+    setSectionName("");
+    setSectionRank(null);
+    selectedCourseRef.current.value = "";
+
     console.log(res);
   };
 
   const handleUploadVideo = async (event) => {
-    if (!video || !videoName || !sectionID || !videoRank) {
-      alert("Please fill in all the fields");
+    if (
+      !video ||
+      !videoName ||
+      !selectedCourseVideoAdd ||
+      !selectedSectionVideoAdd ||
+      videoRank === null
+    ) {
+      console.log(
+        "Video: ",
+        video,
+        "Video Name: ",
+        videoName,
+        "Selected Course: ",
+        selectedCourseVideoAdd,
+        "Selected Section: ",
+        selectedSectionVideoAdd,
+        "Video Rank: ",
+        videoRank
+      );
+      toast.error("Please fill in all the fields");
       return;
     }
 
     event.preventDefault();
-    const selectedCourseID = selectedCourseRef.current.value;
+    toast.info("Uploading Video", { autoClose: 7000 });
 
-    // With duplicate videos feature
-    // const currentTimestamp = new Date().getTime();
-    // const videoID =
-    //   videoName + `+${selectedCourseID}+${sectionID}+${currentTimestamp}`;
-
-    // Without duplicate videos feature
-    const videoID = videoName + `+${selectedCourseID}+${sectionID}`;
+    const videoID =
+      videoName + `+${selectedCourseVideoAdd}+${selectedSectionVideoAdd}`;
     console.log(
       "Uploading Video",
-      selectedCourseID,
-      sectionID,
+      selectedCourseVideoAdd,
+      selectedSectionVideoAdd,
       videoID,
       video,
       videoName,
       videoRank
     );
-    const res = await addVideo(
-      selectedCourseID,
-      sectionID,
+
+    await addVideo(
+      selectedCourseVideoAdd,
+      selectedSectionVideoAdd,
       videoID,
       video,
       videoName,
       videoRank
     );
-    console.log(res);
+
+    // Reset the states
+    setVideo(null);
+    setVideoName("");
+    setSelectedCourseVideoAdd("");
+    setSelectedSectionVideoAdd("");
+    setVideoRank(null);
   };
 
   const handleDeleteCourse = async (event) => {
     event.preventDefault();
-    const selectedCourse = selectedCourseRef.current.value;
+    if (!selectedCourseCourseDelete) {
+      toast.error("Please select a course to delete");
+      return;
+    }
     const confirmation = window.confirm(
-      "Are you sure you want to delete this course?" + " " + selectedCourse
+      "Are you sure you want to delete the selected course?"
     );
 
     if (!confirmation) return;
 
-    const res = await deleteCourse(selectedCourse);
+    const res = await deleteCourse(selectedCourseCourseDelete);
+    // refresh the page
+    window.location.reload();
     console.log(res);
+
+    // Reset the states
+    setSelectedCourseCourseDelete("");
   };
 
   const handleDeleteSection = async (event) => {
     event.preventDefault();
-    const selectedCourse = selectedCourseRef.current.value;
-    const selectedSection = window.prompt(
-      "Enter the section name in the course: " + selectedCourse
+    if (!selectedCourseSectionDelete || !selectedSectionSectionDelete) {
+      toast.error("Please fill in all the fields");
+      return;
+    }
+
+    const res = await deleteSection(
+      selectedCourseSectionDelete,
+      selectedSectionSectionDelete
     );
 
-    if (!selectedSection) return;
-
-    const confirmation = window.confirm(
-      "Are you sure you want to delete this section?" +
-        " " +
-        selectedSection +
-        " in the course " +
-        selectedCourse
-    );
-
-    if (!confirmation) return;
-
-    const res = await deleteSection(selectedCourse, selectedSection);
+    window.location.reload();
+    // Reset the states
+    setSelectedCourseSectionDelete("");
+    setSelectedSectionSectionDelete("");
     console.log(res);
   };
 
   const handleDeleteVideo = async (event) => {
     event.preventDefault();
-    const selectedCourse = selectedCourseRef.current.value;
-    const selectedSection = window.prompt(
-      "Enter the section name in the course: " + selectedCourse
-    );
 
-    const confirmation = window.confirm(
-      "Are you sure you want to delete this video?"
-    );
-    if (!selectedSection || !videoID) return;
-
-    if (confirmation) {
-      console.log("Deleting Video", selectedCourse, selectedSection, videoID);
-      const res = await deleteVideo(selectedCourse, selectedSection, videoID);
-      console.log(res);
+    if (
+      !selectedCourseVideoDelete ||
+      !selectedSectionVideoDelete ||
+      !selectedVideoVideoDelete
+    ) {
+      toast.error("Please fill in all the fields");
+      return;
     }
+    const res = await deleteVideo(
+      selectedCourseVideoDelete,
+      selectedSectionVideoDelete,
+      selectedVideoVideoDelete
+    );
+
+    window.location.reload();
+
+    // Reset the states
+    setSelectedCourseVideoDelete("");
+    setSelectedSectionVideoDelete("");
+    setSelectedVideoVideoDelete("");
+
+    console.log(res);
   };
   const handleCourseAdd = async (e) => {
     try {
@@ -150,9 +221,20 @@ const AddCourse = () => {
         !courseTitle ||
         !courseCategory ||
         !courseDescription ||
-        !thumbnail ||
         !courseType
       ) {
+        console.log(
+          "title:",
+          courseTitle,
+          "category:",
+          courseCategory,
+          "description:",
+          courseDescription,
+          "thumbnail:",
+          thumbnail,
+          "type:",
+          courseType
+        );
         toast.error("fill all requirements for course adding");
         return;
       }
@@ -172,12 +254,32 @@ const AddCourse = () => {
       setCourseDescription("");
       setCourseType("");
       setThumbnail("");
-
       return res;
     } catch (err) {
       console.log(err);
     }
   };
+  const handleDropdownChangeCourseAdd = async (event) => {
+    setSelectedCourseVideoAdd(event.target.value);
+    const selectedCourseID = event.target.value;
+    const sections = await getSectionsFromCourseID(selectedCourseID);
+    console.log("Sections for video add: ", sections);
+    setAllSectionsVideoAdd(sections);
+
+    console.log(
+      "Selected Course: ",
+      event.target.value,
+      selectedCourseVideoAdd
+    );
+  };
+
+  const handleDropdownChangeSectionDelete = async (event) => {
+    setSelectedCourseSectionDelete(event.target.value);
+    const selectedCourseID = event.target.value;
+    const sections = await getSectionsFromCourseID(selectedCourseID);
+    setAllSectionsSectionDelete(sections);
+  };
+
   return (
     <div className={styles["adminCourse--main-container"]}>
       <div
@@ -191,7 +293,7 @@ const AddCourse = () => {
         <div className={styles["adminCourse--add-course-form-container"]}>
           <hr />
           {/*Course adding form start */}
-          Add Course
+          Add a Course
           <div className={styles["adminCourse--add-course-form"]}>
             <div>
               <label
@@ -222,7 +324,7 @@ const AddCourse = () => {
                 onChange={(event) => {
                   return setThumbnail(event.target.files[0]);
                 }}
-                value={thumbnail}
+                // value={thumbnail}
                 className={styles["adminCourse--add-course-input"]}
               />
             </div>
@@ -303,9 +405,9 @@ const AddCourse = () => {
           </button>
         </div>
         <hr style={{ width: "100%" }} />
-        {/*Adding section to courses start */}
+
         <div className={styles["adminCourse--section-add-container"]}>
-          Add section for a course
+          Add section for any course
           <div>
             <label className={styles["adminCourse--add-course-label"]}>
               Select Course
@@ -314,10 +416,12 @@ const AddCourse = () => {
               ref={selectedCourseRef}
               className={styles["adminCourse--add-course-input"]}
             >
+              <option value="">Select Course</option>
               {
                 // only show courses that does not have status as deleted
                 allCourses
                   .filter((course) => course.status !== "deleted")
+                  .sort((a, b) => a.title.localeCompare(b.title))
                   .map((course) => {
                     // console.log(course.id, course.title);
                     return (
@@ -331,12 +435,14 @@ const AddCourse = () => {
           </div>
           <div>
             <label className={styles["adminCourse--add-course-label"]}>
-              Section Rank
+              Section Position
             </label>
             <input
               type="number"
-              onChange={(event) => setSectionRank(event.target.value)}
-              placeholder="Section Rank (Start from 0 i.e for first position rank is 0)"
+              onChange={(event) =>
+                setSectionRank(Number(event.target.value) - 1)
+              }
+              placeholder="Section Position (1 for first section, 2 for second, etc.)"
               className={styles["adminCourse--add-course-input"]}
             />
           </div>
@@ -361,7 +467,7 @@ const AddCourse = () => {
         </div>
         <hr style={{ width: "100%" }} />
         <div className={styles["adminCourse--section-add-container"]}>
-          Upload Video
+          Upload a video to a section
           <div>
             <label className={styles["adminCourse--add-course-label"]}>
               Upload Video
@@ -381,14 +487,47 @@ const AddCourse = () => {
           </div>
           <div>
             <label className={styles["adminCourse--add-course-label"]}>
-              Section
+              Select Course
             </label>
-            <input
-              type="text"
-              placeholder="Section ID"
+            <select
               className={styles["adminCourse--add-course-input"]}
-              onChange={(event) => setSectionID(event.target.value)}
-            />
+              value={selectedCourseVideoAdd}
+              onChange={(event) => {
+                handleDropdownChangeCourseAdd(event);
+              }}
+            >
+              <option value="">Select Course</option>
+              {
+                // only show courses that does not have status as deleted
+                allCourses
+                  .filter((course) => course.status !== "deleted")
+                  .sort((a, b) => a.title.localeCompare(b.title))
+                  .map((course) => {
+                    return (
+                      <option key={course.id} value={course.id}>
+                        {course.title}
+                      </option>
+                    );
+                  })
+              }
+            </select>
+          </div>
+          <div>
+            <label className={styles["adminCourse--add-course-label"]}>
+              Select Section
+            </label>
+            <select
+              className={styles["adminCourse--add-course-input"]}
+              value={selectedSectionVideoAdd}
+              onChange={(event) =>
+                setSelectedSectionVideoAdd(event.target.value)
+              }
+            >
+              <option value="">Select Section</option>
+              {allSectionsVideoAdd?.map((section) => (
+                <option value={section.id}>{section.title}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className={styles["adminCourse--add-course-label"]}>
@@ -404,13 +543,13 @@ const AddCourse = () => {
           </div>
           <div>
             <label className={styles["adminCourse--add-course-label"]}>
-              Video Rank
+              Video Position
             </label>
             <input
               type="number"
-              placeholder="Video Rank"
               className={styles["adminCourse--add-course-input"]}
-              onChange={(event) => setVideoRank(event.target.value)}
+              placeholder="Video Position (1 for first video, 2 for second, etc.)"
+              onChange={(event) => setVideoRank(Number(event.target.value) - 1)}
             />
           </div>
           <button
@@ -422,19 +561,24 @@ const AddCourse = () => {
         </div>
         <hr style={{ width: "100%" }} />
         <div className={styles["adminCourse--section-add-container"]}>
-          Delete Selected Course
+          Delete a Course
           <div>
             <label className={styles["adminCourse--add-course-label"]}>
               Select Course
             </label>
             <select
-              ref={selectedCourseRef}
               className={styles["adminCourse--add-course-input"]}
+              value={selectedCourseCourseDelete}
+              onChange={(event) =>
+                setSelectedCourseCourseDelete(event.target.value)
+              }
             >
+              <option value="">Select Course</option>
               {
                 // only show courses that does not have status as deleted
                 allCourses
                   .filter((course) => course.status !== "deleted")
+                  .sort((a, b) => a.title.localeCompare(b.title))
                   .map((course) => {
                     // console.log(course.id, course.title);
                     return (
@@ -455,7 +599,46 @@ const AddCourse = () => {
         </div>
         <hr style={{ width: "100%" }} />
         <div className={styles["adminCourse--section-add-container"]}>
-          Delete Selected Section
+          Delete a section for a course
+          <div>
+            <label className={styles["adminCourse--add-course-label"]}>
+              Select Course
+            </label>
+            <select
+              className={styles["adminCourse--add-course-input"]}
+              value={selectedCourseSectionDelete}
+              onChange={(event) => handleDropdownChangeSectionDelete(event)}
+            >
+              <option value="">Select Course</option>
+              {allCourses
+                .filter((course) => course.status !== "deleted")
+                .sort((a, b) => a.title.localeCompare(b.title))
+                .map((course) => {
+                  return (
+                    <option key={course.id} value={course.id}>
+                      {course.title}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+          <div>
+            <label className={styles["adminCourse--add-course-label"]}>
+              Select Section
+            </label>
+            <select
+              className={styles["adminCourse--add-course-input"]}
+              value={selectedSectionSectionDelete}
+              onChange={(event) =>
+                setSelectedSectionSectionDelete(event.target.value)
+              }
+            >
+              <option value="">Select Section</option>
+              {allSectionsSectionDelete.map((section) => (
+                <option value={section.id}>{section.title}</option>
+              ))}
+            </select>
+          </div>
           <button
             className={styles["adminCourse--add-course-button"]}
             onClick={handleDeleteSection}
@@ -465,13 +648,68 @@ const AddCourse = () => {
         </div>
         <hr style={{ width: "100%" }} />
         <div className={styles["adminCourse--section-add-container"]}>
-          Delete Selected Video
-          <input
-            type="text"
-            placeholder="Video ID"
-            value={videoID}
-            onChange={(event) => setVideoID(event.target.value)}
-          />
+          Delete a video for a section
+          <div>
+            <label className={styles["adminCourse--add-course-label"]}>
+              Select Course
+            </label>
+            <select
+              className={styles["adminCourse--add-course-input"]}
+              value={selectedCourseVideoDelete}
+              onChange={(event) => handleCourseDropdownChangeVideoDelete(event)}
+            >
+              <option value="">Select Course</option>
+              {allCourses
+                .filter((course) => course.status !== "deleted")
+                .sort((a, b) => a.title.localeCompare(b.title))
+                .map((course) => {
+                  return (
+                    <option key={course.id} value={course.id}>
+                      {course.title}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+          <div>
+            <label className={styles["adminCourse--add-course-label"]}>
+              Select Section
+            </label>
+            <select
+              className={styles["adminCourse--add-course-input"]}
+              value={selectedSectionVideoDelete}
+              onChange={(event) =>
+                setSelectedSectionVideoDelete(event.target.value)
+              }
+            >
+              <option value="">Select Section</option>
+              {allSectionsVideoDelete.map((section) => (
+                <option value={section.id}>{section.title}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className={styles["adminCourse--add-course-label"]}>
+              Select Video
+            </label>
+            <select
+              className={styles["adminCourse--add-course-input"]}
+              value={selectedVideoVideoDelete}
+              onChange={(event) =>
+                setSelectedVideoVideoDelete(event.target.value)
+              }
+            >
+              <option value="">Select Video</option>
+              {allSectionsVideoDelete
+                .filter((section) => section.id === selectedSectionVideoDelete)
+                .map((section) => {
+                  console.log("Dropdown making Section: ", section);
+                  return section.video_rank?.map((video) => (
+                    <option value={video}>{video?.split("+")[0]}</option>
+                  ));
+                })}
+            </select>
+          </div>
           <button
             className={styles["adminCourse--add-course-button"]}
             onClick={handleDeleteVideo}
@@ -479,27 +717,6 @@ const AddCourse = () => {
             Delete Video
           </button>
         </div>
-        <hr />
-        {/* <h2>Update Courses</h2>
-        <select ref={selectedUpdateCourseRef}>
-          {
-            // only show courses that does not have status as deleted
-            allCourses
-              .filter((course) => course.status !== "deleted")
-              .map((course) => {
-                return (
-                  <option key={course.id} value={course.id}>
-                    {course.title}
-                  </option>
-                );
-              })
-          }
-        </select>
-        <button>Update Course</button>
-        <input type="text" placeholder="Course Title" />
-        <input type="text" placeholder="Course Category" />
-        <input type="text" placeholder="Course Description" />
-        <input type="file" placeholder="Course Thumbnail" /> */}
       </div>
     </div>
   );
