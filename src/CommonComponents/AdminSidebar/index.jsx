@@ -17,7 +17,11 @@ export default function AdminSidebar() {
     { icon: inviteIcon, title: "Invite", to: "invite" },
     { icon: addCourseIcon, title: "Add courses", to: "add-course" },
     { icon: addResourcesIcon, title: "Add Resources", to: "/admin" },
-    { icon: makeAnnouncementIcon, title: "Make Announcements", to: "/admin" },
+    {
+      icon: makeAnnouncementIcon,
+      title: "Make Announcements",
+      to: "add-announcement",
+    },
     { icon: addWebinarIcon, title: "Host Webinar", to: "/admin" },
     { icon: logoutIcon, title: "Log out", to: "/admin" },
   ];

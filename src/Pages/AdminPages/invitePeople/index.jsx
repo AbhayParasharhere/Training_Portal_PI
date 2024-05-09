@@ -22,7 +22,13 @@ export default function InvitePeople() {
       toast.error("Please enter a valid email");
       return;
     }
+    const confirmation = window.confirm(
+      "Are you sure you want to invite this email?"
+    );
+
+    if (!confirmation) return;
     await inviteUser(userEmail);
+    setUserEmail("");
   };
   return (
     <div className={styles["adminInvite--main-container"]}>

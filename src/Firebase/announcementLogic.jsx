@@ -13,6 +13,7 @@ import {
 import { db } from "./firebaseConfig";
 import { v4 } from "uuid";
 import secureLocalStorage from "react-secure-storage";
+import { toast } from "react-toastify";
 // Function to create an annoucement from the announcement object as the input
 // which contains the announcement title, announcement description, uid of the user who created the announcement
 const createAnnouncement = async (announcementData) => {
@@ -38,9 +39,10 @@ const createAnnouncement = async (announcementData) => {
       updated_at: updatedTimestamp,
       status: "active",
     });
-
+    toast.success("Announcement Created successfully");
     return "Announcement created successfully";
   } catch (error) {
+    toast.error("Error adding announcement");
     console.error(error);
     return error;
   }
