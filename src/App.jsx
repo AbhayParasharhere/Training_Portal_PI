@@ -54,6 +54,7 @@ import MobileNotifications from "./Pages/Dashboard/components/MobileNotification
 import AdminLayout from "./Layouts/AdminConsole";
 import AddCourse from "./Pages/AdminConsole";
 import ProductCourses from "./Pages/CourseProducts";
+import InvitePeople from "./Pages/AdminPages/invitePeople";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -71,6 +72,7 @@ const router = createBrowserRouter(
       <Route path="/addDetails" element={<Register_2Component />} />
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="add-course" element={<AddCourse />} />
+        <Route path="invite" element={<InvitePeople />} />
       </Route>
       <Route
         element={<SidebarLayout />}

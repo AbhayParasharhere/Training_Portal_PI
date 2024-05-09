@@ -1,0 +1,77 @@
+.adminInvite--main-container {
+  padding: 30px 0px;
+  padding-right: 30px;
+  width: 100%;
+}
+.adminInvite--title-container {
+  padding: 30px;
+  //   height: 120px;
+  width: 60%;
+  border-radius: 5px;
+  font-family: Epilogue;
+  font-size: 17px;
+  box-sizing: border-box;
+  font-weight: 500;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  background-color: #2d355c;
+  color: white;
+}
+.adminInvite--invite-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #313131;
+}
+.adminInvite--invite-input {
+  max-width: 450px;
+  border: 1px solid #a1a1a1;
+  height: 35px;
+  box-sizing: border-box;
+  padding: 10px;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  border-radius: 5px;
+}
+.adminInvite--send-invite {
+  width: 160px;
+  height: 45px;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: #3064d4;
+}
+@media (max-width: 900px) {
+  .adminInvite--main-container {
+    padding: 15px;
+    padding-right: 15px;
+  }
+}
+@media (max-width: 600px) {
+  .adminInvite--title-container {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 300px) {
+  .adminInvite--title-container {
+    font-size: 14px;
+  }
+}
