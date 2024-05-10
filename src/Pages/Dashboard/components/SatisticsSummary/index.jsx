@@ -187,11 +187,13 @@ export default function StatsSummary() {
             Check out your weekly sales snapshot
           </p>
         </div>
-        <div className={styles["statsSummary--sales-graph-container"]}>
+        <div
+          className={styles["statsSummary--sales-graph-container"]}
+          onClick={() => navigate("/statistics")}
+        >
           Weekly Sales Status
           <Bar
             className={styles["statsSummary--graph"]}
-            onClick={() => navigate("/statistics")}
             data={{
               labels: graphData.map((data) => data.name),
               datasets: [

@@ -96,11 +96,11 @@ export default function PurchasedPolicy() {
                 <div
                   className={styles["purchasedPolicy--option-inner-container"]}
                   style={{ color: "#DA1212" }}
+                  onClick={() => updateSales({ status: "deleted" }, item?.id)}
                 >
                   <img
                     src={deleteIcon}
                     className={styles["purchasedPolicy--option-icon"]}
-                    onClick={() => updateSales({ status: "deleted" }, item?.id)}
                   />
                   Delete
                 </div>
