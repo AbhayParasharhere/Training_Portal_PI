@@ -79,6 +79,12 @@ export default function SalesDetails(props) {
         toast.error("Fill the requirements");
         return;
       }
+      if (
+        props.salesDetailsData.effective_date > props.salesDetailsData.end_date
+      ) {
+        toast.error("End date of policy cannot be less than effective date");
+        return;
+      }
       if (props.clientId === "") {
         console.log("No client added");
         setLoading(true);

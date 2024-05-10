@@ -1,16 +1,36 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, Suspense } from "react";
 import styles from "./styles.module.scss";
-import { Outlet, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  useNavigate,
+  useLoaderData,
+  defer,
+  Await,
+} from "react-router-dom";
 import AdminSidebar from "../../CommonComponents/AdminSidebar";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { AuthContext } from "../../context/authContext";
 import Spinner from "../../CommonComponents/Spinner";
+import { getAllUsers } from "../../Firebase/getOtherStats";
 
 export default function AdminLayout() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [allUsers, setAllUser] = useState();
+  const loaderData = useLoaderData();
+
   const navigate = useNavigate();
   const [mobileSidebar, setMobileSidebar] = useState(false);
   const currentUser = useContext(AuthContext);
+
+  // getAllUsers(setAllUsers);
+  const getAllUsersLayout = async () => {
+    if (!allUsers) {
+      const insideAllUser = await getAllUsers();
+      setAllUser(insideAllUser);
+      console.log("inside: ", insideAllUser, allUsers);
+      return;
+    }
+  };
 
   document.documentElement.scrollTo({
     top: 0,
@@ -37,7 +57,11 @@ export default function AdminLayout() {
             mobileSidebar={mobileSidebar}
           />
 
-          {mobileSidebar ? null : <Outlet />}
+          {mobileSidebar ? null : (
+            <Outlet
+              context={{ users: allUsers, getUsers: getAllUsersLayout }}
+            />
+          )}
         </>
       ) : (
         <Spinner />

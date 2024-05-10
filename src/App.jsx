@@ -58,6 +58,7 @@ import InvitePeople from "./Pages/AdminPages/invitePeople";
 import MakeAnnouncements from "./Pages/AdminPages/MakeAnnouncement";
 import HostWebinar from "./Pages/AdminPages/HostWebinar";
 import AddDocuments from "./Pages/AdminPages/AddDocuments";
+import PeopleStats from "./Pages/AdminPages/PeopleStats";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -74,6 +75,7 @@ const router = createBrowserRouter(
       <Route path="/signup" element={<RegisterComponent />} />
       <Route path="/addDetails" element={<Register_2Component />} />
       <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<PeopleStats />} />
         <Route path="add-course" element={<AddCourse />} />
         <Route path="invite" element={<InvitePeople />} />
         <Route path="add-announcement" element={<MakeAnnouncements />} />

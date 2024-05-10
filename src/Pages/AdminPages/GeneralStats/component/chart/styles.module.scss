@@ -1,0 +1,20 @@
+// canvas {
+//   min-height: 1000px;
+//   font-size: 2px;
+//   aspect-ratio: 100/100;
+// }
+.stats-canvas {
+  min-height: 120px;
+  max-width: 95%;
+  //   gap: 0px;
+  //   align-self: center;
+  margin-left: 20px;
+  font-size: 2px;
+  aspect-ratio: 100/100;
+}
+@media (max-width: 400px) {
+  .stats-canvas {
+    max-width: 100%;
+    margin-left: 0px;
+  }
+}

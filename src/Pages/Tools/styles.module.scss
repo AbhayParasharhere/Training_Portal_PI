@@ -3,8 +3,9 @@
 .Tools-wrapper {
   padding-top: 15px;
   padding-left: 15px;
+  box-sizing: border-box;
   // width: 100vw;
-  min-width: 80%;
+  width: 100%;
 }
 
 .Tools-wrapper-main-content-image {

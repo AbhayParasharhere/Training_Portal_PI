@@ -35,14 +35,7 @@ export default function InvitePeople() {
     await inviteUser(userEmail);
     setUserEmail("");
   };
-  // TO BE REMOVED
-  useEffect(() => {
-    const userToCheck = "tID94lmt2Kh19hUp5SFbjqyVZ172";
-    const res = getTotalClientData(userToCheck);
-    getTotalSales(userToCheck);
-    getTotalVideosWatched(userToCheck);
-    console.log("Promise ", res);
-  }, []);
+
   return (
     <div className={styles["adminInvite--main-container"]}>
       <div className={styles["adminInvite--title-container"]}>

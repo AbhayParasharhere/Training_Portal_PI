@@ -24,9 +24,13 @@ export default function ClientComponent() {
   const primaryContextData = useContext(PrimaryDataContext);
   const salesData = primaryContextData?.sales;
   const [arrowDropdown, setArrowDropdown] = useState(false);
-  const initialClientData = useContext(RealTimeDataContext)?.clients?.filter(
-    (client) => client.status === "active"
-  );
+  const realTimeData = useContext(RealTimeDataContext)?.clients;
+  const [initialClientData, setInitialClientData] = useState(realTimeData);
+  useEffect(() => {
+    if (realTimeData) {
+      setInitialClientData(realTimeData);
+    }
+  }, [realTimeData]);
   const [clientData, setClientData] = useState(
     initialClientData ? initialClientData : []
   );

@@ -9,6 +9,21 @@ import {
 import { toast } from "react-toastify";
 import { db } from "./firebaseConfig";
 
+const getAllUsers = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "userDetail"));
+    const allUsers = [];
+    querySnapshot?.forEach((user) => {
+      allUsers.push({ ...user.data(), id: user?.id });
+    });
+    toast.success("Fetched all the users");
+    return allUsers;
+  } catch (err) {
+    console.log(err);
+    toast.error("Error fetching users");
+  }
+};
+
 // Get the completed courses for the specified user id
 
 // Get the total videos watched by the specified user
@@ -120,4 +135,9 @@ const getTotalSales = async (userId) => {
 
 // Get yearly added sales for the specified user
 
-export { getTotalClientData, getTotalSales, getTotalVideosWatched };
+export {
+  getTotalClientData,
+  getTotalSales,
+  getTotalVideosWatched,
+  getAllUsers,
+};

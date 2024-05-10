@@ -385,9 +385,7 @@ export default function ClientDetails(props) {
             style={{
               height: input.height,
               border:
-                errorState.input === input.name
-                  ? "1px solid #FF5050"
-                  : "1px solid #a1a1a1",
+                errorState.input === input.name ? "1px solid #FF5050" : "",
               backgroundColor:
                 errorState.input === input.name ? "#FB717136" : "white",
             }}

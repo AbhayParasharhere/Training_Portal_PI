@@ -40,7 +40,7 @@ export default function MobileNotifications() {
           Notifications
         </p>
         <div className={styles["statsSummary--lists-container"]}>
-          {notifications?.length === 0 ? (
+          {notifications?.length !== 0 ? (
             notifications?.map((notification) => {
               return (
                 <div

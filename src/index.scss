@@ -28,3 +28,7 @@ body {
 p {
   margin: 0;
 }
+input:focus {
+  outline: none;
+  border: 1px solid #3064d4;
+}
