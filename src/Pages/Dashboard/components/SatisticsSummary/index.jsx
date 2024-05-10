@@ -22,6 +22,7 @@ import { pushRecentNotifications } from "../Home";
 import ProfileChangeModal from "../ProfileChangeModal";
 import { EditTwoTone } from "@ant-design/icons";
 import { validateLink } from "../../../../utils/validation";
+import { getWeeklyAddedClientsSales } from "../../../Statistics";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
@@ -42,7 +43,17 @@ export default function StatsSummary() {
       appointments,
       setNotifications
     );
-    // console.log("These are the notifications: ", notifications);
+
+    const weeklySalesData = getWeeklyAddedClientsSales(realTimeData.clients);
+    const weekLabels = ["M", "T", "W", "T", "F", "S", "S"];
+    let formattedWeeklySalesData = [];
+    for (let i = 0; i < weekLabels.length; i++) {
+      formattedWeeklySalesData.push({
+        name: weekLabels[i],
+        value: weeklySalesData[i],
+      });
+    }
+    setGraphData(formattedWeeklySalesData);
   }, [announcements, appointments, webinars]);
 
   if (appointments) {

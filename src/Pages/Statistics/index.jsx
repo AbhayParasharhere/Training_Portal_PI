@@ -281,9 +281,6 @@ export default function Statistics() {
       data: salesGraphTime === "week" ? weekSalesData : yearSalesData,
     },
   ];
-  // graph.title === "Client Status"
-  //                 ? setClientGraphTime("week")
-  //                 : setSalesGraphTime("week")
 
   const handleWeeklyData = (graph) => {
     if (graph === "Client") {
