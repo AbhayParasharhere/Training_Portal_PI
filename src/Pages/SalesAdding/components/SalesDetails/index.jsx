@@ -36,7 +36,7 @@ export default function SalesDetails(props) {
     {
       text: "Policy Type",
       type: "dropdown",
-      options: ["Insaurance", "Loan"],
+      options: ["Insurance", "Loan"],
       arrowState: changeSalesArrowPolicy,
       function: toggleArrowChangePolicy,
       name: "policy_type",

@@ -23,6 +23,7 @@ import ProfileChangeModal from "../ProfileChangeModal";
 import { EditTwoTone } from "@ant-design/icons";
 import { validateLink } from "../../../../utils/validation";
 import { getWeeklyAddedClientsSales } from "../../../Statistics";
+import { getUpcomingEvents } from "../../../../utils/date";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
@@ -93,67 +94,6 @@ export default function StatsSummary() {
     { name: "S", value: "9" },
     { name: "S", value: "7" },
   ]);
-  function getUpcomingEvents(clientData) {
-    const currentDate = new Date();
-    const currentDay = currentDate.getDate();
-    const currentMonth = currentDate.getMonth() + 1; // Month starts from 0
-
-    // Combine all events into a single array
-    const allEvents = [];
-
-    clientData?.forEach((client) => {
-      const dobParts = client.DOB.split("-");
-      const anniversaryParts = client.anniversary.split("-");
-      const dobMonth = parseInt(dobParts[1], 10);
-      const dobDay = parseInt(dobParts[2], 10);
-      const anniversaryMonth = parseInt(anniversaryParts[1], 10);
-      const anniversaryDay = parseInt(anniversaryParts[2], 10);
-
-      // Check if DOB is today or within a week (7 days)
-      if (
-        (dobMonth === currentMonth &&
-          dobDay >= currentDay &&
-          dobDay - currentDay <= 7) ||
-        (dobMonth === currentMonth &&
-          dobDay < currentDay &&
-          currentDay - dobDay <= 7)
-      ) {
-        allEvents.push({ ...client, eventType: "Birthday" });
-      }
-
-      // Check if anniversary is today or within a week (7 days)
-      if (
-        (anniversaryMonth === currentMonth &&
-          anniversaryDay >= currentDay &&
-          anniversaryDay - currentDay <= 7) ||
-        (anniversaryMonth === currentMonth &&
-          anniversaryDay < currentDay &&
-          currentDay - anniversaryDay <= 7)
-      ) {
-        allEvents.push({ ...client, eventType: "Anniversary" });
-      }
-    });
-
-    // Sort events by the latest event first
-    allEvents.sort((a, b) => {
-      const dateA = new Date(
-        2000,
-        a.eventType === "Birthday"
-          ? a.DOB.split("-")[2]
-          : a.anniversary.split("-")[2]
-      );
-      const dateB = new Date(
-        2000,
-        b.eventType === "Birthday"
-          ? b.DOB.split("-")[2]
-          : b.anniversary.split("-")[2]
-      );
-
-      return dateA - dateB;
-    });
-
-    return allEvents;
-  }
 
   let upcomingEvents = [];
   if (clients) {
@@ -206,7 +146,10 @@ export default function StatsSummary() {
                 className={styles["image-edit-icon"]}
                 onClick={() => setModalOpen(true)}
               >
-                <EditTwoTone style={{ fontSize: "25px" }} />
+                <EditTwoTone
+                  style={{ fontSize: "25px" }}
+                  twoToneColor="#4462A4"
+                />
               </div>
             </div>
           </div>
@@ -370,10 +313,16 @@ export default function StatsSummary() {
       {/*Birthday container for tablet responsive starts */}
       <div className={styles["statsSummary--mobile-birthday-container"]}>
         <p className={styles["home--client-birthday-title"]}>
-          Upcoming Clients Bithdays And Anniversary
+          Upcoming Clients Birthdays And Anniversary
         </p>
         <div className={styles["home--client-birthday-list"]}>
-          {renderClientEvent}
+          {upcomingEvents.length ? (
+            renderClientEvent
+          ) : (
+            <div className={styles["home--no-data"]}>
+              No upcoming Birthdays and Anniversaries this week
+            </div>
+          )}
         </div>
       </div>
       {/*Birthday container for tablet responsive ends*/}

@@ -2,7 +2,6 @@ import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "./firebaseConfig";
-import secureLocalStorage from "react-secure-storage";
 
 const updateNameAndPhoto = async (uid, name, photo) => {
   try {
