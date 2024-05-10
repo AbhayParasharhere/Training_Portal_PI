@@ -19,6 +19,7 @@ import {
 } from "../../../../context/primaryDataContext";
 import { getFutureTimeDifference } from "../TabletImportantUpdates";
 import { pushRecentNotifications } from "../Home";
+import ProfileChangeModal from "../ProfileChangeModal";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
@@ -39,7 +40,7 @@ export default function StatsSummary() {
       appointments,
       setNotifications
     );
-    console.log("These are the notifications: ", notifications);
+    // console.log("These are the notifications: ", notifications);
   }, [announcements, appointments, webinars]);
 
   if (appointments) {
@@ -49,12 +50,12 @@ export default function StatsSummary() {
       .filter((appointment) => {
         const currentDate = new Date();
         const appointmentDate = appointment.date.toDate();
-        console.log(
-          "Current Date",
-          currentDate,
-          "Appointment Date",
-          appointmentDate
-        );
+        // console.log(
+        //   "Current Date",
+        //   currentDate,
+        //   "Appointment Date",
+        //   appointmentDate
+        // );
         return currentDate < appointmentDate;
       })
       ?.sort((a, b) => a.date.seconds - b.date.seconds)[0];
@@ -64,7 +65,7 @@ export default function StatsSummary() {
         (client) => client.id === latestAppoitment.clientID
       )?.name;
     }
-    console.log("Latest Appoitment", latestAppoitment);
+    // console.log("Latest Appoitment", latestAppoitment);
   }
 
   const navigate = useNavigate();
@@ -170,15 +171,19 @@ export default function StatsSummary() {
       </div>
     );
   });
-
+  const [modalOpen, setModalOpen] = useState(false);
+  // console.log("modalOpen", modalOpen);
   return (
     <div className={styles["statsSummary--main-container"]}>
+      <ProfileChangeModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
       <div className={styles["statsSummary--profile-container"]}>
         <p className={styles["statsSummary--title"]}>Statistics</p>
         <div className={styles["statsSummary--profile-inner-container"]}>
           <img
             src={secureLocalStorage.getItem("userDetails")?.[1] || samplePhoto}
             className={styles["statsSummary--profile-image"]}
+            onClick={() => setModalOpen(true)}
+            style={{ cursor: "pointer" }}
           />
           <p className={styles["statsSummary--name"]}>
             {secureLocalStorage.getItem("userDetails")?.[0] || "Broker"}

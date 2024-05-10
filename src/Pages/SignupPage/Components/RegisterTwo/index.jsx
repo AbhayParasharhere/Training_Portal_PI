@@ -146,6 +146,7 @@ export default function Register_2Component() {
             onChange={(info) => {
               setPhoto(info.file.originFileObj);
             }}
+            beforeUpload={() => false}
             maxCount={1}
           >
             <AntButton icon={<UploadOutlined />}>Upload Photo</AntButton>
