@@ -12,6 +12,11 @@
   font-size: 2px;
   aspect-ratio: 100/100;
 }
+@media (min-width: 1450px) {
+  .stats-canvas {
+    min-height: 200px;
+  }
+}
 @media (max-width: 400px) {
   .stats-canvas {
     max-width: 100%;

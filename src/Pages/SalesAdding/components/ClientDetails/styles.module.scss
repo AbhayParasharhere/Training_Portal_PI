@@ -223,6 +223,47 @@ input {
   letter-spacing: -0.03em;
   text-align: left;
 }
+// @media (min-width: 1160px) {
+//   .clientDetails--input-container {
+//     max-width: none;
+//   }
+//   .clientDetails--main-container {
+//     min-width: 100%;
+//   }
+// }
+@media (min-width: 1450px) {
+  .clientDetails--main-container {
+    min-height: 1190px;
+    min-width: 1105px;
+  }
+}
+@media (min-width: 1500px) {
+  .clientDetails--main-container {
+    min-width: 1190px;
+  }
+}
+
+@media (min-width: 1550px) {
+  .clientDetails--main-container {
+    min-width: 1240px;
+  }
+}
+@media (min-width: 1650px) {
+  .clientDetails--main-container {
+    min-width: 1310px;
+  }
+}
+@media (min-width: 1800px) {
+  .clientDetails--main-container {
+    min-width: 1415px;
+  }
+}
+@media (min-width: 1880px) {
+  .clientDetails--main-container {
+    min-width: 1470px;
+  }
+}
+
 @media (max-width: 850px) {
   .clientDetails--input-choosing-container {
     gap: 30px;

@@ -59,6 +59,51 @@
 .compliance--document-icon {
   height: 30px;
 }
+@media (min-width: 1450px) {
+  .compliance--main-container {
+    min-height: 1190px;
+    min-width: 0px;
+    max-width: 1105px;
+  }
+}
+@media (min-width: 1500px) {
+  .compliance--main-container {
+    min-width: 1190px;
+  }
+  .compliance--document-icon-name-container {
+    font-size: 20px;
+  }
+  .compliance--document-icon {
+    height: 35px;
+  }
+  .compliance--document-container {
+    padding: 25px;
+  }
+  .compliance--navigation-text {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1550px) {
+  .compliance--main-container {
+    min-width: 1240px;
+  }
+}
+@media (min-width: 1650px) {
+  .compliance--main-container {
+    min-width: 1310px;
+  }
+}
+@media (min-width: 1800px) {
+  .compliance--main-container {
+    min-width: 1415px;
+  }
+}
+@media (min-width: 1880px) {
+  .compliance--main-container {
+    min-width: 1470px;
+  }
+}
 @media (max-width: 1130px) {
   .compliance--main-container {
     padding: 15px;

@@ -30,6 +30,32 @@ export default function FAQSupport() {
       answer:
         "Yes, you can access the courses on your mobile device. The extranet platform is mobile-friendly and can be accessed from any device with an internet connection. This allows you to learn on the go and access the courses at your convenience.",
     },
+
+    {
+      icon: questionIcon,
+      question: "Can I access the courses on my mobile device?",
+      answer:
+        "Yes, you can access the courses on your mobile device. The extranet platform is mobile-friendly and can be accessed from any device with an internet connection. This allows you to learn on the go and access the courses at your convenience.",
+    },
+    {
+      icon: questionIcon,
+      question: "Can I access the courses on my mobile device?",
+      answer:
+        "Yes, you can access the courses on your mobile device. The extranet platform is mobile-friendly and can be accessed from any device with an internet connection. This allows you to learn on the go and access the courses at your convenience.",
+    },
+
+    {
+      icon: questionIcon,
+      question: "Can I access the courses on my mobile device?",
+      answer:
+        "Yes, you can access the courses on your mobile device. The extranet platform is mobile-friendly and can be accessed from any device with an internet connection. This allows you to learn on the go and access the courses at your convenience.",
+    },
+    {
+      icon: questionIcon,
+      question: "Can I access the courses on my mobile device?",
+      answer:
+        "Yes, you can access the courses on your mobile device. The extranet platform is mobile-friendly and can be accessed from any device with an internet connection. This allows you to learn on the go and access the courses at your convenience.",
+    },
   ];
   const [questionData, setQuestionData] = useState(initialQuestionData);
   const [search, setSearch] = useState("");

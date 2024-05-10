@@ -114,6 +114,40 @@
   letter-spacing: -0.03em;
   text-align: left;
 }
+
+// @media (min-width: 1500px) {
+//   .sidebar--main-container {
+//     min-width: 280px;
+//   }
+// }
+@media (min-width: 1450px) {
+  .sidebar--main-container {
+    max-width: none;
+    width: 230px;
+    min-height: 1100px;
+  }
+  .sidebar--menu-text {
+    font-size: 18px;
+  }
+  .sidebar--menu-icon {
+    height: 22px;
+  }
+  .sidebar--menu-inner-container {
+    gap: 40px;
+  }
+  .sidebar--support-logout-container {
+    gap: 40px;
+  }
+  .sidebar--menu-container {
+    height: 100%;
+  }
+}
+@media (min-width: 1700px) {
+  .sidebar--main-container {
+    min-width: 275px;
+  }
+}
+
 @media (max-width: 1130px) {
   .sidebar--main-container {
     display: none;

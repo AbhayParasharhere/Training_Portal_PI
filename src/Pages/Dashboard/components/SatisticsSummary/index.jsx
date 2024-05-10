@@ -284,7 +284,9 @@ export default function StatsSummary() {
           </p>
           {latestAppoitment ? (
             <>
-              <div>
+              <div
+                className={styles["statsSummary--meeting-title-name-container"]}
+              >
                 <p className={styles["statsSummary--meeting-title"]}>
                   {latestAppoitment?.topic}
                 </p>

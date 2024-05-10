@@ -529,6 +529,111 @@ li::marker {
   color: #1a202c;
   height: 100%;
 }
+
+@media (min-width: 1450px) {
+  .home--main-container {
+    max-width: none;
+    width: 780px;
+    min-height: 100%;
+    padding-bottom: 10px;
+  }
+  .home--welcome-container {
+    min-height: 350px;
+  }
+  .home--greetings-container {
+    height: 200px;
+  }
+  .home--course-greeting-title {
+    font-size: 18px;
+  }
+  .home--course-greeting-desc {
+    font-size: 16px;
+  }
+  .home--course-greeting-text-container {
+    gap: 20px;
+  }
+  .home--greetings-title {
+    font-size: 30px;
+  }
+  .home--greetings-desc {
+    font-size: 16px;
+  }
+
+  .home--notification-links-container {
+    width: 100%;
+  }
+  .home--notification-links {
+    font-size: 18px;
+  }
+  .home--list-text {
+    font-size: 19px;
+  }
+  .home--continue-button {
+    width: 120px;
+    height: 45px;
+    font-size: 15px;
+  }
+  .home--course-greeting-container {
+    height: 150px;
+  }
+  .home--recent-notifications-main-container {
+    height: 100%;
+    min-height: 350px;
+    max-width: none;
+    // background-color: #123c97;
+    width: 100%;
+    margin-top: 45px;
+  }
+  .home--important-updates-container {
+    max-height: none;
+    margin-top: 0px;
+  }
+  .home--annoucement-list-container {
+    max-height: 300px;
+  }
+}
+
+@media (min-width: 1500px) {
+  .home--main-container {
+    width: 870px;
+  }
+}
+@media (min-width: 1550px) {
+  .home--main-container {
+    width: 920px;
+  }
+}
+@media (min-width: 1600px) {
+  .home--main-container {
+    width: 950px;
+  }
+}
+@media (min-width: 1650px) {
+  .home--main-container {
+    width: 990px;
+  }
+}
+@media (min-width: 1800px) {
+  .home--main-container {
+    width: 1095px;
+  }
+  .home--course-greeting-title {
+    font-size: 20px;
+  }
+  .home--course-greeting-desc {
+    font-size: 18px;
+  }
+  .home--congratulations-emoji {
+    height: 30px;
+  }
+  .home--greetings-title {
+    font-size: 32px;
+  }
+  .home--greetings-desc {
+    font-size: 18px;
+  }
+}
+
 @media (max-width: 1265px) {
   .home--notification-links-underline {
     width: 100%;
