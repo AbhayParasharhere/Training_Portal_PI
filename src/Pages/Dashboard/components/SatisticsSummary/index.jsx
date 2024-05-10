@@ -20,6 +20,7 @@ import {
 import { getFutureTimeDifference } from "../TabletImportantUpdates";
 import { pushRecentNotifications } from "../Home";
 import ProfileChangeModal from "../ProfileChangeModal";
+import { validateLink } from "../../../../utils/validation";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
@@ -304,16 +305,28 @@ export default function StatsSummary() {
                     {latestAppoitment?.date?.toDate().toLocaleTimeString()}{" "}
                   </li>
                 </ul>
-                <a
-                  target="_blank"
-                  href={latestAppoitment?.link}
-                  className={styles["statsSummary--appointment-button"]}
-                  style={{
-                    pointerEvents: latestAppoitment?.link ? "all" : "none",
-                  }}
-                >
-                  Join Link
-                </a>
+                {validateLink(latestAppoitment?.link) ? (
+                  <a
+                    target="_blank"
+                    href={latestAppoitment?.link}
+                    className={styles["statsSummary--appointment-button"]}
+                    style={{
+                      pointerEvents: latestAppoitment?.link ? "all" : "none",
+                    }}
+                  >
+                    Join Link
+                  </a>
+                ) : (
+                  <div
+                    className={styles["statsSummary--appointment-button"]}
+                    style={{
+                      opacity: 0.5,
+                      cursor: "not-allowed",
+                    }}
+                  >
+                    No link
+                  </div>
+                )}
               </div>
             </>
           ) : (
