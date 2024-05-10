@@ -36,7 +36,7 @@ const pushRecentNotifications = (
     const announcementDate = announcement.updated_at.toDate().getDate();
     announcement.type = "announcement";
     announcement.sortDate = announcement.updated_at.toDate();
-    console.log("Announcement Date", announcement.sortDate);
+    // console.log("Announcement Date", announcement.sortDate);
     return announcementDate - currentDate <= 2;
   });
 
@@ -44,12 +44,12 @@ const pushRecentNotifications = (
     const webinarDate = webinar.updated_at.toDate().getDate();
     webinar.type = "webinar";
     webinar.sortDate = new Date(new Date(webinar?.time).getDate());
-    console.log(
-      "Webinar Date",
-      new Date(new Date(webinar?.time).getDate()),
-      currentDate,
-      webinar.id
-    );
+    // console.log(
+    //   "Webinar Date",
+    //   new Date(new Date(webinar?.time).getDate()),
+    //   currentDate,
+    //   webinar.id
+    // );
     return webinarDate - currentDate <= 2;
   });
 
@@ -79,10 +79,9 @@ export { pushRecentNotifications };
 export default function Home() {
   const realTimeData = useContext(RealTimeDataContext);
   const appointments = realTimeData?.appointments;
-  console.log("Realtime Appointments", appointments);
+  // console.log("Realtime Appointments", appointments);
   let latestAppoitment = {};
   let appoitmentClientName = "";
-  const [mobileState, setMobileState] = useState("");
   const webinars = realTimeData?.webinars;
 
   if (appointments) {
@@ -92,12 +91,12 @@ export default function Home() {
       .filter((appointment) => {
         const currentDate = new Date();
         const appointmentDate = appointment.date.toDate();
-        console.log(
-          "Current Date",
-          currentDate,
-          "Appointment Date",
-          appointmentDate
-        );
+        // console.log(
+        //   "Current Date",
+        //   currentDate,
+        //   "Appointment Date",
+        //   appointmentDate
+        // );
         return currentDate < appointmentDate;
       })
       ?.sort((a, b) => a.date.seconds - b.date.seconds)[0];
@@ -106,12 +105,12 @@ export default function Home() {
         (client) => client.id === latestAppoitment.clientID
       )?.name;
     }
-    console.log("Latest Appoitment", latestAppoitment);
+    // console.log("Latest Appoitment", latestAppoitment);
   }
-  console.log("Appointments", appointments);
+  // console.log("Appointments", appointments);
 
   let videosWatched = [];
-  console.log("JSON: ", sessionStorage.getItem("video_progress"));
+  // console.log("JSON: ", sessionStorage.getItem("video_progress"));
   if (
     sessionStorage.getItem("video_progress") !== "undefined" &&
     sessionStorage.getItem("video_progress")
@@ -240,7 +239,7 @@ export default function Home() {
       appointments,
       setNotifications
     );
-    console.log("These are the notifications: ", notifications);
+    // console.log("These are the notifications: ", notifications);
   }, [announcements, appointments, clients]);
 
   //Client birthdays and anniversary check
@@ -304,7 +303,7 @@ export default function Home() {
   let upcomingEvents = [];
   if (clients) {
     upcomingEvents = getUpcomingEvents(clients);
-    console.log("These are upcoming event", upcomingEvents);
+    // console.log("These are upcoming event", upcomingEvents);
   }
   const renderClientEvent = upcomingEvents?.map((client) => {
     return (
