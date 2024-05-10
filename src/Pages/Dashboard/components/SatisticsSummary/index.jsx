@@ -174,7 +174,6 @@ export default function StatsSummary() {
     );
   });
   const [modalOpen, setModalOpen] = useState(false);
-  // console.log("modalOpen", modalOpen);
   return (
     <div className={styles["statsSummary--main-container"]}>
       <ProfileChangeModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
@@ -350,7 +349,6 @@ export default function StatsSummary() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                // minHeight: "100%",
               }}
             >
               You have no recent appointments

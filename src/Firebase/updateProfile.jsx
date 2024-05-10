@@ -17,10 +17,10 @@ const updateNameAndPhoto = async (uid, name, photo) => {
       console.log("Photo URL: ", photoUrl);
     }
     const userDetailsRef = doc(db, "userDetail", uid);
-    await updateDoc(userDetailsRef, {
-      name,
-      photoURL: photoUrl,
-    });
+    const updatedUserDetails = name
+      ? { name, photoURL: photoUrl }
+      : { photoURL: photoUrl };
+    await updateDoc(userDetailsRef, updatedUserDetails);
     toast.success("Profile details updated successfully");
   } catch (error) {
     toast.error("Error updating profile details");
