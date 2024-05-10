@@ -165,6 +165,14 @@ input {
   gap: 20px;
   background-color: #f5f6fb;
 }
+@media (min-width: 1650px) {
+  .clientDetail--details-input-container {
+    min-height: 550px;
+  }
+  .clientDetail--personal-notes-input {
+    height: 400px;
+  }
+}
 @media (max-width: 800px) {
   .clientDetail--input-column-anniversary {
     display: none;

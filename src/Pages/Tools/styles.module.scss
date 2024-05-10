@@ -47,14 +47,49 @@
 .Tools-wrapper-main-content-arrow {
   height: 24px;
 }
+@media (min-width: 1450px) {
+  .Tools-wrapper {
+    min-height: 1190px;
+    min-width: 0px;
+    max-width: 1105px;
+  }
+}
+@media (min-width: 1500px) {
+  .Tools-wrapper {
+    min-width: 1190px;
+  }
+}
 
-@media screen and (min-width: 2000px) {
+@media (min-width: 1550px) {
+  .Tools-wrapper {
+    min-width: 1240px;
+  }
   .Tools-wrapper-main-content-file {
     font-size: 20px;
   }
   .Tools-wrapper-main-content {
     padding: 20px;
   }
+}
+@media (min-width: 1650px) {
+  .Tools-wrapper {
+    min-width: 1310px;
+  }
+  .Tools-wrapper-main-content-file {
+    font-size: 23px;
+  }
+}
+@media (min-width: 1800px) {
+  .Tools-wrapper {
+    min-width: 1415px;
+  }
+}
+@media (min-width: 1880px) {
+  .Tools-wrapper {
+    min-width: 1470px;
+  }
+}
+@media screen and (min-width: 2000px) {
 }
 
 @media (max-width: 1225px) {

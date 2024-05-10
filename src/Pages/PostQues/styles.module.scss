@@ -3,3 +3,37 @@
   padding-right: 20px;
   width: 100%;
 }
+@media (min-width: 1450px) {
+  .post--main-container {
+    min-height: 1190px;
+    min-width: 0px;
+    padding-right: 0px;
+    max-width: 1105px;
+  }
+}
+@media (min-width: 1500px) {
+  .post--main-container {
+    min-width: 1190px;
+  }
+}
+
+@media (min-width: 1550px) {
+  .post--main-container {
+    min-width: 1240px;
+  }
+}
+@media (min-width: 1650px) {
+  .post--main-container {
+    min-width: 1310px;
+  }
+}
+@media (min-width: 1800px) {
+  .post--main-container {
+    min-width: 1415px;
+  }
+}
+@media (min-width: 1880px) {
+  .post--main-container {
+    min-width: 1470px;
+  }
+}

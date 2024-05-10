@@ -598,11 +598,42 @@ li::marker {
     width: 870px;
   }
 }
-@media (min-width: 1600px) {
+@media (min-width: 1550px) {
   .home--main-container {
-    width: 1000px;
+    width: 920px;
   }
 }
+@media (min-width: 1600px) {
+  .home--main-container {
+    width: 950px;
+  }
+}
+@media (min-width: 1650px) {
+  .home--main-container {
+    width: 990px;
+  }
+}
+@media (min-width: 1800px) {
+  .home--main-container {
+    width: 1095px;
+  }
+  .home--course-greeting-title {
+    font-size: 20px;
+  }
+  .home--course-greeting-desc {
+    font-size: 18px;
+  }
+  .home--congratulations-emoji {
+    height: 30px;
+  }
+  .home--greetings-title {
+    font-size: 32px;
+  }
+  .home--greetings-desc {
+    font-size: 18px;
+  }
+}
+
 @media (max-width: 1265px) {
   .home--notification-links-underline {
     width: 100%;

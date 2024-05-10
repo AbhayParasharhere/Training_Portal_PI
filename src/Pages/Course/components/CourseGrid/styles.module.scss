@@ -145,6 +145,71 @@
   text-align: left;
   margin-top: 5px;
 }
+@media (min-width: 1450px) {
+  .courseGrid--main-container {
+    max-width: none;
+    min-width: 1105px;
+    min-height: 1190px;
+  }
+}
+@media (min-width: 1500px) {
+  .courseGrid--main-container {
+    min-width: 1190px;
+  }
+}
+@media (min-width: 1550px) {
+  .courseGrid--main-container {
+    max-width: none;
+    min-width: 1240px;
+  }
+  .courseGrid--title-container {
+    font-size: 20px;
+    height: 150px;
+  }
+  .courseGrid--search-input {
+    height: 45px;
+    font-size: 20px;
+  }
+  .courseGrid--search-icon {
+    height: 28px;
+    top: 17px;
+  }
+  .courseGrid--filter-button {
+    font-size: 20px;
+  }
+  .courseGrid--filter-icon {
+    height: 28px;
+  }
+  .courseGrid--course-placeholder {
+    height: 220px;
+  }
+}
+@media (min-width: 1602px) {
+  .courseGrid--main-container {
+    min-width: 1260px;
+  }
+}
+@media (min-width: 1650px) {
+  .courseGrid--main-container {
+    max-width: none;
+    min-width: 1310px;
+  }
+}
+@media (min-width: 1750px) {
+  .courseGrid--grid-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+@media (min-width: 1800px) {
+  .courseGrid--main-container {
+    min-width: 1415px;
+  }
+}
+@media (min-width: 1880px) {
+  .courseGrid--main-container {
+    min-width: 1470px;
+  }
+}
 @media (max-width: 1200px) {
   .courseGrid--course-title {
     font-size: 15px;
@@ -152,7 +217,7 @@
 }
 @media (max-width: 1130px) {
   .courseGrid--main-container {
-    padding: 20px 10px;
+    padding: 15px;
   }
 }
 @media (max-width: 1000px) {

@@ -142,6 +142,11 @@
     height: 100%;
   }
 }
+@media (min-width: 1700px) {
+  .sidebar--main-container {
+    min-width: 275px;
+  }
+}
 
 @media (max-width: 1130px) {
   .sidebar--main-container {

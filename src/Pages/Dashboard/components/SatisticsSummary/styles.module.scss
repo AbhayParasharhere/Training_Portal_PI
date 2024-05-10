@@ -332,7 +332,11 @@
     font-size: 15px;
   }
 }
-
+@media (min-width: 1880px) {
+  .statsSummary--main-container {
+    max-width: 360px;
+  }
+}
 @media (max-width: 1130px) {
   .statsSummary--main-container {
     max-width: 350px;

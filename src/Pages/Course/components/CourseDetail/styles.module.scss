@@ -253,6 +253,42 @@
 .courseDetail--play-icon {
   height: 25px;
 }
+@media (min-width: 1450px) {
+  .courseDetail--main-container {
+    min-height: 1190px;
+    max-width: 1105px;
+  }
+}
+@media (min-width: 1500px) {
+  .courseDetail--main-container {
+    max-width: 1190px;
+  }
+}
+@media (min-width: 1550px) {
+  .courseDetail--main-container {
+    min-width: 1220px;
+  }
+}
+@media (min-width: 1565px) {
+  .courseDetail--main-container {
+    min-width: 1260px;
+  }
+}
+@media (min-width: 1650px) {
+  .courseDetail--main-container {
+    min-width: 1310px;
+  }
+}
+@media (min-width: 1800px) {
+  .courseDetail--main-container {
+    min-width: 1415px;
+  }
+}
+@media (min-width: 1880px) {
+  .courseDetail--main-container {
+    min-width: 1470px;
+  }
+}
 @media (max-width: 1240px) {
   .courseDetail--course-desc-title {
     font-size: 15px;
