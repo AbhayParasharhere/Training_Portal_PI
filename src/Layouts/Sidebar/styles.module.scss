@@ -3,7 +3,10 @@
   position: relative;
   gap: 25px;
   width: 100%;
-  max-width: 1800px;
+  max-width: 1600px;
+  // align-items: center;
+  // background-color: aqua;
+  justify-content: center;
 }
 // @media (max-width: 1130px) {
 //   .sidebarLayout--main-container {

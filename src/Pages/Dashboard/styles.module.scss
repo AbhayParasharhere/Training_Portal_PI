@@ -2,6 +2,12 @@
   display: flex;
   gap: 25px;
 }
+@media (min-width: 1550px) {
+  .dashboard--main-container {
+    min-height: 100%;
+    // background-color: black;
+  }
+}
 @media (max-width: 1130px) {
   .dashboard--main-container {
     padding: 20px;

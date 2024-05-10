@@ -293,6 +293,45 @@
   height: 100%;
 }
 //*** For tablet design ***
+@media (min-width: 1450px) {
+  .statsSummary--main-container {
+    max-width: 300px;
+    min-height: 100%;
+    // background-color: green;
+  }
+  .statsSummary--lists-container {
+    max-height: 200px;
+  }
+  .statsSummary--appointment-container {
+    height: 323px;
+  }
+  .statsSummary--appointment-title {
+    font-size: 19px;
+  }
+  .statsSummary--appointment-desc-text {
+    font-size: 15px;
+  }
+  .statsSummary--appointment-inner-container {
+    // padding: 25px;
+    // padding: 25px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 15px;
+    gap: 50px;
+    justify-content: center;
+  }
+  .statsSummary--meeting-title-name-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .statsSummary--meeting-title {
+    font-size: 16px;
+  }
+  .statsSummary--appointment-marker {
+    font-size: 15px;
+  }
+}
 
 @media (max-width: 1130px) {
   .statsSummary--main-container {
