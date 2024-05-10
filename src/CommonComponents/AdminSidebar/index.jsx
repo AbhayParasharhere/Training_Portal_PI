@@ -15,8 +15,8 @@ import { NavLink } from "react-router-dom";
 
 export default function AdminSidebar(props) {
   const adminMenuData = [
-    { icon: brokerStatIcon, title: "Broker Statistics", to: "/admin" },
     { icon: inviteIcon, title: "Invite", to: "invite" },
+    { icon: brokerStatIcon, title: "Broker Statistics", to: "/admin" },
     { icon: addCourseIcon, title: "Add courses", to: "add-course" },
     { icon: addResourcesIcon, title: "Add Resources", to: "add-documents" },
     {
@@ -74,11 +74,12 @@ export default function AdminSidebar(props) {
       <button
         className={styles["adminSidebar--mobile-hamburger"]}
         onClick={() => props.setMobileSidebar(true)}
-        style={{ display: !props.mobileSidebar ? "flex" : "none" }}
+        style={{ height: props.mobileSidebar && 0 }}
       >
         <img
           src={hamburgerIcon}
           className={styles["adminSidebar--mobile-hamburger-icon"]}
+          style={{ height: props.mobileSidebar && 0 }}
         />
       </button>
       <div

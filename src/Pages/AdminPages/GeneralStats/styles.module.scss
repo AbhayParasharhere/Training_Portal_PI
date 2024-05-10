@@ -1,0 +1,243 @@
+.statistics--main-container {
+  width: 100%;
+  padding: 30px 0px;
+  box-sizing: border-box;
+}
+.statistics--general-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  height: 160px;
+}
+.statistics--general-inner-container {
+  flex: 3;
+  display: flex;
+  gap: 10px;
+  height: 80%;
+}
+.statistics--general-progress-container {
+  box-sizing: border-box;
+  padding: 10px 20px;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-color: #f5f6fb;
+}
+.statistics--general-progress-inner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0px;
+  gap: 15px;
+}
+.statistics--general-progress-number {
+  font-family: Epilogue;
+  font-size: 55px;
+  font-weight: 700;
+  //   line-height: 82.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statistics--general-stat-title-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.statistics--general-stat-title {
+  font-family: Epilogue;
+  font-size: 18px;
+  font-weight: 500;
+  //   line-height: 27px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.statistics--progress-bar {
+  width: 100%;
+  border: 2px solid #3064d4;
+}
+.statistics--profile-container {
+  flex: 1;
+  background-color: #f5f6fb;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 15px 0px;
+  //   padding-bottom: 15px;
+  gap: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.statistics--profile-image {
+  height: 80%;
+  border-radius: 60%;
+}
+.statistics--user-name {
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+  color: #1e1e1e;
+}
+.statistics--graph-container {
+  height: 350px;
+  margin-top: 30px;
+  box-sizing: border-box;
+  background-color: #f5f6fb;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px 15px;
+}
+.statistics--client-graph-stat-switch {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.statistics--graph-title {
+  font-family: Epilogue;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  text-align: center;
+  color: #1a202c;
+}
+.statistics--time-switch-button {
+  width: 80px;
+  height: 35px;
+  background-color: #e8e8e8;
+  font-family: Epilogue;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  color: #1a202c;
+}
+.statistics--time-switch-button-container {
+  display: flex;
+  gap: 10px;
+}
+// @media (max-width: 1130px) {
+//   .statistics--main-container {
+//     padding: 15px;
+//   }
+// }
+@media (max-width: 800px) {
+  .statistics--general-progress-number {
+    font-size: 45px;
+  }
+  .statistics--general-stat-title {
+    font-size: 15px;
+  }
+}
+@media (max-width: 730px) {
+  .statistics--general-progress-container {
+    padding-left: 5px;
+    padding-right: 10px;
+  }
+}
+@media (max-width: 645px) {
+  .statistics--general-inner-container {
+    max-width: 300px;
+    flex-direction: column;
+  }
+  .statistics--general-progress-container {
+    padding: 20px 20px;
+    align-items: flex-start;
+  }
+  .statistics--general-container {
+    // max-width: 400px;
+    margin-bottom: 340px;
+    justify-content: space-between;
+  }
+  .statistics--profile-container {
+    min-width: 160px;
+  }
+}
+@media (max-width: 365px) {
+  .statistics--general-progress-number {
+    font-size: 40px;
+  }
+  .statistics--general-stat-title {
+    font-size: 13px;
+  }
+  .statistics--graph-title {
+    font-size: 13px;
+  }
+}
+@media (max-width: 345px) {
+  .statistics--general-progress-number {
+    font-size: 30px;
+  }
+  .statistics--general-stat-title {
+    font-size: 13px;
+  }
+  .statistics--profile-container {
+    min-width: 100px;
+    height: 140px;
+  }
+  .statistics--user-name {
+    font-size: 10px;
+  }
+  .statistics--profile-image {
+    height: 80px;
+  }
+}
+@media (max-width: 312px) {
+  .statistics--graph-title {
+    font-size: 12px;
+  }
+  .statistics--time-switch-button {
+    width: 60px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 290px) {
+  .statistics--general-progress-number {
+    font-size: 20px;
+    line-height: 20px;
+  }
+  .statistics--general-stat-title {
+    font-size: 10px;
+    line-height: 0px;
+  }
+  // .statistics--general-container {
+  //   margin-bottom: 180px;
+  // }
+}
+@media (max-width: 275px) {
+  .statistics--graph-title {
+    font-size: 10px;
+  }
+  .statistics--time-switch-button {
+    width: 50px;
+    height: 30px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 255px) {
+  .statistics--general-progress-container {
+    padding: 20px 10px;
+  }
+}
+@media (max-width: 245px) {
+  .statistics--profile-container {
+    min-width: 80px;
+    height: 100px;
+  }
+  .statistics--profile-image {
+    height: 50px;
+  }
+}
+@media (max-width: 238px) {
+  .statistics--graph-container {
+    padding: 5px;
+  }
+}

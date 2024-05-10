@@ -7,7 +7,71 @@ import {
   PrimaryDataContext,
   RealTimeDataContext,
 } from "../../context/primaryDataContext";
+export function getMondayDate() {
+  // Create a new date object for today
+  const today = new Date();
 
+  // Get the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+  const currentDayOfWeek = today.getDay();
+
+  // Calculate the difference in days from today to the most recent Monday
+  let daysToMonday = (currentDayOfWeek + 6) % 7;
+
+  // Adjust the date by subtracting the calculated number of days
+  const mondayDate = new Date(today);
+  mondayDate.setDate(today.getDate() - daysToMonday);
+
+  // Return the date object for Monday
+  return mondayDate;
+}
+export function getWeeklyAddedClientsSales(clients) {
+  if (!clients) return console.log("No clients");
+  const weeklyClients = [0, 0, 0, 0, 0, 0, 0]; // Initialize with 7 days
+  const mondayDate = getMondayDate();
+  // console.log("Monday date: ", mondayDate);
+  const upcomingSundayDate = new Date(mondayDate);
+  upcomingSundayDate.setDate(mondayDate.getDate() + 6);
+  // console.log("Upcoming sunday date: ", upcomingSundayDate);
+  clients
+    .filter((client) => {
+      console.log("sales Dates: ", new Date(client?.created_at.toDate()));
+      console.log(
+        "Comparison: Monday date comparison",
+        "Sales Date: ",
+        new Date(client?.created_at.toDate()),
+        "Monday Date: ",
+        mondayDate,
+        new Date(client?.created_at.toDate()).getDate() >= mondayDate.getDate()
+      );
+      return (
+        new Date(client?.created_at.toDate()).getDate() >=
+          mondayDate.getDate() &&
+        new Date(client?.created_at.toDate()).getDate() <=
+          upcomingSundayDate.getDate()
+      );
+    })
+    .map((client) => {
+      const clientCreatedDate = client?.created_at?.toDate().getDay();
+      console.log("Sales created date: ", clientCreatedDate);
+
+      weeklyClients[clientCreatedDate] += 1;
+    });
+  return weeklyClients;
+}
+export function getYearlyClientSalesData(statData) {
+  if (!statData) return;
+  const currentDate = new Date();
+  const yearlyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const currentYearStat = statData?.filter(
+    (statDate) =>
+      statDate?.created_at?.toDate().getFullYear() === currentDate.getFullYear()
+  );
+  currentYearStat.map((data, index) => {
+    const dataCreatedYear = data?.created_at?.toDate().getMonth();
+    yearlyData[dataCreatedYear] += 1;
+  });
+  return yearlyData;
+}
 export default function Statistics() {
   const primaryData = useContext(PrimaryDataContext);
   const realTimeData = useContext(RealTimeDataContext);
@@ -115,75 +179,6 @@ export default function Statistics() {
     numberOfUniqueVideosByCourse
   );
 
-  function getMondayDate() {
-    // Create a new date object for today
-    const today = new Date();
-
-    // Get the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-    const currentDayOfWeek = today.getDay();
-
-    // Calculate the difference in days from today to the most recent Monday
-    let daysToMonday = (currentDayOfWeek + 6) % 7;
-
-    // Adjust the date by subtracting the calculated number of days
-    const mondayDate = new Date(today);
-    mondayDate.setDate(today.getDate() - daysToMonday);
-
-    // Return the date object for Monday
-    return mondayDate;
-  }
-
-  const getWeeklyAddedClientsSales = (clients) => {
-    if (!clients) return console.log("No clients");
-    const weeklyClients = [0, 0, 0, 0, 0, 0, 0]; // Initialize with 7 days
-    const mondayDate = getMondayDate();
-    // console.log("Monday date: ", mondayDate);
-    const upcomingSundayDate = new Date(mondayDate);
-    upcomingSundayDate.setDate(mondayDate.getDate() + 6);
-    // console.log("Upcoming sunday date: ", upcomingSundayDate);
-    clients
-      .filter((client) => {
-        console.log("sales Dates: ", new Date(client?.created_at.toDate()));
-        console.log(
-          "Comparison: Monday date comparison",
-          "Sales Date: ",
-          new Date(client?.created_at.toDate()),
-          "Monday Date: ",
-          mondayDate,
-          new Date(client?.created_at.toDate()).getDate() >=
-            mondayDate.getDate()
-        );
-        return (
-          new Date(client?.created_at.toDate()).getDate() >=
-            mondayDate.getDate() &&
-          new Date(client?.created_at.toDate()).getDate() <=
-            upcomingSundayDate.getDate()
-        );
-      })
-      .map((client) => {
-        const clientCreatedDate = client?.created_at?.toDate().getDay();
-        console.log("Sales created date: ", clientCreatedDate);
-
-        weeklyClients[clientCreatedDate] += 1;
-      });
-    return weeklyClients;
-  };
-
-  const getYearlyClientSalesData = (statData) => {
-    if (!statData) return;
-    const currentDate = new Date();
-    const yearlyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    const currentYearStat = statData?.filter(
-      (statDate) =>
-        statDate?.created_at?.toDate().getFullYear() ===
-        currentDate.getFullYear()
-    );
-    currentYearStat.map((data, index) => {
-      const dataCreatedYear = data?.created_at?.toDate().getMonth();
-      yearlyData[dataCreatedYear] += 1;
-    });
-    return yearlyData;
-  };
   let weekClientData = [];
   let yearClientData = [];
   let weekSalesData = [];
@@ -197,33 +192,6 @@ export default function Statistics() {
     yearSalesData = getYearlyClientSalesData(sales);
     console.log("Weekly: ", weekSalesData);
   }
-  // useMemo(() => {
-  //   async function fetchData() {
-  //     try {
-  //       setLoading(true);
-  //       const currentDate = new Date();
-  //       const previousDate = new Date();
-  //       previousDate.setDate(currentDate.getDate() - 7);
-
-  //       // Get total videos watched by the user
-  //       const videoData = await getVideosWatched(
-  //         currentUser?.uid,
-  //         previousDate,
-  //         currentDate
-  //       );
-
-  //       setStatData((prev) => ({
-  //         ...prev,
-  //         videoCount: videoData?.count,
-  //       }));
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setLoading(false);
-  //       console.error(error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [currentUser]);
 
   const generalStatData = [
     {
