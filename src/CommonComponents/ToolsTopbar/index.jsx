@@ -80,6 +80,7 @@ export default function ToolsTopbar(props) {
             borderColor:
               props.documentType === "productLinks" ? "#123c97" : "#a1a1a1",
           }}
+          onClick={() => props.setDocumentType("productLinks")}
         >
           Product
         </div>
