@@ -20,6 +20,7 @@ import {
 import { getFutureTimeDifference } from "../TabletImportantUpdates";
 import { pushRecentNotifications } from "../Home";
 import ProfileChangeModal from "../ProfileChangeModal";
+import { EditTwoTone } from "@ant-design/icons";
 import { validateLink } from "../../../../utils/validation";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
@@ -180,12 +181,25 @@ export default function StatsSummary() {
       <div className={styles["statsSummary--profile-container"]}>
         <p className={styles["statsSummary--title"]}>Statistics</p>
         <div className={styles["statsSummary--profile-inner-container"]}>
-          <img
-            src={secureLocalStorage.getItem("userDetails")?.[1] || samplePhoto}
-            className={styles["statsSummary--profile-image"]}
-            onClick={() => setModalOpen(true)}
-            style={{ cursor: "pointer" }}
-          />
+          <div>
+            <div
+              className={styles["image-wrapper"]}
+              style={{ position: "relative" }}
+            >
+              <img
+                src={
+                  secureLocalStorage.getItem("userDetails")?.[1] || samplePhoto
+                }
+                className={styles["statsSummary--profile-image"]}
+              />
+              <div
+                className={styles["image-edit-icon"]}
+                onClick={() => setModalOpen(true)}
+              >
+                <EditTwoTone style={{ fontSize: "25px" }} />
+              </div>
+            </div>
+          </div>
           <p className={styles["statsSummary--name"]}>
             {secureLocalStorage.getItem("userDetails")?.[0] || "Broker"}
           </p>

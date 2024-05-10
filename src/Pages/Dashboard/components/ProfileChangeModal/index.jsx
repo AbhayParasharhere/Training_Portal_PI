@@ -5,7 +5,6 @@ import {
   InfoCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { update } from "firebase/database";
 import { updateNameAndPhoto } from "../../../../Firebase/updateProfile";
 import { AuthContext } from "../../../../context/authContext";
 import styles from "./styles.module.scss";
