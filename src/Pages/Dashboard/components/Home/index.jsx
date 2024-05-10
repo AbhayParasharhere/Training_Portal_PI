@@ -22,6 +22,7 @@ import {
   getTimeDifference,
 } from "../TabletImportantUpdates";
 import { getUpcomingEvents } from "../../../../utils/date";
+import { quotes } from "../../../../staticData/Quotes";
 
 const pushRecentNotifications = (
   announcements,
@@ -76,6 +77,8 @@ const pushRecentNotifications = (
 };
 export { pushRecentNotifications };
 export default function Home() {
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
   const realTimeData = useContext(RealTimeDataContext);
   const appointments = realTimeData?.appointments;
   // console.log("Realtime Appointments", appointments);
@@ -346,11 +349,10 @@ export default function Home() {
           />
           <div className={styles["home--course-greeting-text-container"]}>
             <p className={styles["home--course-greeting-title"]}>
-              Mastering Risk Management in Insurance
+              Quotes for your inspiration
             </p>
             <p className={styles["home--course-greeting-desc"]}>
-              "Congratulations on completing your online course! Wishing you
-              continued success!"
+              "{quote?.quote}" - {quote?.author}
             </p>
           </div>
         </div>
