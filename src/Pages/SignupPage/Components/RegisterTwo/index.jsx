@@ -6,10 +6,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { storeUserAdditionalDetails } from "../../../../Firebase/authentication";
 import { ClipLoader } from "react-spinners";
 import secureLocalStorage from "react-secure-storage";
+import { Button as AntButton, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 export default function Register_2Component() {
   const [loading, setLoading] = useState(false);
   const [additionalDetails, setAdditionalDetails] = useState();
+  const [photo, setPhoto] = useState();
   const location = useLocation();
   const navigate = useNavigate();
   const [phoneError, setPhoneError] = useState();
@@ -63,13 +66,14 @@ export default function Register_2Component() {
 
         const storeAdditionalDetailsResponse = await storeUserAdditionalDetails(
           uid,
-          additionalDetails
+          additionalDetails,
+          photo
         );
 
         // Also store the user details in the local storage
         const userName = additionalDetails?.name || "Broker";
         const userPhoto =
-          additionalDetails?.photoURL ||
+          additionalDetails?.photo ||
           "https://firebasestorage.googleapis.com/v0/b/trainingportalpi.appspot.com/o/userPhoto%2FtOslDTjJEMXQFC1JxvDM1LoItaS2.jpg?alt=media&token=00af2fdd-b286-448b-a674-0f644ab23ccf";
         setLoading(false);
 
@@ -120,7 +124,6 @@ export default function Register_2Component() {
           name="name"
           onChange={handleChange}
         />
-
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Date of Birth"
@@ -128,7 +131,6 @@ export default function Register_2Component() {
           type="date"
           onChange={handleChange}
         />
-
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Phone number"
@@ -136,14 +138,25 @@ export default function Register_2Component() {
           style={phoneError ? errorStyle : {}}
           onChange={handleChange}
         />
-        <div className={styles["phone-error"]}>{phoneError}</div>
+        {phoneError && (
+          <div className={styles["phone-error"]}>{phoneError}</div>
+        )}
+        <div style={{ width: "64%" }}>
+          <Upload
+            onChange={(info) => {
+              setPhoto(info.file.originFileObj);
+            }}
+            maxCount={1}
+          >
+            <AntButton icon={<UploadOutlined />}>Upload Photo</AntButton>
+          </Upload>
+        </div>
         <input
           className={styles["RegisterComponent--main--input"]}
           placeholder="Are you a New or Existing Broker?"
           name="brokerStatus"
           onChange={handleChange}
         />
-
         <div className={styles["RegisterComponent--main--Residence"]}>
           <input
             className={styles["RegisterComponent--main--Residence--input"]}

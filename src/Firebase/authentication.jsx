@@ -1,4 +1,4 @@
-import { auth } from "./firebaseConfig";
+import { auth, storage } from "./firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -12,6 +12,7 @@ import { logEvent } from "firebase/analytics";
 import { toast } from "react-toastify";
 import { acceptInvite } from "./inviteLogic";
 import firebase from "firebase/compat/app";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 // import { FacebookAuthProvider } from "firebase/auth/cordova";
 
 const signInEmailAndPassword = async (email, password, setLoading) => {
@@ -32,18 +33,32 @@ const signInEmailAndPassword = async (email, password, setLoading) => {
 };
 
 // store the additional details in the userDetail collection
-const storeUserAdditionalDetails = async (uid, additionalDetails) => {
-  console.log("In auth storeAdditional details", uid, additionalDetails);
+const storeUserAdditionalDetails = async (uid, additionalDetails, photo) => {
+  console.log("In auth storeAdditional details", uid, additionalDetails, photo);
 
   // create the doc in the collection named userDetail with the uid of the user as the doc id
   // and store the additional details in the doc
   try {
+    // Upload the photo to the firebase storage
+    let photoUrl = null;
+    if (photo) {
+      console.log("Uploading photo", photo);
+      const storageRef = ref(storage, `userPhoto/${uid}`);
+      await uploadBytes(storageRef, photo);
+      console.log("Photo uploaded successfully");
+      photoUrl = await getDownloadURL(storageRef);
+      console.log("Photo URL: ", photoUrl);
+      if (photoUrl) {
+        additionalDetails.photoURL = photoUrl;
+      }
+    }
     await setDoc(doc(db, "userDetail", uid), additionalDetails);
 
+    toast.success("Details stored successfully");
     return "User details stored successfully";
   } catch (error) {
     console.error(error);
-
+    toast.error("Failed to store your details");
     return "Failed";
   }
 };
