@@ -1,0 +1,28 @@
+.clientGoals--main-container {
+  max-width: 100%;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: #f5f6fb;
+}
+.clientGoals--title {
+  font-family: Open Sans;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+}
+.clientGoals--input {
+  width: 100%;
+  height: 350px;
+  resize: none;
+  border: none;
+  box-sizing: border-box;
+  padding: 20px;
+  margin-top: 15px;
+}
+.clientGoals--input:focus {
+  outline: none;
+  border: 1px solid #3064d4;
+}

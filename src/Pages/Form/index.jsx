@@ -5,7 +5,7 @@ import arrow_down from "./Images/arrow_down.png";
 import arrow_up from "./Images/arrow_up.png";
 import { useOutletContext } from "react-router-dom";
 
-export default function ClientInfo(props) {
+export default function ClientInfo() {
   const clientData = useOutletContext();
   console.log("client data: ", clientData?.updatedClientData);
   // console.log("This is the client data", clientData?.clientData);
