@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import styles from "./styles.module.scss";
 import { RealTimeDataContext } from "../../context/primaryDataContext";
 import { AuthContext } from "../../context/authContext";
@@ -20,72 +20,82 @@ export default function Webinar() {
     setReadMore((prev) => [...prev, index]);
   };
 
-  const renderWebinar = webinarData?.map((webinar, index) => {
-    return (
-      <div className={styles["webinar--container"]} key={index}>
-        <p className={styles["webinar--title"]}>{webinar.title}</p>
-        <div className={styles["webinar--details-container"]}>
-          <p className={styles["webinar--desc-text"]}>
-            Host: {webinar?.host} {webinar?.hostPosition}
-          </p>
-          <p className={styles["webinar--desc-text"]}>
-            Date: {new Date(webinar?.time)?.toLocaleDateString()}
-          </p>
-          <p className={styles["webinar--desc-text"]}>
-            Time: {new Date(webinar?.time)?.toLocaleTimeString()}
-          </p>
-        </div>
-        <div className={styles["webinar--agenda-container"]}>
-          <p className={styles["webinar--agenda-text"]}>Agenda:</p>
-          <ol>
-            {webinar.agenda.map((agenda) => {
-              return <li className={styles["webinar--desc-text"]}>{agenda}</li>;
-            })}
-            <p
-              className={styles["webinar--read-more"]}
-              onClick={() => handleClick(index)}
-            >
-              {readMore.includes(index) ? "Show less" : "Read More..."}
+  const renderWebinar = useMemo(() => {
+    const sortedWebinars = [...webinarData].sort(
+      (a, b) => new Date(a.time) - new Date(b.time)
+    );
+    return sortedWebinars?.map((webinar, index) => {
+      return (
+        <div className={styles["webinar--container"]} key={index}>
+          <p className={styles["webinar--title"]}>{webinar.title}</p>
+          <div className={styles["webinar--details-container"]}>
+            <p className={styles["webinar--desc-text"]}>
+              Host: {webinar?.host} {webinar?.hostPosition}
             </p>
-          </ol>
-        </div>
-        <div className={styles["webinar--description-container"]}>
-          <p
-            className={styles["webinar--desc-text"]}
+            <p className={styles["webinar--desc-text"]}>
+              Date: {new Date(webinar?.time)?.toLocaleDateString()}
+            </p>
+            <p className={styles["webinar--desc-text"]}>
+              Time: {new Date(webinar?.time)?.toLocaleTimeString()}
+            </p>
+          </div>
+          <div className={styles["webinar--agenda-container"]}>
+            <p className={styles["webinar--agenda-text"]}>Agenda:</p>
+            <ol>
+              {webinar.agenda.map((agenda) => {
+                return (
+                  <li className={styles["webinar--desc-text"]}>{agenda}</li>
+                );
+              })}
+              <p
+                className={styles["webinar--read-more"]}
+                onClick={() => handleClick(index)}
+              >
+                {readMore.includes(index) ? "Show less" : "Read More..."}
+              </p>
+            </ol>
+          </div>
+          <div className={styles["webinar--description-container"]}>
+            <p
+              className={styles["webinar--desc-text"]}
+              style={{
+                color: "#393E46",
+                display: readMore.includes(index) ? "inline" : "none",
+              }}
+            >
+              <span className={styles["webinar--agenda-text"]}>
+                Description:
+              </span>{" "}
+              {webinar.description}
+            </p>
+          </div>
+          <a
+            className={styles["webinar--join-button"]}
+            href={webinar?.link}
+            target="_blank"
             style={{
-              color: "#393E46",
-              display: readMore.includes(index) ? "inline" : "none",
+              marginTop: 20,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textDecoration: "none",
+              backgroundColor:
+                new Date(webinar?.time).getDate() < new Date().getDate()
+                  ? "#686868"
+                  : "#A80532F0",
+              pointerEvents:
+                new Date(webinar?.time).getDate() < new Date().getDate()
+                  ? "none"
+                  : "all",
             }}
           >
-            <span className={styles["webinar--agenda-text"]}>Description:</span>{" "}
-            {webinar.description}
-          </p>
+            Join Link
+          </a>{" "}
         </div>
-        <a
-          className={styles["webinar--join-button"]}
-          href={webinar?.link}
-          target="_blank"
-          style={{
-            marginTop: 20,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            textDecoration: "none",
-            backgroundColor:
-              new Date(webinar?.time).getDate() < new Date().getDate()
-                ? "#686868"
-                : "#A80532F0",
-            pointerEvents:
-              new Date(webinar?.time).getDate() < new Date().getDate()
-                ? "none"
-                : "all",
-          }}
-        >
-          Join Link
-        </a>{" "}
-      </div>
-    );
-  });
+      );
+    });
+  }, [webinarData]);
+
   const renderAppointment = appointmentData?.map((appointment, index) => {
     const selectedClient = clientData?.filter(
       (client) => client.id === appointment?.clientID
