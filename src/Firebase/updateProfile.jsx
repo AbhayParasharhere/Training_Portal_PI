@@ -2,7 +2,6 @@ import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "./firebaseConfig";
-import secureLocalStorage from "react-secure-storage";
 
 const updateNameAndPhoto = async (uid, name, photo) => {
   try {
@@ -17,11 +16,18 @@ const updateNameAndPhoto = async (uid, name, photo) => {
       console.log("Photo URL: ", photoUrl);
     }
     const userDetailsRef = doc(db, "userDetail", uid);
-    await updateDoc(userDetailsRef, {
-      name,
-      photoURL: photoUrl,
-    });
-    toast.success("Profile details updated successfully");
+    let updatedUserDetails = {};
+    if (name) {
+      updatedUserDetails = { ...updatedUserDetails, name };
+    }
+    if (photoUrl !== null && photoUrl !== undefined && photoUrl !== "") {
+      updatedUserDetails = { ...updatedUserDetails, photoURL: photoUrl };
+    }
+
+    await updateDoc(userDetailsRef, updatedUserDetails);
+    toast.success(
+      "Profile details updated successfully. Refresh the page to see changes"
+    );
   } catch (error) {
     toast.error("Error updating profile details");
     console.log("Error updating profile details: ", error);
