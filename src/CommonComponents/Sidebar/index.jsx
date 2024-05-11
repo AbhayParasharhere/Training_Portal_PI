@@ -5,6 +5,7 @@ import dashboardRedIcon from "./images/dashboard-red-icon.png";
 import coursesIcon from "./images/courses-icon.png";
 import coursesRedIcon from "./images/courses-red-icon.png";
 import productTrainingIcon from "./images/productTraining-icon.png";
+import productTrainingRedIcon from "./images/productTraining-red-icon.png";
 import statisticsIcon from "./images/statistics-icon.png";
 import statisticsRedIcon from "./images/statistics-red-icon.png";
 import clientsIcon from "./images/clients-icon.png";
@@ -52,7 +53,7 @@ export default function Sidebar(props) {
       icon: productTrainingIcon,
       title: "Product Training",
       link: "/productCourses",
-      clickedIcon: productTrainingIcon,
+      clickedIcon: productTrainingRedIcon,
     },
     {
       icon: statisticsIcon,
