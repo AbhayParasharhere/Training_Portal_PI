@@ -59,6 +59,7 @@ import MakeAnnouncements from "./Pages/AdminPages/MakeAnnouncement";
 import HostWebinar from "./Pages/AdminPages/HostWebinar";
 import AddDocuments from "./Pages/AdminPages/AddDocuments";
 import PeopleStats from "./Pages/AdminPages/PeopleStats";
+import ClientGoals from "./Pages/Finance Goals";
 
 // Sign Up steps
 // First take in the email and password, confirmPassword in 1 page
@@ -112,7 +113,7 @@ const router = createBrowserRouter(
         <Route path="/client-detail/:clientId" element={<ClientData />}>
           <Route index element={<ClientInfo />} />
           <Route path="policies" element={<PurchasedPolicy />} />
-          <Route path="goals" element={<ClientInfo />} />
+          <Route path="goals" element={<ClientGoals />} />
         </Route>
         <Route path="/connect" element={<PostQues />} />
         <Route path="/add-document" element={<UploadForm />} />
