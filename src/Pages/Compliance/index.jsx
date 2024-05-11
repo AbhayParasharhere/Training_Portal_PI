@@ -25,7 +25,9 @@ export default function Compliance() {
       >
         <div className={styles["compliance--document-icon-name-container"]}>
           <img className={styles["compliance--document-icon"]} src={fileIcon} />
-          <p>{document?.documentName}</p>
+          <p className={styles["compliance--document-name"]}>
+            {document?.documentName}
+          </p>
         </div>
         <img src={arrowIcon} className={styles["compliance--document-icon"]} />
       </a>

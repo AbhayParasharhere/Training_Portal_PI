@@ -183,6 +183,16 @@
     padding: 15px;
     padding-top: 25px;
   }
+  .salesDetails--input-text {
+    max-width: none;
+  }
+  .salesDetails--input {
+    max-width: none;
+    min-width: 200px;
+  }
+  .salesDetails--input-dropdown {
+    min-width: 200px;
+  }
 }
 @media (max-width: 250px) {
   .clientDetails--navigation-text {

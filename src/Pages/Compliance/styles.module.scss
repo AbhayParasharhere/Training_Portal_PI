@@ -113,6 +113,9 @@
   .compliance--document-list {
     gap: 15px;
   }
+  .compliance--document-name {
+    min-width: 100px;
+  }
 }
 @media (max-width: 285px) {
   .compliance--document-icon {
