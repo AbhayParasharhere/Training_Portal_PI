@@ -77,8 +77,9 @@ const pushRecentNotifications = (
 };
 export { pushRecentNotifications };
 export default function Home() {
-  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  let quote = quotes[0];
 
+  //
   const realTimeData = useContext(RealTimeDataContext);
   const appointments = realTimeData?.appointments;
   // console.log("Realtime Appointments", appointments);
@@ -235,6 +236,7 @@ export default function Home() {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
+    quote = quotes[Math.floor(Math.random() * quotes.length)];
     pushRecentNotifications(
       announcements,
       webinars,
