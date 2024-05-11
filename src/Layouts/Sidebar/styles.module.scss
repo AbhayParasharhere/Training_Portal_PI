@@ -6,7 +6,12 @@
   max-width: 1600px;
   // align-items: center;
   // background-color: aqua;
-  justify-content: center;
+  // justify-content: center;
+}
+@media (min-width: 1300px) {
+  .sidebarLayout--main-container {
+    justify-content: center;
+  }
 }
 // @media (max-width: 1130px) {
 //   .sidebarLayout--main-container {

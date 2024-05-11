@@ -369,6 +369,11 @@ td {
     left: -280px; /* Move the dialog box to the left side of the icon */
   }
 }
+@media (max-width: 1130px) {
+  .ClientComponent-wrapper {
+    padding: 15px;
+  }
+}
 @media (max-width: 1024px) {
   .ClientComponent-dialog-show {
     left: -250px; /* Move the dialog box to the left side of the icon */
