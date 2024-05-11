@@ -7,11 +7,8 @@ import { updateClient } from "../../Firebase/updateSalesClients";
 import { toast } from "react-toastify";
 
 export default function ClientTopbar(props) {
-  function SaveChanges() {
-    console.log("Save Changes");
-  }
-
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const validateEmail = (email) => {
     return String(email)
@@ -20,29 +17,33 @@ export default function ClientTopbar(props) {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
-  const handleUpdateClient = () => {
-    // if (!props.updateClientData || !props.clientId) {
-    //   toast.error("An error occured");
-    // }
-    if (
-      props.updatedClientData.name === "" ||
-      props.updatedClientData.gender === "" ||
-      props.updatedClientData.email === "" ||
-      props.updatedClientData.phone_number === "" ||
-      props.updatedClientData.address === ""
-    ) {
-      toast.error("Fill the requirements");
-      return;
-    } else {
-      if (!validateEmail(props.updatedClientData.email)) {
-        toast.error("Invalid email format.");
+  const handleUpdateClient = async () => {
+    try {
+      if (
+        props.updatedClientData.name === "" ||
+        props.updatedClientData.gender === "" ||
+        props.updatedClientData.email === "" ||
+        props.updatedClientData.phone_number === "" ||
+        props.updatedClientData.address === ""
+      ) {
+        toast.error("Fill the requirements");
         return;
-      } else if (props.updatedClientData.phone_number.length !== 10) {
-        toast.error("Invalid phone number format.");
-        return;
+      } else {
+        if (!validateEmail(props.updatedClientData.email)) {
+          toast.error("Invalid email format.");
+          return;
+        } else if (props.updatedClientData.phone_number.length !== 10) {
+          toast.error("Invalid phone number format.");
+          return;
+        }
       }
+      setLoading(true);
+      await updateClient(props.updatedClientData, props.clientId);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
     }
-    updateClient(props.updatedClientData, props.clientId);
   };
   const activeStyles = { color: "#123c97", borderColor: "#123c97" };
 
@@ -80,7 +81,7 @@ export default function ClientTopbar(props) {
           className={styles["ClientInfo-wrapper-topbar-buttons-save"]}
           onClick={() => handleUpdateClient()}
         >
-          Save Changes
+          {loading ? "Loading..." : "Save Changes"}
         </button>
         <button
           className={styles["ClientInfo-wrapper-topbar-buttons-meet"]}

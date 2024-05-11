@@ -40,6 +40,7 @@ export default function PostList(props) {
     });
     setPosts(filterCategoryPost);
   }, [filter]);
+
   const arrowOptions = [
     { text: "All", value: "" },
     { text: "Technical Support", value: "Technical Support" },
@@ -56,93 +57,102 @@ export default function PostList(props) {
     props.setSelectedPost(post);
   };
 
-  const renderPosts = posts?.map((post, index) => {
-    return (
-      <div
-        className={styles["postList--post-container"]}
-        key={index}
-        onClick={() => {
-          reportContainer && setReportContainer(null);
-        }}
-      >
-        <div className={styles["postList--profile-details-container"]}>
-          <div className={styles["postList--profile-image-name-container"]}>
-            <img
-              src={post?.photo || samplePhoto}
-              className={styles["postList--profile-image"]}
-              style={post?.photo ? { borderRadius: "50%" } : {}}
-            />
-            <div>
-              <p className={styles["postList--profile-name"]}>
-                {post?.userName}
-              </p>
-              <p className={styles["postList--post-time"]}>
-                Posted {getTimeDifference(post?.created_at.toDate())}
-              </p>
-            </div>
-          </div>
-          <div className={styles["postList--catagory-container"]}>
-            <div className={styles["postList--catagory"]}>{post?.category}</div>
-          </div>
-        </div>
-        <div className={styles["postList--post-details-container"]}>
-          <p className={styles["postList--post-text"]}>{post?.post}</p>
-          <hr className={styles["postList--divider"]} />
-          <div className={styles["postList--answer-container"]}>
-            <div className={styles["postList--total-answers-container"]}>
-              {post?.comments?.length && (
-                <img
-                  src={combinedProfile}
-                  className={styles["postList--combined-profile"]}
-                />
-              )}
+  const renderPosts = useMemo(() => {
+    // Sort posts by date in descending order
+    const sortedPosts = [...posts].sort(
+      (a, b) =>
+        new Date(b.created_at.toDate()) - new Date(a.created_at.toDate())
+    );
 
-              <p className={styles["postList--total-answers"]}>
-                {post?.comments?.length
-                  ? `+${post?.comments?.length} Answered`
-                  : "No answers yet"}
-              </p>
+    return sortedPosts.map((post, index) => {
+      return (
+        <div
+          className={styles["postList--post-container"]}
+          key={index}
+          onClick={() => {
+            reportContainer && setReportContainer(null);
+          }}
+        >
+          <div className={styles["postList--profile-details-container"]}>
+            <div className={styles["postList--profile-image-name-container"]}>
+              <img
+                src={post?.photo || samplePhoto}
+                className={styles["postList--profile-image"]}
+                style={post?.photo ? { borderRadius: "50%" } : {}}
+              />
+              <div>
+                <p className={styles["postList--profile-name"]}>
+                  {post?.userName}
+                </p>
+                <p className={styles["postList--post-time"]}>
+                  Posted {getTimeDifference(post?.created_at.toDate())}
+                </p>
+              </div>
             </div>
-            <div className={styles["postList--answer-button-container"]}>
-              <button
-                className={styles["postList--answer-button"]}
-                onClick={() => handleCommentPage(post)}
-              >
-                Answer Question
-              </button>
-              <button
-                className={styles["postList--option-button"]}
-                onClick={() => {
-                  setReportContainer(index + 1);
-                }}
-              >
-                <img
-                  src={optionsIcon}
-                  className={styles["postList--option-icon"]}
-                />
-              </button>
-              <div
-                style={{
-                  display: reportContainer === index + 1 ? "flex" : "none",
-                }}
-                className={styles["postList--report"]}
-              >
-                <img
-                  src={reportIcon}
-                  className={styles["postList--report-icon"]}
-                />
-                Report issue
+            <div className={styles["postList--catagory-container"]}>
+              <div className={styles["postList--catagory"]}>
+                {post?.category}
+              </div>
+            </div>
+          </div>
+          <div className={styles["postList--post-details-container"]}>
+            <p className={styles["postList--post-text"]}>{post?.post}</p>
+            <hr className={styles["postList--divider"]} />
+            <div className={styles["postList--answer-container"]}>
+              <div className={styles["postList--total-answers-container"]}>
+                {post?.comments?.length && (
+                  <img
+                    src={combinedProfile}
+                    className={styles["postList--combined-profile"]}
+                  />
+                )}
+
+                <p className={styles["postList--total-answers"]}>
+                  {post?.comments?.length
+                    ? `+${post?.comments?.length} Answered`
+                    : "No answers yet"}
+                </p>
+              </div>
+              <div className={styles["postList--answer-button-container"]}>
+                <button
+                  className={styles["postList--answer-button"]}
+                  onClick={() => handleCommentPage(post)}
+                >
+                  Answer Question
+                </button>
+                <button
+                  className={styles["postList--option-button"]}
+                  onClick={() => {
+                    setReportContainer(index + 1);
+                  }}
+                >
+                  <img
+                    src={optionsIcon}
+                    className={styles["postList--option-icon"]}
+                  />
+                </button>
+                <div
+                  style={{
+                    display: reportContainer === index + 1 ? "flex" : "none",
+                  }}
+                  className={styles["postList--report"]}
+                >
+                  <img
+                    src={reportIcon}
+                    className={styles["postList--report-icon"]}
+                  />
+                  Report issue
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-  });
+      );
+    });
+  }, [posts, reportContainer]);
 
   const [arrowState, setArrowState] = useState(false);
-  console.log("filter: ", filter);
-  console.log("Filter in posts active", filter);
+
   return (
     <div
       className={styles["postList--main-container"]}

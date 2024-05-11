@@ -16,17 +16,24 @@ export default function AddComment(props) {
   const post = props.allPosts.find(
     (post) => post.id === props.selectedPost?.id
   );
+  const [loading, setLoading] = useState(false);
   const handleAddComment = async () => {
-    if (!commentData.comment) {
-      toast.error("Please enter a comment");
-      return;
-    }
+    try {
+      if (!commentData.comment) {
+        toast.error("Please enter a comment");
+        return;
+      }
 
-    console.log("Comment data", commentData);
-    const userName = secureLocalStorage.getItem("userDetails")[0];
-    const userPhoto = secureLocalStorage.getItem("userDetails")[1];
-    await addComment({ ...commentData, userName, userPhoto }, post?.id);
-    setCommentData({});
+      console.log("Comment data", commentData);
+      const userName = secureLocalStorage.getItem("userDetails")[0];
+      const userPhoto = secureLocalStorage.getItem("userDetails")[1];
+      setLoading(true);
+      await addComment({ ...commentData, userName, userPhoto }, post?.id);
+      setCommentData({ comment: "" });
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   const [commentData, setCommentData] = useState({});
@@ -142,7 +149,7 @@ export default function AddComment(props) {
             className={styles["addComment--add-post-button"]}
             onClick={handleAddComment}
           >
-            Post
+            {loading ? "Posting..." : "Post"}
           </button>
           <button
             style={{
