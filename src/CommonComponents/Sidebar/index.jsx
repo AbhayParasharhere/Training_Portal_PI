@@ -44,6 +44,18 @@ export default function Sidebar(props) {
       clickedIcon: dashboardRedIcon,
     },
     {
+      icon: addSalesIcon,
+      title: "Add Sales",
+      link: "/addSales",
+      clickedIcon: addSalesRedIcon,
+    },
+    {
+      icon: clientsIcon,
+      title: "Clients",
+      link: "/clients",
+      clickedIcon: clientsRedIcon,
+    },
+    {
       icon: coursesIcon,
       title: "Courses",
       link: "/courses",
@@ -56,30 +68,24 @@ export default function Sidebar(props) {
       clickedIcon: productTrainingRedIcon,
     },
     {
-      icon: statisticsIcon,
-      title: "Statistics",
-      link: "/statistics",
-      clickedIcon: statisticsRedIcon,
-    },
-    {
-      icon: clientsIcon,
-      title: "Clients",
-      link: "/clients",
-      clickedIcon: clientsRedIcon,
-    },
-    ,
-    {
-      icon: addSalesIcon,
-      title: "Add Sales",
-      link: "/addSales",
-      clickedIcon: addSalesRedIcon,
-    },
-    {
       icon: toolsResourcesIcon,
       title: "Tools and Resources",
       link: "/tools",
       clickedIcon: toolsResourcesRedIcon,
     },
+    {
+      icon: complianceIcon,
+      title: "Compliance and Policy",
+      link: "/compliance",
+      clickedIcon: complianceRedIcon,
+    },
+    {
+      icon: statisticsIcon,
+      title: "Statistics",
+      link: "/statistics",
+      clickedIcon: statisticsRedIcon,
+    },
+    ,
     {
       icon: announcementIcon,
       title: "Announcements",
@@ -88,15 +94,9 @@ export default function Sidebar(props) {
     },
     {
       icon: webinarIcon,
-      title: "Webinars and Appointments",
+      title: "Meetings",
       link: "/webinar",
       clickedIcon: webinarRedIcon,
-    },
-    {
-      icon: complianceIcon,
-      title: "Compliance and Policy",
-      link: "/compliance",
-      clickedIcon: complianceRedIcon,
     },
     {
       icon: communicationIcon,
