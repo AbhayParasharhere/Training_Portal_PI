@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import searchIcon from "./images/search-icon.png";
 import questionIcon from "./images/FAQ-icon.png";
+import { useNavigate } from "react-router-dom";
 
 export default function FAQSupport() {
+  const navigate = useNavigate();
   const initialQuestionData = [
     {
       icon: questionIcon,
@@ -79,17 +81,25 @@ export default function FAQSupport() {
   });
   return (
     <div className={styles["FAQ--main-container"]}>
-      <div className={styles["FAQ--title-search-container"]}>
-        <p className={styles["FAQ--title"]}>
-          Have Questions? We Are Here To Help
-        </p>
-        <input
-          className={styles["FAQ--search-input"]}
-          placeholder="Search your doubts"
-          value={search}
-          onChange={(e) => handleSearch(e.target.value)}
-        />
-        <img src={searchIcon} className={styles["FAQ--search-icon"]} />
+      <div className={styles["FAQ--search-contact-container"]}>
+        <div className={styles["FAQ--title-search-container"]}>
+          <p className={styles["FAQ--title"]}>
+            Have Questions? We Are Here To Help
+          </p>
+          <input
+            className={styles["FAQ--search-input"]}
+            placeholder="Search your doubts"
+            value={search}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+          <img src={searchIcon} className={styles["FAQ--search-icon"]} />
+        </div>
+        <button
+          className={styles["FAQ--contact-button"]}
+          onClick={() => navigate("/contact")}
+        >
+          Support Contact Details
+        </button>
       </div>
       <div className={styles["FAQ--question-grid"]}>{renderQuestions}</div>
       <div className={styles["FAQ--get-support-container"]}>
