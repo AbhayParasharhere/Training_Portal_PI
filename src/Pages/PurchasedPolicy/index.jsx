@@ -66,6 +66,7 @@ export default function PurchasedPolicy() {
               <div
                 style={{
                   display: displaySalesOption === item.id ? "flex" : "none",
+                  zIndex: 2,
                 }}
                 className={styles["purchasedPolicy--option-container"]}
               >

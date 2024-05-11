@@ -7,7 +7,8 @@ import secureLocalStorage from "react-secure-storage";
 
 export default function AddPost(props) {
   const [doubt, setDoubt] = useState("");
-  const [postCategory, setPostCategory] = React.useState("compliance");
+  const [postCategory, setPostCategory] = useState("compliance");
+  const [loading, setLoading] = useState(false);
   const currentUser = useContext(AuthContext);
 
   const handleCategoryChange = (event) => {
@@ -15,26 +16,32 @@ export default function AddPost(props) {
   };
 
   const handlePostAdd = async () => {
-    if (doubt === "") {
-      toast.error("Doubt cannot be empty");
-      return;
-    }
-    if (postCategory === "") {
-      toast.error("Please select a category");
-      return;
-    }
+    try {
+      if (doubt === "") {
+        toast.error("Doubt cannot be empty");
+        return;
+      }
+      if (postCategory === "") {
+        toast.error("Please select a category");
+        return;
+      }
 
-    const currentUserName = secureLocalStorage.getItem("userDetails")?.[0];
-    const currentUserPhoto = secureLocalStorage.getItem("userDetails")?.[1];
-    await postDoubts({
-      userName: currentUserName,
-      photo: currentUserPhoto,
-      uid: currentUser.uid,
-      category: postCategory,
-      post: doubt,
-    });
-    props.setDisplayPage("list");
-    console.log("Post added", doubt, postCategory);
+      const currentUserName = secureLocalStorage.getItem("userDetails")?.[0];
+      const currentUserPhoto = secureLocalStorage.getItem("userDetails")?.[1];
+      setLoading(true);
+      await postDoubts({
+        userName: currentUserName,
+        photo: currentUserPhoto,
+        uid: currentUser.uid,
+        category: postCategory,
+        post: doubt,
+      });
+      setLoading(false);
+      props.setDisplayPage("list");
+      console.log("Post added", doubt, postCategory);
+    } catch (err) {
+      setLoading(false);
+    }
     // props.addPost(doubt, postCategory);
   };
   // console.log(doubt, postCategory);
@@ -134,7 +141,7 @@ export default function AddPost(props) {
           className={styles["addPost--post-button"]}
           onClick={handlePostAdd}
         >
-          Post
+          {loading ? "Posting..." : "Post"}
         </button>
         <button
           className={styles["addPost--cancel-button"]}

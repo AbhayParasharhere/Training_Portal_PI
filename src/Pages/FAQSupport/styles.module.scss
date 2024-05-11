@@ -150,6 +150,24 @@
     min-height: 800px;
     max-height: 800px;
   }
+  .FAQ--question-container {
+    min-height: 250px;
+    max-height: 300px;
+  }
+  .FAQ--answer-text {
+    font-size: 16px;
+  }
+  .FAQ--question-text {
+    font-size: 18px;
+  }
+  .FAQ--support-button {
+    height: 50px;
+    width: 160px;
+    font-size: 14px;
+  }
+  .FAQ--get-support-heading {
+    font-size: 21px;
+  }
 }
 
 @media (min-width: 1550px) {
