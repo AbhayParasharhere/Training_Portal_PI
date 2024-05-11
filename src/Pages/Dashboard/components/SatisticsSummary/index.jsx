@@ -263,7 +263,11 @@ export default function StatsSummary() {
                   {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
                 </p>
               </div>
-              <div>
+              <div
+                className={
+                  styles["statsSummary--unordered-list-button-container"]
+                }
+              >
                 <ul className={styles["statsSummary--unordered-list"]}>
                   <li className={styles["statsSummary--appointment-marker"]}>
                     {latestAppoitment?.date?.toDate()?.toDateString()}{" "}

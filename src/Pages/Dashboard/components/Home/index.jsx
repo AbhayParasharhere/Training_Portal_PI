@@ -514,7 +514,7 @@ export default function Home() {
                     {getFutureTimeDifference(latestAppoitment?.date?.toDate())}
                   </p>
                 </div>
-                <div>
+                <div style={{ marginTop: "-20px" }}>
                   <ul className={styles["statsSummary--unordered-list"]}>
                     <li className={styles["statsSummary--appointment-marker"]}>
                       {latestAppoitment?.date?.toDate()?.toDateString()}{" "}
@@ -526,7 +526,7 @@ export default function Home() {
                   <a
                     target="_blank"
                     href={latestAppoitment?.link}
-                    className={styles["statsSummarys--appointment-button"]}
+                    className={styles["statsSummary--appointment-button"]}
                     style={{
                       pointerEvents: latestAppoitment?.link ? "all" : "none",
                     }}
