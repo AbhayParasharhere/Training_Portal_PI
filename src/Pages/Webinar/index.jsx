@@ -11,7 +11,10 @@ export default function Webinar() {
   const appointmentData = useContext(RealTimeDataContext)?.appointments;
   console.log("This is the appointment data, ", appointmentData);
   const handleClick = (index) => {
+    console.log("This is working");
     if (readMore.includes(index)) {
+      console.log("Coming here");
+
       const newReadmore = readMore.filter((item) => item !== index);
       setReadMore(newReadmore);
       console.log("Removed:", index);
@@ -20,81 +23,72 @@ export default function Webinar() {
     setReadMore((prev) => [...prev, index]);
   };
 
-  const renderWebinar = useMemo(() => {
-    const sortedWebinars = [...webinarData].sort(
-      (a, b) => new Date(a.time) - new Date(b.time)
-    );
-    return sortedWebinars?.map((webinar, index) => {
-      return (
-        <div className={styles["webinar--container"]} key={index}>
-          <p className={styles["webinar--title"]}>{webinar.title}</p>
-          <div className={styles["webinar--details-container"]}>
-            <p className={styles["webinar--desc-text"]}>
-              Host: {webinar?.host} {webinar?.hostPosition}
-            </p>
-            <p className={styles["webinar--desc-text"]}>
-              Date: {new Date(webinar?.time)?.toLocaleDateString()}
-            </p>
-            <p className={styles["webinar--desc-text"]}>
-              Time: {new Date(webinar?.time)?.toLocaleTimeString()}
-            </p>
-          </div>
-          <div className={styles["webinar--agenda-container"]}>
-            <p className={styles["webinar--agenda-text"]}>Agenda:</p>
-            <ol>
-              {webinar.agenda.map((agenda) => {
-                return (
-                  <li className={styles["webinar--desc-text"]}>{agenda}</li>
-                );
-              })}
-              <p
-                className={styles["webinar--read-more"]}
-                onClick={() => handleClick(index)}
-              >
-                {readMore.includes(index) ? "Show less" : "Read More..."}
-              </p>
-            </ol>
-          </div>
-          <div className={styles["webinar--description-container"]}>
+  const renderWebinar = webinarData?.map((webinar, index) => {
+    return (
+      <div className={styles["webinar--container"]} key={index}>
+        <p className={styles["webinar--title"]}>{webinar.title}</p>
+        <div className={styles["webinar--details-container"]}>
+          <p className={styles["webinar--desc-text"]}>
+            Host: {webinar?.host} {webinar?.hostPosition}
+          </p>
+          <p className={styles["webinar--desc-text"]}>
+            Date: {new Date(webinar?.time)?.toLocaleDateString()}
+          </p>
+          <p className={styles["webinar--desc-text"]}>
+            Time: {new Date(webinar?.time)?.toLocaleTimeString()}
+          </p>
+        </div>
+        <div className={styles["webinar--agenda-container"]}>
+          <p className={styles["webinar--agenda-text"]}>Agenda:</p>
+          <ol>
+            {webinar.agenda.map((agenda) => {
+              return <li className={styles["webinar--desc-text"]}>{agenda}</li>;
+            })}
             <p
-              className={styles["webinar--desc-text"]}
-              style={{
-                color: "#393E46",
-                display: readMore.includes(index) ? "inline" : "none",
-              }}
+              className={styles["webinar--read-more"]}
+              onClick={() => handleClick(index)}
             >
-              <span className={styles["webinar--agenda-text"]}>
-                Description:
-              </span>{" "}
-              {webinar.description}
+              {readMore.includes(index) ? "Show less" : "Read More..."}
             </p>
-          </div>
-          <a
-            className={styles["webinar--join-button"]}
-            href={webinar?.link}
-            target="_blank"
+          </ol>
+        </div>
+        <div className={styles["webinar--description-container"]}>
+          <p
+            className={styles["webinar--desc-text"]}
             style={{
-              marginTop: 20,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textDecoration: "none",
-              backgroundColor:
-                new Date(webinar?.time).getDate() < new Date().getDate()
-                  ? "#686868"
-                  : "#A80532F0",
-              pointerEvents:
-                new Date(webinar?.time).getDate() < new Date().getDate()
-                  ? "none"
-                  : "all",
+              color: "#393E46",
+              display: readMore.includes(index) ? "inline" : "none",
             }}
           >
-            Join Link
-          </a>{" "}
+            <span className={styles["webinar--agenda-text"]}>Description:</span>{" "}
+            {webinar.description}
+          </p>
         </div>
-      );
-    });
-  }, [webinarData]);
+        <a
+          className={styles["webinar--join-button"]}
+          href={webinar?.link}
+          target="_blank"
+          style={{
+            marginTop: 20,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textDecoration: "none",
+            backgroundColor:
+              new Date(webinar?.time).getDate() < new Date().getDate()
+                ? "#686868"
+                : "#A80532F0",
+            pointerEvents:
+              new Date(webinar?.time).getDate() < new Date().getDate()
+                ? "none"
+                : "all",
+          }}
+        >
+          Join Link
+        </a>{" "}
+      </div>
+    );
+  });
 
   const renderAppointment = appointmentData?.map((appointment, index) => {
     const selectedClient = clientData?.filter(

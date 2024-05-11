@@ -125,26 +125,26 @@
   position: absolute;
   right: 60px;
 }
-@media screen and (min-width: 2000px) {
-  .PurchasedPolicy-wrapper-main-policy-term {
-    gap: 8.1%;
-    font-size: 22px;
-  }
-  .PurchasedPolicy-wrapper-main-policy-id {
-    font-size: 22px;
-  }
-  .PurchasedPolicy-wrapper-main-policy-effective-span,
-  .PurchasedPolicy-wrapper-main-policy-number-span {
-    font-size: 22px;
-  }
-  .PurchasedPolicy-wrapper-main-policy-type {
-    font-size: 24px;
-  }
-  // .PurchasedPolicy-wrapper-form-image {
-  //   width: 30%;
-  //   height: 30%;
-  // }
-}
+// @media screen and (min-width: 2000px) {
+//   .PurchasedPolicy-wrapper-main-policy-term {
+//     gap: 8.1%;
+//     font-size: 22px;
+//   }
+//   .PurchasedPolicy-wrapper-main-policy-id {
+//     font-size: 22px;
+//   }
+//   .PurchasedPolicy-wrapper-main-policy-effective-span,
+//   .PurchasedPolicy-wrapper-main-policy-number-span {
+//     font-size: 22px;
+//   }
+//   .PurchasedPolicy-wrapper-main-policy-type {
+//     font-size: 24px;
+//   }
+//   // .PurchasedPolicy-wrapper-form-image {
+//   //   width: 30%;
+//   //   height: 30%;
+//   // }
+// }
 @media screen and (max-width: 1440px) {
   .PurchasedPolicy-wrapper-main-policy-term {
     gap: 9%;
