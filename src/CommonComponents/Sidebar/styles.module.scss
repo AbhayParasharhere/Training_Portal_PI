@@ -142,9 +142,27 @@
     height: 100%;
   }
 }
+@media (min-width: 1500px) {
+  .sidebar--menu-text {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1600px) {
+  .sidebar--menu-text {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1650px) {
+  .sidebar--menu-text {
+    font-size: 16px;
+  }
+}
 @media (min-width: 1700px) {
   .sidebar--main-container {
     min-width: 275px;
+  }
+  .sidebar--menu-text {
+    font-size: 18px;
   }
 }
 
