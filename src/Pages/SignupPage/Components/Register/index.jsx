@@ -119,6 +119,9 @@ export default function RegisterComponent(props) {
 
   const handleGoogleSignUp = async () => {
     try {
+      toast.info(
+        "This feature will be available when the application is deployed"
+      );
       const { status, uid } = await signInwithGoogle();
 
       console.log("This is uid status ", status, uid);
