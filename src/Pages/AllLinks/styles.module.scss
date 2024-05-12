@@ -4,6 +4,7 @@
   padding-right: 20px;
   display: flex;
   flex-direction: column;
+
   gap: 40px;
   max-height: 900px;
   overflow-y: scroll;
@@ -24,6 +25,7 @@
 }
 .allLinks--link-inner-container {
   display: flex;
+
   flex-direction: column;
   gap: 5px;
 }
@@ -38,7 +40,12 @@
 }
 .allLinks--link-text {
   font-family: Epilogue;
+  // background-color: #3064 d4;
   font-size: 17px;
+  max-width: 100px;
+  text-wrap: nowrap;
+
+  display: inline-table;
   font-weight: 500;
   line-height: 25.5px;
   letter-spacing: -0.03em;
@@ -94,5 +101,16 @@
 @media (max-width: 1130px) {
   .allLinks--main-container {
     padding: 15px;
+  }
+}
+@media (max-width: 900px) {
+  .allLinks--link-text {
+    text-wrap: wrap;
+    max-width: fit-content;
+  }
+}
+@media (max-width: 450px) {
+  .allLinks--link-text {
+    font-size: 14px;
   }
 }
