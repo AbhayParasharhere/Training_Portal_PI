@@ -145,6 +145,11 @@
   text-align: left;
   margin-top: 5px;
 }
+// @media (min-width: 1355px) {
+//   .courseGrid--main-container {
+//     width: 100%;
+//   }
+// }
 @media (min-width: 1450px) {
   .courseGrid--main-container {
     max-width: none;
@@ -186,7 +191,7 @@
 }
 @media (min-width: 1602px) {
   .courseGrid--main-container {
-    min-width: 1260px;
+    max-width: 1000px;
   }
 }
 @media (min-width: 1650px) {
