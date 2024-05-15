@@ -231,6 +231,12 @@ input {
 //     min-width: 100%;
 //   }
 // }
+@media ((min-width: 1350px) and (max-width:1450px)) {
+  .clientDetails--main-container {
+    min-width: 100%;
+  }
+}
+
 @media (min-width: 1450px) {
   .clientDetails--main-container {
     min-height: 1190px;
