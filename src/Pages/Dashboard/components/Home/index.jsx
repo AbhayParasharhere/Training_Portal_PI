@@ -23,6 +23,7 @@ import {
 } from "../TabletImportantUpdates";
 import { getUpcomingEvents } from "../../../../utils/date";
 import { quotes } from "../../../../staticData/Quotes";
+import BirthdayModal from "../BirthdayModal";
 
 const pushRecentNotifications = (
   announcements,
@@ -80,6 +81,7 @@ export default function Home() {
   let quote = quotes[0];
 
   //
+  const [birthdayOpen, setBirthdayOpen] = useState(false);
   const realTimeData = useContext(RealTimeDataContext);
   const appointments = realTimeData?.appointments;
   // console.log("Realtime Appointments", appointments);
@@ -126,6 +128,7 @@ export default function Home() {
     videosWatched?.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
   }
   const sales = realTimeData?.sales;
+  console.log("Sales Data: ", sales);
   let salesWithCreatedAt = [];
   if (sales) {
     salesWithCreatedAt = sales?.filter((sales) => sales.created_at);
@@ -282,6 +285,7 @@ export default function Home() {
   console.log("Upcoming Events", renderClientEvent);
 
   //Rendering and getting anniversary and birthday data Finish
+
   const mobileIconsData = [
     {
       icon: cakeIcon,
@@ -329,6 +333,12 @@ export default function Home() {
 
   return (
     <div className={styles["home--main-container"]}>
+      <BirthdayModal
+        birthdayOpen={birthdayOpen}
+        setBirthdayOpen={setBirthdayOpen}
+        renderClientEvent={renderClientEvent}
+        upcomingEvents={upcomingEvents?.length}
+      />
       <div className={styles["home--welcome-container"]}>
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
@@ -420,11 +430,17 @@ export default function Home() {
                 No Statistics to show
               </div>
             )}
+            <button
+              className={styles["home--view-birthday-button"]}
+              onClick={() => setBirthdayOpen(true)}
+            >
+              View Upcoming Birthdays & Anniversaries
+            </button>
           </div>
         </div>
         <div className={styles["home--client-birthday-container"]}>
           <p className={styles["home--client-birthday-title"]}>
-            Upcoming Clients Birthdays And Anniversary
+            Upcoming Policies to renew
           </p>
           <div className={styles["home--client-birthday-list"]}>
             {upcomingEvents.length ? (
