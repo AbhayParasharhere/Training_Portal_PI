@@ -182,7 +182,12 @@ export default function Sidebar(props) {
               onClick={props.logout}
             >
               <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
-              <p className={styles["sidebar--menu-text"]}>Log Out</p>
+              <p
+                className={styles["sidebar--menu-text"]}
+                style={{ color: "#DA1212" }}
+              >
+                Log Out
+              </p>
             </div>
           </div>
         </div>
