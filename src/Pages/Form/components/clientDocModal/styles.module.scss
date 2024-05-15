@@ -1,0 +1,87 @@
+.clientModal--main-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: center;
+  gap: 20px;
+}
+.clientModal--title {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+}
+.clientModal--upload-container {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 15px;
+  text-decoration: none;
+  flex-direction: column;
+  //   background-color: #475467;
+}
+.clientModal--upload-text {
+  //styleName: Text sm/Regular;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  color: #475467;
+}
+.clientModal--upload-input {
+  width: 100%;
+  cursor: pointer;
+  padding: 5px 10px;
+
+  //   align-content: center;
+  //   height: 200px;
+}
+.clientModal--upload-inner-container {
+  //   max-width: none;
+  //   min-width: 100%;
+  width: 450px;
+  display: flex;
+  background-color: #f5f6fb;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  //   background-color: #475467;
+}
+.clientModal--upload-icon {
+  height: 25px;
+}
+.clientModal--file-name-input {
+  width: 100%;
+  border: 1px solid #a1a1a1;
+  border-radius: 5px;
+  font-family: Epilogue;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+  box-sizing: border-box;
+  padding: 5px;
+  height: 40px;
+}
+.clientModal--upload-input-button {
+  //   width: 900px;
+  max-width: 100%;
+  //   align-self: flex-end;
+  margin-top: 20px;
+  border: none;
+  background-color: #3064d4;
+  border-radius: 5px;
+  font-family: Open Sans;
+  font-size: 16px;
+  //   font-weight: 600/;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  color: white;
+  height: 35px;
+  width: 100px;
+  justify-self: flex-end;
+}

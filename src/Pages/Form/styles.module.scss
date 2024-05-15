@@ -123,12 +123,18 @@ input {
 }
 .clientDetail--personal-notes-container {
   display: flex;
-  flex-direction: column;
   box-sizing: border-box;
   gap: 20px;
-  padding: 20px;
-  background-color: #f5f6fb;
   margin-top: 20px;
+}
+.clientDetail--personal-notes-inner-container {
+  flex: 4;
+  display: flex;
+  background-color: #f5f6fb;
+  box-sizing: border-box;
+  padding: 20px;
+  flex-direction: column;
+  gap: 20px;
 }
 .clientDetail--personal-notes-title {
   font-family: Open Sans;
@@ -153,6 +159,68 @@ input {
   text-align: left;
   color: #1e1e1e;
   justify-content: flex-start;
+}
+.clientDetail--client-document-container {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+.clientDetail--upload-button {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  justify-content: center;
+  font-family: Open Sans;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 25.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: white;
+  border: none;
+  background-color: #3064d4;
+  gap: 10px;
+}
+.clientDetail--document-list-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+  max-height: 400px;
+  overflow-y: scroll;
+  gap: 10px;
+}
+.clientDetail--document-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 10px;
+  justify-content: space-between;
+  border: 1px solid #e7e4e4;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 15px 10px;
+}
+.clientDetail--document-name-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: Epilogue;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #313131;
+}
+.clientDetail--document-icon,
+.clientDetail--check-icon {
+  height: 25px;
+}
+.clientDetail--upload-icon {
+  height: 25px;
 }
 .clientDetail--mobile-input-bottom-container {
   // display: none;
@@ -190,6 +258,15 @@ input {
   }
   .clientDetail--mobile-input-bottom-container {
     display: flex;
+  }
+  .clientDetail--personal-notes-container {
+    flex-direction: column;
+  }
+  .clientDetail--client-document-container {
+    min-width: 0px;
+  }
+  .clientDetail--document-list-container {
+    max-height: none;
   }
 }
 @media (max-width: 420px) {
