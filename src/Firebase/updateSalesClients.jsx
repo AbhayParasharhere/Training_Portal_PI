@@ -50,7 +50,7 @@ const addClientDocument = async (file, fileName, clientId, uid) => {
         document_URL: documentURL,
       }),
     });
-    toast.success("Document saved in databse");
+    toast.success("Document saved in database");
   } catch (err) {
     console.log(err);
     toast.error("Failed to upload document");

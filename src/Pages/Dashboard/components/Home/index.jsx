@@ -339,8 +339,8 @@ export default function Home() {
               Welcome to your Dashboard!
             </p>
             <p className={styles["home--greetings-desc"]}>
-              Your hub for Managing Clients, Monitoring Sales, and Acheiving
-              Success. Let's Get Started
+              Your hub for Managing Clients, Monitoring Sales, and Achieving
+              Success. Let's Get Started!
             </p>
           </div>
         </div>
