@@ -13,6 +13,7 @@ import {
   getPostedDoubtsRealtime,
 } from "../Firebase/postDoubtsLogic";
 import { getAllDocuments } from "../Firebase/addGetDocuments";
+import { addDoc } from "firebase/firestore";
 // We will use this context to fetch the primary data
 // All announcements
 // All the user details

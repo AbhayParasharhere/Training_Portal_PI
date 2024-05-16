@@ -25,6 +25,9 @@ import { getUpcomingEvents } from "../../../../utils/date";
 import { quotes } from "../../../../staticData/Quotes";
 import BirthdayModal from "../BirthdayModal";
 import filterSalesByEndDate from "../../../../utils/expiredSales";
+import { Button } from "antd";
+import { db } from "../../../../Firebase/firebaseConfig";
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
 
 const pushRecentNotifications = (
   announcements,
@@ -365,6 +368,19 @@ export default function Home() {
     );
   });
 
+  const handleAI = async () => {
+    const ref = await addDoc(collection(db, "generate"), {
+      prompt: "What is the capital of Paris? Just one word answer.",
+    });
+
+    const unsub = onSnapshot(ref, (doc) => {
+      if (doc?.get("response")) {
+        console.log("AI response", doc.get("response"));
+        unsub();
+      }
+    });
+  };
+
   return (
     <div className={styles["home--main-container"]}>
       <BirthdayModal
@@ -374,6 +390,11 @@ export default function Home() {
         upcomingEvents={upcomingEvents?.length}
       />
       <div className={styles["home--welcome-container"]}>
+        {
+          // TO BE REMOVED
+        }
+        <Button onClick={handleAI}> Get AI </Button>
+
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
             Good Morning {secureLocalStorage.getItem("userDetails")?.[0]}
