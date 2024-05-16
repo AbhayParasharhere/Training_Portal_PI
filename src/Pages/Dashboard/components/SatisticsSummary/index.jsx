@@ -27,11 +27,12 @@ import { getWeeklyAddedClientsSales } from "../../../Statistics";
 import { getUpcomingEvents } from "../../../../utils/date";
 import filterSalesByEndDate from "../../../../utils/expiredSales";
 import crossIcon from "./images/cross-icon.png";
-import sendIcon from "./images/send-icon.png";
+import sendIcon from "./images/send-icon.svg";
 import { toast } from "react-toastify";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../Firebase/firebaseConfig";
 import chatIcon from "./images/chat-icon.png";
+import { BeatLoader } from "react-spinners";
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
 export default function StatsSummary({ chatOpen, setChatOpen }) {
@@ -252,7 +253,7 @@ export default function StatsSummary({ chatOpen, setChatOpen }) {
               })}
               {sending && (
                 <div className={styles["statsSummary--ai-message"]}>
-                  Loading...
+                  <BeatLoader size="10px" />
                 </div>
               )}
             </div>

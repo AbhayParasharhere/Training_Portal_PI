@@ -100,6 +100,7 @@
   position: absolute;
   width: 500px;
   top: 0px;
+  border-radius: 5px;
   height: 97vh;
   right: 0px;
   background-color: white;
@@ -110,9 +111,11 @@
 }
 .statsSummary--chat-header {
   display: flex;
+  border-top-left-radius: 5px;
+
   align-items: center;
   justify-content: space-between;
-  background-color: #1e1e1e;
+  background-color: #3064d4;
   height: 70px;
   box-sizing: border-box;
   padding: 15px;
@@ -130,6 +133,7 @@
   background-color: white;
   height: 50px;
   width: 50px;
+  border: none;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -161,13 +165,17 @@
 .statsSummary--user-message {
   max-width: 80%;
   align-self: flex-end;
-  background-color: #d1edc0;
+  color: white;
+  background-color: rgba(48, 100, 212, 0.8);
+  border-radius: 5px;
   padding: 10px;
 }
 
 .statsSummary--ai-message {
   background-color: #eef0f2;
   max-width: 80%;
+  border-radius: 5px;
+
   padding: 10px;
 }
 .statsSummary--chat-input {
@@ -190,7 +198,7 @@
   border: none;
   width: 35px;
   border-radius: 5px;
-  background-color: #d1edc0;
+  background-color: rgba(48, 100, 212, 1);
   display: flex;
   align-items: center;
   justify-content: center;
