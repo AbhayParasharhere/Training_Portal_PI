@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import samplePhoto from "./images/profile-photo.png";
 import calendarIcon from "./images/calendar.png";
+import { AnimatePresence, motion } from "framer-motion";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJs,
@@ -11,7 +12,7 @@ import {
 } from "chart.js";
 import cakeIcon from "./images/cakeIcon.png";
 import clientPhoto from "./images/client-sample-image.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
 import {
   PrimaryDataContext,
@@ -25,19 +26,30 @@ import { validateLink } from "../../../../utils/validation";
 import { getWeeklyAddedClientsSales } from "../../../Statistics";
 import { getUpcomingEvents } from "../../../../utils/date";
 import filterSalesByEndDate from "../../../../utils/expiredSales";
-
+import crossIcon from "./images/cross-icon.png";
+import sendIcon from "./images/send-icon.png";
+import { toast } from "react-toastify";
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../../../Firebase/firebaseConfig";
+import chatIcon from "./images/chat-icon.png";
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
-export default function StatsSummary() {
+export default function StatsSummary({ chatOpen, setChatOpen }) {
   const realTimeData = useContext(RealTimeDataContext);
   const salesData = realTimeData?.sales;
   const appointments = realTimeData?.appointments;
   const webinars = realTimeData?.webinars;
   const announcements = realTimeData?.announcements;
   const [notifications, setNotifications] = useState([]);
+  const [userMessage, setUserMessage] = useState("");
+  // const [allMessages, setAllMessages] = useState([]);
+  const [sending, setSending] = useState(false);
   let latestAppoitment = {};
   let appoitmentClientName = "";
-
+  const outlet = useOutletContext();
+  const allMessages = outlet?.allMessages;
+  const setAllMessages = outlet?.setAllMessages;
+  console.log("This is tge outket: ", allMessages, setAllMessages);
   useEffect(() => {
     // if (announcements || webinars || appointments) return;
     pushRecentNotifications(
@@ -59,6 +71,14 @@ export default function StatsSummary() {
     setGraphData(formattedWeeklySalesData);
   }, [announcements, appointments, webinars]);
 
+  const chatListRef = useRef(null);
+
+  useEffect(() => {
+    if (chatListRef.current) {
+      chatListRef.current.scrollTop =
+        chatListRef.current.scrollHeight - chatListRef.current.clientHeight;
+    }
+  }, [chatOpen]);
   if (appointments) {
     // Get the one which is closest to the current time and must be in the future
 
@@ -83,7 +103,6 @@ export default function StatsSummary() {
     }
     // console.log("Latest Appoitment", latestAppoitment);
   }
-
   const navigate = useNavigate();
   // const primaryDataContext = useContext(PrimaryDataContext);
   const clients = realTimeData?.clients;
@@ -101,31 +120,7 @@ export default function StatsSummary() {
   if (clients) {
     upcomingEvents = getUpcomingEvents(clients);
   }
-  const renderClientEvent = upcomingEvents?.map((client) => {
-    return (
-      <div
-        className={styles["home--client-birthday"]}
-        onClick={() => navigate(`/client-detail/${client.id}`)}
-        style={{ cursor: "pointer" }}
-      >
-        <div className={styles["home--client-birthday-inner-container"]}>
-          <img src={clientPhoto} className={styles["home--client-image"]} />
-          <div className={styles["home--birthday-name-date-container"]}>
-            <p className={styles["home--client-name"]}>{client.name}</p>
-            <p className={styles["home--birthday-date"]}>
-              {client.eventType === "Anniversary"
-                ? client.anniversary
-                : client.DOB}{" "}
-            </p>{" "}
-          </div>
-        </div>
-        <img
-          src={client.eventType === "Birthday" ? cakeIcon : calendarIcon}
-          className={styles["home--cake-icon"]}
-        />
-      </div>
-    );
-  });
+
   const [modalOpen, setModalOpen] = useState(false);
   let salesExpired = [];
 
@@ -134,7 +129,6 @@ export default function StatsSummary() {
   }
   const renderExpiredPolicies = salesExpired?.map((sales) => {
     const salesClient = clients?.filter((client) => client.id === sales.cid)[0];
-    console.log("Client for the expired sales: ", salesClient);
     return (
       <div className={styles["home--expired-policy-container"]}>
         <p className={styles["home--expired-policy-name"]}>
@@ -155,9 +149,134 @@ export default function StatsSummary() {
       </div>
     );
   });
+  const handleSend = async () => {
+    try {
+      if (!userMessage) {
+        toast.error("Please type something.");
+        return;
+      }
+      setSending(true);
+      chatListRef.current.scrollTop =
+        chatListRef.current.scrollHeight -
+        chatListRef.current.clientHeight +
+        20;
+      setAllMessages((prev) => [
+        ...prev,
+        { message: userMessage, user: true, created_at: new Date() },
+      ]);
+      const ref = await addDoc(collection(db, "generate"), {
+        prompt: userMessage,
+      });
+
+      // Create a Promise to wait for the snapshot
+      const responsePromise = new Promise((resolve, reject) => {
+        const unsub = onSnapshot(ref, (doc) => {
+          if (doc?.get("response")) {
+            resolve(doc.get("response")); // Resolve the promise with the response
+            unsub(); // Unsubscribe from further snapshot updates
+          }
+        });
+      });
+
+      // Wait for the response
+      const response = await responsePromise;
+
+      // Once response is received, update state with the response message
+      setAllMessages((prev) => [
+        ...prev,
+        {
+          message: response,
+          user: false,
+          created_at: new Date(),
+        },
+      ]);
+
+      console.log("Message: ", allMessages);
+      setSending(false);
+      setUserMessage("");
+    } catch (err) {
+      setSending(false);
+      setUserMessage("");
+      console.log("Error: ", err);
+    }
+  };
+
   return (
-    <div className={styles["statsSummary--main-container"]}>
+    <div
+      className={styles["statsSummary--main-container"]}
+      // style={{ overflowX: "hidden" }}
+    >
       <ProfileChangeModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <AnimatePresence>
+        {chatOpen && (
+          <motion.div
+            className={styles["statsSummary--chat-container"]}
+            initial={{ scaleX: 0, opacity: 0, transformOrigin: "right" }}
+            exit={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1, transformOrigin: "right" }}
+            transition={{
+              duration: 0.2,
+              type: "tween",
+            }}
+          >
+            <div className={styles["statsSummary--chat-header"]}>
+              <p className={styles["statsSummary--chat-title"]}>AI chat bot</p>
+              <button
+                className={styles["statsSummary--close-button"]}
+                onClick={() => setChatOpen(false)}
+              >
+                <img
+                  src={crossIcon}
+                  className={styles["statsSummary--chat-cross-icon"]}
+                />
+              </button>
+            </div>
+            <div
+              className={styles["statsSummary--chat-list"]}
+              ref={chatListRef}
+            >
+              {allMessages?.map((message) => {
+                return (
+                  <div
+                    className={
+                      styles[
+                        message.user
+                          ? "statsSummary--user-message"
+                          : "statsSummary--ai-message"
+                      ]
+                    }
+                  >
+                    {message.message}
+                  </div>
+                );
+              })}
+              {sending && (
+                <div className={styles["statsSummary--ai-message"]}>
+                  Loading...
+                </div>
+              )}
+            </div>
+            <div className={styles["statsSummary--chat-input-container"]}>
+              <input
+                className={styles["statsSummary--chat-input"]}
+                placeholder="Type Something.."
+                onChange={(e) => setUserMessage(e.target.value)}
+                value={userMessage}
+              />
+              <button
+                className={styles["statsSummary--chat-send-button"]}
+                onClick={handleSend}
+                disabled={sending}
+              >
+                <img
+                  className={styles["statsSummary--send-icon"]}
+                  src={sendIcon}
+                />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className={styles["statsSummary--profile-container"]}>
         <p className={styles["statsSummary--title"]}>Statistics</p>
         <div className={styles["statsSummary--profile-inner-container"]}>
@@ -227,6 +346,12 @@ export default function StatsSummary() {
         </div>
       </div>
       <div className={styles["statsSummary--notifications-container"]}>
+        <button
+          className={styles["statsSummary--chat-button"]}
+          onClick={() => setChatOpen(true)}
+        >
+          <img src={chatIcon} className={styles["statsSummary--chat-icon"]} />
+        </button>
         <div className={styles["statsSummary--notifications-inner-container"]}>
           <p className={styles["statsSummary--notifications-title"]}>
             Notifications

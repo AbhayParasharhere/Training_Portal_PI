@@ -7,6 +7,7 @@
   gap: 15px;
   margin-top: 10px;
   transition: all 0.15s ease-in;
+  position: relative;
 }
 .statsSummary--title {
   font-family: Epilogue;
@@ -83,6 +84,119 @@
   background-color: #f5f6fb;
   box-sizing: border-box;
   padding: 15px;
+  position: relative;
+}
+.statsSummary--chat-button {
+  position: absolute;
+  bottom: 0px;
+  right: 50px;
+  background-color: transparent;
+  border: none;
+}
+.statsSummary--chat-icon {
+  height: 50px;
+}
+.statsSummary--chat-container {
+  position: absolute;
+  width: 500px;
+  top: 0px;
+  height: 97vh;
+  right: 0px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 100;
+}
+.statsSummary--chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1e1e1e;
+  height: 70px;
+  box-sizing: border-box;
+  padding: 15px;
+  width: 100%;
+}
+.statsSummary--chat-title {
+  font-family: Epilogue;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 18.45px;
+  text-align: left;
+  color: white;
+}
+.statsSummary--close-button {
+  background-color: white;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statsSummary--chat-cross-icon {
+  height: 25px;
+}
+.statsSummary--chat-list {
+  // background-color: #1a202c;
+  max-height: 100%;
+  margin-top: auto;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: scroll;
+}
+.statsSummary--chat-input-container {
+  // height: 100px;
+  width: 100%;
+  // background-color: green;
+  // justify-self: flex-end;
+  display: flex;
+  gap: 10px;
+}
+.statsSummary--user-message {
+  max-width: 80%;
+  align-self: flex-end;
+  background-color: #d1edc0;
+  padding: 10px;
+}
+
+.statsSummary--ai-message {
+  background-color: #eef0f2;
+  max-width: 80%;
+  padding: 10px;
+}
+.statsSummary--chat-input {
+  width: 100%;
+  border-radius: 12px;
+  background-color: #f6f5f8;
+  border: none;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15.73px;
+  box-sizing: border-box;
+  padding: 5px;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+.statsSummary--chat-send-button {
+  height: 35px;
+  border: none;
+  width: 35px;
+  border-radius: 5px;
+  background-color: #d1edc0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.statsSummary--send-icon {
+  height: 20px;
 }
 .statsSummary--notifications-inner-container {
   display: flex;

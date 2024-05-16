@@ -12,6 +12,8 @@ export default function SidebarLayout() {
   const [mobileSidebar, setMobileSidebar] = useState(false);
   const realTimeData = useContext(RealTimeDataContext);
   const [dataFetched, setDataFetched] = useState(false);
+  const [allMessages, setAllMessages] = useState([]);
+
   useEffect(() => {
     if (
       realTimeData?.announcements &&
@@ -62,7 +64,16 @@ export default function SidebarLayout() {
             mobileSidebar={mobileSidebar}
             setMobileSidebar={setMobileSidebar}
           />
-          {mobileSidebar ? null : dataFetched ? <Outlet /> : <Spinner />}
+          {mobileSidebar ? null : dataFetched ? (
+            <Outlet
+              context={{
+                allMessages: allMessages,
+                setAllMessages: setAllMessages,
+              }}
+            />
+          ) : (
+            <Spinner />
+          )}
         </>
       ) : (
         <Spinner />
