@@ -23,6 +23,8 @@ import {
 } from "../TabletImportantUpdates";
 import { getUpcomingEvents } from "../../../../utils/date";
 import { quotes } from "../../../../staticData/Quotes";
+import BirthdayModal from "../BirthdayModal";
+import filterSalesByEndDate from "../../../../utils/expiredSales";
 
 const pushRecentNotifications = (
   announcements,
@@ -80,6 +82,7 @@ export default function Home() {
   let quote = quotes[0];
 
   //
+  const [birthdayOpen, setBirthdayOpen] = useState(false);
   const realTimeData = useContext(RealTimeDataContext);
   const appointments = realTimeData?.appointments;
   // console.log("Realtime Appointments", appointments);
@@ -125,18 +128,9 @@ export default function Home() {
   if (videosWatched) {
     videosWatched?.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
   }
-  const sales = realTimeData?.sales;
-  let salesWithCreatedAt = [];
-  if (sales) {
-    salesWithCreatedAt = sales?.filter((sales) => sales.created_at);
-    salesWithCreatedAt?.sort(
-      (a, b) => b.created_at.seconds - a.created_at.seconds
-    );
-  }
 
   const uniqueCourses = new Set();
   const lastThreeCourses = [];
-  const latestThreeSales = salesWithCreatedAt.slice(0, 3);
 
   // Iterate over the sorted array and add unique courses to the set
   if (videosWatched) {
@@ -167,8 +161,51 @@ export default function Home() {
     });
     return lastCourses;
   };
-  const announcements = realTimeData?.announcements;
+
+  //Getting the sales to be renewed:
+  const sales = realTimeData?.sales;
+  console.log("Sales Data: ", sales);
+
   const clients = realTimeData?.clients;
+
+  let salesWithCreatedAt = [];
+  let salesExpired = [];
+  if (sales) {
+    salesWithCreatedAt = sales?.filter((sales) => sales.created_at);
+    salesWithCreatedAt?.sort(
+      (a, b) => b.created_at.seconds - a.created_at.seconds
+    );
+    salesExpired = filterSalesByEndDate(sales);
+    console.log("Sales to be expired: ", salesExpired);
+  }
+  const latestThreeSales = salesWithCreatedAt.slice(0, 3);
+
+  const renderExpiredPolicies = salesExpired?.map((sales) => {
+    const salesClient = clients?.filter((client) => client.id === sales.cid)[0];
+    console.log("Client for the expired sales: ", salesClient);
+    return (
+      <div className={styles["home--expired-policy-container"]}>
+        <p className={styles["home--expired-policy-name"]}>
+          {sales?.policy_type}
+        </p>
+        <p className={styles["home--expired-policy-desc"]}>
+          Cliet: {salesClient?.name}
+        </p>
+        <p className={styles["home--expired-policy-desc"]}>
+          Expiry Date: {sales?.end_date}
+        </p>
+        <button
+          className={styles["home--renew-button"]}
+          onClick={() => navigate(`/client-detail/${salesClient?.id}/policies`)}
+        >
+          Renew
+        </button>
+      </div>
+    );
+  });
+
+  //Getting clients and announcement data
+  const announcements = realTimeData?.announcements;
   let clientsWithCreatedAt = [];
   if (clients) {
     clientsWithCreatedAt = clients?.filter((client) => client.created_at);
@@ -282,6 +319,7 @@ export default function Home() {
   console.log("Upcoming Events", renderClientEvent);
 
   //Rendering and getting anniversary and birthday data Finish
+
   const mobileIconsData = [
     {
       icon: cakeIcon,
@@ -329,6 +367,12 @@ export default function Home() {
 
   return (
     <div className={styles["home--main-container"]}>
+      <BirthdayModal
+        birthdayOpen={birthdayOpen}
+        setBirthdayOpen={setBirthdayOpen}
+        renderClientEvent={renderClientEvent}
+        upcomingEvents={upcomingEvents?.length}
+      />
       <div className={styles["home--welcome-container"]}>
         <div className={styles["home--greetings-container"]}>
           <p className={styles["home--greetings-title"]}>
@@ -420,18 +464,24 @@ export default function Home() {
                 No Statistics to show
               </div>
             )}
+            <button
+              className={styles["home--view-birthday-button"]}
+              onClick={() => setBirthdayOpen(true)}
+            >
+              View Upcoming Birthdays & Anniversaries
+            </button>
           </div>
         </div>
         <div className={styles["home--client-birthday-container"]}>
           <p className={styles["home--client-birthday-title"]}>
-            Upcoming Clients Birthdays And Anniversary
+            Upcoming Policies to renew
           </p>
           <div className={styles["home--client-birthday-list"]}>
-            {upcomingEvents.length ? (
-              renderClientEvent
+            {salesExpired?.length ? (
+              renderExpiredPolicies
             ) : (
               <div className={styles["home--no-data"]}>
-                No upcoming Birthdays and Anniversaries this week
+                No Recent Policies Expiring{" "}
               </div>
             )}
           </div>

@@ -15,14 +15,17 @@ import {
   PrimaryDataContext,
 } from "../../../context/primaryDataContext";
 import { useNavigate } from "react-router-dom";
-import { updateClient } from "../../../Firebase/updateSalesClients";
+import {
+  deleteAllClientSales,
+  updateClient,
+} from "../../../Firebase/updateSalesClients";
+import { AuthContext } from "../../../context/authContext";
 
 export default function ClientComponent() {
   const [search, setSearch] = useState("");
   const [prevIndex, setPrevIndex] = useState(null);
   const [filterOption, setFilterOption] = useState("All clients");
-  const primaryContextData = useContext(PrimaryDataContext);
-  const salesData = primaryContextData?.sales;
+  const currentUser = useContext(AuthContext);
   const [arrowDropdown, setArrowDropdown] = useState(false);
   const realTimeData = useContext(RealTimeDataContext)?.clients;
   const [initialClientData, setInitialClientData] = useState(realTimeData);
@@ -77,6 +80,14 @@ export default function ClientComponent() {
         client.name.toLowerCase().includes(value.toLowerCase())
       )
     );
+  };
+  const deleteClient = async (clientId) => {
+    try {
+      await updateClient({ status: "deleted" }, clientId);
+      await deleteAllClientSales(clientId, currentUser?.uid);
+    } catch (error) {
+      console.log(err);
+    }
   };
 
   return (
@@ -253,7 +264,7 @@ export default function ClientComponent() {
                             console.log("This is the client id: ", item?.id, {
                               status: "active",
                             });
-                            updateClient({ status: "deleted" }, item.id);
+                            deleteClient(item?.id);
                           }}
                         >
                           <img src={delete_bin} height="18px" />

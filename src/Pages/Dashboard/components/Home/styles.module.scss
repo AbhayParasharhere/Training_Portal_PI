@@ -99,7 +99,7 @@ p {
 .home--recent-notifications-main-container {
   display: flex;
   margin-top: 55px;
-  max-width: 100%;
+  width: 100%;
   //   background-color: black;
   //   align-items: center;
   justify-content: center;
@@ -189,12 +189,29 @@ p {
   border-radius: 5px;
   padding: 20px;
   align-items: center;
-  max-height: 300px;
+  max-height: 340px;
   overflow-y: scroll;
   overflow-x: hidden;
   //   justify-content: center;
   flex: 1.3;
   background-color: #f5f6fb;
+}
+.home--view-birthday-button {
+  height: 45px;
+  border: 1.5px solid #2d355c;
+  background: transparent;
+  max-width: 100%;
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22.5px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #2d355c;
+}
+.home--view-birthday-button:hover {
+  background-color: #3064d454;
+  scale: 1;
 }
 .home--client-birthday-inner-container {
   display: flex;
@@ -213,13 +230,50 @@ p {
   background-color: white;
   width: 100%;
   border-radius: 5px;
-
   display: flex;
   margin-top: 25px;
   // scrollbar-gutter: stable;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+}
+.home--expired-policy-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid #dedede;
+  box-sizing: border-box;
+  padding: 8px;
+}
+.home--expired-policy-name {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+}
+.home--expired-policy-desc {
+  font-family: Epilogue;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+}
+.home--renew-button {
+  width: 60px;
+  height: 25px;
+  border: 1px solid #3064d4;
+  font-family: Epilogue;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16.5px;
+  letter-spacing: -0.03em;
+  background-color: white;
+  color: #3064d4;
 }
 // .home--client-birthday-list::-webkit-scrollbar {
 //   display: none;
@@ -530,13 +584,16 @@ li::marker {
   color: #1a202c;
   height: 100%;
 }
+
 @media (min-width: 1350px) {
   .home--main-container {
     min-width: 100%;
     max-width: none;
   }
+  .home--recent-notifications-main-container {
+    width: 100%;
+  }
 }
-
 @media (min-width: 1450px) {
   .home--main-container {
     max-width: none;
@@ -583,20 +640,19 @@ li::marker {
   .home--course-greeting-container {
     height: 150px;
   }
+  .home--client-birthday-container {
+    // margin-bottom: 30px;
+    max-height: 355px;
+  }
   .home--recent-notifications-main-container {
-    height: 100%;
-    min-height: 350px;
-    max-width: none;
-    // background-color: #123c97;
-    width: 100%;
-    margin-top: 45px;
+    margin-bottom: 20px;
+    margin-top: 49px;
   }
   .home--important-updates-container {
     max-height: none;
-    margin-top: 0px;
   }
   .home--annoucement-list-container {
-    max-height: 300px;
+    max-height: 232px;
   }
 }
 @media (min-width: 1335px) {
@@ -604,6 +660,7 @@ li::marker {
     min-width: 760px;
   }
 }
+
 @media (min-width: 1500px) {
   .home--main-container {
     width: 870px;
@@ -652,14 +709,24 @@ li::marker {
   .home--notification-links {
     font-size: 15px;
   }
-}
-@media (max-width: 1230px) {
   .home--client-birthday-title {
     font-size: 12px;
+  }
+  .home--client-birthday-list {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 1230px) {
+  .home--main-container {
+    width: 100%;
+  }
+  .home--client-birthday-container {
+    flex: 1.5;
   }
   .home--list-text {
     font-size: 15px;
   }
+
   .home--notification-links {
     font-size: 13px;
   }
@@ -667,6 +734,9 @@ li::marker {
 @media (max-width: 1190px) {
   .home--client-name {
     font-size: 10px;
+  }
+  .home--client-birthday-container {
+    max-height: 323px;
   }
 }
 @media (max-width: 1190px) {
@@ -682,10 +752,12 @@ li::marker {
     gap: 10px;
   }
 }
-@media (max-width: 1160px) {
+@media (max-width: 1175px) {
   .home--notification-links-container {
     gap: 20px;
   }
+}
+@media (max-width: 1160px) {
   .home--cake-icon {
     height: 15px;
   }
@@ -822,6 +894,9 @@ li::marker {
 }
 @media (max-width: 630px) {
   .home--mobile-appointment-notification-container {
+    display: none;
+  }
+  .home--view-birthday-button {
     display: none;
   }
   .home--welcome-container {

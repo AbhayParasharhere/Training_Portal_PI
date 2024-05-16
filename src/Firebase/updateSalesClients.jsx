@@ -1,4 +1,12 @@
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { db, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { v4 } from "uuid";
@@ -20,11 +28,38 @@ const updateClient = async (updatedClient, clientId) => {
       updatedClient,
       clientId
     );
+    // if(!)
     const clientRef = doc(db, "clients", clientId); // Assuming db is your Firestore instance
     await updateDoc(clientRef, { ...updatedClient, updated_at: new Date() });
     toast.success("Document successfully updated!");
   } catch (error) {
+    console.log(error);
     toast.error("Error updating document: ", error);
+  }
+};
+const deleteAllClientSales = async (clientId, uid) => {
+  try {
+    if (!clientId || !uid) {
+      toast.error("Please give all");
+      return;
+    }
+    const salesRef = collection(db, "userSales");
+
+    console.log("This is coming here");
+    const q = query(
+      salesRef,
+      where("cid", "==", clientId),
+      where("uid", "==", uid)
+    );
+    const sales = await getDocs(q);
+    // console.log(salesSnapshot, "snap");
+    sales.forEach(async (doc) => {
+      console.log(doc.id, "id");
+      const updateRes = await updateDoc(doc.ref, { status: "deleted" });
+      console.log("Update Response", updateRes);
+    });
+  } catch (err) {
+    console.log(errs);
   }
 };
 const addClientDocument = async (file, fileName, clientId, uid) => {
@@ -56,4 +91,4 @@ const addClientDocument = async (file, fileName, clientId, uid) => {
     toast.error("Failed to upload document");
   }
 };
-export { updateSales, updateClient, addClientDocument };
+export { updateSales, updateClient, addClientDocument, deleteAllClientSales };

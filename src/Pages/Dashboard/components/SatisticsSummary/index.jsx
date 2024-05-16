@@ -24,11 +24,13 @@ import { EditTwoTone } from "@ant-design/icons";
 import { validateLink } from "../../../../utils/validation";
 import { getWeeklyAddedClientsSales } from "../../../Statistics";
 import { getUpcomingEvents } from "../../../../utils/date";
+import filterSalesByEndDate from "../../../../utils/expiredSales";
 
 ChartJs.register(CategoryScale, LinearScale, BarElement);
 
 export default function StatsSummary() {
   const realTimeData = useContext(RealTimeDataContext);
+  const salesData = realTimeData?.sales;
   const appointments = realTimeData?.appointments;
   const webinars = realTimeData?.webinars;
   const announcements = realTimeData?.announcements;
@@ -125,6 +127,34 @@ export default function StatsSummary() {
     );
   });
   const [modalOpen, setModalOpen] = useState(false);
+  let salesExpired = [];
+
+  if (salesData) {
+    salesExpired = filterSalesByEndDate(salesData);
+  }
+  const renderExpiredPolicies = salesExpired?.map((sales) => {
+    const salesClient = clients?.filter((client) => client.id === sales.cid)[0];
+    console.log("Client for the expired sales: ", salesClient);
+    return (
+      <div className={styles["home--expired-policy-container"]}>
+        <p className={styles["home--expired-policy-name"]}>
+          {sales?.policy_type}
+        </p>
+        <p className={styles["home--expired-policy-desc"]}>
+          Cliet: {salesClient?.name}
+        </p>
+        <p className={styles["home--expired-policy-desc"]}>
+          Expiry Date: {sales?.end_date}
+        </p>
+        <button
+          className={styles["home--renew-button"]}
+          onClick={() => navigate(`/client-detail/${salesClient?.id}/policies`)}
+        >
+          Renew
+        </button>
+      </div>
+    );
+  });
   return (
     <div className={styles["statsSummary--main-container"]}>
       <ProfileChangeModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
@@ -317,14 +347,14 @@ export default function StatsSummary() {
       {/*Birthday container for tablet responsive starts */}
       <div className={styles["statsSummary--mobile-birthday-container"]}>
         <p className={styles["home--client-birthday-title"]}>
-          Upcoming Clients Birthdays And Anniversary
+          Upcoming Policies to renew
         </p>
         <div className={styles["home--client-birthday-list"]}>
-          {upcomingEvents.length ? (
-            renderClientEvent
+          {salesExpired.length ? (
+            renderExpiredPolicies
           ) : (
             <div className={styles["home--no-data"]}>
-              No upcoming Birthdays and Anniversaries this week
+              No Recent Policies Expiring
             </div>
           )}
         </div>
