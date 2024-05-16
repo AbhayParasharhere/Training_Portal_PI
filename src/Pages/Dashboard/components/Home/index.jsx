@@ -127,19 +127,9 @@ export default function Home() {
   if (videosWatched) {
     videosWatched?.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
   }
-  const sales = realTimeData?.sales;
-  console.log("Sales Data: ", sales);
-  let salesWithCreatedAt = [];
-  if (sales) {
-    salesWithCreatedAt = sales?.filter((sales) => sales.created_at);
-    salesWithCreatedAt?.sort(
-      (a, b) => b.created_at.seconds - a.created_at.seconds
-    );
-  }
 
   const uniqueCourses = new Set();
   const lastThreeCourses = [];
-  const latestThreeSales = salesWithCreatedAt.slice(0, 3);
 
   // Iterate over the sorted array and add unique courses to the set
   if (videosWatched) {
@@ -170,6 +160,67 @@ export default function Home() {
     });
     return lastCourses;
   };
+
+  //Getting the sales to be renewed:
+  const sales = realTimeData?.sales;
+  console.log("Sales Data: ", sales);
+  function filterSalesByEndDate(salesData) {
+    // Function to convert date string to Date object
+    const toDate = (dateString) => {
+      const [year, month, day] = dateString.split("-");
+      return new Date(year, month - 1, day);
+    };
+
+    // Get current date
+    const currentDate = new Date();
+
+    // Filter sales that have already ended or are going to end in the next 7 days
+    const endedSales = salesData.filter(
+      (sale) => toDate(sale.end_date) < currentDate
+    );
+    const salesEndingSoon = salesData.filter((sale) => {
+      const endDate = toDate(sale.end_date);
+      return (
+        currentDate <= endDate &&
+        endDate <= new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000)
+      );
+    });
+
+    // Combine the two filtered arrays into a single array
+    const combinedSales = endedSales.concat(salesEndingSoon);
+
+    return combinedSales;
+  }
+  let salesWithCreatedAt = [];
+  let salesExpired = [];
+  if (sales) {
+    salesWithCreatedAt = sales?.filter((sales) => sales.created_at);
+    salesWithCreatedAt?.sort(
+      (a, b) => b.created_at.seconds - a.created_at.seconds
+    );
+    salesExpired = filterSalesByEndDate(sales);
+    console.log("Sales to be expired: ", salesExpired);
+  }
+  const latestThreeSales = salesWithCreatedAt.slice(0, 3);
+
+  const renderExpiredPolicies = salesExpired?.map((sales) => {
+    return (
+      <div className={styles["home--expired-policy-container"]}>
+        <p className={styles["home--expired-policy-name"]}>
+          {sales?.policy_type}
+        </p>
+        <p className={styles["home--expired-policy-desc"]}>
+          Cliet: Abhi Parashar
+        </p>
+        <p className={styles["home--expired-policy-desc"]}>
+          Expiry Date: {sales?.end_date}
+        </p>
+        <button className={styles["home--renew-button"]}>Renew</button>
+      </div>
+    );
+  });
+
+  //Getting clients and announcement data
   const announcements = realTimeData?.announcements;
   const clients = realTimeData?.clients;
   let clientsWithCreatedAt = [];
@@ -285,34 +336,6 @@ export default function Home() {
   console.log("Upcoming Events", renderClientEvent);
 
   //Rendering and getting anniversary and birthday data Finish
-  //Getting the sales to be renewed:
-  function filterSalesByEndDate(salesData) {
-    // Function to convert date string to Date object
-    const toDate = (dateString) => {
-      const [year, month, day] = dateString.split("-");
-      return new Date(year, month - 1, day);
-    };
-
-    // Get current date
-    const currentDate = new Date();
-
-    // Filter sales that have already ended or are going to end in the next 7 days
-    const endedSales = salesData.filter(
-      (sale) => toDate(sale.end_date) < currentDate
-    );
-    const salesEndingSoon = salesData.filter((sale) => {
-      const endDate = toDate(sale.end_date);
-      return (
-        currentDate <= endDate &&
-        endDate <= new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000)
-      );
-    });
-
-    // Combine the two filtered arrays into a single array
-    const combinedSales = endedSales.concat(salesEndingSoon);
-
-    return combinedSales;
-  }
 
   const mobileIconsData = [
     {
@@ -471,13 +494,7 @@ export default function Home() {
             Upcoming Policies to renew
           </p>
           <div className={styles["home--client-birthday-list"]}>
-            {upcomingEvents.length ? (
-              renderClientEvent
-            ) : (
-              <div className={styles["home--no-data"]}>
-                No upcoming Birthdays and Anniversaries this week
-              </div>
-            )}
+            {renderExpiredPolicies}
           </div>
         </div>
       </div>
