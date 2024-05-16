@@ -295,6 +295,44 @@
   color: #1a202c;
   height: 100%;
 }
+.home--expired-policy-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid #dedede;
+  box-sizing: border-box;
+  padding: 8px;
+}
+.home--expired-policy-name {
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+}
+.home--expired-policy-desc {
+  font-family: Epilogue;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16.5px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #1e1e1e;
+}
+.home--renew-button {
+  width: 60px;
+  height: 25px;
+  border: 1px solid #3064d4;
+  font-family: Epilogue;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16.5px;
+  letter-spacing: -0.03em;
+  background-color: white;
+  color: #3064d4;
+}
 
 .image-wrapper {
   position: relative;

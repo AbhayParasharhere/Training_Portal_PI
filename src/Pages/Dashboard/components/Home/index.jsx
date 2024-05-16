@@ -24,6 +24,7 @@ import {
 import { getUpcomingEvents } from "../../../../utils/date";
 import { quotes } from "../../../../staticData/Quotes";
 import BirthdayModal from "../BirthdayModal";
+import filterSalesByEndDate from "../../../../utils/expiredSales";
 
 const pushRecentNotifications = (
   announcements,
@@ -164,33 +165,9 @@ export default function Home() {
   //Getting the sales to be renewed:
   const sales = realTimeData?.sales;
   console.log("Sales Data: ", sales);
-  function filterSalesByEndDate(salesData) {
-    // Function to convert date string to Date object
-    const toDate = (dateString) => {
-      const [year, month, day] = dateString.split("-");
-      return new Date(year, month - 1, day);
-    };
 
-    // Get current date
-    const currentDate = new Date();
+  const clients = realTimeData?.clients;
 
-    // Filter sales that have already ended or are going to end in the next 7 days
-    const endedSales = salesData.filter(
-      (sale) => toDate(sale.end_date) < currentDate
-    );
-    const salesEndingSoon = salesData.filter((sale) => {
-      const endDate = toDate(sale.end_date);
-      return (
-        currentDate <= endDate &&
-        endDate <= new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000)
-      );
-    });
-
-    // Combine the two filtered arrays into a single array
-    const combinedSales = endedSales.concat(salesEndingSoon);
-
-    return combinedSales;
-  }
   let salesWithCreatedAt = [];
   let salesExpired = [];
   if (sales) {
@@ -204,25 +181,31 @@ export default function Home() {
   const latestThreeSales = salesWithCreatedAt.slice(0, 3);
 
   const renderExpiredPolicies = salesExpired?.map((sales) => {
+    const salesClient = clients?.filter((client) => client.id === sales.cid)[0];
+    console.log("Client for the expired sales: ", salesClient);
     return (
       <div className={styles["home--expired-policy-container"]}>
         <p className={styles["home--expired-policy-name"]}>
           {sales?.policy_type}
         </p>
         <p className={styles["home--expired-policy-desc"]}>
-          Cliet: Abhi Parashar
+          Cliet: {salesClient?.name}
         </p>
         <p className={styles["home--expired-policy-desc"]}>
           Expiry Date: {sales?.end_date}
         </p>
-        <button className={styles["home--renew-button"]}>Renew</button>
+        <button
+          className={styles["home--renew-button"]}
+          onClick={() => navigate(`/client-detail/${salesClient?.id}/policies`)}
+        >
+          Renew
+        </button>
       </div>
     );
   });
 
   //Getting clients and announcement data
   const announcements = realTimeData?.announcements;
-  const clients = realTimeData?.clients;
   let clientsWithCreatedAt = [];
   if (clients) {
     clientsWithCreatedAt = clients?.filter((client) => client.created_at);
@@ -494,7 +477,13 @@ export default function Home() {
             Upcoming Policies to renew
           </p>
           <div className={styles["home--client-birthday-list"]}>
-            {renderExpiredPolicies}
+            {salesExpired?.length ? (
+              renderExpiredPolicies
+            ) : (
+              <div className={styles["home--no-data"]}>
+                No Recent Policies Expiring{" "}
+              </div>
+            )}
           </div>
         </div>
       </div>
