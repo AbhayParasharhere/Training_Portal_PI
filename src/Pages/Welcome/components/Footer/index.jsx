@@ -70,10 +70,10 @@ export default function Footer() {
         Copyright © 2024
       </p>
       <p className={styles["footer--copyright-text-mobile"]}>
-        Punjab Insurance All Rights Reserved
+        XYZ Insurance All Rights Reserved
       </p>
       <p className={styles["footer--copyright-text"]}>
-        Copyright © 2024 Punjab Insurance All Rights Reserved
+        Copyright © 2024 XYZ Insurance All Rights Reserved
       </p>
     </div>
   );
