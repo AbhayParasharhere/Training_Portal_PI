@@ -136,7 +136,7 @@ export default function StatsSummary({ chatOpen, setChatOpen }) {
           {sales?.policy_type}
         </p>
         <p className={styles["home--expired-policy-desc"]}>
-          Cliet: {salesClient?.name}
+          Client: {salesClient?.name}
         </p>
         <p className={styles["home--expired-policy-desc"]}>
           Expiry Date: {sales?.end_date}
