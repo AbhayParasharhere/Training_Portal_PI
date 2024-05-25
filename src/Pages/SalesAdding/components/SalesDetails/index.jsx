@@ -50,7 +50,7 @@ export default function SalesDetails(props) {
       name: "sales_channel",
     },
     { text: "Policy No.", type: "text", name: "policy_number" },
-    { text: "Premium Account", type: "text", name: "premium_account" },
+    { text: "Premium Amount", type: "text", name: "premium_account" },
     { text: "Effective Date", type: "date", name: "effective_date" },
     { text: "End Date", type: "date", name: "end_date" },
     { text: "Commision Earned", type: "text", name: "commision_earned" },

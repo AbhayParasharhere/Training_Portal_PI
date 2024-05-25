@@ -35,7 +35,7 @@ export default function SalesUpdate(props) {
       value: salesUpdateData?.policy_number,
     },
     {
-      text: "Premium Account",
+      text: "Premium Amount",
       name: "premium_account",
 
       type: "Text",
