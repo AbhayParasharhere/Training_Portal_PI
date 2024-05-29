@@ -160,9 +160,11 @@
 @media (min-width: 1700px) {
   .sidebar--main-container {
     min-width: 275px;
+    padding-right: 20px;
+    padding-left: 40px;
   }
   .sidebar--menu-text {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 

@@ -4,7 +4,7 @@ p {
 .clientDetails--main-container {
   width: 100%;
   // max-width: fit-content;
-  padding: 50px 30px;
+  padding: 50px 10px;
   box-sizing: border-box;
   // background-color: #4462a4;
   display: flex;
@@ -223,53 +223,33 @@ input {
   letter-spacing: -0.03em;
   text-align: left;
 }
-// @media (min-width: 1160px) {
-//   .clientDetails--input-container {
-//     max-width: none;
-//   }
-//   .clientDetails--main-container {
-//     min-width: 100%;
-//   }
-// }
-@media ((min-width: 1350px) and (max-width:1450px)) {
+@media (min-width: 1600px) {
+  .clientDetails--input-text {
+    max-width: none;
+    min-width: 200px;
+    font-size: 20px;
+  }
+  .blue,
+  .clientDetails--sales-navigate {
+    font-size: 17px;
+  }
   .clientDetails--main-container {
-    min-width: 100%;
+    gap: 20px;
+  }
+  .clientDetails--inner-container {
+    gap: 70px;
+  }
+  .clientDetails--title-text {
+    font-size: 22px;
+  }
+  .clientDetails--input-container {
+    gap: 50px;
+    max-width: 500px;
+  }
+  .clientDetails--client-choosing-container {
+    max-width: 500px;
   }
 }
-
-@media (min-width: 1450px) {
-  .clientDetails--main-container {
-    min-height: 1190px;
-    min-width: 1105px;
-  }
-}
-@media (min-width: 1500px) {
-  .clientDetails--main-container {
-    min-width: 1190px;
-  }
-}
-
-@media (min-width: 1550px) {
-  .clientDetails--main-container {
-    min-width: 1240px;
-  }
-}
-@media (min-width: 1650px) {
-  .clientDetails--main-container {
-    min-width: 1310px;
-  }
-}
-@media (min-width: 1800px) {
-  .clientDetails--main-container {
-    min-width: 1415px;
-  }
-}
-@media (min-width: 1880px) {
-  .clientDetails--main-container {
-    min-width: 1470px;
-  }
-}
-
 @media (max-width: 850px) {
   .clientDetails--input-choosing-container {
     gap: 30px;
