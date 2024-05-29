@@ -159,6 +159,10 @@
   .salesDetails--main-container {
     gap: 20px;
   }
+  .blue,
+  .clientDetails--sales-navigate {
+    font-size: 17px;
+  }
 }
 @media (max-width: 500px) {
   .salesDetails--inner-input-container {

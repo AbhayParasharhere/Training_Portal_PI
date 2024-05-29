@@ -54,50 +54,6 @@
   text-decoration: none;
 }
 
-@media (min-width: 1450px) {
-  .allLinks--main-container {
-    min-height: 1190px;
-    min-width: 0px;
-    padding-right: 0px;
-    max-width: 1105px;
-  }
-}
-@media (min-width: 1500px) {
-  .allLinks--main-container {
-    min-width: 1190px;
-  }
-  .allLinks--heading {
-    font-size: 22px;
-  }
-  .allLinks--sub-heading {
-    font-size: 20px;
-  }
-  .allLinks--link-text {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 1550px) {
-  .allLinks--main-container {
-    min-width: 1240px;
-  }
-}
-@media (min-width: 1650px) {
-  .allLinks--main-container {
-    min-width: 1310px;
-  }
-}
-@media (min-width: 1800px) {
-  .allLinks--main-container {
-    min-width: 1415px;
-  }
-}
-@media (min-width: 1880px) {
-  .allLinks--main-container {
-    min-width: 1470px;
-  }
-}
-
 @media (max-width: 1130px) {
   .allLinks--main-container {
     padding: 15px;

@@ -125,41 +125,11 @@
   gap: 10px;
 }
 @media (min-width: 1450px) {
-  .statistics--main-container {
-    min-height: 1190px;
-    min-width: 0px;
-    max-width: 1105px;
-  }
   .statistics--graph-container {
     height: 450px;
   }
 }
-@media (min-width: 1500px) {
-  .statistics--main-container {
-    min-width: 1190px;
-  }
-}
 
-@media (min-width: 1550px) {
-  .statistics--main-container {
-    min-width: 1240px;
-  }
-}
-@media (min-width: 1650px) {
-  .statistics--main-container {
-    min-width: 1310px;
-  }
-}
-@media (min-width: 1800px) {
-  .statistics--main-container {
-    min-width: 1415px;
-  }
-}
-@media (min-width: 1880px) {
-  .statistics--main-container {
-    min-width: 1470px;
-  }
-}
 @media (max-width: 1130px) {
   .statistics--main-container {
     padding: 15px;

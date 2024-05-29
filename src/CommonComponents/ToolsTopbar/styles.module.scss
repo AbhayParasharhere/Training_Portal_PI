@@ -2,11 +2,11 @@
 
 .Tools-wrapper-topbar-div {
   display: flex;
-  gap: 4%;
+  gap: 40px;
   // width: 100%;
   margin: 0;
   padding: 0;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
   overflow-x: hidden;
   //   width: 40%;
   //   width: 50%;
@@ -24,8 +24,8 @@
 .Tools-wrapper-topbar-text {
   font-family: Open Sans;
   //   min-width: 30%;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   line-height: 25.5px;
   letter-spacing: -0.03em;
   text-align: left;
@@ -40,13 +40,6 @@
 .Tools-wrapper-topbar-text:hover {
   color: #123c97;
   border-color: #123c97;
-}
-
-@media screen and (min-width: 1500px) {
-  .Tools-wrapper-topbar-text {
-    font-size: 20px;
-    // width: 200%;
-  }
 }
 
 @media screen and (max-width: 1024px) {
