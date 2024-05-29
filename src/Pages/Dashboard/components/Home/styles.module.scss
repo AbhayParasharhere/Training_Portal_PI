@@ -652,7 +652,11 @@ li::marker {
     max-height: 232px;
   }
 }
-
+@media (max-width: 1530px) {
+  .home--client-birthday-title {
+    font-size: 16px;
+  }
+}
 @media (min-width: 1800px) {
   .home--course-greeting-title {
     font-size: 20px;

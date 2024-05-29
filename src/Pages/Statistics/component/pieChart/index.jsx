@@ -1,12 +1,6 @@
-import {
-  Chart as ChartJs,
-  ArcElement,
-  Tooltip,
-  Legend,
-  plugins,
-} from "chart.js";
+import { Chart as ChartJs, ArcElement, Tooltip, plugins } from "chart.js";
 import { Doughnut, Pie } from "react-chartjs-2";
-ChartJs.register(ArcElement, Tooltip, Legend);
+ChartJs.register(ArcElement, Tooltip);
 import styles from "./styles.module.scss";
 
 export default function PieChart() {
@@ -28,7 +22,7 @@ export default function PieChart() {
     <Doughnut
       data={data}
       style={{ spacing: "0px", borderWidth: 0 }}
-      options={{ plugins: { legend: { display: false } } }}
+      // options={{ plugins: { legend: { display: false } } }}
       className={styles["pie-chart"]}
     />
   );

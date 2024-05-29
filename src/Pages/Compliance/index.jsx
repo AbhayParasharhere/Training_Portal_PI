@@ -40,7 +40,7 @@ export default function Compliance() {
           className={styles["compliance--navigation-text"]}
           onClick={() => handleNavigationClick("compliance")}
           style={{
-            color: navigationState === "compliance" ? "#212529" : "#A1A1A1",
+            color: navigationState === "compliance" ? "#212529  " : "#A1A1A1",
             fontWeight: navigationState === "compliance" ? "600" : "500",
           }}
         >

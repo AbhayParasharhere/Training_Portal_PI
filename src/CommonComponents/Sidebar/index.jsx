@@ -1,35 +1,35 @@
 import React, { useContext, useState } from "react";
 import styles from "./styles.module.scss";
 import dashboardIcon from "./images/dashboard-icon.png";
-import dashboardRedIcon from "./images/dashboard-red-icon.png";
+import dashboardFillIcon from "./sidebarSvg/dashboard-fill-icon.svg";
 import coursesIcon from "./images/courses-icon.png";
-import coursesRedIcon from "./images/courses-red-icon.png";
+import coursesFillIcon from "./sidebarSvg/course-fill-icon.svg";
 import productTrainingIcon from "./images/productTraining-icon.png";
-import productTrainingRedIcon from "./images/productTraining-red-icon.png";
+import productTrainingFillIcon from "./sidebarSvg/product-training-fill-icon.svg";
 import statisticsIcon from "./images/statistics-icon.png";
-import statisticsRedIcon from "./images/statistics-red-icon.png";
+import statisticsFillIcon from "./sidebarSvg/statistics-fill-icon.svg";
 import clientsIcon from "./images/clients-icon.png";
-import clientsRedIcon from "./images/clients-red-icon.png";
+import clientFillIcon from "./sidebarSvg/client-fill-icon.svg";
 import toolsResourcesIcon from "./images/tools-resources-icon.png";
-import toolsResourcesRedIcon from "./images/tools-resources-red-icon.png";
+import toolsResourcesFillIcon from "./sidebarSvg/tools-resources-fill-icon.svg";
 import announcementIcon from "./images/announcement-icon.png";
-import announcementRedIcon from "./images/announcement-red-icon.png";
+import announcementFillIcon from "./sidebarSvg/announcement-fill-icon.svg";
 import webinarIcon from "./images/webinar-icon.png";
-import webinarRedIcon from "./images/webinar-red-icon.png";
+import webinarFillIcon from "./sidebarSvg/webinar-fill-icon.svg";
 import complianceIcon from "./images/compliance-icon.png";
-import complianceRedIcon from "./images/compliance-red-icon.png";
+import complianceFillIcon from "./sidebarSvg/compliance-fill-icon.svg";
 import communicationIcon from "./images/communication-icon.png";
-import communicationRedIcon from "./images/communication-red-icon.png";
-import allLinksRedIcon from "./images/all-links-red-icon.png";
+import communicationFillIcon from "./sidebarSvg/communication-fill-icon.svg";
 import allLinksIcon from "./images/all-link-icon.png";
-import PIlogo from "./images/PI-logo.png";
+import allLinksFillIcon from "./sidebarSvg/all-links-fill-icon.svg";
 import logoutIcon from "./images/logout-icon.png";
 import FAQIcon from "./images/FAQ-icon.png";
-import FAQRedIcon from "./images/FAQ-red-icon.png";
+import FAQFillIcon from "./sidebarSvg/FAQ-fill-icon.svg";
 import addSalesIcon from "./images/add-sales-icon.png";
-import addSalesRedIcon from "./images/add-sales-red-icon.png";
+import addSalesFillIcon from "./sidebarSvg/add-sales-fill-icon.svg";
 import hamburgerIcon from "./images/hamburger-icon.png";
 import crossIcon from "./images/cross-icon.png";
+import powerCompassLogo from "./images/power-compass-logo.png";
 
 import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
 
@@ -41,84 +41,88 @@ export default function Sidebar(props) {
       icon: dashboardIcon,
       title: "Dashboard",
       link: "/",
-      clickedIcon: dashboardRedIcon,
+      clickedIcon: dashboardFillIcon,
     },
     {
       icon: addSalesIcon,
       title: "Add Sales",
       link: "/addSales",
-      clickedIcon: addSalesRedIcon,
+      clickedIcon: addSalesFillIcon,
     },
     {
       icon: clientsIcon,
       title: "Clients",
       link: "/clients",
-      clickedIcon: clientsRedIcon,
+      clickedIcon: clientFillIcon,
     },
     {
       icon: coursesIcon,
       title: "Courses",
       link: "/courses",
-      clickedIcon: coursesRedIcon,
+      clickedIcon: coursesFillIcon,
     },
     {
       icon: productTrainingIcon,
       title: "Product Training",
       link: "/productCourses",
-      clickedIcon: productTrainingRedIcon,
+      clickedIcon: productTrainingFillIcon,
     },
     {
       icon: toolsResourcesIcon,
       title: "Tools and Resources",
       link: "/tools",
-      clickedIcon: toolsResourcesRedIcon,
+      clickedIcon: toolsResourcesFillIcon,
     },
     {
       icon: complianceIcon,
       title: "Compliance and Policy",
       link: "/compliance",
-      clickedIcon: complianceRedIcon,
+      clickedIcon: complianceFillIcon,
     },
     {
       icon: statisticsIcon,
       title: "Statistics",
       link: "/statistics",
-      clickedIcon: statisticsRedIcon,
+      clickedIcon: statisticsFillIcon,
     },
     ,
     {
       icon: announcementIcon,
       title: "Announcements",
       link: "/announcement",
-      clickedIcon: announcementRedIcon,
+      clickedIcon: announcementFillIcon,
     },
     {
       icon: webinarIcon,
       title: "Meetings",
       link: "/webinar",
-      clickedIcon: webinarRedIcon,
+      clickedIcon: webinarFillIcon,
     },
     {
       icon: communicationIcon,
       title: "Connect with Others",
       link: "/connect",
-      clickedIcon: communicationRedIcon,
+      clickedIcon: communicationFillIcon,
     },
     ,
     {
       icon: allLinksIcon,
       title: "All links",
       link: "/all-links",
-      clickedIcon: allLinksRedIcon,
+      clickedIcon: allLinksFillIcon,
     },
   ];
   const linkStyles = {
     textDecoration: "none",
     color: "black",
+    padding: "10px 15px",
   };
   const clickStyles = {
     textDecoration: "none",
-    color: "#a80532f0",
+    color: "white",
+    backgroundColor: "#00203C",
+    padding: "10px 15px",
+    borderRadius: "15px",
     fontWeight: "700",
   };
   const renderMenu = menuData.map((menu, index) => {
@@ -155,7 +159,10 @@ export default function Sidebar(props) {
                 // alignItems: "center",
               }}
             >
-              <img src={PIlogo} className={styles["sidebar--company-logo"]} />
+              <img
+                src={powerCompassLogo}
+                className={styles["sidebar--company-logo"]}
+              />
             </NavLink>
             {renderMenu}
           </div>
@@ -169,7 +176,7 @@ export default function Sidebar(props) {
             >
               <div className={styles["sidebar--menu-title-container"]}>
                 <img
-                  src={menuActive === 12 ? FAQRedIcon : FAQIcon}
+                  src={menuActive === 12 ? FAQFillIcon : FAQIcon}
                   className={styles["sidebar--menu-icon"]}
                 />
                 <p className={styles["sidebar--menu-text"]}>FAQs and Support</p>
@@ -178,7 +185,7 @@ export default function Sidebar(props) {
 
             <div
               className={styles["sidebar--menu-title-container"]}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", padding: "10px 15px" }}
               onClick={props.logout}
             >
               <img src={logoutIcon} className={styles["sidebar--menu-icon"]} />
@@ -247,7 +254,7 @@ export default function Sidebar(props) {
           >
             <div className={styles["sidebar--mobile-menu-container"]}>
               <img
-                src={menuActive === 12 ? FAQRedIcon : FAQIcon}
+                src={menuActive === 12 ? FAQFillIcon : FAQIcon}
                 className={styles["sidebar--mobile-menu-icon"]}
               />
               <p className={styles["sidebar--mobile-menu-title"]}>

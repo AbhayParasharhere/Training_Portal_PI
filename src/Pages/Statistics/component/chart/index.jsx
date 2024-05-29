@@ -41,7 +41,7 @@ export default function StatisticsChart(props) {
             },
           },
         },
-        plugins: { legend: { display: false } },
+        // plugins: { legend: { display: false } },
       }}
     />
   );
