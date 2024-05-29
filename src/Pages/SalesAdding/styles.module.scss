@@ -1,9 +1,5 @@
 .salesAdding--main-container {
   display: flex;
   gap: 25px;
-}
-@media ((min-width: 1300px) and (max-width:1450px)) {
-  .salesAdding--main-container {
-    width: 100%;
-  }
+  width: 100%;
 }

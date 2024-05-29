@@ -153,61 +153,7 @@
   line-height: 24px;
   color: #ffffff;
 }
-@media (min-width: 1450px) {
-  .FAQ--main-container {
-    min-height: 1190px;
-    min-width: 0px;
-    max-width: 1105px;
-  }
-}
-@media (min-width: 1500px) {
-  .FAQ--main-container {
-    min-width: 1190px;
-  }
-  .FAQ--question-grid {
-    min-height: 800px;
-    max-height: 800px;
-  }
-  .FAQ--question-container {
-    min-height: 250px;
-    max-height: 300px;
-  }
-  .FAQ--answer-text {
-    font-size: 16px;
-  }
-  .FAQ--question-text {
-    font-size: 18px;
-  }
-  .FAQ--support-button {
-    height: 50px;
-    width: 160px;
-    font-size: 14px;
-  }
-  .FAQ--get-support-heading {
-    font-size: 21px;
-  }
-}
 
-@media (min-width: 1550px) {
-  .FAQ--main-container {
-    min-width: 1240px;
-  }
-}
-@media (min-width: 1650px) {
-  .FAQ--main-container {
-    min-width: 1310px;
-  }
-}
-@media (min-width: 1800px) {
-  .FAQ--main-container {
-    min-width: 1415px;
-  }
-}
-@media (min-width: 1880px) {
-  .FAQ--main-container {
-    min-width: 1470px;
-  }
-}
 @media (max-width: 1130px) {
   .FAQ--main-container {
     padding: 15px;

@@ -472,17 +472,22 @@
 }
 
 //*** For tablet design ***
-@media (min-width: 1450px) {
+@media (min-width: 1200px) {
   .statsSummary--main-container {
     max-width: 300px;
     min-height: 100%;
-    // background-color: green;
+  }
+
+  .statsSummary--unordered-list-button-container {
+    margin-top: -30px;
+  }
+}
+@media (min-width: 1450px) {
+  .statsSummary--main-container {
+    max-width: 330px;
   }
   .statsSummary--lists-container {
     max-height: 220px;
-  }
-  .statsSummary--unordered-list-button-container {
-    margin-top: -30px;
   }
   .statsSummary--appointment-container {
     height: 320px;
@@ -519,11 +524,7 @@
     font-size: 15px;
   }
 }
-@media (min-width: 1880px) {
-  .statsSummary--main-container {
-    max-width: 360px;
-  }
-}
+
 @media (max-width: 1130px) {
   .statsSummary--main-container {
     max-width: 350px;

@@ -65,41 +65,6 @@
   text-align: left;
 }
 
-@media (min-width: 1450px) {
-  .contact--main-container {
-    min-height: 1190px;
-    min-width: 0px;
-    max-width: 1105px;
-    padding-right: 0px;
-  }
-}
-@media (min-width: 1500px) {
-  .contact--main-container {
-    min-width: 1190px;
-  }
-}
-
-@media (min-width: 1550px) {
-  .contact--main-container {
-    min-width: 1240px;
-  }
-}
-@media (min-width: 1650px) {
-  .contact--main-container {
-    min-width: 1310px;
-  }
-}
-@media (min-width: 1800px) {
-  .contact--main-container {
-    min-width: 1415px;
-  }
-}
-@media (min-width: 1880px) {
-  .contact--main-container {
-    min-width: 1470px;
-  }
-}
-
 @media (max-width: 1220px) {
   .contact--person-details-container {
     max-width: 100%;
