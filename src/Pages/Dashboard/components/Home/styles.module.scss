@@ -584,23 +584,12 @@ li::marker {
   color: #1a202c;
   height: 100%;
 }
-
-@media (min-width: 1350px) {
+@media (min-width: 1200px) {
   .home--main-container {
-    min-width: 100%;
-    max-width: none;
-  }
-  .home--recent-notifications-main-container {
-    width: 100%;
+    max-width: 100%;
   }
 }
 @media (min-width: 1450px) {
-  .home--main-container {
-    max-width: none;
-    width: 780px;
-    min-height: 100%;
-    padding-bottom: 10px;
-  }
   .home--welcome-container {
     min-height: 350px;
   }
@@ -655,36 +644,8 @@ li::marker {
     max-height: 232px;
   }
 }
-@media (min-width: 1335px) {
-  .home--main-container {
-    min-width: 760px;
-  }
-}
 
-@media (min-width: 1500px) {
-  .home--main-container {
-    width: 870px;
-  }
-}
-@media (min-width: 1550px) {
-  .home--main-container {
-    width: 920px;
-  }
-}
-@media (min-width: 1600px) {
-  .home--main-container {
-    width: 914px;
-  }
-}
-@media (min-width: 1650px) {
-  .home--main-container {
-    width: 990px;
-  }
-}
 @media (min-width: 1800px) {
-  .home--main-container {
-    width: 1095px;
-  }
   .home--course-greeting-title {
     font-size: 20px;
   }
@@ -702,6 +663,11 @@ li::marker {
   }
 }
 
+@media (max-width: 1330px) {
+  .home--notification-links {
+    font-size: 15px;
+  }
+}
 @media (max-width: 1280px) {
   .home--notification-links-underline {
     width: 100%;
@@ -716,6 +682,11 @@ li::marker {
     margin-top: 10px;
   }
 }
+@media (max-width: 1260px) {
+  .home--notification-links {
+    font-size: 13px;
+  }
+}
 @media (max-width: 1230px) {
   .home--main-container {
     width: 100%;
@@ -727,8 +698,8 @@ li::marker {
     font-size: 15px;
   }
 
-  .home--notification-links {
-    font-size: 13px;
+  .home--notification-links-container {
+    gap: 25px;
   }
 }
 @media (max-width: 1190px) {
