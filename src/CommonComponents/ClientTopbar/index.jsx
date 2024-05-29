@@ -45,7 +45,7 @@ export default function ClientTopbar(props) {
       setLoading(false);
     }
   };
-  const activeStyles = { color: "#123c97", borderColor: "#123c97" };
+  const activeStyles = { color: "#212529", borderColor: "#212529" };
 
   return (
     <div className={styles["ClientInfo-wrapper-topbar"]}>

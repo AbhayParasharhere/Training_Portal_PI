@@ -183,7 +183,7 @@
 .ClientComponent-wrapper-topbar-search-add {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  background-color: #a80532f0;
+  background-color: #00203c;
   opacity: 94%;
   display: flex;
   justify-content: center;
@@ -274,6 +274,9 @@ td {
   color: #393e46;
 
   text-align: left;
+}
+.ClientComponent-tr:hover {
+  background-color: #e195003d;
 }
 .ClientComponent-tr-line {
   height: 25px;

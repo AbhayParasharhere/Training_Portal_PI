@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import Sidebar from "../../CommonComponents/Sidebar";
 import ToolsTopbar from "../../CommonComponents/ToolsTopbar";
 import Group from "./Images/Group.png";
-import LinkIcon from "./Images/all-links-red-icon.png";
+import LinkIcon from "./Images/all-links-fill-icon.svg";
 import arrow_right from "./Images/arrow_right.png";
 import { PrimaryDataContext } from "../../context/primaryDataContext";
 import { getDownloadURL, ref } from "firebase/storage";
