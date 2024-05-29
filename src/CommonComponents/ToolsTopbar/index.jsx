@@ -9,8 +9,8 @@ export default function ToolsTopbar(props) {
           className={styles["Tools-wrapper-topbar-text"]}
           onClick={() => props.setDocumentType("sales")}
           style={{
-            color: props.documentType === "sales" ? "#123c97" : "#a1a1a1",
-            borderColor: props.documentType === "sales" ? "#123c97" : "#a1a1a1",
+            color: props.documentType === "sales" ? "#212529" : "#a1a1a1",
+            borderColor: props.documentType === "sales" ? "#212529" : "#a1a1a1",
           }}
         >
           Sales Resources
@@ -19,9 +19,9 @@ export default function ToolsTopbar(props) {
           className={styles["Tools-wrapper-topbar-text"]}
           onClick={() => props.setDocumentType("marketing")}
           style={{
-            color: props.documentType === "marketing" ? "#123c97" : "#a1a1a1",
+            color: props.documentType === "marketing" ? "#212529" : "#a1a1a1",
             borderColor:
-              props.documentType === "marketing" ? "#123c97" : "#a1a1a1",
+              props.documentType === "marketing" ? "#212529" : "#a1a1a1",
           }}
         >
           Marketing Resources
@@ -31,9 +31,9 @@ export default function ToolsTopbar(props) {
           onClick={() => props.setDocumentType("productLinks")}
           style={{
             color:
-              props.documentType === "productLinks" ? "#123c97" : "#a1a1a1",
+              props.documentType === "productLinks" ? "#212529" : "#a1a1a1",
             borderColor:
-              props.documentType === "productLinks" ? "#123c97" : "#a1a1a1",
+              props.documentType === "productLinks" ? "#212529" : "#a1a1a1",
           }}
         >
           Product Links
@@ -42,9 +42,9 @@ export default function ToolsTopbar(props) {
           className={styles["Tools-wrapper-topbar-text"]}
           onClick={() => props.setDocumentType("calculator")}
           style={{
-            color: props.documentType === "calculator" ? "#123c97" : "#a1a1a1",
+            color: props.documentType === "calculator" ? "#212529" : "#a1a1a1",
             borderColor:
-              props.documentType === "calculator" ? "#123c97" : "#a1a1a1",
+              props.documentType === "calculator" ? "#212529" : "#a1a1a1",
           }}
         >
           Finance Calculator
@@ -55,8 +55,8 @@ export default function ToolsTopbar(props) {
           className={styles["Tools-wrapper-topbar-text"]}
           onClick={() => props.setDocumentType("sales")}
           style={{
-            color: props.documentType === "sales" ? "#123c97" : "#a1a1a1",
-            borderColor: props.documentType === "sales" ? "#123c97" : "#a1a1a1",
+            color: props.documentType === "sales" ? "#212529" : "#a1a1a1",
+            borderColor: props.documentType === "sales" ? "#212529" : "#a1a1a1",
           }}
         >
           Sales
@@ -65,9 +65,9 @@ export default function ToolsTopbar(props) {
           className={styles["Tools-wrapper-topbar-text"]}
           onClick={() => props.setDocumentType("marketing")}
           style={{
-            color: props.documentType === "marketing" ? "#123c97" : "#a1a1a1",
+            color: props.documentType === "marketing" ? "#212529" : "#a1a1a1",
             borderColor:
-              props.documentType === "marketing" ? "#123c97" : "#a1a1a1",
+              props.documentType === "marketing" ? "#212529" : "#a1a1a1",
           }}
         >
           Marketing
@@ -76,9 +76,9 @@ export default function ToolsTopbar(props) {
           className={styles["Tools-wrapper-topbar-text"]}
           style={{
             color:
-              props.documentType === "productLinks" ? "#123c97" : "#a1a1a1",
+              props.documentType === "productLinks" ? "#212529" : "#a1a1a1",
             borderColor:
-              props.documentType === "productLinks" ? "#123c97" : "#a1a1a1",
+              props.documentType === "productLinks" ? "#212529" : "#a1a1a1",
           }}
           onClick={() => props.setDocumentType("productLinks")}
         >
@@ -88,9 +88,9 @@ export default function ToolsTopbar(props) {
           className={styles["Tools-wrapper-topbar-text"]}
           onClick={() => props.setDocumentType("calculator")}
           style={{
-            color: props.documentType === "calculator" ? "#123c97" : "#a1a1a1",
+            color: props.documentType === "calculator" ? "#212529" : "#a1a1a1",
             borderColor:
-              props.documentType === "calculator" ? "#123c97" : "#a1a1a1",
+              props.documentType === "calculator" ? "#212529" : "#a1a1a1",
           }}
         >
           Calculator

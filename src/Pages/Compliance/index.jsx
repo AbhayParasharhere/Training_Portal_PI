@@ -40,7 +40,7 @@ export default function Compliance() {
           className={styles["compliance--navigation-text"]}
           onClick={() => handleNavigationClick("compliance")}
           style={{
-            color: navigationState === "compliance" ? "#123C97" : "#A1A1A1",
+            color: navigationState === "compliance" ? "#212529" : "#A1A1A1",
             fontWeight: navigationState === "compliance" ? "600" : "500",
           }}
         >
@@ -49,7 +49,7 @@ export default function Compliance() {
             className={styles["compliance--navigation-underline"]}
             style={{
               borderColor:
-                navigationState === "compliance" ? "#123C97" : "#A1A1A1",
+                navigationState === "compliance" ? "#212529" : "#A1A1A1",
             }}
           />
         </p>
@@ -57,7 +57,7 @@ export default function Compliance() {
           className={styles["compliance--navigation-text"]}
           onClick={() => handleNavigationClick("policies")}
           style={{
-            color: navigationState === "policies" ? "#123C97" : "#A1A1A1",
+            color: navigationState === "policies" ? "#212529" : "#A1A1A1",
             fontWeight: navigationState === "policies" ? "600" : "500",
           }}
         >
@@ -66,7 +66,7 @@ export default function Compliance() {
             className={styles["compliance--navigation-underline"]}
             style={{
               borderColor:
-                navigationState === "policies" ? "#123C97" : "#A1A1A1",
+                navigationState === "policies" ? "#212529" : "#A1A1A1",
             }}
           />
         </p>

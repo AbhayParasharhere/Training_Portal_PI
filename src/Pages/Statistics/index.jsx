@@ -7,6 +7,7 @@ import {
   PrimaryDataContext,
   RealTimeDataContext,
 } from "../../context/primaryDataContext";
+import PieChart from "./component/pieChart";
 export function getMondayDate() {
   // Create a new date object for today
   const today = new Date();
@@ -315,45 +316,77 @@ export default function Statistics() {
   };
   const renderGraph = graphData.map((graph, index) => {
     return (
-      <div className={styles["statistics--graph-container"]}>
-        <div className={styles["statistics--client-graph-stat-switch"]}>
-          <p className={styles["statistics--graph-title"]}>{graph.title}</p>
-          <div className={styles["statistics--time-switch-button-container"]}>
-            <button
-              className={styles["statistics--time-switch-button"]}
-              onClick={() =>
-                handleWeeklyData(
-                  graph.title === "Client Status" ? "Client" : "Sales"
-                )
-              }
-              style={{ border: "1px solid #2D355C54" }}
-              ref={
-                graph.title === "Client Status"
-                  ? clientWeekGraphRef
-                  : salesWeekGraphRef
-              }
-            >
-              Weekly
-            </button>
-            <button
-              className={styles["statistics--time-switch-button"]}
-              onClick={() =>
-                handleYearlyData(
-                  graph.title === "Client Status" ? "Client" : "Sales"
-                )
-              }
-              ref={
-                graph.title === "Client Status"
-                  ? clientYearGraphRef
-                  : salesYearGraphRef
-              }
-            >
-              Total
-            </button>
+      <div className={styles["statistics--graph-main-container"]}>
+        <div className={styles["statistics--graph-container"]} key={index}>
+          <div className={styles["statistics--client-graph-stat-switch"]}>
+            <p className={styles["statistics--graph-title"]}>{graph.title}</p>
+            <div className={styles["statistics--time-switch-button-container"]}>
+              <button
+                className={styles["statistics--time-switch-button"]}
+                onClick={() =>
+                  handleWeeklyData(
+                    graph.title === "Client Status" ? "Client" : "Sales"
+                  )
+                }
+                style={{ border: "1px solid #2D355C54" }}
+                ref={
+                  graph.title === "Client Status"
+                    ? clientWeekGraphRef
+                    : salesWeekGraphRef
+                }
+              >
+                Weekly
+              </button>
+              <button
+                className={styles["statistics--time-switch-button"]}
+                onClick={() =>
+                  handleYearlyData(
+                    graph.title === "Client Status" ? "Client" : "Sales"
+                  )
+                }
+                ref={
+                  graph.title === "Client Status"
+                    ? clientYearGraphRef
+                    : salesYearGraphRef
+                }
+              >
+                Total
+              </button>
+            </div>
           </div>
+          <StatisticsChart labels={graph.labels} data={graph.data} />
         </div>
-
-        <StatisticsChart labels={graph.labels} data={graph.data} />
+        {graph?.title === "Client Status" && (
+          <div className={styles["statistics--pie-chart-container"]}>
+            <p className={styles["statistics--pie-chart-title"]}>
+              Overall Progress
+            </p>
+            <p className={styles["statistics--overall-progress"]}>75%</p>
+            <PieChart />
+            <div className={styles["statistics--legend-container"]}>
+              <div className={styles["statistics--legend-inner-container"]}>
+                <li className={styles["statistics--legend-text-blue"]}>
+                  Client Added
+                </li>
+              </div>
+              <div className={styles["statistics--legend-inner-container"]}>
+                <li className={styles["statistics--legend-text-yellow"]}>
+                  Courses Completed
+                </li>{" "}
+              </div>
+              <div className={styles["statistics--legend-inner-container"]}>
+                <li className={styles["statistics--legend-text-grey"]}>
+                  Sales Made
+                </li>{" "}
+              </div>
+              <div className={styles["statistics--legend-inner-container"]}>
+                <li className={styles["statistics--legend-text-orange"]}>
+                  Videos completed
+                </li>{" "}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   });
