@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Sidebar from "../../CommonComponents/Sidebar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Spinner from "../../CommonComponents/Spinner";
@@ -25,9 +25,18 @@ export default function SidebarLayout() {
     }
   }, [realTimeData]);
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const location = useLocation();
+  console.log("This is the route: ", location?.pathname);
   const navigate = useNavigate();
   const currentUser = useContext(AuthContext);
+  const [indexRoute, setIndexRoute] = useState(false);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setIndexRoute(true);
+    } else {
+      setIndexRoute(false);
+    }
+  }, [location]);
 
   const handleLogout = () => {
     const authTest = getAuth();
@@ -56,7 +65,10 @@ export default function SidebarLayout() {
     behavior: "smooth",
   });
   return (
-    <div className={styles["sidebarLayout--main-container"]}>
+    <div
+      className={styles["sidebarLayout--main-container"]}
+      style={{ backgroundColor: indexRoute ? "#F5F6FB" : "white" }}
+    >
       {loggedIn ? (
         <>
           <Sidebar

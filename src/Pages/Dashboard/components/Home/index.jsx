@@ -413,14 +413,14 @@ export default function Home() {
               className={styles["home--notification-links"]}
               onClick={() => setLatestStates("course")}
               style={{
-                color: latestStats === "course" ? "#4462A4" : "#A1A1A1",
+                color: latestStats === "course" ? "#212529" : "#A1A1A1",
               }}
             >
               Course Progress
               <hr
                 className={styles["home--notification-links-underline"]}
                 style={{
-                  borderColor: latestStats === "course" ? "#4462A4" : "#A1A1A1",
+                  borderColor: latestStats === "course" ? "#212529" : "#A1A1A1",
                 }}
               />
             </p>
@@ -428,14 +428,14 @@ export default function Home() {
               className={styles["home--notification-links"]}
               onClick={() => setLatestStates("sales")}
               style={{
-                color: latestStats === "sales" ? "#4462A4" : "#A1A1A1",
+                color: latestStats === "sales" ? "#212529" : "#A1A1A1",
               }}
             >
               Recent Sales{" "}
               <hr
                 className={styles["home--notification-links-underline"]}
                 style={{
-                  borderColor: latestStats === "sales" ? "#4462A4" : "#A1A1A1",
+                  borderColor: latestStats === "sales" ? "#212529" : "#A1A1A1",
                 }}
               />
             </p>
@@ -443,7 +443,7 @@ export default function Home() {
               className={styles["home--notification-links"]}
               onClick={() => setLatestStates("policies")}
               style={{
-                color: latestStats === "policies" ? "#4462A4" : "#A1A1A1",
+                color: latestStats === "policies" ? "#212529" : "#A1A1A1",
               }}
             >
               Latest Policies{" "}
@@ -451,7 +451,7 @@ export default function Home() {
                 className={styles["home--notification-links-underline"]}
                 style={{
                   borderColor:
-                    latestStats === "policies" ? "#4462A4" : "#A1A1A1",
+                    latestStats === "policies" ? "#212529" : "#A1A1A1",
                 }}
               />
             </p>

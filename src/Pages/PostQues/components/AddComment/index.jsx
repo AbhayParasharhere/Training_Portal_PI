@@ -154,8 +154,8 @@ export default function AddComment(props) {
           <button
             style={{
               background: "transparent",
-              color: "#3064D4",
-              border: "2px solid #3064D4",
+              color: "#00203C",
+              border: "2px solid #00203C",
             }}
             className={styles["addComment--add-post-button"]}
             onClick={() => props?.setDisplayPage("list")}

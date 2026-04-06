@@ -20,7 +20,7 @@ export default function StatisticsChart(props) {
         datasets: [
           {
             data: props.data.map((label) => label),
-            backgroundColor: ["rgba(45, 53, 92, 1)", "rgba(168, 5, 50, 0.94)"],
+            backgroundColor: ["rgba(0, 32, 60, 1)", "rgba(225, 149, 0, 1)"],
             borderRadius: 3,
             maxBarThickness: 45,
           },
@@ -41,6 +41,7 @@ export default function StatisticsChart(props) {
             },
           },
         },
+        // plugins: { legend: { display: false } },
       }}
     />
   );

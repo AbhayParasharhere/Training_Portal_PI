@@ -26,8 +26,9 @@
   min-width: 100%;
   box-sizing: border-box;
   padding: 20px;
+  border-radius: 5px;
   justify-content: center;
-  background-color: #f5f6fb;
+  background-color: white;
   //   background-color: #1e1e1e;
 }
 .statsSummary--profile-inner-container {
@@ -81,9 +82,10 @@
   scale: 1.05;
 }
 .statsSummary--notifications-container {
-  background-color: #f5f6fb;
+  background-color: #e195003d;
   box-sizing: border-box;
   padding: 15px;
+  border-radius: 5px;
   position: relative;
 }
 .statsSummary--chat-button {
@@ -210,6 +212,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 5px;
+
   gap: 10px;
   box-sizing: border-box;
   padding: 10px;
@@ -258,8 +262,9 @@
 }
 
 .statsSummary--appointment-container {
-  background-color: #f5f6fb;
+  background-color: #e195003d;
   margin-top: 25px;
+  border-radius: 5px;
   box-sizing: border-box;
   height: 210px;
   padding: 15px;
@@ -267,6 +272,8 @@
 .statsSummary--appointment-inner-container {
   background-color: white;
   box-sizing: border-box;
+  border-radius: 5px;
+
   padding: 10px;
   height: 100%;
   display: flex;

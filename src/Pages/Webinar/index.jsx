@@ -146,7 +146,7 @@ export default function Webinar() {
       <div className={styles["webinar--appointment-navigation-container"]}>
         <div
           className={styles["webinar--navigation"]}
-          style={{ color: webinarNavigation === "webinar" ? "#123c97" : "" }}
+          style={{ color: webinarNavigation === "webinar" ? "#212529" : "" }}
           onClick={() => setWebinarNavigation("webinar")}
         >
           Webinar
@@ -154,14 +154,14 @@ export default function Webinar() {
             className={styles["webinar--navigation-line"]}
             style={{
               border:
-                webinarNavigation === "webinar" ? "1px solid #123c97" : "",
+                webinarNavigation === "webinar" ? "1px solid #212529" : "",
             }}
           />
         </div>
         <div
           className={styles["webinar--appointment-navigation"]}
           style={{
-            color: webinarNavigation === "appointment" ? "#123c97" : "",
+            color: webinarNavigation === "appointment" ? "#212529" : "",
           }}
           onClick={() => setWebinarNavigation("appointment")}
         >
@@ -170,7 +170,7 @@ export default function Webinar() {
             className={styles["webinar--navigation-line"]}
             style={{
               border:
-                webinarNavigation === "appointment" ? "1px solid #123c97" : "",
+                webinarNavigation === "appointment" ? "1px solid #212529" : "",
             }}
           />
         </div>
